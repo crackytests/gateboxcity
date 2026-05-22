@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPartData" load_steps=2 format=3 uid="uid://goon_left_arm_data"]
+
+[ext_resource type="Script" path="res://scripts/data/BodyPartData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Left Arm"
+max_hp = 22.0
+targeting_penalty = 8.0
+lock_difficulty_multiplier = 1.15
+armor_value = 0.0

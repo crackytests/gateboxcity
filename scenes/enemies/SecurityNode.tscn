@@ -1,0 +1,110 @@
+[gd_scene load_steps=13 format=3 uid="uid://security_node"]
+
+[ext_resource type="Script" path="res://scripts/enemies/SecurityNode.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+
+[sub_resource type="StandardMaterial3D" id="CoreMat"]
+albedo_color = Color(0.02, 0.12, 0.14, 1)
+emission_enabled = true
+emission = Color(0.06, 1, 0.78, 1)
+emission_energy_multiplier = 1.15
+
+[sub_resource type="StandardMaterial3D" id="LensMat"]
+albedo_color = Color(0.26, 0.02, 0.16, 1)
+emission_enabled = true
+emission = Color(1, 0.08, 0.66, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="StandardMaterial3D" id="AntennaMat"]
+albedo_color = Color(0.5, 0.36, 0.12, 1)
+emission_enabled = true
+emission = Color(1, 0.65, 0.12, 1)
+emission_energy_multiplier = 0.75
+
+[sub_resource type="SphereMesh" id="CoreMesh"]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SphereMesh" id="LensMesh"]
+radius = 0.22
+height = 0.44
+
+[sub_resource type="CylinderMesh" id="AntennaMesh"]
+top_radius = 0.06
+bottom_radius = 0.08
+height = 1.15
+
+[sub_resource type="SphereShape3D" id="CoreShape"]
+radius = 0.55
+
+[sub_resource type="SphereShape3D" id="LensShape"]
+radius = 0.28
+
+[sub_resource type="CapsuleShape3D" id="AntennaShape"]
+radius = 0.12
+height = 1.2
+
+[node name="SecurityNode" type="Node3D" groups=["security_node"]]
+script = ExtResource("1")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="CoreMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 1.25, 0)
+mesh = SubResource("CoreMesh")
+surface_material_override/0 = SubResource("CoreMat")
+
+[node name="LensMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.46)
+mesh = SubResource("LensMesh")
+surface_material_override/0 = SubResource("LensMat")
+
+[node name="AntennaMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
+mesh = SubResource("AntennaMesh")
+surface_material_override/0 = SubResource("AntennaMat")
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Core" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1.1, 0, 0, 0, 1, 0, 1.25, 0)
+script = ExtResource("2")
+display_name = "Core"
+max_hp = 34.0
+targeting_penalty = 4.0
+lock_difficulty_multiplier = 1.0
+armor_value = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/Core"]
+shape = SubResource("CoreShape")
+
+[node name="Lens" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.46)
+script = ExtResource("2")
+display_name = "Lens"
+max_hp = 16.0
+targeting_penalty = 10.0
+lock_difficulty_multiplier = 1.25
+armor_value = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/Lens"]
+shape = SubResource("LensShape")
+
+[node name="Antenna" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
+script = ExtResource("2")
+display_name = "Antenna"
+max_hp = 18.0
+targeting_penalty = 8.0
+lock_difficulty_multiplier = 1.15
+armor_value = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/Antenna"]
+shape = SubResource("AntennaShape")
+
+[node name="PulseLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+light_color = Color(0.08, 1, 0.78, 1)
+light_energy = 2.0
+omni_range = 5.0

@@ -1,0 +1,226 @@
+[gd_scene load_steps=24 format=3 uid="uid://spire_lobby"]
+
+[ext_resource type="Script" path="res://scripts/systems/SpireLobby.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/SecurityNode.tscn" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="99"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.18, 0.2, 0.22, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.55, 0.62, 0.66, 1)
+ambient_light_energy = 0.7
+fog_enabled = true
+fog_light_color = Color(0.42, 0.56, 0.62, 1)
+fog_density = 0.006
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.52, 0.55, 0.56, 1)
+roughness = 0.28
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.74, 0.78, 0.78, 1)
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="GlassMat"]
+albedo_color = Color(0.28, 0.72, 0.78, 0.45)
+transparency = 1
+emission_enabled = true
+emission = Color(0.1, 0.82, 0.92, 1)
+emission_energy_multiplier = 0.55
+
+[sub_resource type="StandardMaterial3D" id="WarningMat"]
+albedo_color = Color(0.24, 0.03, 0.14, 1)
+emission_enabled = true
+emission = Color(1, 0.08, 0.65, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="StandardMaterial3D" id="ConsoleMat"]
+albedo_color = Color(0.04, 0.09, 0.1, 1)
+emission_enabled = true
+emission = Color(0.08, 0.95, 0.78, 1)
+emission_energy_multiplier = 1.1
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(20, 0.4, 18)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(20, 0.4, 18)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(20, 3.8, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(20, 3.8, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 3.8, 18)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 3.8, 18)
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(1.7, 1.8, 1.5)
+
+[sub_resource type="BoxMesh" id="TerminalMesh"]
+size = Vector3(1.25, 1.1, 0.28)
+
+[sub_resource type="BoxMesh" id="DeskMesh"]
+size = Vector3(3.6, 0.8, 0.75)
+
+[sub_resource type="BoxShape3D" id="ExitShape"]
+size = Vector3(2.4, 2.8, 1.0)
+
+[sub_resource type="BoxMesh" id="ExitMesh"]
+size = Vector3(2.4, 2.8, 0.18)
+
+[node name="SpireLobby" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 6.4)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+
+[node name="LobbySecurityNode" parent="." instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.2)
+attack_range = 9.5
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1.7, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.7, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="ReceptionDesk" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 0.4, -5.7)
+mesh = SubResource("DeskMesh")
+surface_material_override/0 = SubResource("GlassMat")
+
+[node name="ExecutiveElevatorPanel" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1.6, 0, 0, 0, 2.4, 0, 0, 0, 1, 4.7, 1.4, -8.78)
+mesh = SubResource("ExitMesh")
+surface_material_override/0 = SubResource("WarningMat")
+
+[node name="Reception" type="Area3D" parent="." groups=["spire_interactable"]]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -4.8, 1.0, -4.9)
+script = ExtResource("5")
+interactable_id = "reception"
+prompt_text = "Press E: check in at reception"
+display_name = "Reception"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Reception"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Reception"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("ConsoleMat")
+
+[node name="ServicePanel" type="Area3D" parent="." groups=["spire_interactable"]]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 6.9, 1.0, -5.9)
+script = ExtResource("5")
+interactable_id = "service_panel"
+prompt_text = "Press E: tap service panel"
+display_name = "Service Panel"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ServicePanel"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ServicePanel"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("ConsoleMat")
+
+[node name="ExecutiveElevator" type="Area3D" parent="." groups=["spire_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 1.35, -7.9)
+script = ExtResource("5")
+interactable_id = "elevator"
+prompt_text = "Press E: inspect executive elevator"
+display_name = "Executive Elevator"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExecutiveElevator"]
+shape = SubResource("ExitShape")
+
+[node name="MallReturnGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0, 1.4, 6.8)
+script = ExtResource("4")
+prompt_text = "Press E: return to Mall"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MallReturnGate"]
+shape = SubResource("ExitShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MallReturnGate"]
+mesh = SubResource("ExitMesh")
+surface_material_override/0 = SubResource("WarningMat")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 6, 0)
+light_energy = 0.65
+
+[node name="ReceptionLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8, 2.4, -4.9)
+light_color = Color(0.1, 0.9, 1, 1)
+light_energy = 1.7
+omni_range = 6.0
+
+[node name="ElevatorLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 2.5, -7.5)
+light_color = Color(1, 0.1, 0.65, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="LevelDresser" type="Node3D" parent="."]
+script = ExtResource("99")
+theme = "spire"

@@ -1,0 +1,370 @@
+[gd_scene load_steps=23 format=3 uid="uid://mall_hub"]
+
+[ext_resource type="Script" path="res://scripts/systems/MallHub.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/systems/NPCDialogue.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/systems/UpgradeStation.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="99"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.015, 0.012, 0.02, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.14, 0.08, 0.16, 1)
+ambient_light_energy = 0.65
+fog_enabled = true
+fog_light_color = Color(0.18, 0.08, 0.16, 1)
+fog_density = 0.025
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.055, 0.048, 0.06, 1)
+roughness = 0.65
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.04, 0.035, 0.045, 1)
+emission_enabled = true
+emission = Color(0.14, 0.02, 0.1, 1)
+emission_energy_multiplier = 0.25
+
+[sub_resource type="StandardMaterial3D" id="NeonPink"]
+albedo_color = Color(0.22, 0.02, 0.16, 1)
+emission_enabled = true
+emission = Color(1, 0.08, 0.72, 1)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="StandardMaterial3D" id="NeonGreen"]
+albedo_color = Color(0.03, 0.16, 0.07, 1)
+emission_enabled = true
+emission = Color(0.1, 1, 0.45, 1)
+emission_energy_multiplier = 1.3
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(22, 0.4, 18)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(22, 0.4, 18)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(22, 3.4, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(22, 3.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 3.4, 18)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 3.4, 18)
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(1.8, 1.8, 1.8)
+
+[sub_resource type="BoxMesh" id="TerminalMesh"]
+size = Vector3(1.1, 1.25, 0.24)
+
+[sub_resource type="BoxShape3D" id="GateShape"]
+size = Vector3(2.6, 3.0, 1.0)
+
+[sub_resource type="BoxMesh" id="GateMesh"]
+size = Vector3(2.6, 3.0, 0.18)
+
+[node name="MallHub" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 5.8)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="FaceTerminal" type="Area3D" parent="." groups=["npc"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.8, 1.0, 4.2)
+script = ExtResource("4")
+npc_name = "System X"
+dialogue_text = "The mall is outside their map. Use the green gate when you are ready to wake something up."
+prompt_text = "Press E: talk to System X"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FaceTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FaceTerminal"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="MissionGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4, 1.5, -6.8)
+script = ExtResource("5")
+prompt_text = "Press E: enter Sub-Sub-Basement"
+target_scene = "res://scenes/levels/SubSubBasementDistrict.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MissionGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MissionGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="PacificationLift" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.5, -7.2)
+script = ExtResource("5")
+prompt_text = "Press E: ascend to Pacification Ward"
+target_scene = "res://scenes/levels/PacificationWard.tscn"
+requires_completed_quest = "wake_up_call"
+locked_message = "Complete Wake-Up Call first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PacificationLift"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PacificationLift"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="TransitGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 1.5, -7.2)
+script = ExtResource("5")
+prompt_text = "Press E: breach corporate transit"
+target_scene = "res://scenes/levels/CorporateTransit.tscn"
+requires_completed_quest = "dream_audit"
+locked_message = "Complete Dream Audit first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TransitGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TransitGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="SpireGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 1.5, -6.7)
+script = ExtResource("5")
+prompt_text = "Press E: enter Spire Lobby"
+target_scene = "res://scenes/levels/SpireLobby.tscn"
+requires_completed_quest = "transit_breach"
+locked_message = "Complete Transit Breach first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpireGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpireGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="ExecutiveGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 1.5, -2.8)
+script = ExtResource("5")
+prompt_text = "Press E: breach Executive Suite"
+target_scene = "res://scenes/levels/ExecutiveSuite.tscn"
+requires_completed_quest = "spire_lobby"
+locked_message = "Complete Spire Lobby first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExecutiveGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ExecutiveGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="CompanionCoreGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 1.5, 1.1)
+script = ExtResource("5")
+prompt_text = "Press E: enter Companion Core"
+target_scene = "res://scenes/levels/CompanionCore.tscn"
+requires_completed_quest = "executive_suite"
+locked_message = "Complete Executive Suite first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CompanionCoreGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CompanionCoreGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="LindaSpireGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 1.5, 5.0)
+script = ExtResource("5")
+prompt_text = "Press E: breach Linda Spire"
+target_scene = "res://scenes/levels/LindaSpire.tscn"
+requires_completed_quest = "companion_core"
+locked_message = "Complete Companion Core first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LindaSpireGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LindaSpireGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="FinalPatchGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 1.5, 5.0)
+script = ExtResource("5")
+prompt_text = "Press E: enter Final Patch"
+target_scene = "res://scenes/levels/FinalPatch.tscn"
+requires_completed_quest = "linda_spire"
+locked_message = "Complete Linda Spire first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FinalPatchGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FinalPatchGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="CyberneticsKiosk" type="Area3D" parent="." groups=["upgrade_station"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.8, 1.0, 3.4)
+script = ExtResource("6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CyberneticsKiosk"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CyberneticsKiosk"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="MissionBoard" type="Area3D" parent="." groups=["mission_board"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.8, 1.0, -1.0)
+script = ExtResource("7")
+interactable_id = "mission_board"
+prompt_text = "Press E: view mission board"
+display_name = "Mission Board"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MissionBoard"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MissionBoard"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="StatusArchive" type="Area3D" parent="." groups=["status_archive"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.8, 1.0, -1.4)
+script = ExtResource("7")
+interactable_id = "status_archive"
+prompt_text = "Press E: view status archive"
+display_name = "Status Archive"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StatusArchive"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StatusArchive"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="PinkOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.2, 3.7)
+light_color = Color(1, 0.1, 0.72, 1)
+light_energy = 2.0
+omni_range = 8.0
+
+[node name="GateOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.4, 2.4, -6.8)
+light_color = Color(0.1, 1, 0.45, 1)
+light_energy = 2.2
+omni_range = 8.0
+
+[node name="TransitOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2.4, -7.2)
+light_color = Color(0.08, 1, 0.78, 1)
+light_energy = 1.9
+omni_range = 6.5
+
+[node name="SpireOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 2.5, -6.7)
+light_color = Color(1, 0.08, 0.72, 1)
+light_energy = 2.1
+omni_range = 6.5
+
+[node name="ExecutiveOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 2.5, -2.8)
+light_color = Color(0.08, 1, 0.72, 1)
+light_energy = 1.8
+omni_range = 6.0
+
+[node name="CompanionCoreOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 2.5, 1.1)
+light_color = Color(1, 0.08, 0.72, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="LindaSpireOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6, 2.5, 5.0)
+light_color = Color(0.08, 1, 0.72, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="FinalPatchOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 2.5, 5.0)
+light_color = Color(1, 0.08, 0.72, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="MissionBoardOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 2.1, -1.0)
+light_color = Color(0.1, 1, 0.45, 1)
+light_energy = 1.7
+omni_range = 5.0
+
+[node name="StatusArchiveOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 2.1, -1.4)
+light_color = Color(1, 0.08, 0.72, 1)
+light_energy = 1.7
+omni_range = 5.0
+
+[node name="LevelDresser" type="Node3D" parent="."]
+script = ExtResource("99")
+theme = "faded_atrium"

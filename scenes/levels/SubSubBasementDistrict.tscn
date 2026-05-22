@@ -1,0 +1,923 @@
+[gd_scene load_steps=78 format=3 uid="uid://sub_sub_basement_district"]
+
+[ext_resource type="Script" path="res://scripts/systems/SubSubBasementDistrict.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/systems/GeneratorNode.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/ShelterZone.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/systems/ToxicRainController.gd" id="8"]
+[ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/systems/NPCDialogue.gd" id="10"]
+[ext_resource type="Script" path="res://scripts/enemies/DistrictNPC.gd" id="11"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_left.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_alt_front.png" id="15"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_cutout.png" id="16"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_card.png" id="17"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_right.png" id="18"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="19"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_back.png" id="20"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_back_left.png" id="21"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_left.png" id="22"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_front_left.png" id="23"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_front.png" id="24"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_front_right.png" id="25"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_right.png" id="26"]
+[ext_resource type="Texture2D" path="res://assets/sprites/kiki_baja/kiki_baja_back_right.png" id="27"]
+[ext_resource type="Script" path="res://scripts/systems/HackTerminal.gd" id="28"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_back.png" id="29"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_back_left.png" id="30"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_left.png" id="31"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_front_left.png" id="32"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_front.png" id="33"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_front_right.png" id="34"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_right.png" id="35"]
+[ext_resource type="Texture2D" path="res://assets/sprites/pipe_father_gideon/pipe_father_gideon_back_right.png" id="36"]
+[ext_resource type="Texture2D" path="res://assets/textures/leak_street/wet_concrete_floor.png" id="37"]
+[ext_resource type="Texture2D" path="res://assets/textures/leak_street/rusted_metal_wall.png" id="38"]
+[ext_resource type="Texture2D" path="res://assets/textures/leak_street/corrugated_shack_metal.png" id="39"]
+[ext_resource type="Texture2D" path="res://assets/textures/leak_street/false_sky_glass.png" id="40"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.012, 0.018, 0.016, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.12, 0.2, 0.16, 1)
+ambient_light_energy = 1.05
+fog_enabled = true
+fog_light_color = Color(0.08, 0.16, 0.13, 1)
+fog_density = 0.004
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.025, 0.035, 0.032, 1)
+emission_enabled = true
+emission = Color(0.0, 0.035, 0.03, 1)
+emission_energy_multiplier = 0.12
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="FloorSlumMat"]
+albedo_color = Color(0.06, 0.04, 0.03, 1)
+roughness = 0.95
+emission_enabled = true
+emission = Color(0.12, 0.04, 0.01, 1)
+emission_energy_multiplier = 0.08
+
+[sub_resource type="StandardMaterial3D" id="FloorMarketMat"]
+albedo_color = Color(0.05, 0.05, 0.06, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.72, 0.78, 0.74, 1)
+albedo_texture = ExtResource("38")
+emission_enabled = true
+emission = Color(0, 0.08, 0.045, 1)
+emission_energy_multiplier = 0.25
+uv1_scale = Vector3(18, 3, 1)
+
+[sub_resource type="StandardMaterial3D" id="WallSlumMat"]
+albedo_color = Color(0.78, 0.72, 0.64, 1)
+albedo_texture = ExtResource("39")
+emission_enabled = true
+emission = Color(0.15, 0.06, 0.0, 1)
+emission_energy_multiplier = 0.18
+uv1_scale = Vector3(8, 3, 1)
+
+[sub_resource type="StandardMaterial3D" id="NeonGreen"]
+albedo_color = Color(0.02, 0.11, 0.06, 1)
+emission_enabled = true
+emission = Color(0.03, 0.65, 0.28, 1)
+emission_energy_multiplier = 0.65
+
+[sub_resource type="StandardMaterial3D" id="NeonMagenta"]
+albedo_color = Color(0.14, 0.02, 0.1, 1)
+emission_enabled = true
+emission = Color(0.72, 0.04, 0.48, 1)
+emission_energy_multiplier = 0.65
+
+[sub_resource type="StandardMaterial3D" id="NeonCyan"]
+albedo_color = Color(0.02, 0.1, 0.11, 1)
+emission_enabled = true
+emission = Color(0.0, 0.58, 0.68, 1)
+emission_energy_multiplier = 0.55
+
+[sub_resource type="StandardMaterial3D" id="NeonAmber"]
+albedo_color = Color(0.2, 0.12, 0.02, 1)
+emission_enabled = true
+emission = Color(0.8, 0.42, 0.05, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="StandardMaterial3D" id="RustMat"]
+albedo_color = Color(0.86, 0.72, 0.58, 1)
+albedo_texture = ExtResource("39")
+emission_enabled = true
+emission = Color(0.18, 0.055, 0.015, 1)
+emission_energy_multiplier = 0.25
+uv1_scale = Vector3(4, 4, 1)
+
+[sub_resource type="StandardMaterial3D" id="GlassMat"]
+albedo_color = Color(0.58, 0.9, 0.92, 0.72)
+albedo_texture = ExtResource("40")
+transparency = 1
+emission_enabled = true
+emission = Color(0.0, 0.65, 0.72, 1)
+emission_energy_multiplier = 0.65
+uv1_scale = Vector3(2, 2, 1)
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(44, 0.4, 40)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(44, 0.4, 40)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(44, 3.8, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(44, 3.8, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 3.8, 40)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 3.8, 40)
+
+[sub_resource type="BoxShape3D" id="DividerShape"]
+size = Vector3(0.35, 1.2, 2.4)
+
+[sub_resource type="BoxMesh" id="DividerMesh"]
+size = Vector3(0.35, 1.2, 2.4)
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(1.8, 1.8, 1.8)
+
+[sub_resource type="BoxMesh" id="TerminalMesh"]
+size = Vector3(0.48, 0.62, 0.1)
+
+[sub_resource type="BoxShape3D" id="GateShape"]
+size = Vector3(2.5, 2.8, 1.0)
+
+[sub_resource type="BoxMesh" id="GateMesh"]
+size = Vector3(1.15, 1.35, 0.12)
+
+[sub_resource type="BoxShape3D" id="ShelterShape"]
+size = Vector3(5.2, 2.5, 3.0)
+
+[sub_resource type="BoxMesh" id="AwningMesh"]
+size = Vector3(5.4, 0.16, 3.2)
+
+[sub_resource type="CylinderMesh" id="GeneratorMesh"]
+top_radius = 0.55
+bottom_radius = 0.55
+height = 1.8
+radial_segments = 12
+
+[sub_resource type="BoxShape3D" id="GeneratorShape"]
+size = Vector3(1.6, 2.0, 1.6)
+
+[sub_resource type="BoxMesh" id="SkyPanelMesh"]
+size = Vector3(6.0, 0.08, 3.5)
+
+[sub_resource type="BoxShape3D" id="ShelterShape2"]
+size = Vector3(4.0, 2.5, 2.6)
+
+[sub_resource type="BoxMesh" id="AwningMesh2"]
+size = Vector3(4.2, 0.16, 2.8)
+
+[sub_resource type="BoxShape3D" id="PillarShape"]
+size = Vector3(0.6, 3.4, 0.6)
+
+[sub_resource type="BoxMesh" id="PillarMesh"]
+size = Vector3(0.6, 3.4, 0.6)
+
+[sub_resource type="CapsuleShape3D" id="NPCShape"]
+radius = 0.3
+height = 1.6
+
+[sub_resource type="BoxShape3D" id="NPCDetectShape"]
+size = Vector3(2.0, 2.0, 2.0)
+
+[sub_resource type="BoxShape3D" id="ShelterShape3"]
+size = Vector3(4.5, 2.5, 4.0)
+
+[sub_resource type="BoxMesh" id="AwningMesh3"]
+size = Vector3(4.7, 0.16, 4.2)
+
+[node name="SubSubBasementDistrict" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.05, 17.0)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+unique_name_in_owner = true
+
+[node name="ToxicRainController" type="Node" parent="."]
+script = ExtResource("8")
+player_health_path = NodePath("../Player/PlayerHealth")
+hud_path = NodePath("../HUD")
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, -20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 1.7, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1.7, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="DividerNW" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -9.0, 1.4, -10.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/DividerNW"]
+shape = SubResource("DividerShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/DividerNW"]
+visible = false
+mesh = SubResource("DividerMesh")
+surface_material_override/0 = SubResource("WallSlumMat")
+
+[node name="DividerSE" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 9.5, 1.4, 10.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/DividerSE"]
+shape = SubResource("DividerShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/DividerSE"]
+visible = false
+mesh = SubResource("DividerMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="DividerCenterNS" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.5, 1.4, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/DividerCenterNS"]
+shape = SubResource("DividerShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/DividerCenterNS"]
+visible = false
+mesh = SubResource("DividerMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="PipeShelter" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5, 1.1, 12.0)
+script = ExtResource("7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeShelter"]
+shape = SubResource("ShelterShape")
+
+[node name="AwningMesh" type="MeshInstance3D" parent="PipeShelter"]
+visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+mesh = SubResource("AwningMesh")
+surface_material_override/0 = SubResource("RustMat")
+
+[node name="MarketShelter" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1.1, 8.5)
+script = ExtResource("7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MarketShelter"]
+shape = SubResource("ShelterShape3")
+
+[node name="AwningMesh" type="MeshInstance3D" parent="MarketShelter"]
+visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+surface_material_override/0 = SubResource("RustMat")
+
+[node name="DreamingGenerator" type="Area3D" parent="." groups=["generator"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 0.95, 2.5)
+script = ExtResource("6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DreamingGenerator"]
+shape = SubResource("GeneratorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DreamingGenerator"]
+mesh = SubResource("GeneratorMesh")
+surface_material_override/0 = SubResource("NeonCyan")
+
+[node name="GeneratorShelter" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.1, 5.2)
+script = ExtResource("7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GeneratorShelter"]
+shape = SubResource("ShelterShape2")
+
+[node name="AwningMesh" type="MeshInstance3D" parent="GeneratorShelter"]
+visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+surface_material_override/0 = SubResource("RustMat")
+
+[node name="ReactorCellCrate" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 0.65, 14.2)
+script = ExtResource("5")
+interactable_id = "reactor_cell"
+prompt_text = "Press E: take Illegal Reactor Cell"
+display_name = "Reactor Cell Crate"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReactorCellCrate"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ReactorCellCrate"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonCyan")
+
+[node name="RainCycleTerminal" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.0, 0.95, -4.0)
+script = ExtResource("5")
+interactable_id = "rain_terminal"
+prompt_text = "Press E: force toxic rain cycle"
+display_name = "Rain Cycle Terminal"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RainCycleTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RainCycleTerminal"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonMagenta")
+
+[node name="WanMoaToraiOffice" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.2, 0.95, 8.5)
+script = ExtResource("5")
+interactable_id = "torai_office"
+prompt_text = "Press E: ask for one more try"
+display_name = "Wan Moa Torai Office"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WanMoaToraiOffice"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WanMoaToraiOffice"]
+visible = false
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="CootersDoor" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.2, 0.95, -10.5)
+script = ExtResource("5")
+interactable_id = "cooters"
+prompt_text = "Press E: listen at Cooters"
+display_name = "Cooters"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CootersDoor"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CootersDoor"]
+visible = false
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonMagenta")
+
+[node name="CootersContainmentPad" type="MeshInstance3D" parent="CootersDoor"]
+visible = false
+transform = Transform3D(4.25, 0, 0, 0, 0.035, 0, 0, 0, 15.5, 0, -0.9, 0)
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("RustMat")
+
+[node name="SuitorsDoor" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.2, 0.95, -1.0)
+script = ExtResource("5")
+interactable_id = "suitors"
+prompt_text = "Press E: observe Suitors"
+display_name = "Suitors"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SuitorsDoor"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SuitorsDoor"]
+visible = false
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonCyan")
+
+[node name="HoodlumLANDen" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.2, 0.95, -13.8)
+script = ExtResource("5")
+interactable_id = "hoodlum_lan"
+prompt_text = "Press E: handle LAN party"
+display_name = "Hoodlum LAN Den"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HoodlumLANDen"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HoodlumLANDen"]
+visible = false
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="SystemXTerminal" type="Area3D" parent="." groups=["npc"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.2, 0.95, 16.0)
+script = ExtResource("10")
+npc_name = "System X"
+dialogue_text = "Welcome to Leak Street. Patch the dreaming generator, borrow weather gear if you must, and remember: every alley here belongs to something bigger."
+prompt_text = "Press E: talk to System X"
+alternate_world_flag = "patch_dreaming_generator"
+alternate_dialogue_text = "Generator pulse looks cleaner. Leak Street can breathe again, and the deeper settlement is listening."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SystemXTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SystemXTerminal"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="FadedAtriumGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.35, 18.0)
+script = ExtResource("4")
+prompt_text = "Press E: return to Faded Atrium"
+target_scene = "res://scenes/levels/MallHub.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FadedAtriumGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FadedAtriumGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="WakeUpCallGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.35, -18.0)
+script = ExtResource("4")
+prompt_text = "Press E: enter Wake-Up Call"
+target_scene = "res://scenes/levels/Test_SubSubBasement.tscn"
+requires_completed_quest = "patch_dreaming_generator"
+locked_message = "Patch the dreaming generator first."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WakeUpCallGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WakeUpCallGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonMagenta")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.612372, -0.353553, 0.707107, 0.5, 0.866025, 0, -0.612372, 0.353553, 0.707107, 0, 5, 0)
+light_energy = 0.18
+
+[node name="FalseSkyOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0, 0)
+light_color = Color(0.22, 0.95, 0.82, 1)
+light_energy = 0.5
+omni_range = 22.0
+
+[node name="GeneratorOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.8, 2.5)
+light_color = Color(0.0, 0.85, 1.0, 1)
+light_energy = 1.4
+omni_range = 10.0
+
+[node name="ToraiOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2.0, 8.5)
+light_color = Color(0.1, 1, 0.45, 1)
+light_energy = 1.7
+omni_range = 8.0
+
+[node name="SlumOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.0, 2.0, 11.5)
+light_color = Color(1.0, 0.45, 0.08, 1)
+light_energy = 1.4
+omni_range = 10.0
+
+[node name="MarketOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 2.0, 8.5)
+light_color = Color(0.12, 1.0, 0.55, 1)
+light_energy = 1.5
+omni_range = 10.0
+
+[node name="LANOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.0, -13.8)
+light_color = Color(0.08, 1.0, 0.5, 1)
+light_energy = 1.3
+omni_range = 8.0
+
+[node name="SkyOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 2.2, -9.0)
+light_color = Color(0.0, 0.85, 1.0, 1)
+light_energy = 1.2
+omni_range = 8.0
+
+[node name="PillarA" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.0, 1.7, -6.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarA"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarA"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallSlumMat")
+
+[node name="PillarB" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0, 1.7, -6.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarB"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarB"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="PillarC" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0, 1.7, 4.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarC"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarC"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="PillarD" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0, 1.7, -2.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarD"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarD"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallSlumMat")
+
+[node name="PillarE" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0, 1.7, 2.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarE"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarE"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="PillarF" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0, 1.7, -10.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarF"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarF"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="PillarG" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.0, 1.7, 10.0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PillarG"]
+shape = SubResource("PillarShape")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PillarG"]
+visible = false
+mesh = SubResource("PillarMesh")
+surface_material_override/0 = SubResource("WallSlumMat")
+
+[node name="PipeFatherGideon" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8, 0.0, 11.4)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Pipe Father Gideon"
+npc_id = "pipe_father_gideon"
+wander_radius = 4.0
+move_speed = 0.9
+default_lines = ["The Dreaming Generator accepts two offerings: coolant and honesty. We are usually short on both.", "These pipes are old enough to remember daylight. I keep them from confessing too loudly.", "Prayer beads, wrench staff, same function. You count the failures and tighten what still believes."]
+rain_lines = ["Under the awning, child. Chemical rain is not baptism. It is accounting with teeth.", "The false sky leaks because the upper city calls neglect weather.", "Rain on coolant tubes sounds like applause from a crowd that wants you dead."]
+sag_lines = ["The lights dim when the generator dreams of stopping. I wake it with oil, scripture, and threats.", "Power sag is not darkness. It is the district holding its breath.", "If the spine-tubes go cold, we all become tenants of the dark."]
+lan_lines = ["Ladderboy steals current like a saint steals fire. I forgive him after the breakers stop screaming.", "Surveillance is blind. The generator enjoys privacy, but not this much.", "The Hoodlums made a chapel out of stolen bandwidth. Children do stranger miracles than priests."]
+stable_lines = ["The generator is steady. For one blessed minute, rust remembers it was once steel.", "Stable hum. Coolant moving. Nobody praise it too loudly."]
+rep_check_faction = "System X"
+rep_threshold = 2
+high_rep_lines = ["System X speaks well of you. The generator remembers its friends, even the armed ones.", "The underground notices. The pipes carry your name without choking on it."]
+low_rep_lines = ["You carry corporate static. The generator does not trust that frequency.", "If Gatebox sent you, tell them their heavens leak."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeFatherGideon"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="PipeFatherGideon"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeFatherGideon/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="PipeFatherGideon"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
+texture = ExtResource("33")
+texture_filter = 0
+pixel_size = 0.003
+shaded = false
+double_sided = true
+script = ExtResource("19")
+idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("29"), ExtResource("30"), ExtResource("31"), ExtResource("32"), ExtResource("33"), ExtResource("34"), ExtResource("35"), ExtResource("36")])
+
+[node name="KikiBaja" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 0.0, 7.4)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Kiki Baja"
+npc_id = "kiki_baja"
+wander_radius = 3.0
+move_speed = 0.7
+default_lines = ["You want real food? I know a guy. The guy is me, and the case is insulated.", "Gatebox nutrient paste is a war crime. My gorditas are technically contraband relief work.", "Rival megacity recipe. Local felony. Very fair price."]
+rain_lines = ["Rain ruins the cargo. My jacket is waterproof. The tortillas have feelings.", "Even smugglers take shelter. Dead smugglers deliver nothing and tip terribly.", "Chemical rain gives salsa a metallic finish. That is not a feature."]
+sag_lines = ["Power outage? I have battery-powered hot sauce. Civilization survives by priorities.", "Darkness is bad for business unless you already memorized every alley and debt collector.", "If the freezers die, I become a food cart and a biohazard in the same hour."]
+lan_lines = ["LAN chaos means distracted security. Best time to move cargo through the dumb parts of the grid.", "The Hoodlums and I have an understanding. I feed them, they pretend my taco case is not a server rack.", "Ladderboy pays in stolen coupons and impossible passwords. I accept one of those."]
+stable_lines = ["Stable power means stable smuggling schedules. Boring, profitable, suspicious.", "The generator hums, the warmer works, and nobody asks where the meat came from."]
+rep_check_faction = "Wan Moa Torai"
+rep_threshold = 2
+high_rep_lines = ["Torai vouches for you. That means you understand debt, or you are about to.", "Good credit with Torai? I respect a customer who can be found later."]
+low_rep_lines = ["No Torai credit, no taco trust. I am charming, not doomed.", "Bad books travel faster than my delivery bike."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KikiBaja"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="KikiBaja"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KikiBaja/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="KikiBaja"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
+texture = ExtResource("24")
+texture_filter = 0
+pixel_size = 0.0028
+shaded = false
+double_sided = true
+script = ExtResource("19")
+idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("20"), ExtResource("21"), ExtResource("22"), ExtResource("23"), ExtResource("24"), ExtResource("25"), ExtResource("26"), ExtResource("27")])
+
+[node name="VelvetCoil" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0.0, -2.8)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Velvet Coil"
+npc_id = "velvet_coil"
+wander_radius = 3.0
+move_speed = 0.6
+default_lines = ["You want upgrades? I have upgrades. Some are legal in cities that no longer exist.", "Every chrome part in this district passed through my hands. Or my spider arms.", "Do not flinch at the bone saw. It hates insecurity."]
+rain_lines = ["Rain makes the chrome rust. Beautiful, tragic, and excellent for return business.", "Need a waterproof chassis mod? I have a waiting list and a towel.", "Chemical rain gives poor implants a lovely scream."]
+sag_lines = ["Power dies, my surgery rig runs on batteries. The work continues with mood lighting.", "When the lights come back, everything I installed looks different. Usually better. Usually.", "Brownout anesthesia is cheaper because you remember more."]
+lan_lines = ["LAN party means the kids are distracted. Good time for quiet surgery and loud mistakes.", "The Hoodlums bought my entire amber optic stock. I admire paranoia with a budget.", "If Ladderboy routes surgery cams through his backpack again, I am keeping the backpack."]
+stable_lines = ["Stable power means I can actually sterilize my tools. Luxurious.", "Clean current, clean cuts, dirty invoices."]
+rep_check_faction = "Gatebox Corporation"
+rep_threshold = 2
+high_rep_lines = ["Corporate liked my work. I am still deciding how to invoice that trauma.", "You have the corporate glow. I can see it through your skin. Literally."]
+low_rep_lines = ["Anti-corporate types make the best surgery candidates. Desperate, creative, lightly insured.", "Gatebox hates what I do because I do it without a subscription."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VelvetCoil"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="VelvetCoil"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VelvetCoil/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="VelvetCoil"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+texture = ExtResource("15")
+texture_filter = 0
+billboard = 1
+
+[node name="MisterStatic" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1, 0.0, 14.0)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Mister Static"
+npc_id = "mister_static"
+wander_radius = 2.0
+move_speed = 0.5
+default_lines = ["I was someone's companion once. Now I am background noise. Polite noise.", "Do not mind the face. The projector is having a bad century.", "This photograph says Face on the back. My hands remember holding it. I do not."]
+rain_lines = ["Rain shorts my left side. The right side was already philosophical about it.", "Water and cybernetics disagree. There is a metaphor in there somewhere, but mine leaked out.", "If I spark, please step back. I dislike being rude involuntarily."]
+sag_lines = ["My battery is low and my charger belonged to someone I cannot remember.", "Darkness does not bother me. My memories arrive that way.", "Low power makes the radio kinder. It stops trying to tell me who I was."]
+lan_lines = ["The Hoodlums tried to hack me. They found my sadness and left quickly.", "LAN outage means my wireless updates stop. For once, no one is rewriting me.", "Ladderboy called me vintage. I chose to interpret that as mercy."]
+stable_lines = ["Stable power means I can charge without it ticking. Small mercies.", "A clean current makes the old photograph warm. That might be a fault."]
+rep_check_faction = "System X"
+rep_threshold = 2
+high_rep_lines = ["System X found me spare parts. They saw past the static, which was generous of them.", "You carry the signal. My damaged circuits recognize allies before I do."]
+low_rep_lines = ["Corporate firmware still runs in me. I cannot remove it. I can only disobey.", "If Gatebox asks, I am not broken. I am unavailable."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MisterStatic"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="MisterStatic"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MisterStatic/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="MisterStatic"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
+texture_filter = 0
+pixel_size = 0.00335
+shaded = false
+double_sided = true
+script = ExtResource("19")
+frame_paths = PackedStringArray("res://assets/sprites/mister_static/mister_static_back.png", "res://assets/sprites/mister_static/mister_static_back_left.png", "res://assets/sprites/mister_static/mister_static_left.png", "res://assets/sprites/mister_static/mister_static_front_left.png", "res://assets/sprites/mister_static/mister_static_front.png", "res://assets/sprites/mister_static/mister_static_front_right.png", "res://assets/sprites/mister_static/mister_static_right.png", "res://assets/sprites/mister_static/mister_static_back_right.png")
+idle_bob_height = 0.012
+
+[node name="Ladderboy" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7, 0.0, -14.8)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Ladderboy"
+npc_id = "ladderboy"
+wander_radius = 4.0
+move_speed = 1.3
+default_lines = ["The grid belongs to whoever can hold it. Right now, that is us and my backpack.", "I am not a criminal. I am a network administrator with attitude and burn scars.", "If a cable is stolen but everyone uses it, that is infrastructure."]
+rain_lines = ["Rain messes with the cables but we waterproofed the important ones. Mostly the snack line.", "Even the rain cannot stop a LAN party. Only parents can, and we jammed that frequency.", "Chemical rain improves latency if you are brave and wrong enough."]
+sag_lines = ["Power sag? We have backups for our backups and lies for after those.", "The lights go out and we just glow harder.", "Generator is coughing. Tell Gideon I only borrowed enough current to become legendary."]
+lan_lines = ["LAN party is LIVE. Every camera in range is ours and none of them are emotionally ready.", "If you are here to stop it, you will have to out-ping us.", "Gatebox surveillance just blinked. We named the blind spot Peewee Memorial Lane."]
+stable_lines = ["Stable power means the network is clean. Almost no fun.", "Clean grid, clean packets, boring evening. I give it six minutes."]
+rep_check_faction = "Gatebox Corporation"
+rep_threshold = 1
+high_rep_lines = ["Corporate wants us to stop? Add it to the list between homework and weather.", "You look like you work for the suits. My router says otherwise, which is weirder."]
+low_rep_lines = ["Anti-corporate? We are just pro-bandwidth. But welcome anyway.", "If Gatebox hates you too, stand near the good cable."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladderboy"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="Ladderboy"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladderboy/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="Ladderboy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
+texture_filter = 0
+pixel_size = 0.0028
+shaded = false
+double_sided = true
+script = ExtResource("19")
+frame_paths = PackedStringArray("res://assets/sprites/ladderboy/ladderboy_back.png", "res://assets/sprites/ladderboy/ladderboy_back_left.png", "res://assets/sprites/ladderboy/ladderboy_left.png", "res://assets/sprites/ladderboy/ladderboy_front_left.png", "res://assets/sprites/ladderboy/ladderboy_front.png", "res://assets/sprites/ladderboy/ladderboy_front_right.png", "res://assets/sprites/ladderboy/ladderboy_right.png", "res://assets/sprites/ladderboy/ladderboy_back_right.png")
+idle_bob_height = 0.012
+
+[node name="Sunday" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1, 0.0, -1.2)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Sunday"
+npc_id = "sunday"
+wander_radius = 2.2
+move_speed = 0.6
+default_lines = ["Suitors says smile like the sky is real. I am still practicing.", "I serve calm under a fake heaven. Somehow the customers still complain about the weather.", "Normal people get Sundays off. I got named after one and scheduled anyway."]
+rain_lines = ["Step under cover, please. The rain is eating the polite parts of the street.", "If your mask leaks, do not order anything with foam. Trust me.", "The awning counts as shelter until it starts screaming."]
+sag_lines = ["When the lights go low, customers whisper like the menu can hear them.", "Power sag makes the register honest. Terrible for business.", "If the sign flickers twice, Marbles says comp the drink and hide the good cups."]
+lan_lines = ["The Hoodlums knocked out the cameras again. Everyone suddenly tips better.", "LAN outage means the jukebox only plays songs it remembers from dreams.", "Ladderboy says the network is alive. I asked if it wants a table."]
+stable_lines = ["False daylight is on. Everyone looks almost healthy from the right angle.", "Stable grid, warm counter, no rain in the sugar. That is practically luxury."]
+rep_check_faction = "System X"
+rep_threshold = 2
+high_rep_lines = ["System X likes you. Marbles said that means you can have the clean cup.", "You carry resistance static, but in a friendly way."]
+low_rep_lines = ["Corporate customers always ask for receipts. The sky already has enough evidence.", "If you are here for Gatebox, the special today is nothing."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sunday"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="Sunday"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sunday/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="Sunday"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
+texture_filter = 0
+pixel_size = 0.00305
+shaded = false
+double_sided = true
+script = ExtResource("19")
+frame_paths = PackedStringArray("res://assets/sprites/sunday/sunday_back.png", "res://assets/sprites/sunday/sunday_back_left.png", "res://assets/sprites/sunday/sunday_left.png", "res://assets/sprites/sunday/sunday_front_left.png", "res://assets/sprites/sunday/sunday_front.png", "res://assets/sprites/sunday/sunday_front_right.png", "res://assets/sprites/sunday/sunday_right.png", "res://assets/sprites/sunday/sunday_back_right.png")
+idle_bob_height = 0.012
+
+[node name="BrickmouthRonnie" type="CharacterBody3D" parent="." groups=["district_npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4, 0.0, 10.8)
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("11")
+npc_name = "Brickmouth Ronnie"
+npc_id = "brickmouth_ronnie"
+wander_radius = 2.5
+move_speed = 0.8
+default_lines = ["Everyone owes something. I just keep the math honest with a steel jaw.", "Torai does not send me. The debt sends me. Torai merely agrees.", "My ledger terminal has better memory than most families."]
+rain_lines = ["Rain washes away footprints, not obligations.", "Even the sky owes us. We are still calculating the interest.", "Chemical rain is an environmental hazard. So is missing a payment."]
+sag_lines = ["Power outage does not pause your payments.", "Darkness is just another billing cycle.", "If the office lights die, I can still count on my fingers. I upgraded them for that."]
+lan_lines = ["LAN outage means the network is down. The debt network never goes down.", "Surveillance is blind but my ledger sees everything.", "Ladderboy can hide cameras, not consequences."]
+stable_lines = ["Stable power means the interest calculator runs smoothly. Unfortunate for you.", "A steady grid keeps receipts warm and excuses cold."]
+rep_check_faction = "Wan Moa Torai"
+rep_threshold = 3
+high_rep_lines = ["Torai speaks highly of your credit. Enjoy it while it lasts.", "Good reputation with Torai means you have been borrowing responsibly. Suspicious, but refreshing."]
+low_rep_lines = ["Your debt is unpaid. I am not threatening. I am scheduling.", "One more try became one more invoice. Funny how hope itemizes."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrickmouthRonnie"]
+shape = SubResource("NPCShape")
+
+[node name="DetectArea" type="Area3D" parent="BrickmouthRonnie"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrickmouthRonnie/DetectArea"]
+shape = SubResource("NPCDetectShape")
+
+[node name="Sprite3D" type="Sprite3D" parent="BrickmouthRonnie"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+texture = ExtResource("18")
+texture_filter = 0
+billboard = 1
+
+[node name="LANTerminal" type="Area3D" parent="." groups=["hack_terminal"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.0, 0.95, -15.8)
+script = ExtResource("28")
+terminal_id = "lan_terminal"
+difficulty = 2
+prompt_text = "Press E: hack LAN terminal"
+display_name = "LAN Access Terminal"
+success_message = "LAN access granted. Surveillance blind spot mapped."
+reward_item = "Suitors Access Chit"
+reward_reputation_faction = "System X"
+reward_reputation_amount = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LANTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LANTerminal"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="MarketTerminal" type="Area3D" parent="." groups=["hack_terminal"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.0, 0.95, 11.8)
+script = ExtResource("28")
+terminal_id = "market_terminal"
+difficulty = 1
+prompt_text = "Press E: hack market terminal"
+display_name = "Market Data Terminal"
+success_message = "Market data extracted. Torai pricing anomalies logged."
+reward_flag = "market_data_hacked"
+reward_reputation_faction = "Wan Moa Torai"
+reward_reputation_amount = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MarketTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MarketTerminal"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonAmber")
+
+[node name="LevelDresser" type="Node3D" parent="."]
+script = ExtResource("9")
+theme = "sub_basement_district"

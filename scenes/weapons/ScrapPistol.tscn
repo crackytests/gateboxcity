@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5jagxjc5hl3c"]
+
+[ext_resource type="Script" uid="uid://b6t7p7tpqwbn0" path="res://scripts/combat/Weapon.gd" id="1"]
+[ext_resource type="Resource" path="res://data/weapons/scrap_pistol.tres" id="2"]
+[ext_resource type="Texture2D" uid="uid://gqtsdcosed73" path="res://assets/sprites/weapon/spooky_scrap_pistol/spooky_scrap_pistol_0_idle.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://do65ppjgxqply" path="res://assets/sprites/weapon/spooky_scrap_pistol/spooky_scrap_pistol_1_fire.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://i3d4xk8n3hcl" path="res://assets/sprites/weapon/spooky_scrap_pistol/spooky_scrap_pistol_2_recoil.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/weapon/spooky_scrap_pistol/spooky_scrap_pistol_4_reload_insert.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/weapon/spooky_scrap_pistol/spooky_scrap_pistol_5_reload_side.png" id="9"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+size = Vector3(0.22, 0.16, 0.55)
+
+[sub_resource type="QuadMesh" id="MuzzleFlashMesh"]
+size = Vector2(0.34, 0.34)
+
+[sub_resource type="StandardMaterial3D" id="FlashMat"]
+transparency = 1
+albedo_color = Color(1, 0.72, 0.18, 0.78)
+emission_enabled = true
+emission = Color(1, 0.28, 0.02, 1)
+emission_energy_multiplier = 4.0
+billboard_mode = 1
+
+[node name="ScrapPistol" type="Node3D"]
+script = ExtResource("1")
+weapon_data = ExtResource("2")
+view_texture = ExtResource("5")
+fire_texture = ExtResource("6")
+recoil_texture = ExtResource("7")
+reload_texture = ExtResource("8")
+reload_finish_texture = ExtResource("9")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, -0.2, -0.55)
+visible = false
+mesh = SubResource("BoxMesh_1")
+
+[node name="ViewSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1.12, 0, 0, 0, 1.12, 0, 0, 0, 1.12, 0.31, -0.18, -0.74)
+offset = Vector2(0, -43)
+pixel_size = 0.00245
+
+[node name="MuzzleFlash" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0.08, -0.06, -0.98)
+visible = false
+mesh = SubResource("MuzzleFlashMesh")
+surface_material_override/0 = SubResource("FlashMat")
+
+[node name="MuzzleLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, -0.06, -0.95)
+visible = false
+light_color = Color(1, 0.38, 0.08, 1)
+light_energy = 3.0
+omni_range = 3.0

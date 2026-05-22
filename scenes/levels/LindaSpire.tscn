@@ -1,0 +1,262 @@
+[gd_scene load_steps=26 format=3 uid="uid://linda_spire"]
+
+[ext_resource type="Script" path="res://scripts/systems/LindaSpire.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/GoonMaterial.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="99"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.018, 0.012, 0.024, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.18, 0.08, 0.2, 1)
+ambient_light_energy = 0.48
+fog_enabled = true
+fog_light_color = Color(0.28, 0.08, 0.24, 1)
+fog_density = 0.015
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.035, 0.026, 0.04, 1)
+roughness = 0.32
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.06, 0.035, 0.065, 1)
+emission_enabled = true
+emission = Color(0.16, 0.02, 0.12, 1)
+emission_energy_multiplier = 0.4
+
+[sub_resource type="StandardMaterial3D" id="LindaMat"]
+albedo_color = Color(0.32, 0.03, 0.18, 1)
+emission_enabled = true
+emission = Color(1, 0.07, 0.68, 1)
+emission_energy_multiplier = 1.45
+
+[sub_resource type="StandardMaterial3D" id="RuptureMat"]
+albedo_color = Color(0.02, 0.11, 0.12, 1)
+emission_enabled = true
+emission = Color(0.05, 1, 0.78, 1)
+emission_energy_multiplier = 1.25
+
+[sub_resource type="StandardMaterial3D" id="GoldMat"]
+albedo_color = Color(0.5, 0.35, 0.12, 1)
+emission_enabled = true
+emission = Color(1, 0.62, 0.12, 1)
+emission_energy_multiplier = 0.6
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(20, 0.4, 20)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(20, 0.4, 20)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(20, 4.4, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(20, 4.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 4.4, 20)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 4.4, 20)
+
+[sub_resource type="SphereMesh" id="SpireEyeMesh"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="CylinderMesh" id="DaisMesh"]
+top_radius = 1.45
+bottom_radius = 1.7
+height = 0.45
+
+[sub_resource type="CylinderMesh" id="ColumnMesh"]
+top_radius = 0.18
+bottom_radius = 0.18
+height = 4.0
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(2.0, 1.9, 1.7)
+
+[sub_resource type="BoxMesh" id="TerminalMesh"]
+size = Vector3(1.25, 1.05, 0.3)
+
+[sub_resource type="BoxShape3D" id="ExitShape"]
+size = Vector3(2.4, 2.8, 1.0)
+
+[sub_resource type="BoxMesh" id="ExitMesh"]
+size = Vector3(2.4, 2.8, 0.18)
+
+[node name="LindaSpire" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 7.2)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+
+[node name="MandateWarden" parent="." instance=ExtResource("4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95, -4.8)
+move_speed = 1.45
+ranged_range = 11.0
+melee_damage = 12.0
+ranged_damage = 8.0
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, -10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2.0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2.0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SpireEye" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1.25, 0, 0, 0, 1, 0, 3.0, -6.4)
+mesh = SubResource("SpireEyeMesh")
+surface_material_override/0 = SubResource("LindaMat")
+
+[node name="MandateDaisMesh" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 0.18, -5.4)
+mesh = SubResource("DaisMesh")
+surface_material_override/0 = SubResource("GoldMat")
+
+[node name="RuptureDaisMesh" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 0.18, -5.4)
+mesh = SubResource("DaisMesh")
+surface_material_override/0 = SubResource("RuptureMat")
+
+[node name="ColumnA" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8, 1.8, -1.5)
+mesh = SubResource("ColumnMesh")
+surface_material_override/0 = SubResource("LindaMat")
+
+[node name="ColumnB" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8, 1.8, -1.5)
+mesh = SubResource("ColumnMesh")
+surface_material_override/0 = SubResource("RuptureMat")
+
+[node name="MandateDais" type="Area3D" parent="." groups=["linda_spire_interactable"]]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -5.8, 1.0, -5.4)
+script = ExtResource("6")
+interactable_id = "mandate_dais"
+prompt_text = "Press E: sign Linda mandate"
+display_name = "Mandate Dais"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MandateDais"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MandateDais"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("GoldMat")
+
+[node name="RuptureConsole" type="Area3D" parent="." groups=["linda_spire_interactable"]]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 5.8, 1.0, -5.4)
+script = ExtResource("6")
+interactable_id = "rupture_console"
+prompt_text = "Press E: arm rupture seed"
+display_name = "Rupture Console"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RuptureConsole"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RuptureConsole"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("RuptureMat")
+
+[node name="CityWindow" type="Area3D" parent="." groups=["linda_spire_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -8.9)
+script = ExtResource("6")
+interactable_id = "city_window"
+prompt_text = "Press E: look over Gatebox City"
+display_name = "City Window"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CityWindow"]
+shape = SubResource("ExitShape")
+
+[node name="MallReturnGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 1.4, 7.4)
+script = ExtResource("5")
+prompt_text = "Press E: return to Mall"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MallReturnGate"]
+shape = SubResource("ExitShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MallReturnGate"]
+mesh = SubResource("ExitMesh")
+surface_material_override/0 = SubResource("LindaMat")
+
+[node name="KeyLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 6, 0)
+light_energy = 0.45
+
+[node name="SpireEyeLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, -6.4)
+light_color = Color(1, 0.08, 0.68, 1)
+light_energy = 3.2
+omni_range = 8.0
+
+[node name="MandateLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.8, 2.4, -5.4)
+light_color = Color(1, 0.66, 0.14, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="RuptureLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 2.4, -5.4)
+light_color = Color(0.08, 1, 0.76, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="LevelDresser" type="Node3D" parent="."]
+script = ExtResource("99")
+theme = "linda"

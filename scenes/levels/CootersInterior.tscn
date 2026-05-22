@@ -1,0 +1,209 @@
+[gd_scene load_steps=31 format=3 uid="uid://cooters_interior"]
+
+[ext_resource type="Script" path="res://scripts/systems/CootersInterior.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/systems/NPCDialogue.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_back.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_back_left.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_left.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_front_left.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_front.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_front_right.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_right.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_back_right.png" id="14"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.018, 0.01, 0.014, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.16, 0.07, 0.11, 1)
+ambient_light_energy = 0.7
+fog_enabled = true
+fog_light_color = Color(0.22, 0.06, 0.12, 1)
+fog_density = 0.02
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.06, 0.045, 0.04, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.05, 0.025, 0.035, 1)
+emission_enabled = true
+emission = Color(0.16, 0.025, 0.08, 1)
+emission_energy_multiplier = 0.24
+
+[sub_resource type="StandardMaterial3D" id="BarMat"]
+albedo_color = Color(0.18, 0.075, 0.035, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="NeonPink"]
+albedo_color = Color(0.22, 0.02, 0.14, 1)
+emission_enabled = true
+emission = Color(1, 0.08, 0.62, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="StandardMaterial3D" id="NeonGreen"]
+albedo_color = Color(0.02, 0.16, 0.075, 1)
+emission_enabled = true
+emission = Color(0.08, 1, 0.45, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(12, 0.4, 9)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(12, 0.4, 9)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(12, 3.0, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(12, 3.0, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 3.0, 9)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 3.0, 9)
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(1.8, 1.8, 1.8)
+
+[sub_resource type="BoxMesh" id="NpcMarkerMesh"]
+size = Vector3(0.8, 1.35, 0.28)
+
+[sub_resource type="BoxMesh" id="BarMesh"]
+size = Vector3(5.6, 0.95, 0.8)
+
+[sub_resource type="BoxMesh" id="SignMesh"]
+size = Vector3(2.4, 0.35, 0.08)
+
+[node name="CootersInterior" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 2.8)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -4.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 4.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1.3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.3, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="BarCounter" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, -2.2)
+mesh = SubResource("BarMesh")
+surface_material_override/0 = SubResource("BarMat")
+
+[node name="CootersSign" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15, -4.25)
+mesh = SubResource("SignMesh")
+surface_material_override/0 = SubResource("NeonPink")
+
+[node name="RainMutantContainmentDoor" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1.6, 0, 0, 0, 1, 4.8, 1.0, -2.8)
+mesh = SubResource("SignMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="Marbles" type="Area3D" parent="." groups=["npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -2.9)
+script = ExtResource("4")
+npc_name = "Marbles"
+dialogue_text = "The rain mutant is contained in the side room, which makes it our least destructive regular. Cooters jobs are coming. For now, breathe, reload, and do not drink anything glowing."
+prompt_text = "Press E: talk to Marbles"
+alternate_world_flag = "suitors_blind_spot"
+alternate_dialogue_text = "Sunday sent word. If Suitors is watching you, act expensive and haunted. Works for half my customers."
+reputation_faction = "System X"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Marbles"]
+shape = SubResource("InteractShape")
+
+[node name="MarblesBillboard" type="Sprite3D" parent="Marbles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.096, 0)
+texture = ExtResource("11")
+texture_filter = 0
+pixel_size = 0.0028
+shaded = false
+double_sided = true
+script = ExtResource("6")
+idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14")])
+
+[node name="ExitToDistrict" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 4.0)
+script = ExtResource("5")
+prompt_text = "Press E: return to Sub-Sub-Basement"
+target_scene = "res://scenes/levels/SubSubBasementDistrict.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExitToDistrict"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ExitToDistrict"]
+mesh = SubResource("SignMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="BarLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -1.2)
+light_color = Color(1, 0.18, 0.62, 1)
+light_energy = 1.8
+omni_range = 8.0
+
+[node name="DoorLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.4)
+light_color = Color(0.1, 1, 0.45, 1)
+light_energy = 1.0
+omni_range = 5.0

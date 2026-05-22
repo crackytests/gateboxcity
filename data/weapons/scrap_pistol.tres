@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=2 format=3 uid="uid://scrap_pistol_data"]
+
+[ext_resource type="Script" path="res://scripts/data/WeaponData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Scrap Pistol"
+damage = 14.0
+damage_type = "kinetic"
+magazine_size = 12
+reserve_ammo = 48
+lock_retention_after_shot = 0.5
+reload_log = "slotted scrap"

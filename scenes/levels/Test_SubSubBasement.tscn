@@ -1,0 +1,256 @@
+[gd_scene load_steps=27 format=3 uid="uid://test_sub_sub_basement"]
+
+[ext_resource type="Script" path="res://scripts/systems/TestLevel.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/GoonMaterial.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/LootPickup.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/systems/NPCDialogue.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/systems/InventorySystem.gd" id="8"]
+[ext_resource type="Script" path="res://scripts/systems/QuestSystem.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/systems/FactionSystem.gd" id="10"]
+[ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="99"]
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.08, 0.075, 0.065, 1)
+roughness = 0.92
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.025, 0.035, 0.032, 1)
+emission_enabled = true
+emission = Color(0.0, 0.15, 0.08, 1)
+emission_energy_multiplier = 0.2
+
+[sub_resource type="StandardMaterial3D" id="NeonGreen"]
+albedo_color = Color(0.04, 0.2, 0.09, 1)
+emission_enabled = true
+emission = Color(0.1, 1, 0.45, 1)
+emission_energy_multiplier = 1.3
+
+[sub_resource type="StandardMaterial3D" id="NeonMagenta"]
+albedo_color = Color(0.25, 0.02, 0.18, 1)
+emission_enabled = true
+emission = Color(1, 0.1, 0.82, 1)
+emission_energy_multiplier = 1.0
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.01, 0.012, 0.013, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.05, 0.09, 0.07, 1)
+ambient_light_energy = 0.45
+fog_enabled = true
+fog_light_color = Color(0.08, 0.22, 0.16, 1)
+fog_density = 0.035
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(18, 0.4, 18)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(18, 0.4, 18)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(18, 3.2, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(18, 3.2, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 3.2, 18)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 3.2, 18)
+
+[sub_resource type="CylinderMesh" id="PipeMesh"]
+top_radius = 0.16
+bottom_radius = 0.16
+height = 13.0
+
+[sub_resource type="BoxShape3D" id="LootShape"]
+size = Vector3(0.7, 0.4, 0.7)
+
+[sub_resource type="BoxMesh" id="LootMesh"]
+size = Vector3(0.7, 0.4, 0.7)
+
+[sub_resource type="BoxShape3D" id="CoolantShape"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[sub_resource type="CylinderMesh" id="CoolantMesh"]
+top_radius = 0.22
+bottom_radius = 0.22
+height = 0.75
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(1.6, 1.8, 1.6)
+
+[sub_resource type="BoxMesh" id="TerminalMesh"]
+size = Vector3(0.9, 1.2, 0.22)
+
+[sub_resource type="BoxShape3D" id="ExitShape"]
+size = Vector3(2.4, 2.8, 1.0)
+
+[sub_resource type="BoxMesh" id="ExitMesh"]
+size = Vector3(2.4, 2.8, 0.18)
+
+[node name="Test_SubSubBasement" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 6)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+unique_name_in_owner = true
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="InventorySystem" type="Node" parent="Systems"]
+script = ExtResource("8")
+
+[node name="QuestSystem" type="Node" parent="Systems"]
+script = ExtResource("9")
+
+[node name="FactionSystem" type="Node" parent="Systems"]
+script = ExtResource("10")
+
+[node name="GoonMaterial" parent="." instance=ExtResource("4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95, -4.5)
+
+[node name="GateboxReinforcement" parent="." instance=ExtResource("4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.8, 0.95, -5.7)
+move_speed = 1.75
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.4, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.4, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="PipeA" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.6, 2.35, 0)
+mesh = SubResource("PipeMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="PipeB" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.4, 2.75, 0)
+mesh = SubResource("PipeMesh")
+surface_material_override/0 = SubResource("NeonMagenta")
+
+[node name="BrokenGateboxDisplay" type="Area3D" parent="." groups=["loot"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0.35, -1.5)
+script = ExtResource("5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BrokenGateboxDisplay"]
+shape = SubResource("LootShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BrokenGateboxDisplay"]
+mesh = SubResource("LootMesh")
+surface_material_override/0 = SubResource("NeonMagenta")
+
+[node name="SoulCoolantVial" type="Area3D" parent="." groups=["loot"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2, 0.55, -2.2)
+script = ExtResource("5")
+item_name = "Pink Soul Coolant Vial"
+auto_pickup = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SoulCoolantVial"]
+shape = SubResource("CoolantShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SoulCoolantVial"]
+mesh = SubResource("CoolantMesh")
+surface_material_override/0 = SubResource("NeonMagenta")
+
+[node name="FaceTerminal" type="Area3D" parent="." groups=["npc"]]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.85, 1.0, 5.0)
+script = ExtResource("6")
+npc_name = "System X"
+dialogue_text = "You woke up loud. Bring me that broken Gatebox display and disable the goon's right arm. Then hit the green extraction gate."
+prompt_text = "Press E: talk to System X"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FaceTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FaceTerminal"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="ExtractionGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4, 1.4, -7.8)
+script = ExtResource("7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExtractionGate"]
+shape = SubResource("ExitShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ExtractionGate"]
+mesh = SubResource("ExitMesh")
+surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 5, 0)
+light_energy = 0.35
+
+[node name="GreenOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.4, 0)
+light_color = Color(0.2, 1, 0.45, 1)
+light_energy = 2.0
+omni_range = 7.0
+
+[node name="MagentaOmni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.4, 0)
+light_color = Color(1, 0.16, 0.8, 1)
+light_energy = 1.6
+omni_range = 7.0
+
+[node name="LevelDresser" type="Node3D" parent="."]
+script = ExtResource("99")
+theme = "sub_basement"

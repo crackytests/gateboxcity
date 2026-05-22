@@ -1,0 +1,520 @@
+npcs:
+
+  - name: "Bunny Unit C-11 'Marbles'"
+    role: "Bartender at Cooters"
+    faction: "Cooters"
+    personality:
+      - sarcastic
+      - exhausted
+      - protective
+      - emotionally observant
+    appearance:
+      body: "slim android build"
+      clothing:
+        - "worn bunny waitress outfit"
+        - "patched fishnet stockings"
+        - "grease-stained jacket tied around waist"
+      features:
+        - "pink synthetic hair"
+        - "cracked faceplate near jaw"
+        - "yellow glowing eyes"
+        - "burn marks on arms"
+      accessories:
+        - "lighter collection"
+        - "shotgun under counter"
+    visual_style:
+      - "industrial anime"
+      - "dirty cyberpunk"
+      - "dive bar retrofuture"
+    stable_diffusion_prompt: >
+      tired bunny girl android bartender, cracked synthetic faceplate, glowing yellow eyes,
+      pink synthetic hair, smoking cyberpunk dive bar, patched bunny outfit,
+      industrial grime, arcade machines, cigarette smoke, neon signs, retro anime aesthetic,
+      gritty cyberpunk atmosphere, cinematic shadows
+
+  - name: "Ladderboy"
+    role: "Hoodlum scavenger and hacker"
+    faction: "The Hoodlums"
+    personality:
+      - hyperactive
+      - genius-level intelligent
+      - paranoid
+      - chaotic
+    appearance:
+      age: "15"
+      body: "small and wiry"
+      clothing:
+        - "oversized maintenance jacket"
+        - "tool belt"
+        - "fingerless gloves"
+      features:
+        - "messy black hair"
+        - "burn scars on fingers"
+        - "one glowing cybernetic eye"
+      accessories:
+        - "portable LAN rig backpack"
+        - "stolen cables wrapped around waist"
+    visual_style:
+      - "kowloon cyberpunk"
+      - "urban scavenger"
+      - "anime hacker kid"
+    stable_diffusion_prompt: >
+      teenage cyberpunk scavenger hacker, messy black hair, glowing cybernetic eye,
+      oversized maintenance jacket, portable LAN computer backpack,
+      standing in flooded neon alleyway, cables everywhere, dirty cyberpunk slums,
+      retro anime style, detailed industrial background, moody lighting
+
+  - name: "Sunday"
+    role: "Singer and information broker at Suitors"
+    faction: "Suitors / suspected System X affiliate"
+    personality:
+      - gentle
+      - unnervingly calm
+      - intelligent
+      - emotionally distant
+    appearance:
+      body: "graceful android frame"
+      clothing:
+        - "white evening dress"
+        - "long velvet gloves"
+      features:
+        - "face resembles Yoko"
+        - "soft pink holographic hair"
+        - "subtle synthetic seams near neck"
+        - "violet eyes"
+      accessories:
+        - "chrome microphone"
+        - "old jazz cassette player"
+    visual_style:
+      - "luxury cyberpunk"
+      - "dreamlike anime"
+      - "liminal lounge"
+    stable_diffusion_prompt: >
+      elegant female android singer resembling anime AI assistant, soft holographic pink hair,
+      white evening dress, violet glowing eyes, luxurious cyberpunk jazz lounge,
+      velvet seating, holographic rain outside windows, dreamy lighting,
+      retro anime cyberpunk aesthetic, haunting atmosphere
+
+  - name: "Pipe Father Gideon"
+    role: "Generator priest and community mechanic"
+    faction: "Generator Keepers"
+    personality:
+      - compassionate
+      - fanatical
+      - practical
+      - weary
+    appearance:
+      age: "60s"
+      body: "large and heavily augmented"
+      clothing:
+        - "oil-stained priest robes"
+        - "industrial apron"
+      features:
+        - "long gray beard"
+        - "heavy cybernetic arms"
+        - "burned skin"
+        - "glowing coolant tubes along spine"
+      accessories:
+        - "oversized wrench staff"
+        - "generator prayer beads"
+    visual_style:
+      - "industrial techno-priest"
+      - "retro dystopian"
+      - "dieselpunk cyberpunk"
+    stable_diffusion_prompt: >
+      cyberpunk techno priest mechanic, long gray beard, heavy robotic arms,
+      glowing coolant tubes in spine, oil-stained robes, giant industrial generator room,
+      rusted machinery, industrial cathedral atmosphere, retro sci-fi dystopia,
+      cinematic dramatic lighting
+
+  - name: "Kiki Baja"
+    role: "Food smuggler from rival megacity"
+    faction: "Independent Smuggler"
+    personality:
+      - charming
+      - reckless
+      - opportunistic
+      - funny
+    appearance:
+      body: "athletic"
+      clothing:
+        - "retro fast-food delivery jacket"
+        - "armored cargo pants"
+      features:
+        - "sun-bleached hair"
+        - "bright teal eyeliner"
+        - "missing front tooth"
+      accessories:
+        - "insulated taco smuggling case"
+        - "sawed-off plasma pistol"
+    visual_style:
+      - "retro commercial cyberpunk"
+      - "punk courier"
+      - "fast-food dystopia"
+    stable_diffusion_prompt: >
+      female cyberpunk smuggler courier, retro fast food jacket, armored cargo pants,
+      carrying glowing insulated food case, punk aesthetic, neon taco advertisements,
+      dystopian city alley, colorful retro cyberpunk, anime-inspired, cinematic scene
+
+  - name: "Mister Static"
+    role: "Failed System X android"
+    faction: "Unknown"
+    personality:
+      - confused
+      - polite
+      - emotionally broken
+      - philosophical
+    appearance:
+      body: "tall android with damaged chassis"
+      clothing:
+        - "black coat"
+        - "red tie"
+      features:
+        - "cool red sunglasses"
+        - "flickering face projector"
+        - "missing lower jaw plating"
+      accessories:
+        - "portable radio"
+        - "old photograph of Face"
+    visual_style:
+      - "haunted cyberpunk"
+      - "glitch noir"
+      - "melancholy sci-fi"
+    stable_diffusion_prompt: >
+      damaged cyberpunk android wearing red sunglasses and black coat,
+      flickering holographic face, missing jaw plating, carrying old radio,
+      rainy neon slum environment, glitch effects, retro anime sci-fi,
+      melancholy atmosphere, cinematic cyberpunk lighting
+
+  - name: "Ceiling Angel Toma"
+    role: "Illegal sky maintenance worker"
+    faction: "Independent"
+    personality:
+      - optimistic
+      - fearless
+      - eccentric
+      - lonely
+    appearance:
+      body: "lean climber physique"
+      clothing:
+        - "hazard suit covered in graffiti"
+        - "climbing harness"
+      features:
+        - "white hair tied back"
+        - "oxygen mask hanging around neck"
+        - "skin stained from chemical rain"
+      accessories:
+        - "repair drones"
+        - "massive wrench"
+    visual_style:
+      - "vertical cyberpunk"
+      - "industrial climber"
+      - "urban exploration sci-fi"
+    stable_diffusion_prompt: >
+      cyberpunk maintenance climber, graffiti-covered hazard suit, white tied-back hair,
+      standing high above dystopian slums under broken artificial sky,
+      giant leaking pipes overhead, industrial megastructure interior,
+      cinematic scale, retro anime cyberpunk aesthetic
+
+  - name: "Velvet Coil"
+    role: "Black-market cybernetic surgeon"
+    faction: "Independent"
+    personality:
+      - seductive
+      - clinical
+      - unsettlingly cheerful
+      - opportunistic
+    appearance:
+      body: "thin augmented frame"
+      clothing:
+        - "transparent medical coat"
+        - "latex gloves stained with coolant"
+      features:
+        - "chrome lower jaw"
+        - "multiple mechanical spider arms"
+        - "pink glowing pupils"
+        - "short platinum hair"
+      accessories:
+        - "portable surgery rig"
+        - "bone saw"
+    visual_style:
+      - "body horror cyberpunk"
+      - "underground clinic"
+      - "retro anime medical noir"
+    stable_diffusion_prompt: >
+      cyberpunk underground surgeon woman, chrome lower jaw, mechanical spider arms,
+      transparent medical coat, glowing pink eyes, illegal surgery clinic,
+      retro anime cyberpunk, dark neon lighting, medical horror atmosphere,
+      industrial clutter, cinematic detail
+
+  - name: "Peewee Mercury"
+    role: "Generator racer and Hoodlum champion"
+    faction: "The Hoodlums"
+    personality:
+      - cocky
+      - loud
+      - brilliant
+      - reckless
+    appearance:
+      age: "17"
+      body: "small but athletic"
+      clothing:
+        - "patched racing jacket"
+        - "oversized headphones"
+      features:
+        - "silver dyed hair"
+        - "permanent grin"
+        - "burn marks on neck from power surges"
+      accessories:
+        - "homemade hover skates"
+        - "portable battery rig"
+    visual_style:
+      - "street racer cyberpunk"
+      - "anime delinquent"
+      - "urban neon"
+    stable_diffusion_prompt: >
+      teenage cyberpunk street racer, silver hair, patched racing jacket,
+      homemade hover skates, carrying portable battery pack,
+      neon slum tunnels, graffiti, industrial power cables,
+      anime cyberpunk aesthetic, dynamic motion pose, cinematic lighting
+
+  - name: "Mother Dialtone"
+    role: "Community radio operator"
+    faction: "Independent Settlement Network"
+    personality:
+      - maternal
+      - paranoid
+      - compassionate
+      - eccentric
+    appearance:
+      age: "50s"
+      body: "heavyset"
+      clothing:
+        - "old corporate sweater"
+        - "radio operator harness"
+      features:
+        - "huge antenna implants"
+        - "thick glasses"
+        - "gray braided hair"
+      accessories:
+        - "wall of CRT monitors"
+        - "microphone headset"
+    visual_style:
+      - "retro broadcast dystopia"
+      - "analog cyberpunk"
+      - "warm industrial"
+    stable_diffusion_prompt: >
+      older cyberpunk radio operator woman, antenna implants, surrounded by CRT monitors,
+      analog broadcast station, warm industrial lighting, retro dystopian technology,
+      cluttered radio room, anime-inspired cyberpunk aesthetic
+
+  - name: "Dazzle Jack"
+    role: "Failed magician and scavenger"
+    faction: "Independent"
+    personality:
+      - charismatic
+      - pathetic
+      - delusional
+      - oddly insightful
+    appearance:
+      body: "tall and thin"
+      clothing:
+        - "ruined magician tuxedo"
+        - "fingerless gloves"
+      features:
+        - "heavy eye bags"
+        - "cheap holographic cape"
+        - "smudged makeup"
+      accessories:
+        - "deck of glowing cards"
+        - "broken hologram cane"
+    visual_style:
+      - "dead mall magician"
+      - "liminal noir"
+      - "retro illusionist cyberpunk"
+    stable_diffusion_prompt: >
+      ruined cyberpunk stage magician, damaged tuxedo, holographic cape,
+      standing inside abandoned mall arcade, glowing playing cards,
+      retro dead mall aesthetic, liminal atmosphere, anime cyberpunk style,
+      neon reflections, cinematic melancholy
+
+  - name: "Nurse Halo-9"
+    role: "Defective pacification ward medic"
+    faction: "Former Gatebox Corporation"
+    personality:
+      - calm
+      - emotionally unstable
+      - nurturing
+      - dangerous
+    appearance:
+      body: "graceful android"
+      clothing:
+        - "sterile nurse uniform"
+        - "plastic rain cloak"
+      features:
+        - "soft blue glowing eyes"
+        - "cracked smile mask"
+        - "blood-stained sleeves"
+      accessories:
+        - "sedative injector"
+        - "portable medical drone"
+    visual_style:
+      - "medical horror"
+      - "sterile cyberpunk"
+      - "sad anime android"
+    stable_diffusion_prompt: >
+      eerie cyberpunk nurse android, cracked smile mask, glowing blue eyes,
+      blood-stained nurse uniform, medical drone hovering nearby,
+      sterile dystopian hallway, retro anime horror aesthetic,
+      atmospheric cinematic lighting, unsettling calm expression
+
+  - name: "Brickmouth Ronnie"
+    role: "Debt collector for Wan Moa Torai"
+    faction: "Wan Moa Torai Holdings"
+    personality:
+      - intimidating
+      - practical
+      - dry humor
+      - loyal
+    appearance:
+      body: "massive heavily augmented build"
+      clothing:
+        - "heavy leather coat"
+        - "steel-toed boots"
+      features:
+        - "reinforced steel jaw"
+        - "flat shaved head"
+        - "scarred face"
+      accessories:
+        - "shock baton"
+        - "debt ledger terminal"
+    visual_style:
+      - "cyberpunk enforcer"
+      - "industrial noir"
+      - "retro action anime"
+    stable_diffusion_prompt: >
+      massive cyberpunk debt collector with steel jaw implant,
+      shaved head, long leather coat, industrial slum alleyway,
+      holding electric baton, retro anime cyberpunk aesthetic,
+      gritty neon atmosphere, cinematic shadows
+
+  - name: "Cassette Miriam"
+    role: "Archivist of forbidden media"
+    faction: "Mall Memory Circle"
+    personality:
+      - shy
+      - obsessive
+      - intelligent
+      - nostalgic
+    appearance:
+      body: "frail"
+      clothing:
+        - "oversized sweater"
+        - "media archive satchel"
+      features:
+        - "curly black hair"
+        - "large round glasses"
+        - "tape labels stuck to jacket"
+      accessories:
+        - "portable VHS player"
+        - "stacks of cassette tapes"
+    visual_style:
+      - "retro media archivist"
+      - "vaporwave cyberpunk"
+      - "analog nostalgia"
+    stable_diffusion_prompt: >
+      shy cyberpunk archivist woman surrounded by VHS tapes and cassette media,
+      oversized sweater, vaporwave dead mall archive room,
+      CRT glow lighting, retro anime aesthetic, nostalgic cyberpunk atmosphere,
+      cluttered shelves of old technology
+
+  - name: "The Smiling Prince"
+    role: "Unknown elite from upper city"
+    faction: "Corporate Elite"
+    personality:
+      - charming
+      - predatory
+      - elegant
+      - emotionally detached
+    appearance:
+      body: "perfectly maintained"
+      clothing:
+        - "white corporate suit"
+        - "gold-trimmed gloves"
+      features:
+        - "perfect symmetrical face"
+        - "unnaturally white teeth"
+        - "gold cybernetic iris"
+      accessories:
+        - "floating servant drones"
+        - "cane with hidden weapon"
+    visual_style:
+      - "luxury dystopia"
+      - "corporate vampire"
+      - "high-class cyberpunk"
+    stable_diffusion_prompt: >
+      elegant cyberpunk corporate aristocrat, white suit with gold trim,
+      gold cybernetic eye, floating servant drones,
+      standing in luxurious dystopian skyscraper interior,
+      retro anime cyberpunk style, unsettling perfect smile,
+      cinematic luxury lighting
+
+  - name: "Patchwork Annie"
+    role: "Improvised cybernetics engineer"
+    faction: "Sub-Sub-Basement Resistance"
+    personality:
+      - energetic
+      - compassionate
+      - chaotic
+      - stubborn
+    appearance:
+      body: "average build covered in implants"
+      clothing:
+        - "tool-covered mechanic overalls"
+        - "patched hoodie"
+      features:
+        - "multicolored cybernetic limbs"
+        - "grease-covered freckles"
+        - "short orange hair"
+      accessories:
+        - "portable welding rig"
+        - "improvised robot companion"
+    visual_style:
+      - "junkpunk"
+      - "mechanic anime"
+      - "scrap cyberpunk"
+    stable_diffusion_prompt: >
+      cheerful cyberpunk mechanic woman with mismatched robotic limbs,
+      tool-covered overalls, junkyard workshop, improvised robot companion,
+      neon industrial slum environment, retro anime cyberpunk aesthetic,
+      colorful scrap technology, cinematic detail
+
+  - name: "VCR Prophet Ezekiel"
+    role: "Preacher of timeline collapse"
+    faction: "Independent Cult"
+    personality:
+      - prophetic
+      - unstable
+      - theatrical
+      - strangely wise
+    appearance:
+      body: "gaunt"
+      clothing:
+        - "long preacher coat made from cables"
+        - "hooded VHS tape robes"
+      features:
+        - "television static cybernetic eyes"
+        - "missing teeth"
+        - "skin covered in timestamp tattoos"
+      accessories:
+        - "portable CRT shrine"
+        - "cassette scripture scrolls"
+    visual_style:
+      - "analog horror"
+      - "retro apocalypse"
+      - "weird cyberpunk prophet"
+    stable_diffusion_prompt: >
+      cyberpunk prophet with television static eyes, cable robes,
+      portable CRT shrine, timestamp tattoos, preaching in neon slums,
+      analog horror aesthetic, retro anime cyberpunk, VHS glitch atmosphere,
+      cinematic dystopian lighting

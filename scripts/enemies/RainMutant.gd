@@ -1,0 +1,110 @@
+extends Enemy
+class_name RainMutant
+
+signal containment_ready
+
+@export var containment_center := Vector3(18.0, 0.0, -6.0)
+@export var containment_radius := 4.0
+@export var rain_regen_per_second := 6.0
+@export var containment_dialogue_name := "Cooters Rain Mutant"
+@export_multiline var containment_dialogue_text := "The mutant folds under the awning, still alive, still leaking. Marbles bolts the door around it."
+
+var rain_sac_destroyed := false
+var mobility_frame_destroyed := false
+var contained := false
+
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	if contained or is_defeated:
+		return
+
+	if WorldDirector.is_toxic_rain_active() and not _is_in_containment_zone():
+		_regenerate_parts(delta)
+
+	_check_containment()
+
+
+func _on_part_destroyed(part: BodyPart) -> void:
+	part.monitorable = false
+	part.visible = false
+	body_part_destroyed.emit(part.display_name)
+	_show_part_break_effect(part)
+	if billboard != null and billboard.has_method("show_part_broken"):
+		billboard.show_part_broken(part.display_name)
+
+	match part.display_name:
+		"Rain Sac":
+			rain_sac_destroyed = true
+			melee_damage *= 0.55
+			ranged_damage = 0.0
+		"Mobility Frame":
+			mobility_frame_destroyed = true
+			move_speed = maxf(base_move_speed * 0.25, 0.25)
+		"Left Claw", "Right Claw":
+			melee_damage = maxf(melee_damage - 2.5, 2.0)
+		"Anchor Spine":
+			stun_timer = maxf(stun_timer, 1.2)
+
+	_check_containment()
+
+
+func contain() -> void:
+	if contained:
+		return
+
+	contained = true
+	is_pacified = true
+	move_speed = 0.0
+	velocity = Vector3.ZERO
+	collision_layer = 0
+	collision_mask = 1
+	pacified_dialogue_name = containment_dialogue_name
+	pacified_dialogue_text = containment_dialogue_text
+	if billboard != null and billboard.has_method("show_defeated"):
+		billboard.show_defeated()
+
+
+func is_ready_for_containment() -> bool:
+	return rain_sac_destroyed and mobility_frame_destroyed and _is_in_containment_zone()
+
+
+func can_be_bolted_down() -> bool:
+	return _is_in_containment_zone() and (rain_sac_destroyed or mobility_frame_destroyed)
+
+
+func get_containment_hint() -> String:
+	if contained:
+		return "It is already bolted down. Cooters is open."
+	if can_be_bolted_down():
+		return "It is hurt and on the magenta pad. Hit E at Cooters to bolt it down."
+	if not rain_sac_destroyed and not mobility_frame_destroyed:
+		return "Shoot the Rain Sac and Mobility Frame, then drag it onto the magenta Cooters pad."
+	if not rain_sac_destroyed:
+		return "Mobility is wrecked. Now rupture the Rain Sac before it drinks more sky."
+	if not mobility_frame_destroyed:
+		return "Rain Sac is ruptured. Now break the Mobility Frame so it cannot crawl out."
+	if not _is_in_containment_zone():
+		return "Both key parts are broken. Lure it onto the magenta Cooters pad, then hit E at the door."
+	return "Both key parts are broken and it is on the pad. Hit E at Cooters to bolt it down."
+
+
+func _check_containment() -> void:
+	if contained:
+		return
+	if can_be_bolted_down():
+		containment_ready.emit()
+
+
+func _is_in_containment_zone() -> bool:
+	var flat_position := Vector2(global_position.x, global_position.z)
+	var flat_center := Vector2(containment_center.x, containment_center.z)
+	return flat_position.distance_to(flat_center) <= containment_radius
+
+
+func _regenerate_parts(delta: float) -> void:
+	for child in parts_root.get_children():
+		var part := child as BodyPart
+		if part == null or part.is_destroyed:
+			continue
+		part.current_hp = minf(part.max_hp, part.current_hp + rain_regen_per_second * delta)

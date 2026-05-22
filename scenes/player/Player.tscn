@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://gatebox_player"]
+
+[ext_resource type="Script" path="res://scripts/player/PlayerController.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/player/PlayerTargeting.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/weapons/ScrapPistol.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/player/PlayerHealth.gd" id="4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.35
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+unique_name_in_owner = true
+current = true
+fov = 78.0
+
+[node name="WeaponMount" type="Node3D" parent="CameraPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.14, -0.55)
+
+[node name="ScrapPistol" parent="CameraPivot/Camera3D/WeaponMount" instance=ExtResource("3")]
+
+[node name="PlayerTargeting" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2")
+camera = NodePath("../CameraPivot/Camera3D")
+
+[node name="PlayerHealth" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4")

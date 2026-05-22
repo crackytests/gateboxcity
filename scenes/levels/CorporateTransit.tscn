@@ -1,0 +1,200 @@
+[gd_scene load_steps=23 format=3 uid="uid://corporate_transit"]
+
+[ext_resource type="Script" path="res://scripts/systems/CorporateTransit.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/GoonMaterial.tscn" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="99"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.012, 0.016, 0.02, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.1, 0.14, 0.16, 1)
+ambient_light_energy = 0.5
+fog_enabled = true
+fog_light_color = Color(0.1, 0.22, 0.26, 1)
+fog_density = 0.018
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.045, 0.052, 0.058, 1)
+roughness = 0.82
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.035, 0.045, 0.055, 1)
+emission_enabled = true
+emission = Color(0.02, 0.12, 0.16, 1)
+emission_energy_multiplier = 0.28
+
+[sub_resource type="StandardMaterial3D" id="RailMat"]
+albedo_color = Color(0.02, 0.08, 0.09, 1)
+emission_enabled = true
+emission = Color(0.08, 0.95, 0.8, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="StandardMaterial3D" id="WarningMat"]
+albedo_color = Color(0.24, 0.025, 0.13, 1)
+emission_enabled = true
+emission = Color(1, 0.09, 0.65, 1)
+emission_energy_multiplier = 1.25
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(18, 0.4, 20)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(18, 0.4, 20)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(18, 3.4, 0.35)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(18, 3.4, 0.35)
+
+[sub_resource type="BoxShape3D" id="WallShortShape"]
+size = Vector3(0.35, 3.4, 20)
+
+[sub_resource type="BoxMesh" id="WallShortMesh"]
+size = Vector3(0.35, 3.4, 20)
+
+[sub_resource type="CylinderMesh" id="RailMesh"]
+top_radius = 0.08
+bottom_radius = 0.08
+height = 16.0
+
+[sub_resource type="BoxShape3D" id="TerminalShape"]
+size = Vector3(1.6, 1.7, 1.4)
+
+[sub_resource type="BoxMesh" id="TerminalMesh"]
+size = Vector3(1.1, 1.0, 0.32)
+
+[sub_resource type="BoxShape3D" id="ExitShape"]
+size = Vector3(2.4, 2.8, 1.0)
+
+[sub_resource type="BoxMesh" id="ExitMesh"]
+size = Vector3(2.4, 2.8, 0.18)
+
+[node name="CorporateTransit" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 7.2)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+
+[node name="TransitGuard" parent="." instance=ExtResource("4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95, -4.2)
+move_speed = 1.55
+ranged_range = 9.5
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/NorthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/NorthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/SouthWall"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/SouthWall"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/WestWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/WestWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EastWall"]
+shape = SubResource("WallShortShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EastWall"]
+mesh = SubResource("WallShortMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="RailA" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.6, 0.08, -0.6)
+mesh = SubResource("RailMesh")
+surface_material_override/0 = SubResource("RailMat")
+
+[node name="RailB" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.6, 0.08, -0.6)
+mesh = SubResource("RailMesh")
+surface_material_override/0 = SubResource("RailMat")
+
+[node name="RailConsole" type="Area3D" parent="." groups=["transit_interactable"]]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -6.8, 0.95, -5.8)
+script = ExtResource("6")
+interactable_id = "rail_console"
+prompt_text = "Press E: access rail console"
+display_name = "Rail Console"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailConsole"]
+shape = SubResource("TerminalShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RailConsole"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("RailMat")
+
+[node name="MallReturnGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 1.4, 7.4)
+script = ExtResource("5")
+prompt_text = "Press E: return to Mall"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MallReturnGate"]
+shape = SubResource("ExitShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MallReturnGate"]
+mesh = SubResource("ExitMesh")
+surface_material_override/0 = SubResource("WarningMat")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0, 6, 0)
+light_energy = 0.45
+
+[node name="ConsoleLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8, 2.1, -5.8)
+light_color = Color(0.08, 1, 0.8, 1)
+light_energy = 2.1
+omni_range = 6.0
+
+[node name="ReturnLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 2.4, 7.4)
+light_color = Color(1, 0.09, 0.65, 1)
+light_energy = 2.0
+omni_range = 6.0
+
+[node name="LevelDresser" type="Node3D" parent="."]
+script = ExtResource("99")
+theme = "transit"
