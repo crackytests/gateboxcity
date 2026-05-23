@@ -3,7 +3,7 @@ set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 EXPORT_PRESETS="$PROJECT_ROOT/export_presets.cfg"
-BUILD_DIR="$PROJECT_ROOT/build"
+BUILD_DIR="build"
 
 WINDOWS_PRESET="${WINDOWS_PRESET:-CI Windows Desktop}"
 LINUX_PRESET="${LINUX_PRESET:-CI Linux}"
@@ -36,6 +36,7 @@ fi
 require_preset "$WINDOWS_PRESET"
 require_preset "$LINUX_PRESET"
 
+cd "$PROJECT_ROOT"
 mkdir -p "$BUILD_DIR/windows" "$BUILD_DIR/linux"
 
 echo "Using Redot: $REDOT_BIN"
