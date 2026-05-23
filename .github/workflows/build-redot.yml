@@ -1,0 +1,324 @@
+name: Build Redot
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PROJECT_FILE: project.godot
+  REDOT_RELEASE_TAG: redot-26.1-stable
+  REDOT_RELEASE_API: https://api.github.com/repos/Redot-Engine/redot-engine/releases/tags/redot-26.1-stable
+  REDOT_EDITOR_URL: ${{ vars.REDOT_EDITOR_URL }}
+  REDOT_EXPORT_TEMPLATES_URL: ${{ vars.REDOT_EXPORT_TEMPLATES_URL }}
+
+jobs:
+  export:
+    name: Import and export desktop builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Detect project Redot version and export presets
+        id: project
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          project = Path("project.godot").read_text(encoding="utf-8")
+          features_match = re.search(r'config/features=PackedStringArray\((.*?)\)', project, re.S)
+          features = []
+          if features_match:
+              features = re.findall(r'"([^"]+)"', features_match.group(1))
+
+          version = next((feature for feature in features if re.fullmatch(r"\d+(?:\.\d+)+", feature)), "")
+          is_redot = any(feature.lower() == "redot" for feature in features)
+          if not version or not is_redot:
+              raise SystemExit(f"Could not detect a Redot version from project features: {features}")
+
+          presets_path = Path("export_presets.cfg")
+          preset_names = []
+          if presets_path.exists():
+              presets = presets_path.read_text(encoding="utf-8")
+              preset_names = re.findall(r'^name="([^"]+)"', presets, re.M)
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              print(f"redot_version={version}", file=output)
+              print(f"has_export_presets={str(presets_path.exists()).lower()}", file=output)
+              print(f"preset_names={', '.join(preset_names)}", file=output)
+
+          print(f"Detected Redot {version}")
+          if preset_names:
+              print("Export presets: " + ", ".join(preset_names))
+          else:
+              print("No export presets found; CI presets will be generated for this run.")
+          PY
+
+      - name: Install host tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y unzip
+
+      - name: Resolve Redot download URLs
+        id: downloads
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import urllib.request
+
+          editor_url = os.environ.get("REDOT_EDITOR_URL", "").strip()
+          templates_url = os.environ.get("REDOT_EXPORT_TEMPLATES_URL", "").strip()
+
+          if not editor_url or not templates_url:
+              request = urllib.request.Request(
+                  os.environ["REDOT_RELEASE_API"],
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  release = json.load(response)
+
+              assets = release.get("assets", [])
+              if not editor_url:
+                  editor_asset = next(
+                      (
+                          asset for asset in assets
+                          if re.search(r"linux.*(x86_64|x64)", asset["name"], re.I)
+                          and asset["name"].lower().endswith(".zip")
+                          and "mono" not in asset["name"].lower()
+                      ),
+                      None,
+                  )
+                  if not editor_asset:
+                      raise SystemExit("Could not find a non-Mono Linux x86_64 Redot editor ZIP in the release assets.")
+                  editor_url = editor_asset["browser_download_url"]
+
+              if not templates_url:
+                  templates_asset = next(
+                      (
+                          asset for asset in assets
+                          if "export_templates" in asset["name"].lower()
+                          and asset["name"].lower().endswith(".tpz")
+                          and "mono" not in asset["name"].lower()
+                      ),
+                      None,
+                  )
+                  if not templates_asset:
+                      raise SystemExit("Could not find a non-Mono Redot export templates TPZ in the release assets.")
+                  templates_url = templates_asset["browser_download_url"]
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              print(f"editor_url={editor_url}", file=output)
+              print(f"templates_url={templates_url}", file=output)
+
+          print(f"Editor URL: {editor_url}")
+          print(f"Templates URL: {templates_url}")
+          PY
+
+      - name: Download Redot editor and export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p "$RUNNER_TEMP/redot-editor" "$RUNNER_TEMP/redot-templates"
+          curl -L --fail --retry 3 --output "$RUNNER_TEMP/redot-editor.zip" "${{ steps.downloads.outputs.editor_url }}"
+          curl -L --fail --retry 3 --output "$RUNNER_TEMP/redot-templates.tpz" "${{ steps.downloads.outputs.templates_url }}"
+
+          unzip -q "$RUNNER_TEMP/redot-editor.zip" -d "$RUNNER_TEMP/redot-editor"
+          unzip -q "$RUNNER_TEMP/redot-templates.tpz" -d "$RUNNER_TEMP/redot-templates"
+
+          editor_bin="$(find "$RUNNER_TEMP/redot-editor" -type f -perm -111 | grep -Ei '/(redot|godot)' | head -n 1)"
+          if [[ -z "$editor_bin" ]]; then
+            echo "Could not locate the Redot editor binary after extraction." >&2
+            find "$RUNNER_TEMP/redot-editor" -maxdepth 3 -type f >&2
+            exit 1
+          fi
+
+          chmod +x "$editor_bin"
+          echo "$RUNNER_TEMP/redot-editor" >> "$GITHUB_PATH"
+          echo "REDOT_BIN=$editor_bin" >> "$GITHUB_ENV"
+          "$editor_bin" --headless --version
+
+      - name: Install export templates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          template_version="$("$REDOT_BIN" --headless --version | awk '{print $1}')"
+          templates_source="$RUNNER_TEMP/redot-templates/templates"
+          if [[ ! -d "$templates_source" ]]; then
+            templates_source="$RUNNER_TEMP/redot-templates"
+          fi
+
+          redot_templates_dir="$HOME/.local/share/redot/export_templates/$template_version"
+          godot_templates_dir="$HOME/.local/share/godot/export_templates/$template_version"
+          mkdir -p "$redot_templates_dir" "$godot_templates_dir"
+          cp -R "$templates_source"/. "$redot_templates_dir"/
+          cp -R "$templates_source"/. "$godot_templates_dir"/
+
+          echo "Installed export templates for $template_version"
+
+      - name: Generate CI export presets if the project has none
+        if: steps.project.outputs.has_export_presets == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cat > export_presets.cfg <<'EOF'
+          [preset.0]
+
+          name="CI Windows Desktop"
+          platform="Windows Desktop"
+          runnable=true
+          dedicated_server=false
+          custom_features=""
+          export_filter="all_resources"
+          include_filter=""
+          exclude_filter=""
+          export_path="build/windows/GATEBOX_BREACH.exe"
+          encryption_include_filters=""
+          encryption_exclude_filters=""
+          encrypt_pck=false
+          encrypt_directory=false
+          script_export_mode=2
+
+          [preset.0.options]
+
+          custom_template/debug=""
+          custom_template/release=""
+          debug/export_console_wrapper=1
+          binary_format/embed_pck=true
+          texture_format/bptc=true
+          texture_format/s3tc=true
+          codesign/enable=false
+          application/modify_resources=true
+          application/icon=""
+          application/console_wrapper_icon=""
+          application/file_version=""
+          application/product_version=""
+          application/company_name=""
+          application/product_name="GATEBOX BREACH"
+          application/file_description=""
+          application/copyright=""
+          application/trademarks=""
+          ssh_remote_deploy/enabled=false
+
+          [preset.1]
+
+          name="CI Linux"
+          platform="Linux/X11"
+          runnable=true
+          dedicated_server=false
+          custom_features=""
+          export_filter="all_resources"
+          include_filter=""
+          exclude_filter=""
+          export_path="build/linux/GATEBOX_BREACH.x86_64"
+          encryption_include_filters=""
+          encryption_exclude_filters=""
+          encrypt_pck=false
+          encrypt_directory=false
+          script_export_mode=2
+
+          [preset.1.options]
+
+          custom_template/debug=""
+          custom_template/release=""
+          debug/export_console_wrapper=1
+          binary_format/embed_pck=true
+          texture_format/bptc=true
+          texture_format/s3tc=true
+          ssh_remote_deploy/enabled=false
+          EOF
+
+      - name: Select desktop export presets
+        id: presets
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          text = Path("export_presets.cfg").read_text(encoding="utf-8")
+          blocks = re.split(r'(?=^\[preset\.\d+\]\s*$)', text, flags=re.M)
+          presets = []
+          for block in blocks:
+              name = re.search(r'^name="([^"]+)"', block, re.M)
+              platform = re.search(r'^platform="([^"]+)"', block, re.M)
+              if name and platform:
+                  presets.append((name.group(1), platform.group(1)))
+
+          windows = next((name for name, platform in presets if "windows" in platform.lower()), "")
+          linux = next((name for name, platform in presets if "linux" in platform.lower()), "")
+          if not windows or not linux:
+              raise SystemExit(f"Could not find both Windows and Linux export presets. Found: {presets}")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              print(f"windows={windows}", file=output)
+              print(f"linux={linux}", file=output)
+
+          print(f"Windows preset: {windows}")
+          print(f"Linux preset: {linux}")
+          PY
+
+      - name: Run headless project import
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$REDOT_BIN" --headless --path "$GITHUB_WORKSPACE" --editor --quit
+
+      - name: Export Windows build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/windows
+          "$REDOT_BIN" --headless --path "$GITHUB_WORKSPACE" --export-release "${{ steps.presets.outputs.windows }}" "build/windows/GATEBOX_BREACH.exe"
+
+      - name: Export Linux build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/linux
+          "$REDOT_BIN" --headless --path "$GITHUB_WORKSPACE" --export-release "${{ steps.presets.outputs.linux }}" "build/linux/GATEBOX_BREACH.x86_64"
+          chmod +x build/linux/GATEBOX_BREACH.x86_64
+
+      - name: Upload Windows build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gatebox-breach-windows
+          path: build/windows
+          if-no-files-found: error
+
+      - name: Upload Linux build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gatebox-breach-linux
+          path: build/linux
+          if-no-files-found: error
