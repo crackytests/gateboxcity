@@ -300,6 +300,8 @@ jobs:
           custom_template/debug=""
           custom_template/release=""
           debug/export_console_wrapper=1
+          texture_format/s3tc_bptc=true
+          texture_format/etc2_astc=true
           binary_format/architecture="universal"
           application/icon=""
           application/bundle_identifier="com.gateboxbreach.game"
@@ -387,7 +389,7 @@ jobs:
           from pathlib import Path
 
           path = Path("project.godot")
-          setting = "rendering/textures/vram_compression/import_etc2_astc=true"
+          setting = "textures/vram_compression/import_etc2_astc=true"
           text = path.read_text(encoding="utf-8")
           if setting in text:
               raise SystemExit(0)
