@@ -274,6 +274,107 @@ jobs:
           shader_baker/enabled=false
           binary_format/architecture="x86_64"
           ssh_remote_deploy/enabled=false
+
+          [preset.2]
+
+          name="CI macOS"
+          platform="macOS"
+          runnable=true
+          advanced_options=false
+          dedicated_server=false
+          custom_features=""
+          export_filter="all_resources"
+          include_filter=""
+          exclude_filter=""
+          export_path="build/macos/GATEBOX_BREACH.zip"
+          patches=PackedStringArray()
+          encryption_include_filters=""
+          encryption_exclude_filters=""
+          seed=0
+          encrypt_pck=false
+          encrypt_directory=false
+          script_export_mode=2
+
+          [preset.2.options]
+
+          custom_template/debug=""
+          custom_template/release=""
+          debug/export_console_wrapper=1
+          application/icon=""
+          application/bundle_identifier="com.gateboxbreach.game"
+          application/signature=""
+          application/app_category="Games"
+          application/short_version="1.0"
+          application/version="1.0"
+          application/copyright=""
+          application/copyright_localized={}
+          application/min_macos_version="10.12"
+          display/high_res=false
+          xcode/platform_build="14C18"
+          xcode/sdk_version="13.1"
+          xcode/sdk_build="22C55"
+          xcode/sdk_name="macosx13.1"
+          xcode/xcode_version="1420"
+          xcode/xcode_build="14C18"
+          codesign/codesign=0
+          codesign/installer_identity=""
+          codesign/apple_team_id=""
+          codesign/identity=""
+          codesign/certificate_file=""
+          codesign/certificate_password=""
+          codesign/provisioning_profile=""
+          codesign/custom_file=""
+          codesign/allow_jit_code_execution=false
+          codesign/allow_unsigned_executable_memory=false
+          codesign/allow_dyld_environment_variables=false
+          codesign/disable_library_validation=false
+          codesign/audio_input=false
+          codesign/camera=false
+          codesign/location=false
+          codesign/address_book=false
+          codesign/calendars=false
+          codesign/photos_library=false
+          codesign/apple_events=false
+          codesign/debugging=false
+          codesign/app_sandbox/enabled=false
+          codesign/app_sandbox/network_server=false
+          codesign/app_sandbox/network_client=false
+          codesign/app_sandbox/device_usb=false
+          codesign/app_sandbox/device_bluetooth=false
+          codesign/app_sandbox/files_downloads=0
+          codesign/app_sandbox/files_pictures=0
+          codesign/app_sandbox/files_music=0
+          codesign/app_sandbox/files_movies=0
+          codesign/app_sandbox/helper_executables=[]
+          notarization/notarization=0
+          notarization/apple_id_name=""
+          notarization/apple_id_password=""
+          notarization/api_uuid=""
+          notarization/api_key=""
+          notarization/api_key_id=""
+          privacy/microphone_usage_description=""
+          privacy/microphone_usage_description_localized={}
+          privacy/camera_usage_description=""
+          privacy/camera_usage_description_localized={}
+          privacy/location_usage_description=""
+          privacy/location_usage_description_localized={}
+          privacy/address_book_usage_description=""
+          privacy/address_book_usage_description_localized={}
+          privacy/calendar_usage_description=""
+          privacy/calendar_usage_description_localized={}
+          privacy/photos_library_usage_description=""
+          privacy/photos_library_usage_description_localized={}
+          privacy/desktop_folder_usage_description=""
+          privacy/desktop_folder_usage_description_localized={}
+          privacy/documents_folder_usage_description=""
+          privacy/documents_folder_usage_description_localized={}
+          privacy/downloads_folder_usage_description=""
+          privacy/downloads_folder_usage_description_localized={}
+          privacy/network_volumes_usage_description=""
+          privacy/network_volumes_usage_description_localized={}
+          privacy/removable_volumes_usage_description=""
+          privacy/removable_volumes_usage_description_localized={}
+          ssh_remote_deploy/enabled=false
           EOF
 
       - name: Select desktop export presets
@@ -298,15 +399,18 @@ jobs:
 
           windows = next((name for name, platform in presets if "windows" in platform.lower()), "")
           linux = next((name for name, platform in presets if "linux" in platform.lower()), "")
-          if not windows or not linux:
-              raise SystemExit(f"Could not find both Windows and Linux export presets. Found: {presets}")
+          macos = next((name for name, platform in presets if "macos" in platform.lower()), "")
+          if not windows or not linux or not macos:
+              raise SystemExit(f"Could not find Windows, Linux, and macOS export presets. Found: {presets}")
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               print(f"windows={windows}", file=output)
               print(f"linux={linux}", file=output)
+              print(f"macos={macos}", file=output)
 
           print(f"Windows preset: {windows}")
           print(f"Linux preset: {linux}")
+          print(f"macOS preset: {macos}")
           PY
 
       - name: Run headless project import
@@ -330,6 +434,13 @@ jobs:
           "$REDOT_BIN" --headless --path "$GITHUB_WORKSPACE" --export-release "${{ steps.presets.outputs.linux }}" "build/linux/GATEBOX_BREACH.x86_64"
           chmod +x build/linux/GATEBOX_BREACH.x86_64
 
+      - name: Export macOS build
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/macos
+          "$REDOT_BIN" --headless --path "$GITHUB_WORKSPACE" --export-release "${{ steps.presets.outputs.macos }}" "build/macos/GATEBOX_BREACH.zip"
+
       - name: Package release archives
         shell: bash
         run: |
@@ -337,6 +448,7 @@ jobs:
           mkdir -p dist
           (cd build/windows && zip -r "$GITHUB_WORKSPACE/dist/GATEBOX_BREACH-windows-${GITHUB_REF_NAME}.zip" .)
           (cd build/linux && zip -r "$GITHUB_WORKSPACE/dist/GATEBOX_BREACH-linux-${GITHUB_REF_NAME}.zip" .)
+          cp build/macos/GATEBOX_BREACH.zip "$GITHUB_WORKSPACE/dist/GATEBOX_BREACH-macos-${GITHUB_REF_NAME}.zip"
 
       - name: Upload Windows build artifact
         uses: actions/upload-artifact@v4
@@ -350,6 +462,13 @@ jobs:
         with:
           name: gatebox-breach-linux
           path: build/linux
+          if-no-files-found: error
+
+      - name: Upload macOS build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gatebox-breach-macos
+          path: build/macos
           if-no-files-found: error
 
       - name: Publish GitHub release

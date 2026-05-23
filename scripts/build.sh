@@ -7,6 +7,7 @@ BUILD_DIR="build"
 
 WINDOWS_PRESET="${WINDOWS_PRESET:-CI Windows Desktop}"
 LINUX_PRESET="${LINUX_PRESET:-CI Linux}"
+MACOS_PRESET="${MACOS_PRESET:-CI macOS}"
 
 fail() {
   echo "build.sh: $*" >&2
@@ -17,7 +18,7 @@ require_preset() {
   local preset_name="$1"
 
   if ! grep -Eq '^name="'"$(printf '%s' "$preset_name" | sed 's/[][\\.^$*+?{}|()]/\\&/g')"'"$' "$EXPORT_PRESETS"; then
-    fail "export preset '$preset_name' was not found in export_presets.cfg. Set WINDOWS_PRESET or LINUX_PRESET to an existing preset name."
+    fail "export preset '$preset_name' was not found in export_presets.cfg. Set WINDOWS_PRESET, LINUX_PRESET, or MACOS_PRESET to an existing preset name."
   fi
 }
 
@@ -35,9 +36,10 @@ fi
 
 require_preset "$WINDOWS_PRESET"
 require_preset "$LINUX_PRESET"
+require_preset "$MACOS_PRESET"
 
 cd "$PROJECT_ROOT"
-mkdir -p "$BUILD_DIR/windows" "$BUILD_DIR/linux"
+mkdir -p "$BUILD_DIR/windows" "$BUILD_DIR/linux" "$BUILD_DIR/macos"
 
 echo "Using Redot: $REDOT_BIN"
 "$REDOT_BIN" --headless --version
@@ -52,6 +54,10 @@ echo "Exporting Linux build with preset '$LINUX_PRESET'..."
 "$REDOT_BIN" --headless --path "$PROJECT_ROOT" --export-release "$LINUX_PRESET" "$BUILD_DIR/linux/GATEBOX_BREACH.x86_64"
 chmod +x "$BUILD_DIR/linux/GATEBOX_BREACH.x86_64"
 
+echo "Exporting macOS build with preset '$MACOS_PRESET'..."
+"$REDOT_BIN" --headless --path "$PROJECT_ROOT" --export-release "$MACOS_PRESET" "$BUILD_DIR/macos/GATEBOX_BREACH.zip"
+
 echo "Builds written to:"
 echo "  $BUILD_DIR/windows"
 echo "  $BUILD_DIR/linux"
+echo "  $BUILD_DIR/macos"

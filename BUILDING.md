@@ -19,6 +19,7 @@ By default, the script looks for these export preset names:
 ```bash
 CI Windows Desktop
 CI Linux
+CI macOS
 ```
 
 Override them if your local presets use different names:
@@ -26,11 +27,12 @@ Override them if your local presets use different names:
 ```bash
 REDOT_BIN=/path/to/redot \
 WINDOWS_PRESET="Windows Desktop" \
-LINUX_PRESET="Linux/X11" \
+LINUX_PRESET="Linux" \
+MACOS_PRESET="macOS" \
 ./scripts/build.sh
 ```
 
-The script fails before exporting if Redot is missing, `export_presets.cfg` is missing, or either preset name cannot be found.
+The script fails before exporting if Redot is missing, `export_presets.cfg` is missing, or any preset name cannot be found.
 
 ## GitHub Actions
 
@@ -48,11 +50,13 @@ The workflow:
 - reports whether `export_presets.cfg` exists and lists preset names when present
 - downloads the Redot 26.1 editor and export templates from the Redot GitHub release
 - imports the project headlessly
-- exports Windows and Linux builds
-- uploads both builds as GitHub Actions artifacts
+- exports Windows, Linux, and macOS builds
+- uploads all builds as GitHub Actions artifacts
 - publishes a GitHub Release with zipped builds when the run was triggered by a `v*` tag
 
-If `export_presets.cfg` is not committed, CI generates temporary Windows and Linux presets for that run. Local builds do not do this; they require your real presets.
+If `export_presets.cfg` is not committed, CI generates temporary Windows, Linux, and macOS presets for that run. Local builds do not do this; they require your real presets.
+
+macOS exports are unsigned by default. Playtesters may need to right-click Open or approve the app in macOS security settings. Public distribution without warnings requires Apple code signing and notarization.
 
 ## Updating Redot
 
@@ -90,7 +94,7 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-The GitHub Action will build Windows and Linux, package each target as a zip, create a GitHub Release named after the tag, and attach the zip files.
+The GitHub Action will build Windows, Linux, and macOS, package each target as a zip, create a GitHub Release named after the tag, and attach the zip files.
 
 Use a new tag for each public build. If you need to replace a broken release, delete or move the tag intentionally, then rerun the workflow.
 
