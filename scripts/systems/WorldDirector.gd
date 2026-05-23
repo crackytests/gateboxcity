@@ -51,6 +51,44 @@ const EVENTS := {
 	},
 }
 
+const TRAVEL_EVENT_CARDS := [
+	{
+		"id": "clear",
+		"title": "Clear Run",
+		"event": EVENT_CLEAR,
+		"weight": 3,
+		"text": "The route opens clean. The fake sky watches without spending weather.",
+	},
+	{
+		"id": "toxic_rain",
+		"title": "Toxic Rain",
+		"event": EVENT_TOXIC_RAIN,
+		"weight": 2,
+		"text": "The ceiling starts leaking industrial weather before you reach the turnstiles.",
+	},
+	{
+		"id": "power_sag",
+		"title": "Power Sag",
+		"event": EVENT_POWER_SAG,
+		"weight": 2,
+		"text": "The grid coughs. Streetlights dim and every terminal sounds like it owes money.",
+	},
+	{
+		"id": "lan_outage",
+		"title": "LAN Outage",
+		"event": EVENT_LAN_OUTAGE,
+		"weight": 1,
+		"text": "Hoodlum packets flood the route. Cameras blink out in suspiciously useful order.",
+	},
+	{
+		"id": "quiet_shortcut",
+		"title": "Quiet Shortcut",
+		"event": EVENT_CLEAR,
+		"weight": 1,
+		"text": "A maintenance door gives up. No one admits they saw you use it.",
+	},
+]
+
 const FACTIONS := {
 	"System X": {
 		"stance": "improvisation over control",
@@ -141,6 +179,30 @@ func trigger_event(event_id: String) -> void:
 
 func clear_event() -> void:
 	trigger_event(EVENT_CLEAR)
+
+
+func roll_travel_event(route_id: String) -> Dictionary:
+	var total_weight := 0
+	for card in TRAVEL_EVENT_CARDS:
+		total_weight += int(card.get("weight", 1))
+
+	var roll := randi_range(1, maxi(total_weight, 1))
+	var cursor := 0
+	var selected: Dictionary = TRAVEL_EVENT_CARDS[0].duplicate(true)
+	for card in TRAVEL_EVENT_CARDS:
+		cursor += int(card.get("weight", 1))
+		if roll <= cursor:
+			selected = card.duplicate(true)
+			break
+
+	var event_id := str(selected.get("event", EVENT_CLEAR))
+	if EVENTS.has(event_id):
+		trigger_event(event_id)
+	selected["route_id"] = route_id
+	GameState.set_world_flag("last_travel_event", str(selected.get("id", "")))
+	GameState.set_world_flag("last_travel_event_title", str(selected.get("title", "")))
+	GameState.set_world_flag("last_travel_route", route_id)
+	return selected
 
 
 func set_generator_state(state: String) -> void:

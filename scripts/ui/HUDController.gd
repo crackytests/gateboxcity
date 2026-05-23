@@ -22,6 +22,8 @@ class_name HUDController
 @onready var inventory_ui = %InventoryUI
 @onready var cybernetic_ui = %CyberneticSurgeryUI
 @onready var hack_ui = %HackMinigameUI
+@onready var job_board_ui = %JobBoardUI
+@onready var travel_gate_ui = %TravelGateUI
 
 var damage_flash_timer := 0.0
 
@@ -44,13 +46,19 @@ func _process(delta: float) -> void:
 func is_panel_open() -> bool:
 	return (inventory_ui != null and inventory_ui.is_open()) or \
 		(cybernetic_ui != null and cybernetic_ui.is_open()) or \
-		(hack_ui != null and hack_ui.is_open())
+		(hack_ui != null and hack_ui.is_open()) or \
+		(job_board_ui != null and job_board_ui.is_open()) or \
+		(travel_gate_ui != null and travel_gate_ui.is_open())
 
 
 func toggle_inventory() -> void:
 	if cybernetic_ui != null and cybernetic_ui.is_open():
 		return
 	if hack_ui != null and hack_ui.is_open():
+		return
+	if job_board_ui != null and job_board_ui.is_open():
+		return
+	if travel_gate_ui != null and travel_gate_ui.is_open():
 		return
 	if inventory_ui == null:
 		return
@@ -63,6 +71,10 @@ func toggle_inventory() -> void:
 func open_cybernetics(available_upgrades: Array[Dictionary] = []) -> void:
 	if inventory_ui != null and inventory_ui.is_open():
 		inventory_ui.close()
+	if job_board_ui != null and job_board_ui.is_open():
+		job_board_ui.close()
+	if travel_gate_ui != null and travel_gate_ui.is_open():
+		travel_gate_ui.close()
 	if cybernetic_ui == null:
 		return
 	cybernetic_ui.open(GameState.cybernetics, available_upgrades)
@@ -73,9 +85,41 @@ func start_hack(difficulty: int) -> void:
 		inventory_ui.close()
 	if cybernetic_ui != null and cybernetic_ui.is_open():
 		cybernetic_ui.close()
+	if job_board_ui != null and job_board_ui.is_open():
+		job_board_ui.close()
+	if travel_gate_ui != null and travel_gate_ui.is_open():
+		travel_gate_ui.close()
 	if hack_ui == null:
 		return
 	hack_ui.open(difficulty)
+
+
+func open_job_board(jobs: Array, active_job_id: String) -> void:
+	if inventory_ui != null and inventory_ui.is_open():
+		inventory_ui.close()
+	if cybernetic_ui != null and cybernetic_ui.is_open():
+		cybernetic_ui.close()
+	if hack_ui != null and hack_ui.is_open():
+		hack_ui.close()
+	if travel_gate_ui != null and travel_gate_ui.is_open():
+		travel_gate_ui.close()
+	if job_board_ui == null:
+		return
+	job_board_ui.open(jobs, active_job_id)
+
+
+func open_travel_gate(routes: Array) -> void:
+	if inventory_ui != null and inventory_ui.is_open():
+		inventory_ui.close()
+	if cybernetic_ui != null and cybernetic_ui.is_open():
+		cybernetic_ui.close()
+	if hack_ui != null and hack_ui.is_open():
+		hack_ui.close()
+	if job_board_ui != null and job_board_ui.is_open():
+		job_board_ui.close()
+	if travel_gate_ui == null:
+		return
+	travel_gate_ui.open(routes)
 
 
 func update_targeting(part: BodyPart, lock_ratio: float, hit_chance: float) -> void:

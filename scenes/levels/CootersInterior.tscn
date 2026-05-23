@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cooters_interior"]
+[gd_scene load_steps=32 format=3 uid="uid://cooters_interior"]
 
 [ext_resource type="Script" path="res://scripts/systems/CootersInterior.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/systems/NPCDialogue.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="6"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="15"]
 [ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_back.png" id="7"]
 [ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_back_left.png" id="8"]
 [ext_resource type="Texture2D" path="res://assets/sprites/marbles/marbles_left.png" id="9"]
@@ -158,6 +159,20 @@ surface_material_override/0 = SubResource("NeonPink")
 transform = Transform3D(1, 0, 0, 0, 1.6, 0, 0, 0, 1, 4.8, 1.0, -2.8)
 mesh = SubResource("SignMesh")
 surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="JobBoard" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0.999998, 0, 0, 0, 1, 0, 0, 0, 0.999998, -3.95, 1.25, -4.0)
+script = ExtResource("15")
+interactable_id = "cooters_job_board"
+prompt_text = "Press E: browse Cooters jobs"
+display_name = "Cooters Job Board"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JobBoard"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="JobBoard"]
+mesh = SubResource("SignMesh")
+surface_material_override/0 = SubResource("NeonPink")
 
 [node name="Marbles" type="Area3D" parent="." groups=["npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -2.9)

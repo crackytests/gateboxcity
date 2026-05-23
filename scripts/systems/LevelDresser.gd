@@ -439,19 +439,19 @@ func _add_arcade_facades(root: Node3D) -> void:
 
 
 func _add_arcade_signs(root: Node3D) -> void:
-	_add_atlas_panel(root, "LeakStreetOverheadSign", Vector3(0.0, 3.05, -17.85), Vector2(4.7, 0.56), 0.0, TEX_SIGNAGE, Rect2(150, 20, 1180, 145), Color(0.0, 1.0, 1.0), 0.5)
-	_add_atlas_panel(root, "CootersBladeSign", Vector3(9.95, 3.42, -10.6), Vector2(2.05, 0.45), -90.0, TEX_SIGNAGE, Rect2(35, 255, 590, 175), Color(1.0, 0.05, 0.7), 0.5)
-	_add_atlas_panel(root, "SuitorsSmallSign", Vector3(-9.95, 3.35, -1.0), Vector2(1.95, 0.45), 90.0, TEX_SIGNAGE, Rect2(680, 255, 620, 170), Color(1.0, 0.05, 0.9), 0.45)
-	_add_atlas_panel(root, "ToraiOfficeSign", Vector3(9.95, 3.35, 8.5), Vector2(2.15, 0.42), -90.0, TEX_SIGNAGE, Rect2(35, 505, 615, 170), Color(0.8, 1.0, 0.1), 0.42)
-	_add_atlas_panel(root, "HoodlumLanSign", Vector3(-9.95, 3.35, -13.8), Vector2(2.0, 0.42), 90.0, TEX_SIGNAGE, Rect2(35, 750, 590, 170), Color(1.0, 0.08, 0.75), 0.44)
-	_add_atlas_panel(root, "SystemXSign", Vector3(9.95, 2.95, 16.0), Vector2(1.8, 0.44), -90.0, TEX_SIGNAGE, Rect2(690, 505, 620, 170), Color(0.0, 0.9, 1.0), 0.42)
-	_add_atlas_panel(root, "PipeChapelSign", Vector3(-9.95, 3.35, 12.2), Vector2(2.05, 0.44), 90.0, TEX_SIGNAGE, Rect2(680, 760, 650, 180), Color(0.0, 0.9, 1.0), 0.4)
-	_add_atlas_panel(root, "RainShelterSignA", Vector3(-3.0, 2.35, 5.2), Vector2(1.35, 0.4), 180.0, TEX_HAZARDS, Rect2(700, 20, 620, 170), Color(0.65, 1.0, 0.15), 0.28)
-	_add_atlas_panel(root, "ToxicRainWallSign", Vector3(10.0, 2.0, -4.0), Vector2(0.7, 1.2), -90.0, TEX_HAZARDS, Rect2(30, 30, 260, 570), Color(0.0, 0.9, 1.0), 0.18)
-	_add_atlas_panel(root, "GridSagWarningSign", Vector3(-10.0, 2.0, 6.0), Vector2(1.25, 0.5), 90.0, TEX_HAZARDS, Rect2(310, 250, 370, 165), Color(1.0, 0.62, 0.04), 0.2)
-	_add_atlas_panel(root, "MaskRequiredSign", Vector3(-10.0, 2.0, -5.5), Vector2(1.35, 0.5), 90.0, TEX_HAZARDS, Rect2(20, 700, 610, 170), Color(1.0, 0.05, 0.7), 0.2)
-	_add_atlas_panel(root, "PropsVendingPanel", Vector3(10.0, 1.35, 13.6), Vector2(0.9, 1.25), -90.0, TEX_PROPS, Rect2(1000, 0, 230, 430), Color(1.0, 0.05, 0.65), 0.2)
-	_add_atlas_panel(root, "PropsServerRackA", Vector3(-10.0, 1.45, -16.0), Vector2(0.72, 1.35), 90.0, TEX_PROPS, Rect2(350, 0, 185, 415), Color(0.0, 0.8, 1.0), 0.16)
+	_add_atlas_panel(root, "LeakStreetOverheadSign", Vector3(0.0, 3.05, -17.85), Vector2(4.7, 0.56), 0.0, TEX_SIGNAGE, Rect2(150, 30, 1180, 215), Color(0.0, 1.0, 1.0), 0.5)
+	_add_atlas_panel(root, "CootersBladeSign", Vector3(9.95, 3.42, -10.6), Vector2(2.05, 0.45), -90.0, TEX_SIGNAGE, Rect2(45, 285, 590, 205), Color(1.0, 0.05, 0.7), 0.5)
+	_add_atlas_panel(root, "SuitorsSmallSign", Vector3(-9.95, 3.35, -1.0), Vector2(1.95, 0.45), 90.0, TEX_SIGNAGE, Rect2(630, 265, 620, 240), Color(1.0, 0.05, 0.9), 0.45)
+	_add_atlas_panel(root, "ToraiOfficeSign", Vector3(9.95, 3.35, 8.5), Vector2(2.15, 0.42), -90.0, TEX_SIGNAGE, Rect2(20, 555, 615, 220), Color(0.8, 1.0, 0.1), 0.42)
+	_add_atlas_panel(root, "HoodlumLanSign", Vector3(-9.95, 3.35, -13.8), Vector2(2.0, 0.42), 90.0, TEX_SIGNAGE, Rect2(33, 761, 590, 250), Color(1.0, 0.08, 0.75), 0.44)
+	_add_atlas_panel(root, "SystemXSign", Vector3(9.95, 2.95, 16.0), Vector2(1.8, 0.44), -90.0, TEX_SIGNAGE, Rect2(630, 525, 620, 220), Color(0.0, 0.9, 1.0), 0.42)
+	_add_atlas_panel(root, "PipeChapelSign", Vector3(-9.95, 3.35, 12.2), Vector2(2.05, 0.44), 90.0, TEX_SIGNAGE, Rect2(670, 760, 650, 220), Color(0.0, 0.9, 1.0), 0.4)
+	_add_atlas_panel(root, "RainShelterSignA", Vector3(-3.0, 2.35, 5.2), Vector2(1.35, 0.4), 180.0, TEX_HAZARDS, Rect2(650, 30, 620, 290), Color(0.65, 1.0, 0.15), 0.28)
+	_add_atlas_panel(root, "ToxicRainWallSign", Vector3(10.0, 2.0, -4.0), Vector2(0.7, 1.2), -90.0, TEX_HAZARDS, Rect2(10, 10, 260, 550), Color(0.0, 0.9, 1.0), 0.18)
+	_add_atlas_panel(root, "GridSagWarningSign", Vector3(-10.0, 2.0, 6.0), Vector2(1.25, 0.5), 90.0, TEX_HAZARDS, Rect2(270, 320, 420, 245), Color(1.0, 0.62, 0.04), 0.2)
+	_add_atlas_panel(root, "MaskRequiredSign", Vector3(-10.0, 2.0, -5.5), Vector2(1.35, 0.5), 90.0, TEX_HAZARDS, Rect2(20, 800, 660, 270), Color(1.0, 0.05, 0.7), 0.2)
+	_add_atlas_panel(root, "PropsVendingPanel", Vector3(10.0, 1.35, 13.6), Vector2(0.9, 1.25), -90.0, TEX_PROPS, Rect2(930, 20, 300, 452), Color(1.0, 0.05, 0.65), 0.2)
+	_add_atlas_panel(root, "PropsServerRackA", Vector3(-10.0, 1.45, -16.0), Vector2(0.72, 1.35), 90.0, TEX_PROPS, Rect2(450, 10, 315, 455), Color(0.0, 0.8, 1.0), 0.16)
 
 
 func _add_arcade_depth_silhouettes(root: Node3D) -> void:

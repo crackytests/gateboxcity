@@ -7,6 +7,7 @@ extends Node3D
 
 var focused_npc: NPCDialogue
 var focused_exit: MissionExit
+var focused_interactable: WardInteractable
 
 
 func _ready() -> void:
@@ -22,6 +23,10 @@ func _ready() -> void:
 		npc.focus_changed.connect(_on_npc_focus_changed)
 	for mission_exit in get_tree().get_nodes_in_group("mission_exit"):
 		mission_exit.focus_changed.connect(_on_exit_focus_changed)
+	for interactable in get_tree().get_nodes_in_group("district_interactable"):
+		interactable.focus_changed.connect(_on_interactable_focus_changed)
+	if hud.job_board_ui != null and not hud.job_board_ui.job_accepted.is_connected(_on_job_board_accepted):
+		hud.job_board_ui.job_accepted.connect(_on_job_board_accepted)
 
 	_refresh_hud()
 	hud.show_dialogue("Marbles", "Welcome to Cooters. No fighting the contained rain mutant unless it starts a tab.")
@@ -38,7 +43,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _handle_interact() -> void:
+	if focused_interactable != null:
+		_handle_interactable(focused_interactable)
+		return
+
 	if focused_npc != null:
+		if focused_npc.npc_name == "Marbles":
+			_handle_marbles()
+			return
 		var line: Dictionary = focused_npc.interact()
 		hud.show_dialogue(str(line["name"]), str(line["text"]))
 		_refresh_hud()
@@ -56,11 +68,58 @@ func _refresh_hud() -> void:
 	hud.set_faction_summary(GameState.get_faction_summary())
 	hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 	hud.set_world_state(WorldDirector.get_hud_summary())
-	hud.set_objective("Cooters: talk to Marbles or return to the district.")
+	hud.set_objective(_get_objective_text())
+
+
+func _handle_interactable(interactable: WardInteractable) -> void:
+	match interactable.interactable_id:
+		"cooters_job_board":
+			hud.open_job_board(GameState.get_available_jobs(), GameState.active_job_id)
+		_:
+			hud.show_dialogue(interactable.display_name, "Cooters has not found a use for that yet.")
+
+
+func _handle_marbles() -> void:
+	var active_job := GameState.get_active_job_data()
+	if active_job.is_empty():
+		hud.show_dialogue("Marbles", "Board is on the wall. Take one job at a time; the building gets jealous if we call it logistics.")
+		_refresh_hud()
+		return
+
+	if GameState.is_job_objective_done(GameState.active_job_id):
+		var paid_job := GameState.complete_active_job()
+		if paid_job.is_empty():
+			hud.show_dialogue("Marbles", "Something about your tab got weird. Try the board again.")
+		else:
+			hud.show_dialogue("Marbles", "Good work. Payment: %s. Do not spend it all on liquids with opinions." % str(paid_job.get("reward_text", "bar credit")))
+			hud.push_log("cooters job paid: %s" % str(paid_job.get("title", "job")).to_lower())
+		_refresh_hud()
+		return
+
+	hud.show_dialogue("Marbles", str(active_job.get("details", active_job.get("objective", "Finish the job and come back breathing."))))
+	_refresh_hud()
+
+
+func _on_job_board_accepted(job_id: String) -> void:
+	if GameState.accept_job(job_id):
+		var job := GameState.get_job_data(job_id)
+		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Use the Leak Street gate, then come back when the job stops moving." % str(job.get("title", job_id)))
+		hud.push_log("cooters job accepted: %s" % str(job.get("title", job_id)).to_lower())
+	else:
+		hud.show_dialogue("Marbles", "One job at a time. Cooters is a bar, not a personality disorder.")
+	_refresh_hud()
+
+
+func _get_objective_text() -> String:
+	if GameState.active_job_id.is_empty():
+		return "Cooters: choose a job from the board or return to Leak Street."
+	return "Cooters job: %s" % GameState.get_active_job_objective_text()
 
 
 func _update_prompt() -> void:
-	if focused_npc != null:
+	if focused_interactable != null:
+		hud.set_prompt(focused_interactable.prompt_text)
+	elif focused_npc != null:
 		hud.set_prompt(focused_npc.prompt_text)
 	elif focused_exit != null:
 		hud.set_prompt(focused_exit.prompt_text)
@@ -75,6 +134,11 @@ func _on_npc_focus_changed(npc: NPCDialogue, has_focus: bool) -> void:
 
 func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 	focused_exit = mission_exit if has_focus else null
+	_update_prompt()
+
+
+func _on_interactable_focus_changed(interactable: WardInteractable, has_focus: bool) -> void:
+	focused_interactable = interactable if has_focus else null
 	_update_prompt()
 
 

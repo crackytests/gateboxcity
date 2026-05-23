@@ -497,6 +497,20 @@ shape = SubResource("GateShape")
 mesh = SubResource("GateMesh")
 surface_material_override/0 = SubResource("NeonMagenta")
 
+[node name="LeakStreetTravelGate" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 16.2)
+script = ExtResource("5")
+interactable_id = "town_exit_gate"
+prompt_text = "Press E: choose route"
+display_name = "Leak Street Travel Gate"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeakStreetTravelGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeakStreetTravelGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonCyan")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.612372, -0.353553, 0.707107, 0.5, 0.866025, 0, -0.612372, 0.353553, 0.707107, 0, 5, 0)
 light_energy = 0.18
@@ -731,10 +745,14 @@ shape = SubResource("NPCShape")
 shape = SubResource("NPCDetectShape")
 
 [node name="Sprite3D" type="Sprite3D" parent="VelvetCoil"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-texture = ExtResource("15")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
 texture_filter = 0
-billboard = 1
+pixel_size = 0.00295
+shaded = false
+double_sided = true
+script = ExtResource("19")
+frame_paths = PackedStringArray("res://assets/sprites/velvet_coil/velvet_coil_back.png", "res://assets/sprites/velvet_coil/velvet_coil_back_left.png", "res://assets/sprites/velvet_coil/velvet_coil_left.png", "res://assets/sprites/velvet_coil/velvet_coil_front_left.png", "res://assets/sprites/velvet_coil/velvet_coil_front.png", "res://assets/sprites/velvet_coil/velvet_coil_front_right.png", "res://assets/sprites/velvet_coil/velvet_coil_right.png", "res://assets/sprites/velvet_coil/velvet_coil_back_right.png")
+idle_bob_height = 0.012
 
 [node name="MisterStatic" type="CharacterBody3D" parent="." groups=["district_npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1, 0.0, 14.0)
@@ -848,7 +866,7 @@ frame_paths = PackedStringArray("res://assets/sprites/sunday/sunday_back.png", "
 idle_bob_height = 0.012
 
 [node name="BrickmouthRonnie" type="CharacterBody3D" parent="." groups=["district_npc"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.4, 0.0, 10.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.0, -14.4)
 collision_layer = 2
 collision_mask = 1
 script = ExtResource("11")
@@ -875,10 +893,14 @@ shape = SubResource("NPCShape")
 shape = SubResource("NPCDetectShape")
 
 [node name="Sprite3D" type="Sprite3D" parent="BrickmouthRonnie"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-texture = ExtResource("18")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0, 0)
 texture_filter = 0
-billboard = 1
+pixel_size = 0.00325
+shaded = false
+double_sided = true
+script = ExtResource("19")
+frame_paths = PackedStringArray("res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back_left.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_left.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front_left.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front_right.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_right.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back_right.png")
+idle_bob_height = 0.012
 
 [node name="LANTerminal" type="Area3D" parent="." groups=["hack_terminal"]]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.0, 0.95, -15.8)

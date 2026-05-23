@@ -21,6 +21,19 @@
 - Velvet Coil's surgery menu now consumes district reward items and installs cybernetics with live gameplay effects.
 - Suitors now has a tiny interior and a surveillance choir hack that maps a persistent blind spot.
 - The district has been visually restructured as **Leak Street**, a specific patchwork settlement lane inside the larger Sub-Sub-Basement.
+- Cooters now has a reusable job board, Marbles job hints/payouts, a Leak Street travel gate, and the first compact job destination: `PipeUtilityTunnels.tscn`.
+
+## Ninth Sprint: Cooters Job Board, Travel Gate, and Pipe Utility Tunnels
+
+### Status: Complete
+
+- Added save-backed Cooters job state to `GameState`: active job, available jobs, completed jobs, and job flags.
+- Added `JobBoardUI` to the HUD and a Cooters job board interactable inside `CootersInterior.tscn`.
+- Marbles now points the player to the board, explains the active job, and pays out completed job objectives.
+- Added a `TravelGateUI` route picker and a Leak Street travel gate at the district exit.
+- Added `WorldDirector.roll_travel_event(route_id)` with clear, toxic rain, power sag, LAN outage, and quiet shortcut cards.
+- Added `PipeUtilityTunnels.tscn` as the first compact destination with three job objectives, a shelter nook, a toxic rain leak, an upper pipe path, and a security-node target.
+- Reference plan: `docs/cooters_job_board_and_travel_plan.md`.
 
 ## Eighth Sprint: Leak Street Restructure
 

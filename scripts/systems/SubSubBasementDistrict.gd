@@ -3,6 +3,9 @@ extends Node3D
 const RAIN_MUTANT_SCENE := preload("res://scenes/enemies/RainMutant.tscn")
 const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const SUITORS_INTERIOR_SCENE := "res://scenes/levels/SuitorsInterior.tscn"
+const PIPE_TUNNELS_SCENE := "res://scenes/levels/PipeUtilityTunnels.tscn"
+const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
+const WAKE_UP_CALL_SCENE := "res://scenes/levels/Test_SubSubBasement.tscn"
 
 @onready var hud: HUDController = $HUD
 @onready var player_health: PlayerHealth = $Player/PlayerHealth
@@ -40,11 +43,11 @@ var _debug_keys := [
 	"atlas_scale",
 ]
 var _debug_values := {
-	"texture_brightness": 0.62,
-	"texture_emission": 0.08,
-	"facade_brightness": 0.68,
-	"ambient_energy": 1.05,
-	"fog_density": 0.004,
+	"texture_brightness": 0.8,
+	"texture_emission": 0.16,
+	"facade_brightness": 1.2,
+	"ambient_energy": 1.15,
+	"fog_density": 0.02,
 	"wash_light_mult": 1.0,
 	"streetlight_mult": 1.0,
 	"atlas_x": 0.0,
@@ -87,6 +90,8 @@ func _ready() -> void:
 	var hack_minigame = hud.get_node_or_null("%HackMinigameUI")
 	if hack_minigame and hack_minigame.has_signal("hack_completed"):
 		hack_minigame.hack_completed.connect(_on_hack_completed)
+	if hud.travel_gate_ui != null and not hud.travel_gate_ui.route_selected.is_connected(_on_travel_route_selected):
+		hud.travel_gate_ui.route_selected.connect(_on_travel_route_selected)
 
 	_restore_cooters_encounter()
 	_refresh_hud()
@@ -240,6 +245,8 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 			else:
 				GameState.add_item("Illegal Reactor Cell")
 				hud.show_dialogue("Spooky Ghost", "Illegal Reactor Cell acquired. The generator is going to have feelings about this.")
+		"town_exit_gate":
+			hud.open_travel_gate(_get_travel_routes())
 		_:
 			hud.show_dialogue(interactable.display_name, "Nothing else happens yet.")
 	_refresh_hud()
@@ -868,9 +875,9 @@ func _sync_debug_sliders() -> void:
 
 
 func _apply_debug_tuning() -> void:
-	var texture_brightness := float(_debug_values.get("texture_brightness", 0.62))
-	var texture_emission := float(_debug_values.get("texture_emission", 0.08))
-	var facade_brightness := float(_debug_values.get("facade_brightness", 0.68))
+	var texture_brightness := float(_debug_values.get("texture_brightness", 0.8))
+	var texture_emission := float(_debug_values.get("texture_emission", 0.16))
+	var facade_brightness := float(_debug_values.get("facade_brightness", 1.2))
 
 	for panel in get_tree().get_nodes_in_group("district_texture_panel"):
 		var mesh := panel as MeshInstance3D
@@ -888,8 +895,8 @@ func _apply_debug_tuning() -> void:
 
 	var world_environment := get_node_or_null("WorldEnvironment") as WorldEnvironment
 	if world_environment != null and world_environment.environment != null:
-		world_environment.environment.ambient_light_energy = float(_debug_values.get("ambient_energy", 1.05))
-		world_environment.environment.fog_density = float(_debug_values.get("fog_density", 0.004))
+		world_environment.environment.ambient_light_energy = float(_debug_values.get("ambient_energy", 1.15))
+		world_environment.environment.fog_density = float(_debug_values.get("fog_density", 0.02))
 
 	var wash_mult := float(_debug_values.get("wash_light_mult", 1.0))
 	for light in get_tree().get_nodes_in_group("district_runtime_light"):
@@ -972,6 +979,8 @@ func _get_gen_mat(mesh_node: MeshInstance3D) -> StandardMaterial3D:
 
 
 func _get_objective_text() -> String:
+	if not GameState.active_job_id.is_empty():
+		return "Cooters job: %s" % GameState.get_active_job_objective_text()
 	if bool(GameState.get_world_flag("cooters_rain_mutant_active", false)):
 		return "Cooters emergency: hurt the mutant, get it onto the magenta pad, then press E at Cooters."
 	if not GameState.is_quest_completed("patch_dreaming_generator"):
@@ -989,6 +998,57 @@ func _get_objective_text() -> String:
 	if not GameState.is_quest_completed("torai_salvage_contract"):
 		return "District job: convert the Cooters sample into Torai paperwork."
 	return "District: use Cooters, Suitors, the LAN Den, or the Wake-Up Call gate."
+
+
+func _get_travel_routes() -> Array:
+	var active_job := GameState.get_active_job_data()
+	var has_pipe_job := not active_job.is_empty() and str(active_job.get("destination_id", "")) == "pipe_utility_tunnels"
+	return [
+		{
+			"id": "pipe_utility_tunnels",
+			"title": "Pipe Utility Tunnels",
+			"description": "Wet maintenance arteries below Leak Street. Cooters jobs currently point there.",
+			"target_scene": PIPE_TUNNELS_SCENE,
+			"locked": not has_pipe_job,
+			"locked_reason": "Accept a Cooters job that points to the Pipe Utility Tunnels first.",
+		},
+		{
+			"id": "faded_atrium",
+			"title": "Faded Atrium",
+			"description": "Return to the hub under counterfeit mall comfort.",
+			"target_scene": FADED_ATRIUM_SCENE,
+			"locked": false,
+			"locked_reason": "",
+		},
+		{
+			"id": "wake_up_call",
+			"title": "Wake-Up Call",
+			"description": "Re-enter the authored mission cell.",
+			"target_scene": WAKE_UP_CALL_SCENE,
+			"locked": not GameState.is_quest_completed("patch_dreaming_generator"),
+			"locked_reason": "Patch the dreaming generator first.",
+		},
+	]
+
+
+func _on_travel_route_selected(route_id: String) -> void:
+	var selected := {}
+	for route in _get_travel_routes():
+		if str(route.get("id", "")) == route_id:
+			selected = route
+			break
+	if selected.is_empty():
+		hud.show_system_message("ROUTE LOST")
+		return
+	if bool(selected.get("locked", false)):
+		hud.show_dialogue("Leak Street Gate", str(selected.get("locked_reason", "Route locked.")))
+		return
+
+	var card := WorldDirector.roll_travel_event(route_id)
+	var route_title := str(selected.get("title", route_id))
+	GameState.last_mission_result = "Travel to %s: %s" % [route_title, str(card.get("title", "Clear Run"))]
+	hud.push_log("travel event: %s" % str(card.get("title", "Clear Run")).to_lower())
+	get_tree().change_scene_to_file(str(selected.get("target_scene", "")))
 
 
 func _update_prompt() -> void:
