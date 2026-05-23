@@ -39,6 +39,7 @@ CI is defined in `.github/workflows/build-redot.yml`.
 It runs on:
 
 - pushes to `main`
+- version tags like `v0.1.0`
 - manual `workflow_dispatch`
 
 The workflow:
@@ -49,6 +50,7 @@ The workflow:
 - imports the project headlessly
 - exports Windows and Linux builds
 - uploads both builds as GitHub Actions artifacts
+- publishes a GitHub Release with zipped builds when the run was triggered by a `v*` tag
 
 If `export_presets.cfg` is not committed, CI generates temporary Windows and Linux presets for that run. Local builds do not do this; they require your real presets.
 
@@ -79,6 +81,19 @@ If Redot changes release asset names, set these GitHub Actions repository variab
 
 No secrets are required for public Redot release downloads.
 
+## Publishing Releases
+
+To publish builds for playtesters, push a version tag:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The GitHub Action will build Windows and Linux, package each target as a zip, create a GitHub Release named after the tag, and attach the zip files.
+
+Use a new tag for each public build. If you need to replace a broken release, delete or move the tag intentionally, then rerun the workflow.
+
 ## Adding Export Targets
 
 To add another platform:
@@ -86,7 +101,7 @@ To add another platform:
 1. Create and test the export preset in Redot.
 2. Commit `export_presets.cfg` if you want CI to use your real presets.
 3. Add a new preset variable and export command to `scripts/build.sh`.
-4. Add a matching export step and `actions/upload-artifact` step to `.github/workflows/build-redot.yml`.
+4. Add a matching export step, archive command, `actions/upload-artifact` step, and release asset entry to `.github/workflows/build-redot.yml`.
 5. Make sure the Redot export templates include that platform.
 
 Keep preset names stable; both the local script and CI select exports by preset name.
