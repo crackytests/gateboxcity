@@ -29,7 +29,7 @@ func _ready() -> void:
 		hud.job_board_ui.job_accepted.connect(_on_job_board_accepted)
 
 	_refresh_hud()
-	hud.show_dialogue("Marbles", "Welcome to Cooters. No fighting the contained rain mutant unless it starts a tab.")
+	hud.show_dialogue("Marbles", "Welcome to Cooters. No fighting the contained rain mutant unless it starts a tab, and honestly it tips better than half the room.")
 	hud.push_log("cooters back room unlocked")
 
 
@@ -76,22 +76,22 @@ func _handle_interactable(interactable: WardInteractable) -> void:
 		"cooters_job_board":
 			hud.open_job_board(GameState.get_available_jobs(), GameState.active_job_id)
 		_:
-			hud.show_dialogue(interactable.display_name, "Cooters has not found a use for that yet.")
+			hud.show_dialogue(interactable.display_name, "Cooters has not found a use for that yet. Give us ten minutes and a worse idea.")
 
 
 func _handle_marbles() -> void:
 	var active_job := GameState.get_active_job_data()
 	if active_job.is_empty():
-		hud.show_dialogue("Marbles", "Board is on the wall. Take one job at a time; the building gets jealous if we call it logistics.")
+		hud.show_dialogue("Marbles", "Board is on the wall. Take one job at a time; the building gets jealous if we call it logistics and starts leaking on purpose.")
 		_refresh_hud()
 		return
 
 	if GameState.is_job_objective_done(GameState.active_job_id):
 		var paid_job := GameState.complete_active_job()
 		if paid_job.is_empty():
-			hud.show_dialogue("Marbles", "Something about your tab got weird. Try the board again.")
+			hud.show_dialogue("Marbles", "Something about your tab got weird. Try the board again before the register develops a moral position.")
 		else:
-			hud.show_dialogue("Marbles", "Good work. Payment: %s. Do not spend it all on liquids with opinions." % str(paid_job.get("reward_text", "bar credit")))
+			hud.show_dialogue("Marbles", "Good work. Payment: %s. Do not spend it all on liquids with opinions, unless they are funny opinions." % str(paid_job.get("reward_text", "bar credit")))
 			hud.push_log("cooters job paid: %s" % str(paid_job.get("title", "job")).to_lower())
 		_refresh_hud()
 		return
@@ -103,10 +103,10 @@ func _handle_marbles() -> void:
 func _on_job_board_accepted(job_id: String) -> void:
 	if GameState.accept_job(job_id):
 		var job := GameState.get_job_data(job_id)
-		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Use the Leak Street gate, then come back when the job stops moving." % str(job.get("title", job_id)))
+		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Use the Leak Street gate, then come back when the job stops moving or starts making eye contact." % str(job.get("title", job_id)))
 		hud.push_log("cooters job accepted: %s" % str(job.get("title", job_id)).to_lower())
 	else:
-		hud.show_dialogue("Marbles", "One job at a time. Cooters is a bar, not a personality disorder.")
+		hud.show_dialogue("Marbles", "One job at a time. Cooters is a bar, not a personality disorder with neon.")
 	_refresh_hud()
 
 

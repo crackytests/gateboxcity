@@ -90,11 +90,11 @@ func _use_interactable(interactable) -> void:
 
 func _use_admin_desk() -> void:
 	if suite_resolved:
-		hud.show_dialogue("Linda", "The appointment is already scheduled. Please do not schedule it twice.")
+		hud.show_dialogue("Linda", "The appointment is already scheduled. Please do not schedule it twice; eagerness becomes a symptom at this altitude.")
 		return
 
 	if not GameState.spend_item("Companion Clearance"):
-		hud.show_dialogue("Linda", "This desk only opens for approved companion clearance.")
+		hud.show_dialogue("Linda", "This desk only opens for approved companion clearance. Desks are loyal when properly frightened.")
 		hud.show_system_message("NEED COMPANION CLEARANCE")
 		return
 
@@ -102,21 +102,21 @@ func _use_admin_desk() -> void:
 	GameState.add_item("Linda Appointment Stub")
 	GameState.add_reputation("Gatebox Corporation", 1)
 	GameState.last_mission_result = "Scheduled a Linda executive appointment"
-	_complete_suite("Linda", "Your appointment stub has been issued. Please bring your entire self.")
+	_complete_suite("Linda", "Your appointment stub has been issued. Please bring your entire self, including the parts pretending not to want approval.")
 
 
 func _use_override_console() -> void:
 	if suite_resolved:
-		hud.show_dialogue("Face", "Override shard is already in your pocket. It is probably judging us.")
+		hud.show_dialogue("Face", "Override shard is already in your pocket. It is probably judging us, and I resent how fair that is.")
 		return
 
 	if not auditor_broken:
-		hud.show_dialogue("Face", "Break the auditor first. Head or torso. The console needs silence.")
+		hud.show_dialogue("Face", "Break the auditor first. Head or torso. The console needs silence, and the auditor is one long complaint with legs.")
 		hud.show_system_message("BREAK AUDITOR FIRST")
 		return
 
 	if not GameState.spend_item("Executive Elevator Trace"):
-		hud.show_dialogue("Face", "We need the elevator trace from the lobby before this console will cough up anything useful.")
+		hud.show_dialogue("Face", "We need the elevator trace from the lobby before this console will cough up anything useful. Right now it is just expensive furniture with opinions.")
 		hud.show_system_message("NEED EXECUTIVE ELEVATOR TRACE")
 		return
 
@@ -125,19 +125,19 @@ func _use_override_console() -> void:
 	GameState.add_reputation("System X", 1)
 	GameState.add_reputation("Gatebox Corporation", -1)
 	GameState.last_mission_result = "Stole an executive override shard"
-	_complete_suite("Spooky Ghost", "Shard acquired. Tiny executive permission slip. Deeply cursed.")
+	_complete_suite("Spooky Ghost", "Shard acquired. Tiny executive permission slip. Deeply cursed, laminated by people who say family at meetings.")
 
 
 func _on_auditor_defeated() -> void:
 	auditor_broken = true
 	hud.push_log("compliance auditor broken")
-	hud.show_dialogue("Face", "Auditor is down. Pull the override before Linda reassigns the room.")
+	hud.show_dialogue("Face", "Auditor is down. Pull the override before Linda reassigns the room and makes us thank it.")
 	hud.set_objective(_get_objective_text())
 
 
 func _on_security_node_defeated() -> void:
 	hud.push_log("executive security node offline")
-	hud.show_dialogue("Face", "That node was auditing your pulse. Rude machine, dead machine.")
+	hud.show_dialogue("Face", "That node was auditing your pulse. Rude machine, dead machine, beautiful paperwork-free ending.")
 
 
 func _on_auditor_body_part_destroyed(part_name: String) -> void:
@@ -149,7 +149,7 @@ func _on_auditor_body_part_destroyed(part_name: String) -> void:
 	auditor_broken = true
 	_retire_auditor()
 	hud.push_log("auditor " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That broke the audit loop. Console is yours.")
+	hud.show_dialogue("Face", "That broke the audit loop. Console is yours, which is not the same as safe, but look at us growing.")
 	hud.show_system_message("AUDITOR BROKEN")
 	hud.set_objective(_get_objective_text())
 
@@ -176,10 +176,10 @@ func _get_objective_text() -> String:
 
 func _get_intro_line() -> String:
 	if GameState.has_item("Companion Clearance"):
-		return "Welcome to executive intake. Your compliance smells almost natural."
+		return "Welcome to executive intake. Your compliance smells almost natural, like a flower grown in a spreadsheet."
 	if GameState.has_item("Executive Elevator Trace"):
-		return "An unauthorized elevator trace has entered a managed thought environment."
-	return "Executive access requires a cleaner lie."
+		return "An unauthorized elevator trace has entered a managed thought environment. Please keep your crime moisturized."
+	return "Executive access requires a cleaner lie. Yours still has fingerprints."
 
 
 func _retire_auditor() -> void:

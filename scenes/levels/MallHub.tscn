@@ -138,7 +138,7 @@ surface_material_override/0 = SubResource("WallMat")
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.8, 1.0, 4.2)
 script = ExtResource("4")
 npc_name = "System X"
-dialogue_text = "The mall is outside their map. Use the green gate when you are ready to wake something up."
+dialogue_text = "The mall is outside their map, which means it is either safe, cursed, or waiting for a better category. Use the green gate when you are ready to wake something up."
 prompt_text = "Press E: talk to System X"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FaceTerminal"]

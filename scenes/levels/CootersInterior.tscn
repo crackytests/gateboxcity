@@ -178,10 +178,10 @@ surface_material_override/0 = SubResource("NeonPink")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -2.9)
 script = ExtResource("4")
 npc_name = "Marbles"
-dialogue_text = "The rain mutant is contained in the side room, which makes it our least destructive regular. Cooters jobs are coming. For now, breathe, reload, and do not drink anything glowing."
+dialogue_text = "The rain mutant is contained in the side room, which makes it our least destructive regular and somehow not the saddest. Job board is live. Breathe, reload, and do not drink anything glowing unless it signs a waiver."
 prompt_text = "Press E: talk to Marbles"
 alternate_world_flag = "suitors_blind_spot"
-alternate_dialogue_text = "Sunday sent word. If Suitors is watching you, act expensive and haunted. Works for half my customers."
+alternate_dialogue_text = "Sunday sent word. If Suitors is watching you, act expensive and haunted. Works for half my customers and one mirror I no longer trust."
 reputation_faction = "System X"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Marbles"]

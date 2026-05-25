@@ -4,6 +4,9 @@ const RAIN_MUTANT_SCENE := preload("res://scenes/enemies/RainMutant.tscn")
 const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const SUITORS_INTERIOR_SCENE := "res://scenes/levels/SuitorsInterior.tscn"
 const PIPE_TUNNELS_SCENE := "res://scenes/levels/PipeUtilityTunnels.tscn"
+const DEAD_FOOD_COURT_SCENE := "res://scenes/levels/DeadFoodCourtBloom.tscn"
+const WATER_CISTERN_SCENE := "res://scenes/levels/WaterReclamationCistern.tscn"
+const COLLAPSED_ATRIUM_SCENE := "res://scenes/levels/CollapsedServiceAtrium.tscn"
 const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
 const WAKE_UP_CALL_SCENE := "res://scenes/levels/Test_SubSubBasement.tscn"
 
@@ -69,8 +72,7 @@ func _ready() -> void:
 	WorldDirector.world_state_changed.connect(_on_world_state_changed)
 	WorldDirector.restore_from_game_state()
 	WorldDirector.set_region(WorldDirector.REGION_SUB_BASEMENT)
-	if WorldDirector.get_generator_state() == "":
-		WorldDirector.set_generator_state(WorldDirector.GENERATOR_SAGGING)
+	_sync_dreaming_generator_state()
 	if WorldDirector.active_event == WorldDirector.EVENT_CLEAR and WorldDirector.get_generator_state() != WorldDirector.GENERATOR_STABLE:
 		WorldDirector.trigger_event(WorldDirector.EVENT_TOXIC_RAIN)
 
@@ -99,7 +101,7 @@ func _ready() -> void:
 	_build_debug_tuning_menu()
 	_apply_debug_tuning()
 	hud.set_objective(_get_objective_text())
-	hud.show_dialogue("System X", "Welcome to the district under the imitation of heaven. Rain first, questions later.")
+	hud.show_dialogue("System X", "Welcome to the district under the imitation of heaven. Rain first, questions later, panic whenever it becomes educational.")
 	hud.push_log("sub-sub-basement district linked")
 
 
@@ -200,7 +202,7 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 				GameState.add_item("Cheap Poncho")
 				GameState.add_reputation("Wan Moa Torai", 1)
 				GameState.last_mission_result = "Accepted one more try"
-				hud.show_dialogue("Wan Moa Torai", "Because everyone deserves one more try. Here is a poncho. The debt remembers you.")
+				hud.show_dialogue("Wan Moa Torai", "Because everyone deserves one more try. Here is a poncho. The debt remembers you fondly, which is worse than hate.")
 		"cooters":
 			if GameState.is_quest_completed("cooters_rain_mutant_contained"):
 				get_tree().change_scene_to_file(COOTERS_INTERIOR_SCENE)
@@ -215,7 +217,7 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 				GameState.add_item("Chemical Neutralizer")
 				GameState.add_reputation("System X", 1)
 				GameState.last_mission_result = "Cooters rumor claimed"
-				hud.show_dialogue("Marbles", "Marbles slips you a Chemical Neutralizer from under the bar and nods toward the LAN den. Kids are overclocking more than games tonight.")
+				hud.show_dialogue("Marbles", "Marbles slides you a Chemical Neutralizer from under the bar like it owes her money. LAN kids are overclocking more than games tonight, so try not to become tonight's example.")
 		"suitors":
 			if GameState.get_world_flag("suitors_mask_claimed"):
 				_handle_suitors_followup()
@@ -225,32 +227,63 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 				GameState.add_item("Sealed Mask")
 				GameState.add_reputation("System X", 1)
 				GameState.last_mission_result = "Suitors mask claimed"
-				hud.show_dialogue("Sunday", "Sunday presses a Sealed Mask into your hands before you ask. Her Yoko-face does not blink. The lounge remembers rain from other timelines.")
+				hud.show_dialogue("Sunday", "Sunday presses a Sealed Mask into your hands before you ask. Her face does not blink. The lounge remembers rain from other timelines and none of them were flattering.")
 		"hoodlum_lan":
 			_handle_lan_den()
 		"rain_terminal":
 			if WorldDirector.is_power_unstable() and not WorldDirector.is_toxic_rain_active():
-				hud.show_dialogue("Rain Cycle Terminal", "The terminal is in brownout. Patch the dreaming generator before trusting sky controls.")
+				hud.show_dialogue("Rain Cycle Terminal", "Brownout mode. The sky controls are currently a suggestion box with electricity. Feed the Dreaming Generator at Pipe Chapel first.")
 				_refresh_hud()
 				return
 			if WorldDirector.is_toxic_rain_active():
 				WorldDirector.clear_event()
-				hud.show_dialogue("System X", "Rain cycle paused. The false sky is pretending innocence again.")
+				hud.show_dialogue("System X", "Rain cycle paused. The false sky is pretending innocence again, huge performance, no notes.")
 			else:
 				WorldDirector.trigger_event(WorldDirector.EVENT_TOXIC_RAIN)
-				hud.show_dialogue("System X", "Rain cycle forced. Pipe shelters are now survival infrastructure.")
-		"reactor_cell":
-			if GameState.has_item("Illegal Reactor Cell"):
-				hud.show_dialogue("Spooky Ghost", "Already carrying a reactor cell. It is making pocket noises.")
-			else:
-				GameState.add_item("Illegal Reactor Cell")
-				hud.show_dialogue("Spooky Ghost", "Illegal Reactor Cell acquired. The generator is going to have feelings about this.")
+				hud.show_dialogue("System X", "Rain cycle forced. Pipe shelters are now survival infrastructure, which is a nice phrase for 'stand under the thing or melt.'")
+		"dreaming_generator_reliquary":
+			_handle_pipe_chapel_generator()
 		"town_exit_gate":
 			hud.open_travel_gate(_get_travel_routes())
 		_:
-			hud.show_dialogue(interactable.display_name, "Nothing else happens yet.")
+			hud.show_dialogue(interactable.display_name, "Nothing else happens yet. It has the energy of a prop waiting for a better contract.")
 	_refresh_hud()
 	_apply_world_lighting()
+
+
+func _handle_pipe_chapel_generator() -> void:
+	var sale := GameState.sell_highest_wasted_potential_to_gideon()
+	if sale.is_empty():
+		var current := GameState.get_dreaming_generator_potential()
+		hud.show_dialogue(
+			"Pipe Father Gideon",
+			"The Dreaming Generator is inside the chapel now, chewing on all the lives that almost became something. Bring mission loot, failed miracles, broken proofs. I can turn wasted potential into Wan Notes and keep the lights from learning despair.\nPotential: %d/%d." % [current, GameState.DREAMING_GENERATOR_THRESHOLD]
+		)
+		return
+
+	var item_name := str(sale.get("item_name", "loot"))
+	var wan_notes := int(sale.get("wan_notes", 0))
+	var potential := int(sale.get("potential", 0))
+	var new_total := int(sale.get("new_generator_potential", 0))
+	var label := str(sale.get("label", "wasted potential"))
+	GameState.mark_quest_completed("dreaming_generator_fed")
+	if new_total >= GameState.DREAMING_GENERATOR_THRESHOLD:
+		GameState.mark_quest_completed("patch_dreaming_generator")
+		GameState.set_world_flag("patch_dreaming_generator", true)
+		GameState.mark_quest_completed("dreaming_generator_sustained")
+	_sync_dreaming_generator_state()
+	hud.show_dialogue(
+		"Pipe Father Gideon",
+		"Gideon feeds %s into the chapel core: %s. The generator rises by %d wasted potential. Wan Moa Torai honors the sale with %d Wan Notes; System X honors the mistake by tracking every note.\nStored potential: %d/%d." % [
+			item_name,
+			label,
+			potential,
+			wan_notes,
+			new_total,
+			GameState.DREAMING_GENERATOR_THRESHOLD,
+		]
+	)
+	hud.push_log("sold %s for %d wan notes" % [item_name.to_lower(), wan_notes])
 
 
 func _handle_lan_den() -> void:
@@ -260,13 +293,13 @@ func _handle_lan_den() -> void:
 		GameState.add_reputation("Gatebox Corporation", 1)
 		GameState.add_reputation("Wan Moa Torai", 1)
 		GameState.mark_quest_completed("lan_party_brownout_stopped")
-		hud.show_dialogue("Ladderboy", "Fine, fine, boring adult mode. Surveillance crawls back online, and my backpack is personally offended.")
+		hud.show_dialogue("Ladderboy", "Fine, fine, boring adult mode. Surveillance crawls back online, and my backpack is personally offended. It trained for this.")
 	else:
 		WorldDirector.set_generator_state(WorldDirector.GENERATOR_OVERLOADED)
 		WorldDirector.trigger_event(WorldDirector.EVENT_LAN_OUTAGE)
 		GameState.add_reputation("System X", 1)
 		GameState.mark_quest_completed("lan_party_brownout_protected")
-		hud.show_dialogue("Ladderboy", "LAN party protected. Every camera in two blocks just forgot how eyes work. That is infrastructure, not crime.")
+		hud.show_dialogue("Ladderboy", "LAN party protected. Every camera in two blocks just forgot how eyes work. That is infrastructure, not crime, please clap quietly.")
 
 
 func _handle_velvet_coil() -> void:
@@ -274,7 +307,7 @@ func _handle_velvet_coil() -> void:
 	for key in CyberneticSurgeryUI.UPGRADE_DB.keys():
 		if not GameState.has_cybernetic(str(key)):
 			upgrades.append({"id": str(key)})
-	hud.show_dialogue("Velvet Coil", "Surgical suite is ready. Pick a slot, pick an implant. I learned this from a VHS tape and two broken androids.")
+	hud.show_dialogue("Velvet Coil", "Surgical suite is ready. Pick a slot, pick an implant. I learned this from a VHS tape, two broken androids, and one lawsuit that technically never found me.")
 	hud.open_cybernetics(upgrades)
 
 
@@ -289,16 +322,16 @@ func _handle_cooters_followup() -> void:
 			GameState.add_item("Cooters Bar Credit")
 			GameState.add_reputation("System X", 1)
 			GameState.last_mission_result = "Cooters rain sample collected"
-			hud.show_dialogue("Marbles", "Marbles catches the rain in a chipped shot glass, watches it smoke, and slides you a bar credit. Scientific method, terrible glassware.")
+			hud.show_dialogue("Marbles", "Marbles catches the rain in a chipped shot glass, watches it smoke, and slides you a bar credit. Scientific method, terrible glassware, no refunds.")
 		else:
-			hud.show_dialogue("Marbles", "I need a live rain sample before I can tell people which organs to worry about. Force the rain cycle or wait for the sky to get mean.")
+			hud.show_dialogue("Marbles", "I need a live rain sample before I can tell people which organs to worry about first. Force the rain cycle or wait for the sky to get mean on its own schedule.")
 		return
 
 	if not GameState.is_quest_completed("torai_salvage_contract"):
-		hud.show_dialogue("Marbles", "Take that bar credit to Torai if you want paperwork. They can turn a drink token into a salvage contract and somehow make that legal.")
+		hud.show_dialogue("Marbles", "Take that bar credit to Torai if you want paperwork. They can turn a drink token into a salvage contract and somehow make everyone apologize.")
 		return
 
-	hud.show_dialogue("Marbles", "Cooters interior is still a rumor with bar stools. You already helped prove the rain is battery acid with management experience.")
+	hud.show_dialogue("Marbles", "Cooters interior is open if you can handle the smell of ambition and fryer oil. You already proved the rain is battery acid with management experience.")
 
 
 func _handle_active_cooters_mutant() -> void:
@@ -338,7 +371,7 @@ func _handle_suitors_followup() -> void:
 		return
 	if not ResourceLoader.exists(SUITORS_INTERIOR_SCENE):
 		if hud != null:
-			hud.show_dialogue("Suitors", "The Suitors door hums, but the interior is not wired in yet.")
+			hud.show_dialogue("Suitors", "The Suitors door hums like it knows a secret and refuses to budget for a hallway.")
 		return
 	var tree := get_tree()
 	if tree == null:
@@ -352,15 +385,15 @@ func _handle_torai_followup() -> void:
 		GameState.add_item("Torai Salvage Contract")
 		GameState.add_reputation("Wan Moa Torai", 1)
 		GameState.last_mission_result = "Torai salvage contract issued"
-		hud.show_dialogue("Wan Moa Torai", "Cooters confirms the rain is billable damage. Here is a salvage contract. Congratulations: your survival now has a form number.")
+		hud.show_dialogue("Wan Moa Torai", "Cooters confirms the rain is billable damage. Here is a salvage contract. Congratulations: your survival now has a form number and a tiny legal shadow.")
 		return
 
 	if GameState.is_quest_completed("torai_salvage_contract") and not GameState.is_quest_completed("district_side_jobs_intro_done"):
 		GameState.mark_quest_completed("district_side_jobs_intro_done")
-		hud.show_dialogue("Wan Moa Torai", "You now possess a poncho, a contract, and an obligation. This is the closest our office gets to affection.")
+		hud.show_dialogue("Wan Moa Torai", "You now possess a poncho, a contract, and an obligation. This is the closest our office gets to affection without opening a second ledger.")
 		return
 
-	hud.show_dialogue("Wan Moa Torai", "Your one more try is already accruing meaning. Interest too, probably.")
+	hud.show_dialogue("Wan Moa Torai", "Your one more try is already accruing meaning. Interest too, obviously. Meaning is never free down here.")
 
 
 func _start_cooters_rain_mutant() -> void:
@@ -368,7 +401,7 @@ func _start_cooters_rain_mutant() -> void:
 	GameState.last_mission_result = "Cooters rain mutant loose"
 	WorldDirector.trigger_event(WorldDirector.EVENT_TOXIC_RAIN)
 	_spawn_rain_mutant()
-	hud.show_dialogue("Marbles", "The rain sample twitches off the bar and becomes a customer. Contain it under the awning before Cooters gets a second entrance.")
+	hud.show_dialogue("Marbles", "The rain sample twitched off the bar and became a customer. Contain it under the awning before Cooters gets a second entrance and I start charging it rent.")
 	hud.push_log("cooters emergency: rain mutant at the door")
 
 
@@ -412,7 +445,7 @@ func _on_rain_mutant_containment_ready() -> void:
 	GameState.add_reputation("System X", 1)
 	GameState.add_item("Marbles Backroom Key")
 	GameState.last_mission_result = "Cooters rain mutant contained"
-	hud.show_dialogue("Marbles", "Good. You did not kill it; you made it manageable. That is basically bartending. Cooters back room is open.")
+	hud.show_dialogue("Marbles", "Good. You did not kill it; you made it manageable. That is basically bartending with worse shoes. Cooters back room is open.")
 	hud.push_log("cooters unlocked")
 	_refresh_hud()
 
@@ -437,11 +470,10 @@ func _apply_world_lighting() -> void:
 	var lan_light := get_node_or_null("LANOmni") as OmniLight3D
 	var sky_spot := get_node_or_null("SkyOmni") as OmniLight3D
 	var dir_light := get_node_or_null("DirectionalLight3D") as DirectionalLight3D
-	var gen_mesh_node := get_node_or_null("DreamingGenerator/MeshInstance3D") as MeshInstance3D
 	if generator_light == null or sky_light == null:
 		return
 
-	var gen_mat := _get_gen_mat(gen_mesh_node)
+	var gen_mat: StandardMaterial3D = null
 	var is_sag := WorldDirector.active_event == WorldDirector.EVENT_POWER_SAG
 	var is_rain := WorldDirector.active_event == WorldDirector.EVENT_TOXIC_RAIN
 	var is_lan := WorldDirector.active_event == WorldDirector.EVENT_LAN_OUTAGE
@@ -982,9 +1014,11 @@ func _get_objective_text() -> String:
 	if not GameState.active_job_id.is_empty():
 		return "Cooters job: %s" % GameState.get_active_job_objective_text()
 	if bool(GameState.get_world_flag("cooters_rain_mutant_active", false)):
-		return "Cooters emergency: hurt the mutant, get it onto the magenta pad, then press E at Cooters."
-	if not GameState.is_quest_completed("patch_dreaming_generator"):
-		return "District: find an Illegal Reactor Cell and patch the dreaming generator."
+		return "Cooters emergency: rupture the mutant's key parts, drag it onto the magenta pad, then press E at Cooters."
+	if GameState.is_dreaming_generator_failing():
+		if GameState.get_sellable_wasted_potential_items().is_empty():
+			return "District: take jobs, salvage wasted potential, then feed Gideon's Dreaming Generator."
+		return "District: sell mission loot to Gideon at Pipe Chapel to feed the Dreaming Generator."
 	if not GameState.get_world_flag("torai_obligation"):
 		return "District: visit Wan Moa Torai for weather gear, then choose a route."
 	if not GameState.get_world_flag("cooters_neutralizer_claimed") or not GameState.get_world_flag("suitors_mask_claimed"):
@@ -1002,20 +1036,44 @@ func _get_objective_text() -> String:
 
 func _get_travel_routes() -> Array:
 	var active_job := GameState.get_active_job_data()
-	var has_pipe_job := not active_job.is_empty() and str(active_job.get("destination_id", "")) == "pipe_utility_tunnels"
+	var active_destination := str(active_job.get("destination_id", ""))
 	return [
 		{
 			"id": "pipe_utility_tunnels",
 			"title": "Pipe Utility Tunnels",
-			"description": "Wet maintenance arteries below Leak Street. Cooters jobs currently point there.",
+			"description": "Wet maintenance arteries below Leak Street. Cooters jobs point there when the bar wants proof with pipe smell on it.",
 			"target_scene": PIPE_TUNNELS_SCENE,
-			"locked": not has_pipe_job,
+			"locked": active_destination != "pipe_utility_tunnels",
 			"locked_reason": "Accept a Cooters job that points to the Pipe Utility Tunnels first.",
+		},
+		{
+			"id": "dead_food_court_bloom",
+			"title": "Dead Food Court Bloom",
+			"description": "An old second-floor food court overgrown by bio-mall flora and still-lit menu boards.",
+			"target_scene": DEAD_FOOD_COURT_SCENE,
+			"locked": active_destination != "dead_food_court_bloom",
+			"locked_reason": "Accept the Food Court Filter job first.",
+		},
+		{
+			"id": "water_reclamation_cistern",
+			"title": "Water Reclamation Cistern",
+			"description": "A flooded reclamation room with live conduits, pump controls, and Torai-shaped ownership claims.",
+			"target_scene": WATER_CISTERN_SCENE,
+			"locked": active_destination != "water_reclamation_cistern",
+			"locked_reason": "Accept the Pump Heart Lease job first.",
+		},
+		{
+			"id": "collapsed_service_atrium",
+			"title": "Collapsed Service Atrium",
+			"description": "A partially submerged mall atrium where only the upper service level still crosses the sludge.",
+			"target_scene": COLLAPSED_ATRIUM_SCENE,
+			"locked": active_destination != "collapsed_service_atrium",
+			"locked_reason": "Accept the Atrium Relay Echo job first.",
 		},
 		{
 			"id": "faded_atrium",
 			"title": "Faded Atrium",
-			"description": "Return to the hub under counterfeit mall comfort.",
+			"description": "Return to the exposed second floor of the old submerged mall beside Leak Street.",
 			"target_scene": FADED_ATRIUM_SCENE,
 			"locked": false,
 			"locked_reason": "",
@@ -1023,10 +1081,10 @@ func _get_travel_routes() -> Array:
 		{
 			"id": "wake_up_call",
 			"title": "Wake-Up Call",
-			"description": "Re-enter the authored mission cell.",
+			"description": "Re-enter the authored mission cell. Very official, very dramatic, bring your best bad decisions.",
 			"target_scene": WAKE_UP_CALL_SCENE,
-			"locked": not GameState.is_quest_completed("patch_dreaming_generator"),
-			"locked_reason": "Patch the dreaming generator first.",
+			"locked": GameState.is_dreaming_generator_failing(),
+			"locked_reason": "Feed the Dreaming Generator at Pipe Chapel before using this route.",
 		},
 	]
 
@@ -1102,10 +1160,10 @@ func _on_hack_completed(success: bool, _difficulty: int) -> void:
 	if focused_hack_terminal != null:
 		focused_hack_terminal.complete_hack(success)
 		if success:
-			hud.show_dialogue("System X", "Signal routed. Access granted.")
+			hud.show_dialogue("System X", "Signal routed. Access granted. The terminal blinked like it understood consequences.")
 			hud.push_log("hack successful")
 		else:
-			hud.show_dialogue("System X", "Signal lost. The window closed.")
+			hud.show_dialogue("System X", "Signal lost. The window closed and pretended it was never open.")
 			hud.push_log("hack failed")
 		_refresh_hud()
 
@@ -1113,6 +1171,16 @@ func _on_hack_completed(success: bool, _difficulty: int) -> void:
 func _on_world_state_changed(_summary: String) -> void:
 	_apply_world_lighting()
 	hud.set_objective(_get_objective_text())
+
+
+func _sync_dreaming_generator_state() -> void:
+	var potential := GameState.get_dreaming_generator_potential()
+	if potential <= 0:
+		WorldDirector.set_generator_state(WorldDirector.GENERATOR_OFFLINE)
+	elif potential < GameState.DREAMING_GENERATOR_THRESHOLD:
+		WorldDirector.set_generator_state(WorldDirector.GENERATOR_SAGGING)
+	else:
+		WorldDirector.set_generator_state(WorldDirector.GENERATOR_STABLE)
 
 
 func _save_game() -> void:

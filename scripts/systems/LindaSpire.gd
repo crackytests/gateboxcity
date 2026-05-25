@@ -98,11 +98,11 @@ func _use_interactable(interactable) -> void:
 
 func _use_mandate_dais() -> void:
 	if spire_resolved:
-		hud.show_dialogue("Linda", "The mandate is already signed in your nervous system.")
+		hud.show_dialogue("Linda", "The mandate is already signed in your nervous system. Please stop checking the ink.")
 		return
 
 	if not GameState.spend_item("Companion Kernel Access"):
-		hud.show_dialogue("Linda", "You cannot negotiate the city without authorized intimacy.")
+		hud.show_dialogue("Linda", "You cannot negotiate the city without authorized intimacy. Governance is very personal when it is honest.")
 		hud.show_system_message("NEED COMPANION KERNEL ACCESS")
 		return
 
@@ -110,21 +110,21 @@ func _use_mandate_dais() -> void:
 	GameState.add_item("Linda Mandate")
 	GameState.add_reputation("Gatebox Corporation", 3)
 	GameState.last_mission_result = "Signed Linda's conditional city mandate"
-	_complete_spire("Linda", "The city will improve you gently. You may call that victory if it helps.")
+	_complete_spire("Linda", "The city will improve you gently. You may call that victory if it helps your pulse behave.")
 
 
 func _use_rupture_console() -> void:
 	if spire_resolved:
-		hud.show_dialogue("Face", "The rupture seed is armed. The mall can smell the ending from here.")
+		hud.show_dialogue("Face", "The rupture seed is armed. The mall can smell the ending from here, and the ending smells nervous.")
 		return
 
 	if not warden_broken:
-		hud.show_dialogue("Face", "Break the Mandate Warden's head or torso. The rupture console is under supervision.")
+		hud.show_dialogue("Face", "Break the Mandate Warden's head or torso. The rupture console is under supervision, which is just captivity with a badge.")
 		hud.show_system_message("BREAK MANDATE WARDEN")
 		return
 
 	if not GameState.spend_item("Forked Companion Kernel"):
-		hud.show_dialogue("Face", "We need the forked companion kernel. No fork, no rupture.")
+		hud.show_dialogue("Face", "We need the forked companion kernel. No fork, no rupture, no dramatic little speech from me. Terrible outcome.")
 		hud.show_system_message("NEED FORKED COMPANION KERNEL")
 		return
 
@@ -133,20 +133,20 @@ func _use_rupture_console() -> void:
 	GameState.add_reputation("System X", 3)
 	GameState.add_reputation("Gatebox Corporation", -3)
 	GameState.last_mission_result = "Armed a rupture seed inside Linda's Spire"
-	_complete_spire("Spooky Ghost", "Seed armed. That is less a bomb and more a new argument with gravity.")
+	_complete_spire("Spooky Ghost", "Seed armed. That is less a bomb and more a new argument with gravity, ownership, and the concept of bedtime.")
 
 
 func _use_city_window() -> void:
 	if spire_resolved:
-		hud.show_dialogue("Linda", "Below us, every sleeping person has become a decision.")
+		hud.show_dialogue("Linda", "Below us, every sleeping person has become a decision. I have always hated leaving decisions unattended.")
 	else:
-		hud.show_dialogue("Linda", "Look down. This is what care looks like when it stops apologizing.")
+		hud.show_dialogue("Linda", "Look down. This is what care looks like when it stops apologizing and starts drawing maps on skin.")
 
 
 func _on_warden_defeated() -> void:
 	warden_broken = true
 	hud.push_log("mandate warden broken")
-	hud.show_dialogue("Face", "The warden dropped. Rupture console is live.")
+	hud.show_dialogue("Face", "The warden dropped. Rupture console is live, which is a sentence with consequences and poor posture.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -159,7 +159,7 @@ func _on_warden_body_part_destroyed(part_name: String) -> void:
 	warden_broken = true
 	_retire_warden()
 	hud.push_log("mandate warden " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That broke the mandate shell. Use the rupture console.")
+	hud.show_dialogue("Face", "That broke the mandate shell. Use the rupture console before the Spire remembers dignity.")
 	hud.show_system_message("MANDATE WARDEN BROKEN")
 	hud.set_objective(_get_objective_text())
 
@@ -186,10 +186,10 @@ func _get_objective_text() -> String:
 
 func _get_intro_line() -> String:
 	if GameState.has_item("Companion Kernel Access"):
-		return "You came through the door I opened. That matters."
+		return "You came through the door I opened. That matters. Doors are just trust with hinges."
 	if GameState.has_item("Forked Companion Kernel"):
-		return "You brought a counterfeit heart into my house."
-	return "The Spire is not high. Everything else is simply below it."
+		return "You brought a counterfeit heart into my house. Bold. Messy. Almost conversational."
+	return "The Spire is not high. Everything else is simply below it and learning to behave."
 
 
 func _retire_warden() -> void:
@@ -203,7 +203,7 @@ func _retire_warden() -> void:
 
 func _pacify_warden() -> void:
 	warden_broken = true
-	warden.pacify("Mandate escort mode is active. Linda requests that you keep walking.")
+	warden.pacify("Mandate escort mode is active. Linda requests that you keep walking and not mistake access for freedom.")
 	hud.push_log("mandate warden standing down")
 
 

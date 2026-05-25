@@ -80,11 +80,11 @@ func _update_prompt() -> void:
 
 func _use_terminal() -> void:
 	if terminal_resolved or GameState.is_quest_completed("transit_breach"):
-		hud.show_dialogue("Face", "The transit pass is already printed. The elevator is starting to believe in you.")
+		hud.show_dialogue("Face", "The transit pass is already printed. The elevator is starting to believe in you, which is how buildings develop bad taste.")
 		return
 
 	if not guard_neutralized:
-		hud.show_dialogue("Linda", "Security is present for your comfort. Please do not touch the rail controls.")
+		hud.show_dialogue("Linda", "Security is present for your comfort. Please do not touch the rail controls; they are shy and heavily armed.")
 		hud.show_system_message("DISABLE RIGHT ARM OR DEFEAT GUARD")
 		return
 
@@ -94,15 +94,15 @@ func _use_terminal() -> void:
 		GameState.add_reputation("System X", 1)
 		GameState.add_reputation("Gatebox Corporation", -1)
 		GameState.last_mission_result = "Forged a Spire transit pass from wake coordinates"
-		hud.show_dialogue("Spooky Ghost", "Printed you a pass. Very official, if nobody reads it.")
+		hud.show_dialogue("Spooky Ghost", "Printed you a pass. Very official, assuming nobody reads the part where it begs for mercy in printer language.")
 	elif GameState.get_world_flag("ward_audit_sealed") and GameState.spend_item("Corporate Voucher"):
 		GameState.set_world_flag("transit_compliance_pass", true)
 		GameState.add_item("Gatebox Visitor Badge")
 		GameState.add_reputation("Gatebox Corporation", 1)
 		GameState.last_mission_result = "Accepted a compliant Gatebox transit badge"
-		hud.show_dialogue("Linda", "Your visitor badge has been approved. Please remain grateful in marked areas.")
+		hud.show_dialogue("Linda", "Your visitor badge has been approved. Please remain grateful in marked areas for tracking accuracy.")
 	else:
-		hud.show_dialogue("Face", "The rail wants either a Dream Access Key or a Corporate Voucher. Bureaucracy with teeth.")
+		hud.show_dialogue("Face", "The rail wants either a Dream Access Key or a Corporate Voucher. Bureaucracy with teeth, gums, and a tiny stamp pad.")
 		hud.show_system_message("NEED ROUTE CREDENTIAL")
 		return
 
@@ -117,7 +117,7 @@ func _use_terminal() -> void:
 func _on_guard_defeated() -> void:
 	guard_neutralized = true
 	hud.push_log("transit guard offline")
-	hud.show_dialogue("Face", "Good. The rail console hates witnesses.")
+	hud.show_dialogue("Face", "Good. The rail console hates witnesses. Same, honestly, but I make it charming.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -130,7 +130,7 @@ func _on_guard_body_part_destroyed(part_name: String) -> void:
 	guard_neutralized = true
 	_retire_guard()
 	hud.push_log("transit guard weapon arm disabled")
-	hud.show_dialogue("Face", "That did it. Right arm down, security loop broken. Hit the console.")
+	hud.show_dialogue("Face", "That did it. Right arm down, security loop broken. Hit the console before it files a feelings report.")
 	hud.show_system_message("GUARD DISABLED")
 	hud.set_objective(_get_objective_text())
 
@@ -153,10 +153,10 @@ func _retire_guard() -> void:
 
 func _get_intro_line() -> String:
 	if GameState.get_world_flag("ward_audit_sealed"):
-		return "Your compliance route has been provisionally approved."
+		return "Your compliance route has been provisionally approved. Provisional is corporate for 'we can still be weird about this.'"
 	if GameState.get_world_flag("ward_wake_coordinates_copied"):
-		return "Unauthorized patient data has entered a transit zone. How exciting."
-	return "This station is not for unscheduled bodies."
+		return "Unauthorized patient data has entered a transit zone. How exciting. Please keep your crime inside the yellow lines."
+	return "This station is not for unscheduled bodies. Your body is being very unscheduled right now."
 
 
 func _save_game() -> void:

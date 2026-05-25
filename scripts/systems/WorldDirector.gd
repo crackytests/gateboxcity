@@ -18,12 +18,12 @@ const GENERATOR_OFFLINE := "offline"
 const REGIONS := {
 	REGION_FADED_ATRIUM: {
 		"name": "Faded Atrium",
-		"brief": "Counterfeit mall comfort under a leaking artificial sky.",
+		"brief": "Counterfeit mall comfort under a leaking artificial sky, still insisting it is retail therapy.",
 		"pressure": "stable, watched",
 	},
 	REGION_SUB_BASEMENT: {
 		"name": "Sub-Sub-Basement",
-		"brief": "Leak Street, one wet patchwork settlement lane inside a much larger lower-city sprawl.",
+		"brief": "Leak Street, one wet patchwork settlement lane pretending the larger lower-city sprawl is not breathing behind it.",
 		"pressure": "crowded, watched, larger than it looks",
 	},
 }
@@ -32,22 +32,22 @@ const EVENTS := {
 	EVENT_CLEAR: {
 		"name": "clear",
 		"hud": "SKY  false daylight",
-		"brief": "The artificial ceiling is pretending to be weather.",
+		"brief": "The artificial ceiling is pretending to be weather and doing community theater about daylight.",
 	},
 	EVENT_TOXIC_RAIN: {
 		"name": "toxic rain",
 		"hud": "SKY  toxic rain",
-		"brief": "Industrial runoff is falling from the fake sky. Shelter and sealed gear matter.",
+		"brief": "Industrial runoff is falling from the fake sky. Shelter and sealed gear matter unless you enjoy becoming a cautionary texture.",
 	},
 	EVENT_POWER_SAG: {
 		"name": "power sag",
 		"hud": "GRID  sagging",
-		"brief": "Generators are coughing. Doors, lights, and cheap cybernetics are unreliable.",
+		"brief": "Generators are coughing. Doors, lights, and cheap cybernetics are unreliable in that personal way machines get.",
 	},
 	EVENT_LAN_OUTAGE: {
 		"name": "LAN outage",
 		"hud": "GRID  hoodlum outage",
-		"brief": "Hoodlums hijacked the grid for an illegal LAN party. Surveillance is blind in patches.",
+		"brief": "Hoodlums hijacked the grid for an illegal LAN party. Surveillance is blind in patches and pretending this is beneath it.",
 	},
 }
 
@@ -57,35 +57,35 @@ const TRAVEL_EVENT_CARDS := [
 		"title": "Clear Run",
 		"event": EVENT_CLEAR,
 		"weight": 3,
-		"text": "The route opens clean. The fake sky watches without spending weather.",
+		"text": "The route opens clean. The fake sky watches without spending weather, generous little ceiling that it is.",
 	},
 	{
 		"id": "toxic_rain",
 		"title": "Toxic Rain",
 		"event": EVENT_TOXIC_RAIN,
 		"weight": 2,
-		"text": "The ceiling starts leaking industrial weather before you reach the turnstiles.",
+		"text": "The ceiling starts leaking industrial weather before you reach the turnstiles. Timing like a heckler with plumbing access.",
 	},
 	{
 		"id": "power_sag",
 		"title": "Power Sag",
 		"event": EVENT_POWER_SAG,
 		"weight": 2,
-		"text": "The grid coughs. Streetlights dim and every terminal sounds like it owes money.",
+		"text": "The grid coughs. Streetlights dim and every terminal sounds like it owes money to someone with thumbs.",
 	},
 	{
 		"id": "lan_outage",
 		"title": "LAN Outage",
 		"event": EVENT_LAN_OUTAGE,
 		"weight": 1,
-		"text": "Hoodlum packets flood the route. Cameras blink out in suspiciously useful order.",
+		"text": "Hoodlum packets flood the route. Cameras blink out in suspiciously useful order, very tragic, thoughts and prayers.",
 	},
 	{
 		"id": "quiet_shortcut",
 		"title": "Quiet Shortcut",
 		"event": EVENT_CLEAR,
 		"weight": 1,
-		"text": "A maintenance door gives up. No one admits they saw you use it.",
+		"text": "A maintenance door gives up. No one admits they saw you use it, which is the closest this city gets to privacy.",
 	},
 ]
 
@@ -250,7 +250,13 @@ func get_event_brief() -> String:
 
 func get_hud_summary() -> String:
 	var event_data: Dictionary = EVENTS.get(active_event, EVENTS[EVENT_CLEAR])
-	return "%s  %s  GEN %s" % [str(event_data.get("hud", "SKY  false daylight")), get_region_name(), generator_state]
+	return "%s  %s  GEN %s  POT %d/%d" % [
+		str(event_data.get("hud", "SKY  false daylight")),
+		get_region_name(),
+		generator_state,
+		GameState.get_dreaming_generator_potential(),
+		GameState.DREAMING_GENERATOR_THRESHOLD,
+	]
 
 
 func get_status_lines() -> Array[String]:
@@ -259,7 +265,7 @@ func get_status_lines() -> Array[String]:
 		"REGION  %s" % get_region_name(),
 		"PRESSURE  %s" % str(region_data.get("pressure", "unknown")),
 		"EVENT  %s" % get_event_name(),
-		"GENERATOR  %s" % generator_state,
+		"GENERATOR  %s  POTENTIAL %d/%d" % [generator_state, GameState.get_dreaming_generator_potential(), GameState.DREAMING_GENERATOR_THRESHOLD],
 		get_event_brief(),
 	]
 
@@ -267,7 +273,7 @@ func get_status_lines() -> Array[String]:
 func get_event_status_lines() -> Array[String]:
 	var lines: Array[String] = [
 		"EVENT  %s" % get_event_name(),
-		"GENERATOR  %s" % generator_state,
+		"GENERATOR  %s  POTENTIAL %d/%d" % [generator_state, GameState.get_dreaming_generator_potential(), GameState.DREAMING_GENERATOR_THRESHOLD],
 	]
 	if GameState.get_world_flag("suitors_surveillance_jammed"):
 		lines.append("SURVEILLANCE  Sunday's blind spot active")

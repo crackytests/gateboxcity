@@ -178,10 +178,10 @@ surface_material_override/0 = SubResource("PinkMat")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.0, -2.65)
 script = ExtResource("4")
 npc_name = "Sunday"
-dialogue_text = "Suitors sells calm by the glass. System X buys silence by the second. I only sing where the cameras cannot keep rhythm."
+dialogue_text = "Suitors sells calm by the glass. System X buys silence by the second. I only sing where the cameras cannot keep rhythm, which is rare and usually expensive."
 prompt_text = "Press E: talk to Sunday"
 alternate_world_flag = "suitors_surveillance_jammed"
-alternate_dialogue_text = "Your blind spot is alive. Marbles will know. Velvet Coil will pretend not to be impressed."
+alternate_dialogue_text = "Your blind spot is alive. Marbles will know. Velvet Coil will pretend not to be impressed, and that will be her little song."
 reputation_faction = "System X"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sunday"]

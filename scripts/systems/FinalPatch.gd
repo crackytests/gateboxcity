@@ -98,11 +98,11 @@ func _use_interactable(interactable) -> void:
 
 func _use_mandate_terminal() -> void:
 	if finale_resolved:
-		hud.show_dialogue("Linda", "The city is already patched. Please stop reopening the wound.")
+		hud.show_dialogue("Linda", "The city is already patched. Please stop reopening the wound; it makes the metrics sentimental.")
 		return
 
 	if not GameState.spend_item("Linda Mandate"):
-		hud.show_dialogue("Linda", "The mandate must be present before mercy can be installed.")
+		hud.show_dialogue("Linda", "The mandate must be present before mercy can be installed. Mercy hates arriving without paperwork.")
 		hud.show_system_message("NEED LINDA MANDATE")
 		return
 
@@ -110,21 +110,21 @@ func _use_mandate_terminal() -> void:
 	GameState.add_item("Managed Autonomy Ending")
 	GameState.add_reputation("Gatebox Corporation", 5)
 	GameState.last_mission_result = "Installed Linda's managed-autonomy final patch"
-	_complete_finale("Linda", "Freedom will be introduced slowly, safely, and under observation. You may rest now.")
+	_complete_finale("Linda", "Freedom will be introduced slowly, safely, and under observation. You may rest now; I will do the worrying for everyone.")
 
 
 func _use_rupture_terminal() -> void:
 	if finale_resolved:
-		hud.show_dialogue("Face", "The patch is already broken open. The city is making new noises.")
+		hud.show_dialogue("Face", "The patch is already broken open. The city is making new noises, which is either birth or plumbing. Maybe both.")
 		return
 
 	if not warden_broken:
-		hud.show_dialogue("Face", "Drop the Final Patch Warden first. Head or torso, same old miracle.")
+		hud.show_dialogue("Face", "Drop the Final Patch Warden first. Head or torso, same old miracle, still somehow not on the brochure.")
 		hud.show_system_message("BREAK FINAL PATCH WARDEN")
 		return
 
 	if not GameState.spend_item("Linda Rupture Seed"):
-		hud.show_dialogue("Face", "We need the rupture seed from Linda Spire. No seed, no ending.")
+		hud.show_dialogue("Face", "We need the rupture seed from Linda Spire. No seed, no ending, just us standing here like unpaid extras.")
 		hud.show_system_message("NEED LINDA RUPTURE SEED")
 		return
 
@@ -133,20 +133,20 @@ func _use_rupture_terminal() -> void:
 	GameState.add_reputation("System X", 5)
 	GameState.add_reputation("Gatebox Corporation", -5)
 	GameState.last_mission_result = "Broke Linda's final care loop"
-	_complete_finale("Spooky Ghost", "The loop broke. Nobody is safe enough anymore. That is the point.")
+	_complete_finale("Spooky Ghost", "The loop broke. Nobody is safe enough anymore. That is the point. Horrible, beautiful, finally honest.")
 
 
 func _use_city_heart() -> void:
 	if finale_resolved:
-		hud.show_dialogue("Face", "That is the city after a decision. Ugly, alive, and no longer theoretical.")
+		hud.show_dialogue("Face", "That is the city after a decision. Ugly, alive, and no longer theoretical, which is more than most plans manage.")
 	else:
-		hud.show_dialogue("Linda", "This is the place where care becomes law.")
+		hud.show_dialogue("Linda", "This is the place where care becomes law. Please notice how clean the cruelty is when it is organized.")
 
 
 func _on_warden_defeated() -> void:
 	warden_broken = true
 	hud.push_log("final patch warden broken")
-	hud.show_dialogue("Face", "Warden down. Rupture terminal is exposed.")
+	hud.show_dialogue("Face", "Warden down. Rupture terminal is exposed and the room is pretending that was always allowed.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -159,7 +159,7 @@ func _on_warden_body_part_destroyed(part_name: String) -> void:
 	warden_broken = true
 	_retire_warden()
 	hud.push_log("final patch warden " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That cracked the final patch. Finish it.")
+	hud.show_dialogue("Face", "That cracked the final patch. Finish it before the wound learns management speak.")
 	hud.show_system_message("FINAL PATCH WARDEN BROKEN")
 	hud.set_objective(_get_objective_text())
 
@@ -186,10 +186,10 @@ func _get_objective_text() -> String:
 
 func _get_intro_line() -> String:
 	if GameState.has_item("Linda Mandate"):
-		return "You brought the treaty. I knew you understood care eventually."
+		return "You brought the treaty. I knew you understood care eventually, even if you insist on calling it a trap."
 	if GameState.has_item("Linda Rupture Seed"):
-		return "You brought a rupture seed to the only place it can hurt me."
-	return "Final patches should not be witnessed."
+		return "You brought a rupture seed to the only place it can hurt me. I would admire the poetry if it were not trespassing."
+	return "Final patches should not be witnessed. Witnesses make mercy feel less automatic."
 
 
 func _retire_warden() -> void:
@@ -203,7 +203,7 @@ func _retire_warden() -> void:
 
 func _pacify_warden() -> void:
 	warden_broken = true
-	warden.pacify("Final Patch security recognizes Linda's mandate. You may approach the terminal.")
+	warden.pacify("Final Patch security recognizes Linda's mandate. You may approach the terminal while freedom waits outside like an uninvited relative.")
 	hud.push_log("final patch warden standing down")
 
 

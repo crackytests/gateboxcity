@@ -336,17 +336,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 surface_material_override/0 = SubResource("RustMat")
 
-[node name="DreamingGenerator" type="Area3D" parent="." groups=["generator"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 0.95, 2.5)
-script = ExtResource("6")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DreamingGenerator"]
-shape = SubResource("GeneratorShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DreamingGenerator"]
-mesh = SubResource("GeneratorMesh")
-surface_material_override/0 = SubResource("NeonCyan")
-
 [node name="GeneratorShelter" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.1, 5.2)
 script = ExtResource("7")
@@ -358,20 +347,6 @@ shape = SubResource("ShelterShape2")
 visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 surface_material_override/0 = SubResource("RustMat")
-
-[node name="ReactorCellCrate" type="Area3D" parent="." groups=["district_interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2, 0.65, 14.2)
-script = ExtResource("5")
-interactable_id = "reactor_cell"
-prompt_text = "Press E: take Illegal Reactor Cell"
-display_name = "Reactor Cell Crate"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ReactorCellCrate"]
-shape = SubResource("InteractShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ReactorCellCrate"]
-mesh = SubResource("TerminalMesh")
-surface_material_override/0 = SubResource("NeonCyan")
 
 [node name="RainCycleTerminal" type="Area3D" parent="." groups=["district_interactable"]]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 9.0, 0.95, -4.0)
@@ -457,10 +432,10 @@ surface_material_override/0 = SubResource("NeonGreen")
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 9.2, 0.95, 16.0)
 script = ExtResource("10")
 npc_name = "System X"
-dialogue_text = "Welcome to Leak Street. Patch the dreaming generator, borrow weather gear if you must, and remember: every alley here belongs to something bigger."
+dialogue_text = "Welcome to Leak Street. The Dreaming Generator lives inside Pipe Chapel now. Sell Gideon whatever failed to become a future, borrow weather gear if you enjoy having skin, and remember: every Wan Note is protection and a tracker."
 prompt_text = "Press E: talk to System X"
 alternate_world_flag = "patch_dreaming_generator"
-alternate_dialogue_text = "Generator pulse looks cleaner. Leak Street can breathe again, and the deeper settlement is listening."
+alternate_dialogue_text = "Generator pulse looks cleaner. Leak Street can breathe again, and the deeper settlement is listening like it just heard its name on a forbidden broadcast."
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SystemXTerminal"]
 shape = SubResource("InteractShape")
@@ -470,7 +445,7 @@ mesh = SubResource("TerminalMesh")
 surface_material_override/0 = SubResource("NeonGreen")
 
 [node name="FadedAtriumGate" type="Area3D" parent="." groups=["mission_exit"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.35, 18.0)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8.8, 1.35, 14.0)
 script = ExtResource("4")
 prompt_text = "Press E: return to Faded Atrium"
 target_scene = "res://scenes/levels/MallHub.tscn"
@@ -482,23 +457,8 @@ shape = SubResource("GateShape")
 mesh = SubResource("GateMesh")
 surface_material_override/0 = SubResource("NeonGreen")
 
-[node name="WakeUpCallGate" type="Area3D" parent="." groups=["mission_exit"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.35, -18.0)
-script = ExtResource("4")
-prompt_text = "Press E: enter Wake-Up Call"
-target_scene = "res://scenes/levels/Test_SubSubBasement.tscn"
-requires_completed_quest = "patch_dreaming_generator"
-locked_message = "Patch the dreaming generator first."
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WakeUpCallGate"]
-shape = SubResource("GateShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WakeUpCallGate"]
-mesh = SubResource("GateMesh")
-surface_material_override/0 = SubResource("NeonMagenta")
-
 [node name="LeakStreetTravelGate" type="Area3D" parent="." groups=["district_interactable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 16.2)
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8.8, 1.35, 16.2)
 script = ExtResource("5")
 interactable_id = "town_exit_gate"
 prompt_text = "Press E: choose route"
@@ -650,9 +610,9 @@ npc_name = "Pipe Father Gideon"
 npc_id = "pipe_father_gideon"
 wander_radius = 4.0
 move_speed = 0.9
-default_lines = ["The Dreaming Generator accepts two offerings: coolant and honesty. We are usually short on both.", "These pipes are old enough to remember daylight. I keep them from confessing too loudly.", "Prayer beads, wrench staff, same function. You count the failures and tighten what still believes."]
+default_lines = ["The Dreaming Generator accepts wasted potential. Failed tools, failed errands, failed lives. Nothing burns hotter down here.", "These pipes are old enough to remember daylight. I keep them from confessing too loudly.", "Wan Notes pay you. System X trackers remember you. Wan protection follows you until debt decides it has teeth."]
 rain_lines = ["Under the awning, child. Chemical rain is not baptism. It is accounting with teeth.", "The false sky leaks because the upper city calls neglect weather.", "Rain on coolant tubes sounds like applause from a crowd that wants you dead."]
-sag_lines = ["The lights dim when the generator dreams of stopping. I wake it with oil, scripture, and threats.", "Power sag is not darkness. It is the district holding its breath.", "If the spine-tubes go cold, we all become tenants of the dark."]
+sag_lines = ["The lights dim when stored potential runs thin. Bring me mission loot before the district starts spending people.", "Power sag is not darkness. It is the district holding its breath.", "If System X finds foul play in the records, Wan asks questions. Then the guilty vanish, and the generator learns their name."]
 lan_lines = ["Ladderboy steals current like a saint steals fire. I forgive him after the breakers stop screaming.", "Surveillance is blind. The generator enjoys privacy, but not this much.", "The Hoodlums made a chapel out of stolen bandwidth. Children do stranger miracles than priests."]
 stable_lines = ["The generator is steady. For one blessed minute, rust remembers it was once steel.", "Stable hum. Coolant moving. Nobody praise it too loudly."]
 rep_check_faction = "System X"
@@ -678,6 +638,20 @@ double_sided = true
 script = ExtResource("19")
 idle_bob_height = 0.012
 frames = Array[Texture2D]([ExtResource("29"), ExtResource("30"), ExtResource("31"), ExtResource("32"), ExtResource("33"), ExtResource("34"), ExtResource("35"), ExtResource("36")])
+
+[node name="PipeChapelDreamingGenerator" type="Area3D" parent="." groups=["district_interactable"]]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8.85, 0.72, 12.15)
+script = ExtResource("5")
+interactable_id = "dreaming_generator_reliquary"
+prompt_text = "Press E: feed Dreaming Generator"
+display_name = "Dreaming Generator Reliquary"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PipeChapelDreamingGenerator"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PipeChapelDreamingGenerator"]
+mesh = SubResource("TerminalMesh")
+surface_material_override/0 = SubResource("NeonCyan")
 
 [node name="KikiBaja" type="CharacterBody3D" parent="." groups=["district_npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 0.0, 7.4)

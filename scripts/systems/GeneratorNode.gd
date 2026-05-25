@@ -17,7 +17,7 @@ func interact() -> Dictionary:
 	if state == WorldDirector.GENERATOR_STABLE:
 		return {
 			"name": "Dreaming Generator",
-			"text": "The generator is stable. It hums like something asleep but pretending not to dream.",
+			"text": "The generator is stable. It hums like something asleep but pretending not to dream, which is either cute or actionable evidence.",
 			"changed": false,
 		}
 
@@ -30,7 +30,7 @@ func interact() -> Dictionary:
 		GameState.last_mission_result = "Dreaming Generator stabilized"
 		return {
 			"name": "Dreaming Generator",
-			"text": "The reactor cell seats with a wet click. The generator steadies. System X owes you a small, suspicious favor.",
+			"text": "The reactor cell seats with a wet click. The generator steadies. System X owes you a small, suspicious favor with no receipt.",
 			"changed": true,
 		}
 
@@ -38,7 +38,7 @@ func interact() -> Dictionary:
 	WorldDirector.trigger_event(WorldDirector.EVENT_POWER_SAG)
 	return {
 		"name": "Dreaming Generator",
-		"text": "The generator coughs into overload. It needs an Illegal Reactor Cell before the district lights get any braver.",
+		"text": "The generator coughs into overload. It needs wasted potential before the district lights get any braver, and they are already emotionally small.",
 		"changed": true,
 	}
 

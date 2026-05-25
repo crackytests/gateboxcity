@@ -214,7 +214,7 @@ surface_material_override/0 = SubResource("NeonMagenta")
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -7.85, 1.0, 5.0)
 script = ExtResource("6")
 npc_name = "System X"
-dialogue_text = "You woke up loud. Bring me that broken Gatebox display and disable the goon's right arm. Then hit the green extraction gate."
+dialogue_text = "You woke up loud, which is a choice and a broadcast. Bring me that broken Gatebox display, disable the goon's right arm, then hit the green extraction gate before the room develops a sequel."
 prompt_text = "Press E: talk to System X"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FaceTerminal"]

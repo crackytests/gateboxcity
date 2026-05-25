@@ -35,6 +35,19 @@
 - Added `PipeUtilityTunnels.tscn` as the first compact destination with three job objectives, a shelter nook, a toxic rain leak, an upper pipe path, and a security-node target.
 - Reference plan: `docs/cooters_job_board_and_travel_plan.md`.
 
+## Ninth Sprint Expansion: Terrain-Driven Cooters Destinations
+
+### Status: Complete
+
+- Added `docs/gatebox_sub_sub_basement_terrain_agent_reference.md` as the terrain interaction reference.
+- Added `docs/cooters_job_board_level_expansion_plan.md` for the three new job destinations.
+- Expanded the Cooters job board with three terrain-driven jobs:
+  - `Food Court Filter` -> `DeadFoodCourtBloom.tscn`
+  - `Pump Heart Lease` -> `WaterReclamationCistern.tscn`
+  - `Atrium Relay Echo` -> `CollapsedServiceAtrium.tscn`
+- Moved the Leak Street travel selector and Faded Atrium gate to the same side of the street to support the new canon: the old mall is partly submerged and Leak Street is built beside the exposed second-floor entrance.
+- Removed the extra standalone Wake-Up Call street door; Wake-Up Call remains available through route selection.
+
 ## Eighth Sprint: Leak Street Restructure
 
 ### Status: Complete
@@ -140,7 +153,7 @@
 - Expanded `SubSubBasementDistrict.tscn` from ~24x22 to 44x40 units with distinct zones:
   - Pipe Slums (SW): rust materials, Pipe Father Gideon, Reactor Cell crate
   - Hoodlum LAN (NW): green neon, Ladderboy, LAN Den, server rack dressing
-  - Generator Hall (center): generator, shelters, central dividers
+  - Pipe Chapel / generator reliquary (SW): Gideon, wasted-potential economy, chapel-side power fiction
   - Market Row (SE): amber neon, Kiki Baja, Brickmouth Ronnie, Wan Moa Torai kiosk
   - Sky Platforms (NE): cyan/glass, elevated false sky panels
 - Added 4 zone-specific OmniLight3D nodes (SlumOmni, MarketOmni, LANOmni, SkyOmni) with full event-aware dimming.
@@ -171,7 +184,7 @@ Build the Sub-Sub-Basement into a playable starting region before expanding the 
 - Added `SubSubBasementDistrict.tscn` as the compact free-roam lower-city district.
 - Added toxic rain, shelter, generator, and establishment interaction scripts.
 - Routed the Faded Atrium Sub-Sub-Basement gate into the district.
-- Added item hooks for `Cheap Poncho`, `Sealed Mask`, `Chemical Neutralizer`, and `Illegal Reactor Cell`.
+- Added item hooks for `Cheap Poncho`, `Sealed Mask`, `Chemical Neutralizer`, mission loot, and `Wan Note`.
 - Locked the Wake-Up Call route behind the first generator repair job.
 - Added MCP validation for the new district and affected route scenes.
 
@@ -216,16 +229,30 @@ Initial event behavior:
 - `Sealed Mask` prevents rain damage.
 - `Chemical Neutralizer` is inventory-only for now.
 
-### Generator
+### Dreaming Generator
 
-`GeneratorNode.gd` supports:
+The Dreaming Generator is no longer a freestanding district repair box. It now lives inside Pipe Chapel and is tended by Pipe Father Gideon.
 
-- inspect generator
-- repair with `Illegal Reactor Cell`
-- trigger/clear power sag
-- update world state and nearby lights through district logic
+Current implementation:
 
-Generator states:
+- The old street generator mesh and reactor-cell crate are removed from Leak Street.
+- Gideon/ Pipe Chapel now provide the generator interaction.
+- The player can sell mission loot and other failed-use objects to Gideon.
+- Sold items generate `Wan Note` currency and add stored Dreaming Generator potential.
+- Stored potential is tracked in `GameState.world_flags`.
+- If stored potential is below threshold, `WorldDirector` sets the generator state to sagging/offline and district routes can lock.
+- Feeding enough potential marks `dreaming_generator_fed`, `dreaming_generator_sustained`, and the legacy `patch_dreaming_generator` flag for compatibility with older route gates.
+
+Canon:
+
+- The Dreaming Generator is powered by wasted potential: useful things, lost futures, ruined miracles, and lives that failed to become what they were supposed to become.
+- Wan Notes are the Sub-Sub-Basement currency backed by Wan Moa Torai.
+- Every Wan Note contains a System X tracker that records holders.
+- Carrying Wan Notes means being under Wan protection, but also under Wan visibility.
+- Wan debt enforcers double as street security and enforce repayment when robbery is reported.
+- If someone is found dead and System X records indicate foul play, the responsible party often disappears; the generator then rises from that harvested wasted potential.
+
+Generator states remain:
 
 - stable
 - sagging
@@ -243,7 +270,7 @@ Use lightweight interactables first:
 
 ### First Jobs
 
-- Patch The Dreaming Generator: get `Illegal Reactor Cell`, repair generator, gain System X rep.
+- Feed The Dreaming Generator: sell mission loot to Gideon for Wan Notes and stored generator potential.
 - One More Try: accept Torai obligation, gain `Cheap Poncho`.
 - LAN Party Brownout: stop or protect the LAN event through repeated Hoodlum den interactions.
 
@@ -256,7 +283,7 @@ Use lightweight interactables first:
 - Add `Cheap Poncho` and verify rain damage is reduced.
 - Add `Sealed Mask` and verify rain damage stops.
 - Trigger generator power sag and verify HUD/lighting changes.
-- Repair generator with `Illegal Reactor Cell` and verify event/state updates.
+- Sell mission loot to Gideon and verify Wan Notes, generator potential, event/state updates, and route unlocks.
 - Save during a non-clear event, reload, and verify state persists.
 - Re-run existing route scenes through MCP when shared systems change.
 

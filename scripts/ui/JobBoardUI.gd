@@ -53,7 +53,7 @@ func _refresh_jobs() -> void:
 		var title := str(job.get("title", "Untitled Job"))
 		var status := str(job.get("status", "available"))
 		_job_list.add_item("%s  [%s]" % [title, status.to_upper()])
-	_detail_label.text = "[color=#20ff66]Pick a Cooters job.[/color]\n\nOne active job at a time. Marbles pays when the objective is done."
+	_detail_label.text = "[color=#20ff66]Pick a Cooters job.[/color]\n\nOne active job at a time. Marbles pays when the objective is done and the story still has all its limbs."
 	_accept_button.disabled = true
 
 
@@ -67,11 +67,11 @@ func _on_job_selected(index: int) -> void:
 	var status := str(job.get("status", "available"))
 	var lock_text := ""
 	if status == "paid":
-		lock_text = "\n\n[color=#777777]Paid out. Marbles says congratulations with liability distance.[/color]"
+		lock_text = "\n\n[color=#777777]Paid out. Marbles says congratulations from a safe liability distance.[/color]"
 	elif status == "active":
-		lock_text = "\n\n[color=#ffaa44]Already active. Ask Marbles for more details.[/color]"
+		lock_text = "\n\n[color=#ffaa44]Already active. Ask Marbles before the job invents a subplot.[/color]"
 	elif status == "ready for payout":
-		lock_text = "\n\n[color=#20ff66]Objective complete. Report to Marbles for payment.[/color]"
+		lock_text = "\n\n[color=#20ff66]Objective complete. Report to Marbles for payment and light judgment.[/color]"
 	elif not _active_job_id.is_empty():
 		lock_text = "\n\n[color=#ff5588]Finish your active job before taking another.[/color]"
 	else:

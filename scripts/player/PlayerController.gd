@@ -11,6 +11,7 @@ class_name PlayerController
 var gravity := ProjectSettings.get_setting("physics/3d/default_gravity") as float
 var look_pitch := 0.0
 var base_move_speed := 0.0
+var is_climbing := false
 
 
 func _ready() -> void:
@@ -34,7 +35,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
+	# Only apply gravity if not climbing
+	if not is_climbing and not is_on_floor():
 		velocity.y -= gravity * delta
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():

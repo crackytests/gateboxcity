@@ -7,7 +7,7 @@ signal containment_ready
 @export var containment_radius := 4.0
 @export var rain_regen_per_second := 6.0
 @export var containment_dialogue_name := "Cooters Rain Mutant"
-@export_multiline var containment_dialogue_text := "The mutant folds under the awning, still alive, still leaking. Marbles bolts the door around it."
+@export_multiline var containment_dialogue_text := "The mutant folds under the awning, still alive, still leaking, now technically a tenant. Marbles bolts the door around it."
 
 var rain_sac_destroyed := false
 var mobility_frame_destroyed := false
@@ -75,18 +75,18 @@ func can_be_bolted_down() -> bool:
 
 func get_containment_hint() -> String:
 	if contained:
-		return "It is already bolted down. Cooters is open."
+		return "It is already bolted down. Cooters is open, and everyone is pretending this was normal bar maintenance."
 	if can_be_bolted_down():
-		return "It is hurt and on the magenta pad. Hit E at Cooters to bolt it down."
+		return "It is hurt and on the magenta pad. Hit E at Cooters to bolt it down before it learns tenancy law."
 	if not rain_sac_destroyed and not mobility_frame_destroyed:
-		return "Shoot the Rain Sac and Mobility Frame, then drag it onto the magenta Cooters pad."
+		return "Shoot the Rain Sac and Mobility Frame, then drag it onto the magenta Cooters pad. Simple, awful, very on brand."
 	if not rain_sac_destroyed:
-		return "Mobility is wrecked. Now rupture the Rain Sac before it drinks more sky."
+		return "Mobility is wrecked. Now rupture the Rain Sac before it drinks more sky and gets inspirational."
 	if not mobility_frame_destroyed:
-		return "Rain Sac is ruptured. Now break the Mobility Frame so it cannot crawl out."
+		return "Rain Sac is ruptured. Now break the Mobility Frame so it cannot crawl out and become a district metaphor."
 	if not _is_in_containment_zone():
-		return "Both key parts are broken. Lure it onto the magenta Cooters pad, then hit E at the door."
-	return "Both key parts are broken and it is on the pad. Hit E at Cooters to bolt it down."
+		return "Both key parts are broken. Lure it onto the magenta Cooters pad, then hit E at the door before Marbles invents a worse plan."
+	return "Both key parts are broken and it is on the pad. Hit E at Cooters to bolt it down and call that a social contract."
 
 
 func _check_containment() -> void:

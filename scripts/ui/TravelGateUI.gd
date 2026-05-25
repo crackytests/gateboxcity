@@ -52,7 +52,7 @@ func _refresh_routes() -> void:
 		if bool(route.get("locked", false)):
 			title += "  [LOCKED]"
 		_route_list.add_item(title)
-	_detail_label.text = "[color=#20ff66]Choose a route out of Leak Street.[/color]\n\nTravel rolls the current route event deck before the scene changes."
+	_detail_label.text = "[color=#20ff66]Choose a route out of Leak Street.[/color]\n\nTravel rolls the route event deck before the scene changes, because even hallways need drama now."
 	_travel_button.disabled = true
 
 
@@ -65,7 +65,7 @@ func _on_route_selected(index: int) -> void:
 	var route: Dictionary = _routes[index]
 	var locked := bool(route.get("locked", false))
 	var reason := str(route.get("locked_reason", "Route unavailable."))
-	var lock_text := "\n\n[color=#ff5588]%s[/color]" % reason if locked else "\n\n[color=#20ff66]Route available.[/color]"
+	var lock_text := "\n\n[color=#ff5588]%s[/color]" % reason if locked else "\n\n[color=#20ff66]Route available. Suspicious, but available.[/color]"
 	_detail_label.text = "[color=#20ff66]%s[/color]\n[color=#aaa]Travel Gate route[/color]\n\n%s%s" % [
 		str(route.get("title", "Unknown Route")),
 		str(route.get("description", "")),

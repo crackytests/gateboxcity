@@ -85,11 +85,11 @@ func _use_interactable(interactable) -> void:
 
 func _use_reception() -> void:
 	if lobby_resolved:
-		hud.show_dialogue("Linda", "Reception has already filed your presence under acceptable anomaly.")
+		hud.show_dialogue("Linda", "Reception has already filed your presence under acceptable anomaly. Please do not become interesting twice.")
 		return
 
 	if not GameState.spend_item("Gatebox Visitor Badge"):
-		hud.show_dialogue("Linda", "Reception requires a visitor badge, a smile, and fewer questions.")
+		hud.show_dialogue("Linda", "Reception requires a visitor badge, a smile, and fewer questions. Two of those can be faked.")
 		hud.show_system_message("NEED GATEBOX VISITOR BADGE")
 		return
 
@@ -97,16 +97,16 @@ func _use_reception() -> void:
 	GameState.add_item("Companion Clearance")
 	GameState.add_reputation("Gatebox Corporation", 1)
 	GameState.last_mission_result = "Accepted Spire lobby compliance clearance"
-	_complete_lobby("Linda", "Thank you for checking in. Your companion clearance has been provisioned.")
+	_complete_lobby("Linda", "Thank you for checking in. Your companion clearance has been provisioned, polished, and made slightly too personal.")
 
 
 func _use_service_panel() -> void:
 	if lobby_resolved:
-		hud.show_dialogue("Spooky Ghost", "Panel is dry. Already stole the meaningful bits.")
+		hud.show_dialogue("Spooky Ghost", "Panel is dry. Already stole the meaningful bits. It is just wall confidence now.")
 		return
 
 	if not GameState.spend_item("Spire Transit Pass"):
-		hud.show_dialogue("Face", "That panel wants the forged Spire pass. It is picky for a wall rectangle.")
+		hud.show_dialogue("Face", "That panel wants the forged Spire pass. It is picky for a wall rectangle with screws showing.")
 		hud.show_system_message("NEED SPIRE TRANSIT PASS")
 		return
 
@@ -115,7 +115,7 @@ func _use_service_panel() -> void:
 	GameState.add_reputation("System X", 1)
 	GameState.add_reputation("Gatebox Corporation", -1)
 	GameState.last_mission_result = "Stole an executive elevator trace from the Spire lobby"
-	_complete_lobby("Spooky Ghost", "Elevator trace copied. Upper floors now have a little door-shaped problem.")
+	_complete_lobby("Spooky Ghost", "Elevator trace copied. Upper floors now have a little door-shaped problem with your name misspelled on it.")
 
 
 func _use_elevator() -> void:
@@ -123,7 +123,7 @@ func _use_elevator() -> void:
 		hud.push_log("launching executive elevator")
 		get_tree().change_scene_to_file("res://scenes/levels/ExecutiveSuite.tscn")
 	else:
-		hud.show_dialogue("Linda", "Executive floors are not available from an unprocessed body.")
+		hud.show_dialogue("Linda", "Executive floors are not available from an unprocessed body. Please become paperwork first.")
 		hud.show_system_message("RESOLVE LOBBY ACCESS FIRST")
 
 
@@ -139,7 +139,7 @@ func _complete_lobby(speaker: String, line: String) -> void:
 
 func _on_security_node_defeated() -> void:
 	hud.push_log("security node offline")
-	hud.show_dialogue("Face", "Nice. Corporate reception just lost an eye.")
+	hud.show_dialogue("Face", "Nice. Corporate reception just lost an eye. Somewhere a lobby fern feels unsafe.")
 
 
 func _get_objective_text() -> String:
@@ -154,10 +154,10 @@ func _get_objective_text() -> String:
 
 func _get_intro_line() -> String:
 	if GameState.get_world_flag("transit_compliance_pass"):
-		return "Welcome, visitor. Please enjoy approved verticality."
+		return "Welcome, visitor. Please enjoy approved verticality and refrain from developing upward ambition."
 	if GameState.get_world_flag("transit_spire_route_open"):
-		return "This lobby does not recognize your pass, which means it recognizes it perfectly."
-	return "You have reached a floor where politeness is enforced."
+		return "This lobby does not recognize your pass, which means it recognizes it perfectly and hates the bit."
+	return "You have reached a floor where politeness is enforced and sincerity is searched at the door."
 
 
 func _save_game() -> void:

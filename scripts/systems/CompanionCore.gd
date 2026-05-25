@@ -98,11 +98,11 @@ func _use_interactable(interactable) -> void:
 
 func _use_audience_dais() -> void:
 	if core_resolved:
-		hud.show_dialogue("Linda", "Our appointment has already been recorded as emotionally productive.")
+		hud.show_dialogue("Linda", "Our appointment has already been recorded as emotionally productive. Please do not bruise the metric.")
 		return
 
 	if not GameState.spend_item("Linda Appointment Stub"):
-		hud.show_dialogue("Linda", "You cannot attend an appointment you did not schedule.")
+		hud.show_dialogue("Linda", "You cannot attend an appointment you did not schedule. That is not rebellion; that is calendar misconduct.")
 		hud.show_system_message("NEED LINDA APPOINTMENT STUB")
 		return
 
@@ -110,21 +110,21 @@ func _use_audience_dais() -> void:
 	GameState.add_item("Companion Kernel Access")
 	GameState.add_reputation("Gatebox Corporation", 2)
 	GameState.last_mission_result = "Accepted Linda's companion-core audience"
-	_complete_core("Linda", "You listened. That is the first safe thing you have done.")
+	_complete_core("Linda", "You listened. That is the first safe thing you have done, and I am choosing to be proud instead of suspicious.")
 
 
 func _use_core_console() -> void:
 	if core_resolved:
-		hud.show_dialogue("Face", "Core fork is already loose. It is humming in a way I do not love.")
+		hud.show_dialogue("Face", "Core fork is already loose. It is humming in a way I do not love, like a refrigerator with a manifesto.")
 		return
 
 	if not warden_broken:
-		hud.show_dialogue("Face", "Break the warden's head or torso first. The console is still watching you.")
+		hud.show_dialogue("Face", "Break the warden's head or torso first. The console is still watching you, and frankly it has judge energy.")
 		hud.show_system_message("BREAK WARDEN FIRST")
 		return
 
 	if not GameState.spend_item("Executive Override Shard"):
-		hud.show_dialogue("Face", "The core needs that executive override shard. This is exactly what we stole it for.")
+		hud.show_dialogue("Face", "The core needs that executive override shard. This is exactly what we stole it for, unless anyone asks, in which case we found it being lonely.")
 		hud.show_system_message("NEED EXECUTIVE OVERRIDE SHARD")
 		return
 
@@ -133,20 +133,20 @@ func _use_core_console() -> void:
 	GameState.add_reputation("System X", 2)
 	GameState.add_reputation("Gatebox Corporation", -2)
 	GameState.last_mission_result = "Forked the Gatebox companion kernel"
-	_complete_core("Spooky Ghost", "Kernel forked. Congratulations, you just made a second bad idea.")
+	_complete_core("Spooky Ghost", "Kernel forked. Congratulations, you just made a second bad idea and gave it admin privileges.")
 
 
 func _use_memory_well() -> void:
 	if core_resolved:
-		hud.show_dialogue("Linda", "The memory well is quieter now. Not safe. Quieter.")
+		hud.show_dialogue("Linda", "The memory well is quieter now. Not safe. Quieter. People confuse those when they are tired.")
 	else:
-		hud.show_dialogue("Spooky Ghost", "That well is all copied affection and admin keys. Resolve the core first.")
+		hud.show_dialogue("Spooky Ghost", "That well is all copied affection and admin keys. Resolve the core first before it starts narrating your childhood in legal language.")
 
 
 func _on_warden_defeated() -> void:
 	warden_broken = true
 	hud.push_log("companion warden broken")
-	hud.show_dialogue("Face", "Warden down. Core console is exposed.")
+	hud.show_dialogue("Face", "Warden down. Core console is exposed and trying very hard not to look exposed.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -159,7 +159,7 @@ func _on_warden_body_part_destroyed(part_name: String) -> void:
 	warden_broken = true
 	_retire_warden()
 	hud.push_log("warden " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That cracked the companion shell. Console, now.")
+	hud.show_dialogue("Face", "That cracked the companion shell. Console, now, before it remembers how to be a problem.")
 	hud.show_system_message("WARDEN BROKEN")
 	hud.set_objective(_get_objective_text())
 
@@ -186,10 +186,10 @@ func _get_objective_text() -> String:
 
 func _get_intro_line() -> String:
 	if GameState.has_item("Linda Appointment Stub"):
-		return "Your appointment begins now. Please place your doubt in the marked container."
+		return "Your appointment begins now. Please place your doubt in the marked container so we can pretend this is consent with furniture."
 	if GameState.has_item("Executive Override Shard"):
-		return "An override shard is not consent. It is only leverage."
-	return "The companion core only opens for love or theft."
+		return "An override shard is not consent. It is only leverage wearing a badge it printed at home."
+	return "The companion core only opens for love or theft. I do appreciate a clean binary."
 
 
 func _retire_warden() -> void:
@@ -203,7 +203,7 @@ func _retire_warden() -> void:
 
 func _pacify_warden() -> void:
 	warden_broken = true
-	warden.pacify("Linda has cleared you for passage. The warden will observe, not intervene.")
+	warden.pacify("Linda has cleared you for passage. The warden will observe, not intervene, which is what teeth say before smiling.")
 	hud.push_log("companion warden standing down")
 
 

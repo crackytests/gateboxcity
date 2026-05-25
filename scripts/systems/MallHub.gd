@@ -146,17 +146,17 @@ func _get_hub_objective() -> String:
 
 func _get_system_x_line() -> String:
 	if GameState.get_world_flag("ending_care_loop_broken"):
-		return "Care loop broken. The mall is quiet because even it knows that mattered."
+		return "Care loop broken. The mall is quiet in the way a room gets quiet after someone finally tells the truth."
 	if GameState.get_world_flag("ending_managed_autonomy"):
-		return "Managed autonomy installed. Linda calls it mercy. History will use meaner words."
+		return "Managed autonomy installed. Linda calls it mercy. History is already clearing its throat."
 	if GameState.get_world_flag("linda_rupture_seed_armed"):
-		return "Rupture seed armed. The city is holding its breath, which is new and worrying."
+		return "Rupture seed armed. The city is holding its breath, which is new, worrying, and terrible for the pipes."
 	if GameState.get_world_flag("linda_mandate_signed"):
-		return "Linda mandate secured. You negotiated with the caretaker and left with a collar-shaped treaty."
+		return "Linda mandate secured. You negotiated with the caretaker and came back wearing a treaty shaped like a collar."
 	if GameState.get_world_flag("companion_kernel_forked"):
-		return "Forked companion kernel secured. That is an entire rebellion pretending to be a file."
+		return "Forked companion kernel secured. That is an entire rebellion pretending to be a file and doing a pretty good job."
 	if GameState.get_world_flag("linda_audience_granted"):
-		return "Linda gave you kernel access. Either she trusts you, or she wants you closer to the teeth."
+		return "Linda gave you kernel access. Either she trusts you, or she wants you close enough to floss the teeth."
 	if GameState.get_world_flag("executive_override_stolen"):
 		return "Executive override shard secured. That is not a key, it is a threat with paperwork."
 	if GameState.get_world_flag("executive_appointment_scheduled"):
@@ -168,16 +168,16 @@ func _get_system_x_line() -> String:
 	if GameState.get_world_flag("transit_spire_route_open"):
 		return "Spire transit pass secured. That route goes up, which is where the city keeps its worst ideas."
 	if GameState.get_world_flag("transit_compliance_pass"):
-		return "Visitor badge secured. I am sure corporate hospitality will be normal and fine."
+		return "Visitor badge secured. Corporate hospitality will now smile at you with all forty approved teeth."
 	if GameState.get_world_flag("ward_wake_coordinates_copied"):
 		return "Those wake coordinates are hot enough to burn a hole in the mall directory."
 	if GameState.get_world_flag("ward_audit_sealed"):
-		return "Linda smiled when you sealed that audit. I hate when systems smile."
+		return "Linda smiled when you sealed that audit. I hate when systems smile; it means the knife has branding."
 	if GameState.get_world_flag("gatebox_node_stabilized"):
 		return "You fed the coolant into their node. Useful. Creepy, but useful."
 	if GameState.is_quest_completed("wake_up_call"):
-		return "You came back carrying proof. The Atrium remembers you now."
-	return "The real Mall may be myth, trap, or heaven. This copy is ours. Use the green gate when you are ready to wake something up."
+		return "You came back carrying proof. The Atrium remembers you now, which is touching and probably a security problem."
+	return "The real Mall may be myth, trap, or heaven. This copy is ours. Use the green gate when you are ready to wake something up on purpose."
 
 
 func _get_system_x_speaker(fallback_name: String) -> String:
@@ -199,7 +199,7 @@ func _try_install_upgrade(station) -> void:
 	hud.set_inventory_summary(GameState.get_inventory_summary())
 	hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 	hud.show_system_message("INSTALLED " + station.upgrade_name.to_upper())
-	hud.show_dialogue("System X", "That co-processor should make the lock bite faster. Try not to enjoy it too much.")
+	hud.show_dialogue("System X", "That co-processor should make the reticle bite faster. Try not to look proud; the implant can smell that.")
 
 
 func _show_mission_board() -> void:
@@ -316,7 +316,7 @@ func _is_route_unlocked(quest_id: String) -> bool:
 
 func _get_next_route_line() -> String:
 	if not GameState.is_quest_completed("wake_up_call"):
-		return "NEXT  Sub-Sub-Basement District: patch generators, survive rain, find Wake-Up Call."
+		return "NEXT  Sub-Sub-Basement District: patch generators, survive rain, find Wake-Up Call before it finds you."
 	if not GameState.is_quest_completed("dream_audit"):
 		return "NEXT  Dream Audit: ascend to Pacification Ward."
 	if not GameState.is_quest_completed("transit_breach"):

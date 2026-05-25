@@ -28,8 +28,8 @@ func _ready() -> void:
 
 func interact() -> Dictionary:
 	if _hacked:
-		return {"name": display_name, "text": "Terminal already accessed. Signal trace is cold."}
-	return {"name": display_name, "text": "INITIATING HACK PROTOCOL...", "start_hack": true, "difficulty": difficulty}
+		return {"name": display_name, "text": "Terminal already accessed. Signal trace is cold, dramatic, and pretending it never knew you."}
+	return {"name": display_name, "text": "INITIATING HACK PROTOCOL... the terminal makes this sound cleaner than it is.", "start_hack": true, "difficulty": difficulty}
 
 
 func complete_hack(success: bool) -> void:

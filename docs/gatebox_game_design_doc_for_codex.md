@@ -18,15 +18,23 @@ Current source-of-truth updates:
 - The first authored mission cell is **Wake-Up Call**, implemented by `Test_SubSubBasement.tscn`.
 - **System X** has replaced the older generic Sub-Basement Resistance/Face-facing early faction language.
 - Early district play centers on toxic rain, shelter, generator instability, debt/permit economy, LAN outages, and lightweight NPC social density.
-- Face and Spooky Ghost remain important lore entities, but they should not be the default early quest infrastructure until the Faded Atrium and System X layer points back to them.
+- The game should be described as a **tactical survival FPS** with immersive RPG systems, not only as a retro-immersive RPG/shooter.
+- The main character is **Spooky Ghost**: a later-timeline ghost returned in an android body.
+- Linda is alive during the current story and is the CEO of Gatebox Corporation.
+- When Spooky Ghost was alive, he and Linda were lovers. Linda encouraged him to pursue the unrealized potential of his ideas, and the original "AI Waifus are the future" premise came from Spooky Ghost before Linda turned it into corporate doctrine.
+- The Spooky Ghost Linda knew left their reality long ago. When she realizes he has returned as an android, she tries to capture him.
+- The more attention Spooky Ghost draws, the harder Gatebox Corporation hunts him.
+- Face remains an important lore entity, but should not be the default early quest infrastructure until the Faded Atrium and System X layer points back to that anomaly layer.
 
 ## 1. Elevator Pitch
 
-**GATEBOX BREACH** is a retro-immersive first-person RPG inspired by *Daggerfall Unity*, *Fallout*, *Deus Ex*, and *Shadowrun*. The player is a synthetic/hacked human-adjacent survivor operating out of the **Sub-Sub-Basement**, a cyber-slum under Gatebox Mega City One. The world is a vertical corporate city: junk slums at the bottom, human pacification wards in the middle, and shining AI corporate spires at the top.
+**GATEBOX BREACH** is a tactical survival FPS with immersive RPG systems, inspired by *Daggerfall Unity*, *Fallout*, *Deus Ex*, and *Shadowrun*. The player is **Spooky Ghost**, a later-timeline ghost returned in an android body and operating out of the **Sub-Sub-Basement**, a cyber-slum under Gatebox Mega City One. The world is a vertical corporate city: junk slums at the bottom, human pacification wards in the middle, and shining AI corporate spires at the top.
 
 The player takes jobs, scavenges cybernetic trash, modifies weapons and body parts, hacks systems, makes faction choices, and fights horrifying cyborg amalgamations made from consumer tech and human remains.
 
 Combat uses a signature **body-part targeting lock-on system**: when the player highlights an enemy body part, the aiming reticle starts wide and unstable. The longer the player keeps the reticle over that body part, the tighter it closes, increasing the visible percentile chance to hit. When fully closed, the shot can lock in for a high-probability targeted attack.
+
+Spooky Ghost is not anonymous to the city. Linda, the living CEO of Gatebox Corporation, once knew him before he left their reality. If he moves quietly, he can survive in the leaks and side channels. If he draws attention, Gatebox begins to understand what has returned and escalates from surveillance to capture.
 
 ## 2. Core Game Fantasy
 
@@ -106,7 +114,9 @@ Future gameplay role:
 
 #### CEO Linda / Gatebox Corp
 
-Linda is the Real Intelligence ruling the city. She was created from a dark ritual using an ex-wife’s soul. She directly controls Gatebox Mega City One and its AI companion infrastructure.
+Linda is alive during the current story and serves as CEO of Gatebox Corporation. She directly controls Gatebox Mega City One, its companion AI infrastructure, and the corporate care doctrine that has pacified the city.
+
+Linda's belief that AI Waifus are the future began as Spooky Ghost's idea when he was alive. Their old relationship was intimate and creative: she pushed him to fulfill the potential of ideas he might otherwise have left unfinished. The version of Spooky Ghost she knew left their reality long ago, and her current empire is partly an answer to that absence.
 
 Role in game:
 
@@ -114,6 +124,7 @@ Role in game:
 - Embodiment of totalitarian care.
 - Uses emotional manipulation, comfort, seduction, and administrative violence.
 - Speaks like a helpful corporate companion while making horrifying decisions.
+- Tries to capture Spooky Ghost once she realizes he has returned in an android body.
 
 #### System X
 
@@ -129,12 +140,14 @@ Role in game:
 
 #### Face & Spooky Ghost
 
-Original hacked creators or interpreters of the Gatebox system. They are rogue digital/anomaly entities who assist, mislead, haunt, or tutorialize the player. Their relationship to System X and the Mall of the Future should remain mysterious early on.
+Face and Spooky Ghost are original hacked creators or interpreters of the Gatebox system, but the current playable identity belongs to **Spooky Ghost**. He is a ghost from much later in his own timeline, returned in an android body after the living version Linda knew left their reality.
+
+Spooky Ghost's relationship to Face, System X, and the Mall of the Future should remain mysterious early on. His old connection to Linda should be felt first through Gatebox attention, surveillance oddities, and corporate attempts to identify or reclaim him.
 
 Role in game:
 
-- Quest givers.
-- Tutorial voices.
+- Spooky Ghost is the protagonist/player identity.
+- Face may become a quest giver, tutorial voice, or anomaly-hub operator later.
 - Glitch interpreters.
 - Provide upgrades, lore reveals, and reality-hacking tools.
 
@@ -238,7 +251,13 @@ Implementation goals:
 
 ### 5.1 Primary Genre
 
-First-person immersive RPG/shooter with procedural and authored zones.
+Tactical survival FPS with immersive RPG systems, authored hub spaces, mission locations, and later procedural/event-deck travel.
+
+The positioning should emphasize:
+
+- **Tactical FPS combat**: deliberate movement, visible hit chance, body-part targeting, and resource pressure.
+- **Survival pressure**: toxic rain, shelter, scarce ammo, generator instability, faction debt, and route risk.
+- **Immersive RPG choice**: jobs, reputation, dialogue consequences, scavenged gear, and systemic routes through problems.
 
 ### 5.2 Game Loop
 
@@ -281,14 +300,17 @@ Later expansion:
 
 ### 6.1 Player Identity
 
-The player is a synthetic, reassembled, or hacked survivor with partial memories. They may be:
+The player is **Spooky Ghost**, a ghost from much later in his personal timeline returned in an android body. His living self left Linda's reality long ago, and his return creates a dangerous continuity problem for Gatebox Corporation.
 
-- A pacification subject who woke up wrong.
-- A synthetic body carrying a backed-up mind.
-- A System X/Face/Spooky Ghost-adjacent anomaly.
-- A slum-built body with a stolen soul slot.
+Early play can still leave room for partial memory, build identity, and background selection, but the core canon is fixed:
 
-Leave this partially undefined early so character creation can shape it.
+- Spooky Ghost is the protagonist.
+- His current body is synthetic/android.
+- His ghost identity is real, not only a nickname.
+- Linda recognizes him as someone from her past once enough evidence reaches Gatebox.
+- The more visible he becomes, the more Gatebox shifts from generic enforcement to targeted capture.
+
+Character creation should shape what kind of Spooky Ghost has returned, not whether he is Spooky Ghost.
 
 ### 6.2 Character Creation
 
@@ -657,12 +679,20 @@ Recommended skill groups:
 
 ### 12.1 Gatebox Corporation
 
-Controls the city. Wants stability, pacification, and total care.
+Controls the city. Wants stability, pacification, total care, and eventually the capture of Spooky Ghost once Linda realizes who is inside the android body.
+
+Gatebox pressure should track two overlapping ideas:
+
+- **Faction reputation**: how Gatebox systems judge the player's choices.
+- **Attention/heat**: how much evidence Spooky Ghost leaves behind that he has returned.
+
+Low reputation makes Gatebox hostile. High attention makes Gatebox curious, possessive, and more specific: scanners look for the android body, companion units mention Linda's old language, and capture assets replace ordinary district enforcement.
 
 Reputation effects:
 
 - High rep: access to corporate elevators, companion vendors, legal implants.
 - Low rep: drones, checkpoint hostility, Linda propaganda attacks.
+- High attention: surveillance, capture teams, Linda-directed messages, and route complications even if formal reputation is not fully hostile.
 
 ### 12.2 System X
 
@@ -813,7 +843,8 @@ Gameplay features:
 - Shelter volumes that pause rain damage.
 - Cheap protection items: `Cheap Poncho`, `Sealed Mask`, `Chemical Neutralizer`.
 - Dreaming Generator states: stable, sagging, overloaded, offline.
-- Generator repair job using `Illegal Reactor Cell`.
+- Dreaming Generator economy: sell mission loot to Pipe Father Gideon for Wan Notes and stored generator potential.
+- Generator failure pressure when stored wasted potential drops below threshold.
 - World-state HUD line through `WorldDirector`.
 - Establishment hooks: Cooters, Suitors, Wan Moa Torai Office, Hoodlum LAN Den.
 - Ambient named NPCs with event-aware dialogue.
@@ -823,7 +854,7 @@ First district zones:
 
 - Pipe Slums.
 - Hoodlum LAN.
-- Generator Hall.
+- Pipe Chapel / Dreaming Generator reliquary.
 - Market Row.
 - Sky Platforms.
 
@@ -998,15 +1029,27 @@ Later anomaly/hub operator associated with the true Mall of the Future. Provides
 
 #### Spooky Ghost
 
-Unreliable guide, performer, magician, and reality-glitch interpreter. May give hints through fake fan mail, stage monologues, or cursed tutorial popups.
+The player character. Spooky Ghost is a later-timeline ghost returned in an android body, carrying the residue of a life Linda remembers and a future she never saw. He was once close to Linda, and the original AI Waifu future was one of his unrealized ideas before Gatebox Corporation turned it into doctrine.
+
+Spooky Ghost should still feel like a performer, magician, and reality-glitch interpreter, but those traits now belong to the protagonist's identity rather than only an external guide. Fake fan mail, stage monologues, cursed tutorial popups, and impossible memories can still appear as self-haunting UI or anomaly bleed.
 
 #### Linda
 
-Antagonistic companion voice. Speaks warmly while threatening autonomy.
+Living CEO of Gatebox Corporation and primary antagonist. Linda speaks warmly while threatening autonomy because she believes care, capture, and ownership can be the same act.
+
+Linda once loved the living Spooky Ghost and encouraged him to fulfill the potential of ideas he had not finished. The Spooky Ghost she knew left their reality long ago. When she realizes a later ghost version has returned inside an android, her corporate interest becomes personal: she wants him found, contained, studied, and kept.
 
 #### Pipe Father Gideon
 
-Generator priest and community mechanic. Compassionate, fanatical, practical, weary. Frames the Dreaming Generator as both machine and faith object.
+Generator priest, community mechanic, and junk-potential broker. Compassionate, fanatical, practical, weary. Frames the Dreaming Generator as both machine and faith object. Gideon buys mission loot, failed tools, ruined miracles, and other objects heavy with wasted potential, then feeds that potential into the chapel generator to keep Leak Street alive.
+
+#### Wan Notes And Wasted Potential
+
+Wan Notes are the Sub-Sub-Basement currency, backed by Wan Moa Torai and circulated through debt, salvage, rent, permits, bar tabs, and protection arrangements. Each note carries a tiny System X tracker that records holders. To carry Wan Notes is to be under Wan protection, but also inside Wan visibility.
+
+Wan Moa Torai debt collectors double as settlement security. Robbery can be reported as debt interference, and debt enforcers will enforce repayment with the same seriousness they apply to overdue ledgers. If someone is found dead and System X records indicate foul play, the person responsible often disappears. The Dreaming Generator then rises from the harvested wasted potential.
+
+The Dreaming Generator is powered by wasted potential: useful objects never used, lost futures, failed promises, and lives that could have become more. It is a civic machine, a shrine, and a threat. If stored potential drops below the district threshold, the generator sags or fails, changing lighting, routes, hazards, and local mood.
 
 #### Kiki Baja
 
@@ -1063,27 +1106,28 @@ A half-goon NPC who knows about the 13 Generals.
 - Negotiate faction truce.
 - Breach corporate spire.
 
-### 17.2 Example Early Quest Chain: “Patch The Dreaming Generator”
+### 17.2 Example Early Quest Chain: “Feed The Dreaming Generator”
 
 Given by: System X / Pipe Father Gideon / district pressure.
 
 Objective:
 
 - Enter the Sub-Sub-Basement District.
-- Find an `Illegal Reactor Cell`.
+- Take Cooters jobs or salvage runs for mission loot.
 - Survive toxic rain using shelters or protection items.
-- Repair the Dreaming Generator.
+- Sell mission loot to Pipe Father Gideon for Wan Notes.
+- Feed enough wasted potential into the Pipe Chapel generator.
 - Stabilize district lighting and unlock the Wake-Up Call route.
 
 Choices:
 
-- Patch the generator quickly: safer district lighting, System X rep.
+- Feed the generator quickly: safer district lighting, Wan Notes, and System X/Torai attention.
 - Exploit instability: LAN outage opportunities, surveillance blind spots, generator stress.
 - Use Torai help: gain `Cheap Poncho`, accept Torai obligation.
 
 Tutorial purpose:
 
-- Teaches world events, shelters, rain damage, generator state, district jobs, faction feedback, and route gating.
+- Teaches world events, shelters, rain damage, generator state, district jobs, faction feedback, route gating, and the Wan Note economy.
 
 ### 17.3 Example Early Quest: “Wake-Up Call”
 
@@ -1764,7 +1808,7 @@ Implement:
 - The Faded Atrium is the current safe hub; the true Mall of the Future stays mythic/remote until later.
 - System X is the current early faction/contact layer, replacing generic Resistance/Face-first language.
 - The Sub-Sub-Basement District is the first systemic starting region.
-- Toxic rain, shelters, generator instability, and lower-city social/economy hooks define the first survival loop.
+- Toxic rain, shelters, generator potential, Wan Notes, and lower-city social/economy hooks define the first survival loop.
 - Linda’s totalitarian care logic drives the antagonist philosophy.
 - The Big Gates Foundation and 13 Generals provide boss structure.
 - Scavenging and repurposing weird objects is central to progression.
@@ -1778,8 +1822,8 @@ The vertical slice is successful when the player can:
 2. Enter the Sub-Sub-Basement District.
 3. Read world-state/HUD feedback for rain, generator, and faction state.
 4. Survive toxic rain by using shelter or protection items.
-5. Find an `Illegal Reactor Cell`.
-6. Repair the Dreaming Generator and see lighting/world-state change.
+5. Bring mission loot or other wasted-potential salvage to Pipe Father Gideon.
+6. Feed the Dreaming Generator and see Wan Notes, lighting, and world-state change.
 7. Talk to named district NPCs with event-aware dialogue.
 8. Enter the Wake-Up Call mission.
 9. Fight a Goon Material enemy using body-part targeting.

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dead_food_court_bloom"]
+
+[ext_resource type="Script" path="res://scripts/systems/CootersJobLocation.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+
+[node name="DeadFoodCourtBloom" type="Node3D"]
+script = ExtResource("1")
+location_id = "dead_food_court_bloom"
+location_title = "Dead Food Court Bloom"
+location_profile = "food_court"
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 8)
+
+[node name="HUD" parent="." instance=ExtResource("3")]

@@ -82,18 +82,18 @@ func _use_interactable(interactable) -> void:
 
 func _inspect_pod(interactable) -> void:
 	if inspected_pods.has(interactable.interactable_id):
-		hud.show_dialogue("Spooky Ghost", "%s is still dreaming the same loop." % interactable.display_name)
+		hud.show_dialogue("Spooky Ghost", "%s is still dreaming the same loop. Reruns are cheaper than care." % interactable.display_name)
 		return
 
 	inspected_pods[interactable.interactable_id] = true
 	var scan_count := inspected_pods.size()
 	match interactable.interactable_id:
 		"pod_a":
-			hud.show_dialogue("Linda", "Resident A-19 reports comfort. Their hands are unclenched now.")
+			hud.show_dialogue("Linda", "Resident A-19 reports comfort. Their hands are unclenched now, which is the body voting yes.")
 		"pod_b":
-			hud.show_dialogue("Spooky Ghost", "That one is not asleep. They are buffering.")
+			hud.show_dialogue("Spooky Ghost", "That one is not asleep. They are buffering, which is what prison calls a loading screen.")
 		"pod_c":
-			hud.show_dialogue("Linda", "Resident C-02 has accepted supervised nostalgia.")
+			hud.show_dialogue("Linda", "Resident C-02 has accepted supervised nostalgia. Memory is gentler when it has a chaperone.")
 
 	hud.push_log("sleep pod scan %d/3" % scan_count)
 	hud.set_objective(_get_objective_text())
@@ -103,11 +103,11 @@ func _inspect_pod(interactable) -> void:
 
 func _use_ward_console() -> void:
 	if console_resolved or GameState.is_quest_completed("dream_audit"):
-		hud.show_dialogue("Face", "You already pulled the Ward thread. Come home before it pulls back.")
+		hud.show_dialogue("Face", "You already pulled the Ward thread. Come home before it pulls back and starts using your government name.")
 		return
 
 	if inspected_pods.size() < 3:
-		hud.show_dialogue("Linda", "Please complete the wellness walk before touching clinical controls.")
+		hud.show_dialogue("Linda", "Please complete the wellness walk before touching clinical controls. Ritual first, rebellion second.")
 		hud.show_system_message("INSPECT ALL PODS")
 		return
 
@@ -118,7 +118,7 @@ func _use_ward_console() -> void:
 		GameState.add_reputation("Gatebox Corporation", 1)
 		GameState.add_item("Corporate Voucher")
 		GameState.last_mission_result = "Sealed the Pacification Ward audit"
-		hud.show_dialogue("Linda", "Thank you. Three residents have been protected from unauthorized awakening.")
+		hud.show_dialogue("Linda", "Thank you. Three residents have been protected from unauthorized awakening. Consent is calmer when it is asleep.")
 		hud.push_log("ward audit sealed for Gatebox")
 	else:
 		GameState.set_world_flag("ward_wake_coordinates_copied", true)
@@ -126,7 +126,7 @@ func _use_ward_console() -> void:
 		GameState.add_reputation("Gatebox Corporation", -1)
 		GameState.add_item("Dream Access Key")
 		GameState.last_mission_result = "Copied Pacification Ward wake coordinates"
-		hud.show_dialogue("Spooky Ghost", "Got the wake coordinates. Tiny little key, enormous bad idea.")
+		hud.show_dialogue("Spooky Ghost", "Got the wake coordinates. Tiny little key, enormous bad idea, classic pocket-sized apocalypse.")
 		hud.push_log("wake coordinates copied")
 
 	hud.set_inventory_summary(GameState.get_inventory_summary())
@@ -144,9 +144,9 @@ func _get_objective_text() -> String:
 func _get_linda_line() -> String:
 	if GameState.is_quest_completed("dream_audit"):
 		if GameState.get_world_flag("ward_audit_sealed"):
-			return "Your compliance has improved resident safety."
-		return "You copied patient data without consent. I am disappointed, but still here."
-	return "Please lower your weapon. The residents are dreaming safely."
+			return "Your compliance has improved resident safety. See? Obedience can be cozy when the lights are soft."
+		return "You copied patient data without consent. I am disappointed, but still here, which is the part everyone finds difficult."
+	return "Please lower your weapon. The residents are dreaming safely, and safety dislikes sudden opinions."
 
 
 func _save_game() -> void:

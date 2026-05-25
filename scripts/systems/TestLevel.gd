@@ -161,7 +161,7 @@ func _on_quest_completed(_quest_id: String) -> void:
 	if quest.soul_coolant_routed:
 		GameState.set_world_flag("gatebox_node_stabilized", true)
 		GameState.last_mission_result = "Wake-Up Call complete: node stabilized"
-	hud.show_dialogue("System X", "Beautiful. The display still has dream residue on it. Atrium door is open.")
+	hud.show_dialogue("System X", "Beautiful. The display still has dream residue on it. Atrium door is open, which is the building's way of clapping with hinges.")
 	hud.push_log("wake-up call complete")
 	call_deferred("_return_to_hub")
 
@@ -204,7 +204,7 @@ func _route_soul_coolant() -> void:
 	GameState.add_reputation("Gatebox Corporation", 1)
 	GameState.add_reputation("System X", -1)
 	hud.set_faction_summary(GameState.get_faction_summary())
-	hud.show_dialogue("Linda", "Thank you for choosing stabilization. Your care has been noted.")
+	hud.show_dialogue("Linda", "Thank you for choosing stabilization. Your care has been noted, indexed, and placed somewhere tender.")
 	hud.push_log("soul coolant routed to Gatebox node")
 	focused_coolant.queue_free()
 	focused_coolant = null

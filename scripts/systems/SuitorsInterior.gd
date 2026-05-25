@@ -33,7 +33,7 @@ func _ready() -> void:
 
 	_apply_surveillance_state()
 	_refresh_hud()
-	hud.show_dialogue("Sunday", "Welcome to Suitors. Speak softly; the cameras are pretending not to listen.")
+	hud.show_dialogue("Sunday", "Welcome to Suitors. Speak softly; the cameras are pretending not to listen, and I hate embarrassing them.")
 	hud.push_log("suitors surveillance room entered")
 
 
@@ -54,13 +54,13 @@ func _handle_interact() -> void:
 	if focused_hack_terminal != null:
 		var result: Dictionary = focused_hack_terminal.interact()
 		if GameState.is_quest_completed("suitors_blind_spot"):
-			hud.show_dialogue("Surveillance Choir", "The choir is already humming your absence into every camera.")
+			hud.show_dialogue("Surveillance Choir", "The choir is already humming your absence into every camera. You are being forgotten in tasteful harmony.")
 			return
 		if WorldDirector.active_event != WorldDirector.EVENT_LAN_OUTAGE:
-			hud.show_dialogue("Surveillance Choir", "The cameras are too awake. Start or protect a Hoodlum LAN outage, then route the blind spot from here.")
+			hud.show_dialogue("Surveillance Choir", "The cameras are too awake. Start or protect a Hoodlum LAN outage, then route the blind spot from here while the eyes are busy panicking.")
 			return
 		if result.get("start_hack", false):
-			hud.show_dialogue(str(result["name"]), "Sunday opens the surveillance choir. Route the signal while the district cameras are blind.")
+			hud.show_dialogue(str(result["name"]), "Sunday opens the surveillance choir. Route the signal while the district cameras are blind and trying to remember where they put you.")
 			hud.start_hack(int(result.get("difficulty", 1)))
 		else:
 			hud.show_dialogue(str(result["name"]), str(result["text"]))
@@ -86,12 +86,12 @@ func _on_hack_completed(success: bool, _difficulty: int) -> void:
 		GameState.add_item("Suitors Access Chit")
 		GameState.add_reputation("System X", 1)
 		GameState.last_mission_result = "Suitors surveillance choir jammed"
-		hud.show_dialogue("Sunday", "There. The cameras remember everyone except you. Do not waste the loneliness.")
+		hud.show_dialogue("Sunday", "There. The cameras remember everyone except you. Do not waste the loneliness; it is expensive when bought honestly.")
 		hud.push_log("suitors blind spot mapped")
 		_apply_surveillance_state()
 		_refresh_hud()
 	else:
-		hud.show_dialogue("Sunday", "The signal slipped. Smile naturally until the cameras stop being interested.")
+		hud.show_dialogue("Sunday", "The signal slipped. Smile naturally until the cameras stop being interested. Yes, that is the worst possible instruction.")
 		hud.push_log("suitors hack failed")
 
 

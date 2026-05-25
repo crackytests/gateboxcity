@@ -252,12 +252,15 @@ func _add_catwalk_spines(group: Node3D) -> void:
 		_add_box(group, "SpineWalk_%d_e" % side_val, Vector3(x, 3.0, 18.0), Vector3(1.35, 0.06, 2.0), mat_dark)
 		_add_solid_box(group, "NorthEndCap_%d" % side_val, Vector3(x, 3.0, -19.0), Vector3(1.35, 0.06, 0.55), mat_dark)
 		_add_solid_box(group, "SouthEndCap_%d" % side_val, Vector3(x, 3.0, 19.0), Vector3(1.35, 0.06, 0.55), mat_dark)
-		_add_solid_box(group, "SpineRail_%d_inner" % side_val, Vector3(x - 0.55 * sx, 3.28, 0.0), Vector3(0.04, 0.42, 32.0), mat_rust)
-		_add_solid_box(group, "SpineRail_%d_outer_north_a" % side_val, Vector3(x + 0.55 * sx, 3.28, -11.0), Vector3(0.04, 0.42, 10.0), mat_rust)
-		_add_solid_box(group, "SpineRail_%d_outer_north_b" % side_val, Vector3(x + 0.55 * sx, 3.28, -2.0), Vector3(0.04, 0.42, 4.0), mat_rust)
-		_add_solid_box(group, "SpineRail_%d_outer_mid_a" % side_val, Vector3(x + 0.55 * sx, 3.28, 1.5), Vector3(0.04, 0.42, 3.5), mat_rust)
-		_add_solid_box(group, "SpineRail_%d_outer_mid_b" % side_val, Vector3(x + 0.55 * sx, 3.28, 10.0), Vector3(0.04, 0.42, 5.0), mat_rust)
-		_add_solid_box(group, "SpineRail_%d_outer_south" % side_val, Vector3(x + 0.55 * sx, 3.28, 18.0), Vector3(0.04, 0.42, 3.0), mat_rust)
+		_add_box(group, "SpineRail_%d_inner" % side_val, Vector3(x - 0.55 * sx, 3.28, -20.5), Vector3(0.04, 0.42, 6.0), mat_rust)
+		_add_box(group, "SpineRail_%d_inner_b" % side_val, Vector3(x - 0.55 * sx, 3.28, -10.0), Vector3(0.04, 0.42, 12.0), mat_rust)
+		_add_box(group, "SpineRail_%d_inner_c" % side_val, Vector3(x - 0.55 * sx, 3.28, 8.5), Vector3(0.04, 0.42, 7.0), mat_rust)
+		_add_box(group, "SpineRail_%d_inner_d" % side_val, Vector3(x - 0.55 * sx, 3.28, 18.5), Vector3(0.04, 0.42, 3.0), mat_rust)
+		_add_box(group, "SpineRail_%d_outer_n1" % side_val, Vector3(x + 0.55 * sx, 3.28, -21.0), Vector3(0.04, 0.42, 3.0), mat_rust)
+		_add_box(group, "SpineRail_%d_outer_n2" % side_val, Vector3(x + 0.55 * sx, 3.28, -11.5), Vector3(0.04, 0.42, 5.0), mat_rust)
+		_add_box(group, "SpineRail_%d_outer_m1" % side_val, Vector3(x + 0.55 * sx, 3.28, -2.0), Vector3(0.04, 0.42, 5.0), mat_rust)
+		_add_box(group, "SpineRail_%d_outer_m2" % side_val, Vector3(x + 0.55 * sx, 3.28, 9.0), Vector3(0.04, 0.42, 4.0), mat_rust)
+		_add_box(group, "SpineRail_%d_outer_s" % side_val, Vector3(x + 0.55 * sx, 3.28, 19.0), Vector3(0.04, 0.42, 3.0), mat_rust)
 
 
 func _add_catwalk_crossings(group: Node3D) -> void:
@@ -285,32 +288,68 @@ func _add_catwalk_collision_deck(group: Node3D) -> void:
 	const SMOOTH_DECK_Y := 3.95
 	for side_val in [-1, 1]:
 		var sx: float = float(side_val)
-		_add_invisible_solid_box(group, "SmoothSpineDeck_%d" % side_val, Vector3(3.8 * sx, SMOOTH_DECK_Y, 0.0), Vector3(1.75, 0.12, 38.0))
+		var spine_segments := [
+			{"z": -18.15, "d": 0.85},
+			{"z": -5.6, "d": 9.1},
+			{"z": 9.5, "d": 3.0},
+			{"z": 17.25, "d": 1.75},
+		]
+		for i in range(spine_segments.size()):
+			var segment_z: float = float(spine_segments[i]["z"])
+			var segment_depth: float = float(spine_segments[i]["d"])
+			_add_invisible_solid_box(group, "SmoothSpineDeck_%d_%d" % [side_val, i], Vector3(4.15 * sx, SMOOTH_DECK_Y, segment_z), Vector3(2.35, 0.04, segment_depth))
 	var crossings := [-12.0, -2.0, 8.0, 16.0]
 	for i in range(crossings.size()):
-		_add_invisible_solid_box(group, "SmoothCrossDeck%d" % i, Vector3(0.0, SMOOTH_DECK_Y, crossings[i]), Vector3(8.1, 0.12, 1.55))
+		_add_invisible_solid_box(group, "SmoothCrossDeck%d" % i, Vector3(0.0, SMOOTH_DECK_Y, crossings[i]), Vector3(8.1, 0.04, 0.65))
 
 
 func _add_catwalk_access(group: Node3D) -> void:
 	var ladders := [
-		{"x": -5.35, "z": -16.0, "side": -1},
-		{"x": -5.35, "z": 5.0, "side": -1},
-		{"x": -5.35, "z": 14.0, "side": -1},
-		{"x": 5.35, "z": -16.0, "side": 1},
-		{"x": 5.35, "z": 5.0, "side": 1},
-		{"x": 5.35, "z": 14.0, "side": 1},
+		{"x": -4.5, "z": -16.0, "side": -1},
+		{"x": -4.5, "z": 5.0, "side": -1},
+		{"x": -4.5, "z": 14.0, "side": -1},
+		{"x": 4.5, "z": -16.0, "side": 1},
+		{"x": 4.5, "z": 5.0, "side": 1},
+		{"x": 4.5, "z": 14.0, "side": 1},
 	]
 	for i in range(ladders.size()):
 		var lx: float = float(ladders[i]["x"])
 		var lz: float = float(ladders[i]["z"])
 		var side: float = float(ladders[i]["side"])
-		_add_solid_box(group, "LadderFrame%d" % i, Vector3(lx, 1.75, lz), Vector3(0.12, 3.0, 0.5), mat_rust)
-		_add_solid_box(group, "LadderRail%d_a" % i, Vector3(lx, 1.75, lz - 0.22), Vector3(0.05, 3.0, 0.05), mat_dark)
-		_add_solid_box(group, "LadderRail%d_b" % i, Vector3(lx, 1.75, lz + 0.22), Vector3(0.05, 3.0, 0.05), mat_dark)
-		for rung in range(8):
-			var ry := 0.45 + rung * 0.35
-			_add_solid_box(group, "Ladder%d_Rung%d" % [i, rung], Vector3(lx, ry, lz), Vector3(0.1, 0.04, 0.4), mat_rust)
-		_add_ladder_zone(group, "LadderZone%d" % i, Vector3(lx - side * 0.5, 2.35, lz), Vector3(1.8, 5.1, 1.45))
+		_add_box(group, "LadderRail%d_a" % i, Vector3(lx, 2.0, lz - 0.22), Vector3(0.05, 3.5, 0.05), mat_rust)
+		_add_box(group, "LadderRail%d_b" % i, Vector3(lx, 2.0, lz + 0.22), Vector3(0.05, 3.5, 0.05), mat_rust)
+		_add_invisible_solid_box(group, "LadderRailLowerCollision%d_a" % i, Vector3(lx, 1.85, lz - 0.22), Vector3(0.05, 1.55, 0.05))
+		_add_invisible_solid_box(group, "LadderRailLowerCollision%d_b" % i, Vector3(lx, 1.85, lz + 0.22), Vector3(0.05, 1.55, 0.05))
+		for rung in range(10):
+			var ry := 0.45 + rung * 0.36
+			_add_box(group, "Ladder%d_Rung%d" % [i, rung], Vector3(lx, ry, lz), Vector3(0.05, 0.04, 0.4), mat_rust)
+		_add_invisible_solid_box(group, "LadderLanding%d" % i, Vector3(lx - side * 1.25, 3.93, lz), Vector3(0.75, 0.025, 0.9))
+		_add_ladder_zone(group, "LadderZone%d" % i, Vector3(lx - side * 0.4, 2.5, lz), Vector3(1.5, 4.5, 1.2))
+
+
+func _add_catwalk_approach_ramps(group: Node3D) -> void:
+	var ladders := [
+		{"x": -4.5, "z": -16.0, "side": -1},
+		{"x": -4.5, "z": 5.0, "side": -1},
+		{"x": -4.5, "z": 14.0, "side": -1},
+		{"x": 4.5, "z": -16.0, "side": 1},
+		{"x": 4.5, "z": 5.0, "side": 1},
+		{"x": 4.5, "z": 14.0, "side": 1},
+	]
+	for i in range(ladders.size()):
+		var lx: float = float(ladders[i]["x"])
+		var lz: float = float(ladders[i]["z"])
+		var side: float = float(ladders[i]["side"])
+		
+		# Create stepping stones from ladder up and inward to the spine
+		# Move inward (toward spine center) with side direction reversed
+		for step in range(4):
+			var step_x := lx - side * (0.2 + step * 0.4)  # Move toward spine
+			var step_y := 4.5 + (step * 0.1)  # Slight elevation to exit ladder zone
+			var step_z := lz
+			_add_invisible_solid_box(group, "RampStep_%d_%d" % [i, step], 
+				Vector3(step_x, step_y, step_z), Vector3(0.5, 0.04, 0.9))
+
 
 
 func _add_catwalk_cover(group: Node3D) -> void:
@@ -434,8 +473,6 @@ func _add_arcade_facades(root: Node3D) -> void:
 	_add_textured_panel(root, "HoodlumLanFacadeArt", Vector3(-10.42, FACADE_CENTER_Y, -13.8), FACADE_SIZE, 90.0, TEX_HOODLUM)
 	_add_textured_panel(root, "PipeChapelFacadeArt", Vector3(-10.42, FACADE_CENTER_Y, 12.2), FACADE_SIZE, 90.0, TEX_PIPE_CHAPEL)
 	_add_textured_panel(root, "SystemXFacadePanel", Vector3(10.42, 2.25, 16.0), Vector2(4.5, 3.1), -90.0, TEX_RUST_WALL)
-	_add_box(root, "GeneratorPedestal", Vector3(0.0, 0.28, 2.5), Vector3(1.5, 0.28, 1.5), mat_dark)
-	_add_box(root, "GeneratorCoreGlow", Vector3(0.0, 1.0, 2.5), Vector3(0.34, 0.72, 0.34), mat_cyan)
 
 
 func _add_arcade_signs(root: Node3D) -> void:
