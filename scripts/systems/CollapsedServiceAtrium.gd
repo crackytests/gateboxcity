@@ -1,5 +1,14 @@
 extends Node3D
 
+# Collapsed Service Atrium — vertical mall atrium collapsed into maintenance decks.
+# Job: atrium_relay_echo  Objective: atrium_relay_node
+#
+# Three routes to the relay (north catwalk):
+#   Route 1 — Combat:       south ramp to catwalk, fight security node, north along catwalk to relay
+#   Route 2 — East hatch:   east ground passage (no sludge), NE ramp to catwalk, approach relay from north
+#   Route 3 — Hardlight:    use gate panel on west side, spawns bridge across sludge gap,
+#                           NW ramp to catwalk, bypasses security node position
+
 const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
 const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
@@ -14,9 +23,13 @@ const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
 var focused_interactable: WardInteractable
 var focused_exit: MissionExit
 var _security_node: Node3D
+var _bridge_body: StaticBody3D
+var _in_sludge: bool = false
 var _mat_floor: StandardMaterial3D
 var _mat_wall: StandardMaterial3D
-var _mat_pipe: StandardMaterial3D
+var _mat_catwalk: StandardMaterial3D
+var _mat_sludge: StandardMaterial3D
+var _mat_hardlight: StandardMaterial3D
 var _mat_neon: StandardMaterial3D
 var _mat_rain: StandardMaterial3D
 
@@ -27,9 +40,14 @@ func _ready() -> void:
 	_wire_runtime()
 	_refresh_hud()
 	var last_event := str(GameState.get_world_flag("last_travel_event_title", "Clear Run"))
-	hud.show_dialogue("Leak Street Gate", "Travel event: %s. The tunnel locks click behind you like the building just accepted a dare." % last_event)
-	hud.push_log("pipe utility tunnels reached")
-	EventDeckSystem.add_card("splice_pipes_return")
+	hud.show_dialogue("Collapsed Service Atrium", "Travel event: %s. The old banners are still up. They say nothing useful about what the floor became." % last_event)
+	hud.push_log("collapsed service atrium reached")
+	EventDeckSystem.add_card("splice_atrium_return")
+
+
+func _process(delta: float) -> void:
+	if _in_sludge and player != null and player.global_position.y < 1.2:
+		player_health.apply_damage(4.0 * delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -63,14 +81,15 @@ func _wire_runtime() -> void:
 		sn.player_path = NodePath("../Player")
 		sn.attacked_player.connect(hud.push_log)
 		sn.defeated.connect(func():
-			hud.push_log("pipe security node neutralized")
+			hud.push_log("atrium security node neutralized")
 			_security_node = null
 		)
 	for splice in get_tree().get_nodes_in_group("splice"):
 		splice.player_path = NodePath("../Player")
 		splice.attacked_player.connect(hud.push_log)
 		splice.defeated.connect(func(): hud.push_log("splice neutralized"))
-	if GameState.get_world_flag("pipe_valve_used", false):
+	if GameState.get_world_flag("atrium_gate_opened", false):
+		_spawn_hardlight_bridge()
 		if _security_node != null and is_instance_valid(_security_node):
 			_security_node.queue_free()
 			_security_node = null
@@ -86,43 +105,50 @@ func _handle_interact() -> void:
 
 func _dispatch_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
-		"pipe_pressure_valve":
-			_use_pipe_valve()
+		"hardlight_gate_panel":
+			_use_hardlight_gate()
 		_:
 			_handle_job_node(interactable)
 
 
-func _use_pipe_valve() -> void:
-	if GameState.get_world_flag("pipe_valve_used", false):
-		hud.show_dialogue("Pressure Valve", "Already bled. The tunnel is holding its breath but at least it stopped sweating.")
+func _use_hardlight_gate() -> void:
+	if GameState.get_world_flag("atrium_gate_opened", false):
+		hud.show_dialogue("Hardlight Gate Panel", "Already active. The bridge is holding. Do not ask the floor pretending to be floor how it feels about this.")
 		return
-	GameState.set_world_flag("pipe_valve_used", true)
+	GameState.set_world_flag("atrium_gate_opened", true)
+	_spawn_hardlight_bridge()
 	if _security_node != null and is_instance_valid(_security_node):
 		_security_node.queue_free()
 		_security_node = null
-	hud.show_dialogue("Pressure Valve", "A wet crack and the pipe pressure drops. Something in the north section stops clicking. The difference between dangerous and currently dangerous.")
-	hud.push_log("pipe valve bled — security node offline")
+	hud.show_dialogue("Hardlight Gate Panel", "A strip of hardlight extrudes across the gap with the confidence of a system that has not been told the floor is gone. The security node loses its position advantage and stops being relevant.")
+	hud.push_log("hardlight bridge extended — security node offline")
 	_refresh_hud()
+
+
+func _spawn_hardlight_bridge() -> void:
+	if _bridge_body != null and is_instance_valid(_bridge_body):
+		return
+	_bridge_body = _add_box("HardlightBridge", Vector3(9, 0.25, 2.2), Vector3(-0.5, 1.35, -5.0), _mat_hardlight)
 
 
 func _handle_job_node(interactable: WardInteractable) -> void:
 	var active_job := GameState.get_active_job_data()
 	if active_job.is_empty():
-		hud.show_dialogue(interactable.display_name, "This tunnel work order is not yours. Cooters likes paperwork before danger, which is how you know danger got unionized.")
+		hud.show_dialogue(interactable.display_name, "Not your relay. System X has paperwork about who gets to hear the customer-service choir.")
 		return
 	var job_id := GameState.active_job_id
 	if GameState.is_job_objective_done(job_id):
-		hud.show_dialogue(interactable.display_name, "Already secured. Get back to Cooters before the objective grows a second opinion.")
+		hud.show_dialogue(interactable.display_name, "Already recorded. Get back to Cooters before the relay starts charging for ambient noise.")
 		return
 	var required_id := str(GameState.get_job_data(job_id).get("objective_interactable", ""))
 	if interactable.interactable_id != required_id:
 		hud.show_dialogue(interactable.display_name, "Wrong node. Current job: %s" % str(active_job.get("objective", "")))
 		return
-	var item_name := str(active_job.get("objective_item", "Tunnel Evidence"))
+	var item_name := str(active_job.get("objective_item", "Atrium Recording"))
 	GameState.add_item(item_name)
 	GameState.mark_job_objective_done(job_id)
 	GameState.last_mission_result = "Completed objective: %s" % str(active_job.get("title", job_id))
-	hud.show_dialogue(interactable.display_name, "%s secured. Marbles will pretend this was a normal errand, because denial is cheaper than signage." % item_name)
+	hud.show_dialogue(interactable.display_name, "%s captured. The relay was still broadcasting the old welcome message. It sounded like it meant it." % item_name)
 	hud.push_log("cooters job objective complete")
 	_refresh_hud()
 
@@ -136,9 +162,9 @@ func _refresh_hud() -> void:
 	hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 	hud.set_world_state(WorldDirector.get_hud_summary())
 	if GameState.active_job_id.is_empty():
-		hud.set_objective("Pipe Utility Tunnels: return to Cooters or Leak Street.")
+		hud.set_objective("Collapsed Service Atrium: return to Cooters or Leak Street.")
 	else:
-		hud.set_objective("Pipe Utility Tunnels: %s" % GameState.get_active_job_objective_text())
+		hud.set_objective("Collapsed Service Atrium: %s" % GameState.get_active_job_objective_text())
 
 
 func _update_prompt() -> void:
@@ -161,10 +187,14 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 
 
 func _build_materials() -> void:
-	_mat_floor = _make_mat(Color(0.58, 0.66, 0.62), Color(0.02, 0.08, 0.065), 0.18, "res://assets/textures/leak_street/wet_concrete_floor.png", Vector3(5, 5, 1))
-	_mat_wall = _make_mat(Color(0.62, 0.68, 0.64), Color(0.015, 0.07, 0.055), 0.14, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(3, 3, 1))
-	_mat_pipe = _make_mat(Color(0.55, 0.45, 0.34), Color(0.12, 0.07, 0.02), 0.18, "", Vector3.ONE)
-	_mat_neon = _make_mat(Color(0.02, 0.12, 0.09), Color(0.0, 1.0, 0.55), 1.5, "", Vector3.ONE)
+	_mat_floor = _make_mat(Color(0.42, 0.40, 0.44), Color(0.03, 0.02, 0.04), 0.10, "", Vector3(4, 4, 1))
+	_mat_wall = _make_mat(Color(0.38, 0.36, 0.40), Color(0.02, 0.02, 0.03), 0.08, "", Vector3(3, 3, 1))
+	_mat_catwalk = _make_mat(Color(0.50, 0.48, 0.52), Color(0.03, 0.03, 0.05), 0.12, "", Vector3(2, 2, 1))
+	_mat_sludge = _make_mat(Color(0.06, 0.10, 0.06, 0.85), Color(0.04, 0.14, 0.04), 0.6, "", Vector3.ONE)
+	_mat_sludge.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_mat_hardlight = _make_mat(Color(0.05, 0.3, 0.9, 0.82), Color(0.1, 0.5, 1.0), 2.0, "", Vector3.ONE)
+	_mat_hardlight.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_mat_neon = _make_mat(Color(0.08, 0.04, 0.18), Color(0.4, 0.1, 1.0), 1.5, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 
@@ -173,56 +203,90 @@ func _build_geometry() -> void:
 	var env_node := WorldEnvironment.new()
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color(0.01, 0.015, 0.014)
+	env.background_color = Color(0.008, 0.008, 0.012)
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color(0.08, 0.18, 0.14)
-	env.ambient_light_energy = 0.95
+	env.ambient_light_color = Color(0.08, 0.06, 0.14)
+	env.ambient_light_energy = 0.80
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.05, 0.12, 0.1)
-	env.fog_density = 0.025
+	env.fog_light_color = Color(0.04, 0.03, 0.08)
+	env.fog_density = 0.03
 	env_node.environment = env
 	add_child(env_node)
 
-	# Outer shell — 18 wide × 26 long
-	_add_box("Floor", Vector3(18, 0.35, 26), Vector3(0, -0.2, 0), _mat_floor)
-	_add_box("Ceiling", Vector3(18, 0.25, 26), Vector3(0, 3.3, 0), _mat_wall)
-	_add_box("NorthWall", Vector3(18, 3.6, 0.35), Vector3(0, 1.6, -13), _mat_wall)
-	_add_box("SouthWall", Vector3(18, 3.6, 0.35), Vector3(0, 1.6, 13), _mat_wall)
-	_add_box("WestWall", Vector3(0.35, 3.6, 26), Vector3(-9, 1.6, 0), _mat_wall)
-	_add_box("EastWall", Vector3(0.35, 3.6, 26), Vector3(9, 1.6, 0), _mat_wall)
+	# Outer shell — 20 wide × 24 long
+	_add_box("Floor", Vector3(20, 0.35, 24), Vector3(0, -0.2, 0), _mat_floor)
+	_add_box("Ceiling", Vector3(20, 0.25, 24), Vector3(0, 5.0, 0), _mat_wall)
+	_add_box("NorthWall", Vector3(20, 5.3, 0.35), Vector3(0, 2.3, -12), _mat_wall)
+	_add_box("SouthWall", Vector3(20, 5.3, 0.35), Vector3(0, 2.3, 12), _mat_wall)
+	_add_box("WestWall", Vector3(0.35, 5.3, 24), Vector3(-10, 2.3, 0), _mat_wall)
+	_add_box("EastWall", Vector3(0.35, 5.3, 24), Vector3(10, 2.3, 0), _mat_wall)
 
-	# Divider wall splits west passage (x -9 to -2.5) from main corridor (x -2.5 to 9).
-	# Gap at south (z > -0.5) lets players enter from either side.
-	# Gap at north (z < -10) lets west-passage players rejoin main corridor near the pipe listening node.
-	_add_box("DividerWall", Vector3(0.35, 2.8, 9.5), Vector3(-2.5, 1.4, -5.25), _mat_wall)
+	# Sludge gap visual — dark organic surface in center area (x -4..4, z -9..1)
+	var sludge_visual := MeshInstance3D.new()
+	sludge_visual.name = "SludgeGapSurface"
+	var sludge_mesh := BoxMesh.new()
+	sludge_mesh.size = Vector3(8, 0.05, 10)
+	sludge_visual.mesh = sludge_mesh
+	sludge_visual.position = Vector3(0, 0.02, -4)
+	sludge_visual.set_surface_override_material(0, _mat_sludge)
+	add_child(sludge_visual)
 
-	# Upper east walk — elevated side platform. Accessed via SE ramp; holds saint_ratchet_node.
-	_add_box("UpperEastWalk", Vector3(4, 0.28, 9), Vector3(7, 2.06, -5.5), _mat_wall)
-	# SE ramp rises from ground at z ≈ 4 up to upper walk at z ≈ 0. Rotation: atan(2.2/4) ≈ 0.503 rad.
-	_add_box("SERamp", Vector3(4, 0.3, 4.8), Vector3(7, 1.1, 2.0), _mat_wall, Vector3(0.503, 0, 0))
+	# Sludge hazard Area3D — 4 hp/s when player.y < 1.2
+	# Sludge gap covers center x -4..4, z -9..1. Catwalk and bridge lifts player above threshold.
+	_add_damage_zone("SludgeGapHazard", Vector3(8, 3, 10), Vector3(0, 0, -4))
 
-	# Overhead pipe runs for atmosphere
-	for z_val: float in [-9.5, -5.0, -0.5, 4.5, 9.5]:
-		_add_pipe(Vector3(-8.7, 2.8, z_val), 17.4, true)
-	for x_val: float in [-6.0, -0.5, 5.5]:
-		_add_pipe(Vector3(x_val, 3.1, -12.5), 25.0, false)
+	# Main catwalk — elevated deck spanning full width at z -5..-12 (surface y = 2.0)
+	# Route 1 and Route 3 end here. Security node blocks south approach at catwalk center.
+	_add_box("MainCatwalk", Vector3(20, 0.28, 7), Vector3(0, 1.86, -8.5), _mat_catwalk)
 
-	# Environmental interactable — west passage. Using valve despawns the security node (Route 3).
-	_add_interactable("pipe_pressure_valve", "Pressure Valve", "Press E: bleed pressure valve", Vector3(-7, 0.95, 0.5), Color(0.85, 0.55, 0.1))
+	# South ramp — Route 1 entry. Rises from ground at z ≈ 4 to catwalk at z ≈ -3 (span 7, rise 2.0m).
+	# atan(2.0/7) ≈ 0.278 rad. Center at (0, 1.0, 0.5).
+	_add_box("SouthRamp", Vector3(4, 0.3, 7.3), Vector3(0, 1.0, 0.5), _mat_catwalk, Vector3(0.278, 0, 0))
 
-	# Job nodes
-	_add_interactable("pipe_blood_sample_node", "Pipe Blood Sample Bulb", "Press E: collect pipe blood", Vector3(-5.5, 0.95, 6.5), Color(0.0, 1.0, 0.55))
-	_add_interactable("saint_ratchet_node", "Saint Ratchet", "Press E: recover Saint Ratchet", Vector3(7.2, 2.55, -5.5), Color(1.0, 0.62, 0.12))
-	_add_interactable("pipe_listening_node", "Pipe Listening Node", "Press E: listen to the pipes", Vector3(0.5, 0.95, -11.5), Color(1.0, 0.12, 0.68))
+	# NE ramp — Route 2 (east hatch passage). From east ground (z ≈ -2) up to catwalk (z ≈ -5, span 3).
+	# atan(2.0/3) ≈ 0.588 rad. Center at (7, 1.0, -3.5).
+	_add_box("NERamp", Vector3(4, 0.3, 3.6), Vector3(7, 1.0, -3.5), _mat_catwalk, Vector3(0.588, 0, 0))
 
-	_add_shelter(Vector3(-6.5, 0.9, 4.5))
-	_add_rain_leak(Vector3(-1.5, 1.4, -3.0))
-	_add_exit("ExitToCooters", "Press E: return to Cooters", COOTERS_INTERIOR_SCENE, Vector3(0.0, 1.0, 12.1), Color(1.0, 0.08, 0.62))
-	_add_exit("ExitToLeakStreet", "Press E: return to Leak Street", DISTRICT_SCENE, Vector3(0.0, 1.0, -12.1), Color(0.08, 1.0, 0.45))
-	_add_security_node(Vector3(0.0, 0.0, -7.0))
-	_add_splice(Vector3(-4.0, 1.05, -2.0))
+	# NW ramp — Route 3 (hardlight bridge approach). Mirror of NE ramp on west side.
+	_add_box("NWRamp", Vector3(4, 0.3, 3.6), Vector3(-7, 1.0, -3.5), _mat_catwalk, Vector3(0.588, 0, 0))
+
+	# Interior east wall — defines east hatch passage (Route 2 lane). Runs from south to gap.
+	_add_box("EastHatchWall", Vector3(0.35, 5.3, 14), Vector3(4.5, 2.3, 0.5), _mat_wall)
+
+	# Hardlight gate panel — Route 3 environmental. West ground, accessible before crossing sludge.
+	_add_interactable("hardlight_gate_panel", "Hardlight Gate Panel", "Press E: extend hardlight bridge", Vector3(-8.5, 0.95, -2.0), Color(0.2, 0.4, 1.0))
+
+	# Relay node — north end of catwalk. The hardlight bridge and NW ramp give a clean approach from west.
+	_add_interactable("atrium_relay_node", "Atrium Relay", "Press E: record relay pulse", Vector3(-2, 2.15, -10.5), Color(0.6, 0.2, 1.0))
+
+	_add_shelter(Vector3(7, 0.9, 7.0))
+	_add_rain_leak(Vector3(-7.5, 1.4, 3.0))
+	_add_exit("ExitToCooters", "Press E: return to Cooters", COOTERS_INTERIOR_SCENE, Vector3(0.0, 1.0, 11.1), Color(1.0, 0.08, 0.62))
+	_add_exit("ExitToLeakStreet", "Press E: return to Leak Street", DISTRICT_SCENE, Vector3(0.0, 1.0, -11.1), Color(0.08, 1.0, 0.45))
+	_add_security_node(Vector3(0.0, 2.0, -5.5))
+	_add_splice(Vector3(-3.0, 1.05, 5.0))
 	_add_lights()
 	_add_toxic_rain_controller()
+
+
+func _add_damage_zone(zone_name: String, size: Vector3, world_pos: Vector3) -> void:
+	var area := Area3D.new()
+	area.name = zone_name
+	area.position = world_pos
+	add_child(area)
+	var col := CollisionShape3D.new()
+	var shape := BoxShape3D.new()
+	shape.size = size
+	col.shape = shape
+	area.add_child(col)
+	area.body_entered.connect(func(body: Node3D) -> void:
+		if body.is_in_group("player"):
+			_in_sludge = true
+	)
+	area.body_exited.connect(func(body: Node3D) -> void:
+		if body.is_in_group("player"):
+			_in_sludge = false
+	)
 
 
 func _add_box(node_name: String, size: Vector3, world_position: Vector3, material: Material, world_rotation := Vector3.ZERO) -> StaticBody3D:
@@ -243,21 +307,6 @@ func _add_box(node_name: String, size: Vector3, world_position: Vector3, materia
 	visual.set_surface_override_material(0, material)
 	body.add_child(visual)
 	return body
-
-
-func _add_pipe(world_position: Vector3, length: float, horizontal_x: bool) -> void:
-	var mesh := CylinderMesh.new()
-	mesh.top_radius = 0.16
-	mesh.bottom_radius = 0.16
-	mesh.height = length
-	var pipe := MeshInstance3D.new()
-	pipe.name = "UtilityPipe"
-	pipe.mesh = mesh
-	pipe.set_surface_override_material(0, _mat_pipe)
-	pipe.position = world_position
-	pipe.rotation_degrees.z = 90 if horizontal_x else 0
-	pipe.rotation_degrees.x = 90 if not horizontal_x else 0
-	add_child(pipe)
 
 
 func _add_interactable(id: String, display_name: String, prompt: String, world_position: Vector3, color: Color) -> WardInteractable:
@@ -349,17 +398,17 @@ func _add_splice(world_position: Vector3) -> void:
 
 func _add_lights() -> void:
 	for data: Array in [
-		[Vector3(-6.5, 2.3, 4.5), Color(0.0, 1.0, 0.55), 1.6],
-		[Vector3(7.2, 2.7, -5.5), Color(1.0, 0.62, 0.12), 1.4],
-		[Vector3(0.5, 2.3, -11.5), Color(1.0, 0.12, 0.68), 1.5],
-		[Vector3(-7.0, 2.3, 0.5), Color(0.85, 0.55, 0.1), 1.2],
-		[Vector3(0.0, 2.5, -7.0), Color(0.0, 0.75, 1.0), 1.8],
+		[Vector3(-2, 3.2, -10.5), Color(0.6, 0.2, 1.0), 2.0],
+		[Vector3(-8.5, 2.5, -2.0), Color(0.2, 0.4, 1.0), 1.4],
+		[Vector3(7, 2.5, -3.5), Color(0.5, 0.4, 0.8), 1.2],
+		[Vector3(0, 3.2, -8.5), Color(0.4, 0.3, 0.7), 1.6],
+		[Vector3(7, 2.5, 7.0), Color(0.5, 0.4, 0.6), 1.0],
 	]:
 		var light := OmniLight3D.new()
 		light.position = data[0] as Vector3
 		light.light_color = data[1] as Color
 		light.light_energy = float(data[2])
-		light.omni_range = 7.0
+		light.omni_range = 9.0
 		add_child(light)
 
 
@@ -374,7 +423,7 @@ func _add_toxic_rain_controller() -> void:
 func _make_mat(albedo: Color, emission: Color, emission_energy: float, texture_path: String, uv_scale: Vector3) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = albedo
-	mat.roughness = 0.86
+	mat.roughness = 0.88
 	mat.emission_enabled = true
 	mat.emission = emission
 	mat.emission_energy_multiplier = emission_energy

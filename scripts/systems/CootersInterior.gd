@@ -105,6 +105,9 @@ func _on_job_board_accepted(job_id: String) -> void:
 		var job := GameState.get_job_data(job_id)
 		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Use the Leak Street gate, then come back when the job stops moving or starts making eye contact." % str(job.get("title", job_id)))
 		hud.push_log("cooters job accepted: %s" % str(job.get("title", job_id)).to_lower())
+		var exit_card := WorldDirector.roll_context_event("district_exit")
+		if not exit_card.is_empty() and not str(exit_card.get("text", "")).is_empty():
+			hud.show_dialogue(str(exit_card.get("speaker", "Marbles")), str(exit_card.get("text", "")))
 	else:
 		hud.show_dialogue("Marbles", "One job at a time. Cooters is a bar, not a personality disorder with neon.")
 	_refresh_hud()

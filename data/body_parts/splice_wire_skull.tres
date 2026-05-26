@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPartData" load_steps=2 format=3 uid="uid://splice_wire_skull_data"]
+
+[ext_resource type="Script" path="res://scripts/data/BodyPartData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Wire Skull"
+max_hp = 22.0
+targeting_penalty = 18.0
+lock_difficulty_multiplier = 1.35
+armor_value = 3.0

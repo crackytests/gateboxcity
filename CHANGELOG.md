@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.0.4b - 2026-05-26
+
+### Added
+
+- Added the EventDeckSystem autoload and expanded travel/event deck state support.
+- Added Splice enemy body-part data, scene, and script.
+- Added dedicated scripts for Collapsed Service Atrium, Dead Food Court Bloom, and Water Reclamation Cistern.
+- Added planning docs for Cooters job destinations, Faded Atrium buildout, and quest-location buildout.
+
+### Changed
+
+- Expanded Cooters job destination handling and route/event logic across the Sub-Sub-Basement travel loop.
+- Updated Faded Atrium, Pipe Utility Tunnels, and district flow scripts for the new destination/event structure.
+
 ## v0.0.4 - 2026-05-25
 
 ### Added

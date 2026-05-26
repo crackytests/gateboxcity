@@ -61,6 +61,8 @@ const COOTERS_JOBS := {
 		"reward_rep": 1,
 		"objective_item": "Pipe Blood Sample",
 		"objective_interactable": "pipe_blood_sample_node",
+		"event_cards_on_accept": ["pipe_blood_sample_exit", "pipe_blood_sample_travel"],
+		"event_cards_on_complete": ["pipe_blood_sample_return"],
 	},
 	"ratchet_saint": {
 		"title": "Saint Ratchet",
@@ -76,6 +78,8 @@ const COOTERS_JOBS := {
 		"reward_rep": 1,
 		"objective_item": "Saint Ratchet",
 		"objective_interactable": "saint_ratchet_node",
+		"event_cards_on_accept": ["ratchet_saint_exit", "ratchet_saint_travel"],
+		"event_cards_on_complete": ["ratchet_saint_return"],
 	},
 	"listen_to_the_pipes": {
 		"title": "Listen To The Pipes",
@@ -91,6 +95,8 @@ const COOTERS_JOBS := {
 		"reward_rep": 1,
 		"objective_item": "Pipe Listening Notes",
 		"objective_interactable": "pipe_listening_node",
+		"event_cards_on_accept": ["listen_pipes_exit", "listen_pipes_travel"],
+		"event_cards_on_complete": ["listen_pipes_return"],
 	},
 	"food_court_filter": {
 		"title": "Food Court Filter",
@@ -106,6 +112,8 @@ const COOTERS_JOBS := {
 		"reward_rep": 1,
 		"objective_item": "Pure Water Filter",
 		"objective_interactable": "pure_water_filter_node",
+		"event_cards_on_accept": ["food_court_exit", "food_court_travel"],
+		"event_cards_on_complete": ["food_court_return"],
 	},
 	"cistern_pump_heart": {
 		"title": "Pump Heart Lease",
@@ -121,6 +129,8 @@ const COOTERS_JOBS := {
 		"reward_rep": 1,
 		"objective_item": "Cistern Filter Core",
 		"objective_interactable": "cistern_filter_core_node",
+		"event_cards_on_accept": ["cistern_exit", "cistern_travel"],
+		"event_cards_on_complete": ["cistern_return"],
 	},
 	"atrium_relay_echo": {
 		"title": "Atrium Relay Echo",
@@ -136,6 +146,8 @@ const COOTERS_JOBS := {
 		"reward_rep": 1,
 		"objective_item": "Atrium Relay Packet",
 		"objective_interactable": "atrium_relay_node",
+		"event_cards_on_accept": ["atrium_relay_exit", "atrium_relay_travel"],
+		"event_cards_on_complete": ["atrium_relay_return"],
 	},
 }
 
@@ -260,6 +272,10 @@ func accept_job(job_id: String) -> bool:
 
 	active_job_id = job_id
 	job_flags.erase(_objective_flag(job_id))
+	for card_id: String in COOTERS_JOBS[job_id].get("event_cards_on_accept", []):
+		var card := WorldDirector.get_named_card(card_id)
+		if not card.is_empty():
+			EventDeckSystem.add_card(card)
 	last_mission_result = "Accepted Cooters job: %s" % str(COOTERS_JOBS[job_id].get("title", job_id))
 	return true
 
@@ -311,6 +327,11 @@ func complete_active_job() -> Dictionary:
 	add_reputation(str(job.get("reward_faction", "System X")), int(job.get("reward_rep", 0)))
 	completed_jobs[job_id] = true
 	completed_quests["cooters_job_%s" % job_id] = true
+	EventDeckSystem.remove_cards_by_tag(job_id + "_active")
+	for card_id: String in job.get("event_cards_on_complete", []):
+		var card := WorldDirector.get_named_card(card_id)
+		if not card.is_empty():
+			EventDeckSystem.add_card(card)
 	last_mission_result = "Completed Cooters job: %s" % str(job.get("title", job_id))
 	active_job_id = ""
 	return get_job_data(job_id)
@@ -385,6 +406,7 @@ func save_game() -> bool:
 		"world_flags": world_flags,
 		"cybernetics": cybernetics,
 		"last_mission_result": last_mission_result,
+		"event_deck": EventDeckSystem.get_deck_for_save(),
 	}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
@@ -419,6 +441,7 @@ func load_game() -> bool:
 	world_flags = parsed.get("world_flags", {})
 	cybernetics = parsed.get("cybernetics", {})
 	last_mission_result = str(parsed.get("last_mission_result", ""))
+	EventDeckSystem.restore_from_save(parsed.get("event_deck", []))
 	return true
 
 

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameState="*res://scripts/systems/GameState.gd"
 WorldDirector="*res://scripts/systems/WorldDirector.gd"
+EventDeckSystem="*res://scripts/systems/EventDeckSystem.gd"
 
 [display]
 

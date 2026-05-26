@@ -40,7 +40,14 @@ func _ready() -> void:
 	hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 	hud.set_world_state(WorldDirector.get_hud_summary())
 	hud.set_objective(_get_hub_objective())
-	hud.show_dialogue("System X", _get_system_x_line())
+	var pending_text := str(GameState.get_world_flag("_pending_arrival_text", ""))
+	if not pending_text.is_empty():
+		var pending_speaker := str(GameState.get_world_flag("_pending_arrival_speaker", "System X"))
+		hud.show_dialogue(pending_speaker, pending_text)
+		GameState.set_world_flag("_pending_arrival_text", "")
+		GameState.set_world_flag("_pending_arrival_speaker", "")
+	else:
+		hud.show_dialogue("System X", _get_system_x_line())
 	hud.push_log("faded atrium connection established")
 
 

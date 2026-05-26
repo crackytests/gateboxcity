@@ -1102,10 +1102,23 @@ func _on_travel_route_selected(route_id: String) -> void:
 		hud.show_dialogue("Leak Street Gate", str(selected.get("locked_reason", "Route locked.")))
 		return
 
-	var card := WorldDirector.roll_travel_event(route_id)
+	var card: Dictionary
+	if route_id == "faded_atrium":
+		card = WorldDirector.roll_context_event("hub_return")
+		var pending_text := str(card.get("text", ""))
+		if not pending_text.is_empty():
+			GameState.set_world_flag("_pending_arrival_speaker", str(card.get("speaker", "System X")))
+			GameState.set_world_flag("_pending_arrival_text", pending_text)
+	else:
+		card = WorldDirector.roll_travel_event(route_id)
+		var card_text := str(card.get("text", ""))
+		if not card_text.is_empty():
+			hud.show_dialogue(str(card.get("speaker", "System X")), card_text)
+
 	var route_title := str(selected.get("title", route_id))
-	GameState.last_mission_result = "Travel to %s: %s" % [route_title, str(card.get("title", "Clear Run"))]
-	hud.push_log("travel event: %s" % str(card.get("title", "Clear Run")).to_lower())
+	var card_title := str(card.get("title", "Clear Run"))
+	GameState.last_mission_result = "Travel to %s: %s" % [route_title, card_title]
+	hud.push_log("travel event: %s" % card_title.to_lower())
 	get_tree().change_scene_to_file(str(selected.get("target_scene", "")))
 
 

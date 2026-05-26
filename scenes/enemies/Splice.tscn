@@ -1,0 +1,128 @@
+[gd_scene load_steps=25 format=3 uid="uid://splice_enemy"]
+
+[ext_resource type="Script" path="res://scripts/enemies/Splice.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+[ext_resource type="Resource" path="res://data/body_parts/splice_wire_skull.tres" id="3"]
+[ext_resource type="Resource" path="res://data/body_parts/splice_graft_shell.tres" id="4"]
+[ext_resource type="Resource" path="res://data/body_parts/splice_splice_arm.tres" id="5"]
+[ext_resource type="Resource" path="res://data/body_parts/splice_drag_frame.tres" id="6"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back_left.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_left.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_left.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_right.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_right.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back_right.png" id="15"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.42
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="ShadowMat"]
+albedo_color = Color(0, 0, 0, 0.52)
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="BaseGlowMat"]
+albedo_color = Color(0.08, 0.02, 0.16, 0.72)
+transparency = 1
+emission_enabled = true
+emission = Color(0.5, 0.1, 0.9, 1)
+emission_energy_multiplier = 0.65
+
+[sub_resource type="CylinderMesh" id="ShadowDiscMesh"]
+top_radius = 0.82
+bottom_radius = 0.82
+height = 0.02
+
+[sub_resource type="CylinderMesh" id="GlowDiscMesh"]
+top_radius = 0.62
+bottom_radius = 0.62
+height = 0.025
+
+[sub_resource type="SphereShape3D" id="HeadShape"]
+radius = 0.28
+
+[sub_resource type="BoxShape3D" id="TorsoShape"]
+size = Vector3(0.56, 0.68, 0.36)
+
+[sub_resource type="BoxShape3D" id="ArmShape"]
+size = Vector3(0.24, 0.72, 0.3)
+
+[sub_resource type="BoxShape3D" id="LegShape"]
+size = Vector3(0.38, 0.72, 0.38)
+
+[node name="Splice" type="CharacterBody3D"]
+script = ExtResource("1")
+move_speed = 1.1
+melee_damage = 14.0
+attack_cooldown = 1.8
+ranged_range = 0.0
+pacified_dialogue_name = "Splice"
+pacified_dialogue_text = "The graft frame shuts down. The person inside was not there for a long time. This is just the frame figuring out how to stop."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="Visuals" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+
+[node name="GroundShadow" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1.35, 0, 0, 0, 1, 0, 0, 0, 0.75, 0, 0.035, 0)
+mesh = SubResource("ShadowDiscMesh")
+surface_material_override/0 = SubResource("ShadowMat")
+
+[node name="BaseGlow" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.15, 0, 0, 0, 1, 0, 0, 0, 0.72, 0, 0.055, 0)
+mesh = SubResource("GlowDiscMesh")
+surface_material_override/0 = SubResource("BaseGlowMat")
+
+[node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84, 0)
+texture = ExtResource("12")
+modulate = Color(0.72, 0.3, 0.95, 1)
+pixel_size = 0.00355
+shaded = false
+double_sided = true
+alpha_cut = 0
+script = ExtResource("7")
+idle_bob_height = 0.01
+frames = Array[Texture2D]([ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15")])
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+
+[node name="WireSkull" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+script = ExtResource("2")
+body_part_data = ExtResource("3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/WireSkull"]
+shape = SubResource("HeadShape")
+
+[node name="GraftShell" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 0)
+script = ExtResource("2")
+body_part_data = ExtResource("4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/GraftShell"]
+shape = SubResource("TorsoShape")
+
+[node name="SpliceArm" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.42, 0.66, 0)
+script = ExtResource("2")
+body_part_data = ExtResource("5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SpliceArm"]
+shape = SubResource("ArmShape")
+
+[node name="DragFrame" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22, 0)
+script = ExtResource("2")
+body_part_data = ExtResource("6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/DragFrame"]
+shape = SubResource("LegShape")
