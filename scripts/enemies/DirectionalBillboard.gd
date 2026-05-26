@@ -118,6 +118,11 @@ func _load_frames_from_paths() -> void:
 		return
 
 	for path in frame_paths:
+		var loaded_texture := load(path) as Texture2D
+		if loaded_texture != null:
+			frames.append(loaded_texture)
+			continue
+
 		var image := Image.new()
 		var bytes := FileAccess.get_file_as_bytes(path)
 		var err := ERR_FILE_CANT_READ
@@ -132,3 +137,5 @@ func _load_frames_from_paths() -> void:
 
 	if frames.size() > 4:
 		texture = frames[4]
+	elif texture != null:
+		frames.append(texture)

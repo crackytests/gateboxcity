@@ -88,6 +88,8 @@ func _ready() -> void:
 		district_npc.focus_changed.connect(_on_district_npc_focus_changed)
 	for hack_terminal in get_tree().get_nodes_in_group("hack_terminal"):
 		hack_terminal.focus_changed.connect(_on_hack_terminal_focus_changed)
+	_stabilize_district_npcs()
+	call_deferred("_stabilize_district_npcs")
 
 	var hack_minigame = hud.get_node_or_null("%HackMinigameUI")
 	if hack_minigame and hack_minigame.has_signal("hack_completed"):
@@ -103,6 +105,24 @@ func _ready() -> void:
 	hud.set_objective(_get_objective_text())
 	hud.show_dialogue("System X", "Welcome to the district under the imitation of heaven. Rain first, questions later, panic whenever it becomes educational.")
 	hud.push_log("sub-sub-basement district linked")
+
+
+func _stabilize_district_npcs() -> void:
+	for node in get_tree().get_nodes_in_group("district_npc"):
+		var npc := node as DistrictNPC
+		if npc == null:
+			continue
+		var pos := npc.global_position
+		pos.y = 0.0
+		npc.global_position = pos
+		npc.home_position = pos
+		npc.wander_target = pos
+		npc.wander_radius = minf(npc.wander_radius, 1.35)
+		var sprite := npc.get_node_or_null("Sprite3D") as DirectionalBillboard
+		if sprite != null:
+			sprite._load_frames_from_paths()
+			if sprite.texture == null and not sprite.frames.is_empty():
+				sprite.texture = sprite.frames[min(4, sprite.frames.size() - 1)]
 
 
 func _process(delta: float) -> void:

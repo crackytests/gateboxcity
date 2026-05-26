@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.0.4c - 2026-05-26
+
+### Fixed
+
+- Fixed quest-location startup crashes caused by named event deck cards being passed as string ids.
+- Improved runtime billboard frame loading and stabilized district NPC placement so ambient NPCs remain visible in Leak Street.
+
 ## v0.0.4b - 2026-05-26
 
 ### Added

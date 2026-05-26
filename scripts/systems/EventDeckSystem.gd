@@ -5,10 +5,22 @@ var _deck: Array[Dictionary] = []
 signal card_triggered(card: Dictionary)
 
 
-func add_card(card: Dictionary) -> void:
+func add_card(card_data: Variant) -> void:
+	var card := _coerce_card(card_data)
 	if card.is_empty():
 		return
 	_deck.append(card.duplicate(true))
+
+
+func _coerce_card(card_data: Variant) -> Dictionary:
+	if typeof(card_data) == TYPE_DICTIONARY:
+		return card_data as Dictionary
+	if typeof(card_data) == TYPE_STRING:
+		var named_card := WorldDirector.get_named_card(str(card_data))
+		if not named_card.is_empty():
+			return named_card
+		push_warning("Unknown event deck card id: " + str(card_data))
+	return {}
 
 
 func remove_cards_by_tag(tag: String) -> void:
