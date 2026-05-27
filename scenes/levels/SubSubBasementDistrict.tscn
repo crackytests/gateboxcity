@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://sub_sub_basement_district"]
+[gd_scene load_steps=118 format=3 uid="uid://sub_sub_basement_district"]
 
 [ext_resource type="Script" path="res://scripts/systems/SubSubBasementDistrict.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
@@ -40,6 +40,46 @@
 [ext_resource type="Texture2D" path="res://assets/textures/leak_street/rusted_metal_wall.png" id="38"]
 [ext_resource type="Texture2D" path="res://assets/textures/leak_street/corrugated_shack_metal.png" id="39"]
 [ext_resource type="Texture2D" path="res://assets/textures/leak_street/false_sky_glass.png" id="40"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_back.png" id="41"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_back_left.png" id="42"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_left.png" id="43"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_front_left.png" id="44"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_front.png" id="45"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_front_right.png" id="46"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_right.png" id="47"]
+[ext_resource type="Texture2D" path="res://assets/sprites/velvet_coil/velvet_coil_back_right.png" id="48"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_back.png" id="49"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_back_left.png" id="50"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_left.png" id="51"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_front_left.png" id="52"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_front.png" id="53"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_front_right.png" id="54"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_right.png" id="55"]
+[ext_resource type="Texture2D" path="res://assets/sprites/mister_static/mister_static_back_right.png" id="56"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_back.png" id="57"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_back_left.png" id="58"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_left.png" id="59"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_front_left.png" id="60"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_front.png" id="61"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_front_right.png" id="62"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_right.png" id="63"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ladderboy/ladderboy_back_right.png" id="64"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_back.png" id="65"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_back_left.png" id="66"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_left.png" id="67"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_front_left.png" id="68"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_front.png" id="69"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_front_right.png" id="70"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_right.png" id="71"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_back_right.png" id="72"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back.png" id="73"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back_left.png" id="74"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_left.png" id="75"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front_left.png" id="76"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front.png" id="77"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front_right.png" id="78"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_right.png" id="79"]
+[ext_resource type="Texture2D" path="res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back_right.png" id="80"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -725,8 +765,8 @@ pixel_size = 0.00295
 shaded = false
 double_sided = true
 script = ExtResource("19")
-frame_paths = PackedStringArray("res://assets/sprites/velvet_coil/velvet_coil_back.png", "res://assets/sprites/velvet_coil/velvet_coil_back_left.png", "res://assets/sprites/velvet_coil/velvet_coil_left.png", "res://assets/sprites/velvet_coil/velvet_coil_front_left.png", "res://assets/sprites/velvet_coil/velvet_coil_front.png", "res://assets/sprites/velvet_coil/velvet_coil_front_right.png", "res://assets/sprites/velvet_coil/velvet_coil_right.png", "res://assets/sprites/velvet_coil/velvet_coil_back_right.png")
 idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("41"), ExtResource("42"), ExtResource("43"), ExtResource("44"), ExtResource("45"), ExtResource("46"), ExtResource("47"), ExtResource("48")])
 
 [node name="MisterStatic" type="CharacterBody3D" parent="." groups=["district_npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1, 0.0, 14.0)
@@ -762,8 +802,8 @@ pixel_size = 0.00335
 shaded = false
 double_sided = true
 script = ExtResource("19")
-frame_paths = PackedStringArray("res://assets/sprites/mister_static/mister_static_back.png", "res://assets/sprites/mister_static/mister_static_back_left.png", "res://assets/sprites/mister_static/mister_static_left.png", "res://assets/sprites/mister_static/mister_static_front_left.png", "res://assets/sprites/mister_static/mister_static_front.png", "res://assets/sprites/mister_static/mister_static_front_right.png", "res://assets/sprites/mister_static/mister_static_right.png", "res://assets/sprites/mister_static/mister_static_back_right.png")
 idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("49"), ExtResource("50"), ExtResource("51"), ExtResource("52"), ExtResource("53"), ExtResource("54"), ExtResource("55"), ExtResource("56")])
 
 [node name="Ladderboy" type="CharacterBody3D" parent="." groups=["district_npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7, 0.0, -14.8)
@@ -799,8 +839,8 @@ pixel_size = 0.0028
 shaded = false
 double_sided = true
 script = ExtResource("19")
-frame_paths = PackedStringArray("res://assets/sprites/ladderboy/ladderboy_back.png", "res://assets/sprites/ladderboy/ladderboy_back_left.png", "res://assets/sprites/ladderboy/ladderboy_left.png", "res://assets/sprites/ladderboy/ladderboy_front_left.png", "res://assets/sprites/ladderboy/ladderboy_front.png", "res://assets/sprites/ladderboy/ladderboy_front_right.png", "res://assets/sprites/ladderboy/ladderboy_right.png", "res://assets/sprites/ladderboy/ladderboy_back_right.png")
 idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("57"), ExtResource("58"), ExtResource("59"), ExtResource("60"), ExtResource("61"), ExtResource("62"), ExtResource("63"), ExtResource("64")])
 
 [node name="Sunday" type="CharacterBody3D" parent="." groups=["district_npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.1, 0.0, -1.2)
@@ -836,8 +876,8 @@ pixel_size = 0.00305
 shaded = false
 double_sided = true
 script = ExtResource("19")
-frame_paths = PackedStringArray("res://assets/sprites/sunday/sunday_back.png", "res://assets/sprites/sunday/sunday_back_left.png", "res://assets/sprites/sunday/sunday_left.png", "res://assets/sprites/sunday/sunday_front_left.png", "res://assets/sprites/sunday/sunday_front.png", "res://assets/sprites/sunday/sunday_front_right.png", "res://assets/sprites/sunday/sunday_right.png", "res://assets/sprites/sunday/sunday_back_right.png")
 idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("65"), ExtResource("66"), ExtResource("67"), ExtResource("68"), ExtResource("69"), ExtResource("70"), ExtResource("71"), ExtResource("72")])
 
 [node name="BrickmouthRonnie" type="CharacterBody3D" parent="." groups=["district_npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.0, -14.4)
@@ -873,8 +913,8 @@ pixel_size = 0.00325
 shaded = false
 double_sided = true
 script = ExtResource("19")
-frame_paths = PackedStringArray("res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back_left.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_left.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front_left.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_front_right.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_right.png", "res://assets/sprites/brickmouth_ronnie/brickmouth_ronnie_back_right.png")
 idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("73"), ExtResource("74"), ExtResource("75"), ExtResource("76"), ExtResource("77"), ExtResource("78"), ExtResource("79"), ExtResource("80")])
 
 [node name="LANTerminal" type="Area3D" parent="." groups=["hack_terminal"]]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -9.0, 0.95, -15.8)
