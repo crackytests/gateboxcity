@@ -113,11 +113,12 @@ func _use_spore_vent() -> void:
 		hud.show_dialogue("Spore Vent Panel", "Already vented. The security node took the spores personally and stopped having opinions.")
 		return
 	GameState.set_world_flag("spore_vent_used", true)
+	GameState.set_world_flag("nursery_culture_saved", true)
 	if _security_node != null and is_instance_valid(_security_node):
 		_security_node.queue_free()
 		_security_node = null
-	hud.show_dialogue("Spore Vent Panel", "The grease vent opens and releases a decade of compressed food-court biology directly into the pit. The security node goes quiet in a way that suggests it was not prepared for this ecosystem.")
-	hud.push_log("spore vent triggered — security node offline")
+	hud.show_dialogue("Spore Vent Panel", "The grease vent opens and releases a decade of compressed food-court biology directly into the pit. The security node goes quiet in a way that suggests it was not prepared for this ecosystem. The nursery culture survives. Somehow.")
+	hud.push_log("spore vent triggered — security node offline, nursery culture preserved")
 	_refresh_hud()
 
 
@@ -177,10 +178,10 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 
 
 func _build_materials() -> void:
-	_mat_floor = _make_mat(Color(0.48, 0.44, 0.38), Color(0.06, 0.05, 0.03), 0.12, "", Vector3(4, 4, 1))
-	_mat_wall = _make_mat(Color(0.38, 0.42, 0.36), Color(0.04, 0.06, 0.03), 0.10, "", Vector3(3, 3, 1))
-	_mat_growth = _make_mat(Color(0.06, 0.16, 0.04), Color(0.12, 0.65, 0.05), 0.95, "", Vector3.ONE)
-	_mat_ring = _make_mat(Color(0.45, 0.48, 0.42), Color(0.02, 0.04, 0.02), 0.08, "", Vector3(3, 3, 1))
+	_mat_floor = _make_mat(Color(0.48, 0.44, 0.38), Color(0.06, 0.05, 0.03), 0.12, "res://assets/textures/bloom/food_court_floor.png", Vector3(8, 8, 1))
+	_mat_wall = _make_mat(Color(0.38, 0.42, 0.36), Color(0.04, 0.06, 0.03), 0.10, "res://assets/textures/bloom/food_court_wall.png", Vector3(6, 4, 1))
+	_mat_growth = _make_mat(Color(0.06, 0.16, 0.04), Color(0.12, 0.65, 0.05), 0.95, "res://assets/textures/bloom/bio_bloom_growth.png", Vector3(3, 3, 1))
+	_mat_ring = _make_mat(Color(0.45, 0.48, 0.42), Color(0.02, 0.04, 0.02), 0.08, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(6, 6, 1))
 	_mat_neon = _make_mat(Color(0.02, 0.12, 0.04), Color(0.1, 0.9, 0.05), 1.4, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA

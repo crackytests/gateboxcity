@@ -105,6 +105,8 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
 		"pump_valve_panel":
 			_use_pump_valve()
+		"hub_cistern_conduit", "hub_lan_tap":
+			_handle_hub_node(interactable)
 		_:
 			_handle_job_node(interactable)
 
@@ -121,6 +123,40 @@ func _use_pump_valve() -> void:
 	hud.show_dialogue("Pump Valve", "The pump engages with the confidence of machinery that has not been asked nicely in years. The water level drops. The security node on the east walk stops having a reason to be there.")
 	hud.push_log("cistern pump valve opened — water neutralized, security node offline")
 	_refresh_hud()
+
+
+func _handle_hub_node(interactable: WardInteractable) -> void:
+	match interactable.interactable_id:
+		"hub_cistern_conduit":
+			if GameState.get_world_flag("hub_cistern_connected"):
+				hud.show_dialogue("Cistern Conduit Junction", "Already connected. Clean water is running to the clinic. Vera stopped mentioning the pipe smell, which means things are better.")
+				return
+			if not GameState.is_quest_started("hub_cistern"):
+				hud.show_dialogue("Cistern Conduit Junction", "There is a junction point here waiting for a conduit run. Vera at the Faded Atrium would know the full spec.")
+				return
+			GameState.mark_quest_objective("hub_cistern", "hub_cistern_connected")
+			if GameState.can_complete_quest("hub_cistern"):
+				GameState.complete_quest("hub_cistern")
+			hud.show_dialogue("Cistern Conduit Junction", "The conduit seats and the flow indicator goes green. Clean water is now running to the hub clinic.")
+			hud.push_log("hub cistern conduit connected")
+			GameState.set_world_flag("_pending_arrival_text", "Water is clean. Clinic is running. Whatever you did in the cistern, it worked. I will not ask about the smell.")
+			GameState.set_world_flag("_pending_arrival_speaker", "Vera")
+			_refresh_hud()
+		"hub_lan_tap":
+			if GameState.get_world_flag("hub_lan_restored"):
+				hud.show_dialogue("LAN Tap Junction", "Already spliced. System X can see the lower city again. What it sees is mostly your problem now.")
+				return
+			if not GameState.is_quest_started("hub_lan_restore"):
+				hud.show_dialogue("LAN Tap Junction", "Severed cable in the ceiling panel. The hub LAN runs through here. Vessel at the Faded Atrium knows what needs splicing.")
+				return
+			GameState.mark_quest_objective("hub_lan_restore", "hub_lan_restored")
+			if GameState.can_complete_quest("hub_lan_restore"):
+				GameState.complete_quest("hub_lan_restore")
+			hud.show_dialogue("LAN Tap Junction", "The splice holds. The tap cable goes live with a tone that sounds like relief. Hub LAN restored.")
+			hud.push_log("hub LAN tap spliced")
+			GameState.set_world_flag("_pending_arrival_text", "Archive is live. System X has seventeen things to tell you. Sixteen are warnings. I have decided one is a joke and I am sticking to it.")
+			GameState.set_world_flag("_pending_arrival_speaker", "Vessel")
+			_refresh_hud()
 
 
 func _handle_job_node(interactable: WardInteractable) -> void:
@@ -179,11 +215,11 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 
 
 func _build_materials() -> void:
-	_mat_floor = _make_mat(Color(0.52, 0.56, 0.58), Color(0.01, 0.04, 0.06), 0.10, "", Vector3(4, 4, 1))
-	_mat_wall = _make_mat(Color(0.48, 0.54, 0.58), Color(0.01, 0.03, 0.05), 0.08, "", Vector3(3, 3, 1))
+	_mat_floor = _make_mat(Color(0.52, 0.56, 0.58), Color(0.01, 0.04, 0.06), 0.10, "res://assets/textures/leak_street/wet_concrete_floor.png", Vector3(8, 8, 1))
+	_mat_wall = _make_mat(Color(0.48, 0.54, 0.58), Color(0.01, 0.03, 0.05), 0.08, "res://assets/textures/cistern/cistern_wall.png", Vector3(6, 4, 1))
 	_mat_water = _make_mat(Color(0.02, 0.28, 0.55, 0.72), Color(0.0, 0.45, 0.9), 1.1, "", Vector3.ONE)
 	_mat_water.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_mat_filter_bed = _make_mat(Color(0.55, 0.52, 0.44), Color(0.06, 0.06, 0.03), 0.14, "", Vector3.ONE)
+	_mat_filter_bed = _make_mat(Color(0.55, 0.52, 0.44), Color(0.06, 0.06, 0.03), 0.14, "res://assets/textures/cistern/filter_bed_aggregate.png", Vector3(4, 4, 1))
 	_mat_neon = _make_mat(Color(0.02, 0.08, 0.18), Color(0.0, 0.5, 1.0), 1.5, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -236,6 +272,12 @@ func _build_geometry() -> void:
 
 	# Pump valve panel — Route 3 environmental. On west walkway. Disables water and despawns node.
 	_add_interactable("pump_valve_panel", "Pump Valve", "Press E: open pump valve", Vector3(-7, 0.95, 0.0), Color(0.0, 0.6, 1.0))
+
+	# Hub quest nodes — only spawn if not yet resolved.
+	if not GameState.get_world_flag("hub_cistern_connected"):
+		_add_interactable("hub_cistern_conduit", "Cistern Conduit Junction", "Press E: install water conduit", Vector3(-7.5, 0.95, -4.5), Color(0.1, 0.8, 0.6))
+	if not GameState.get_world_flag("hub_lan_restored"):
+		_add_interactable("hub_lan_tap", "LAN Tap Junction", "Press E: splice LAN tap", Vector3(8.0, 0.95, -10.5), Color(0.2, 0.8, 1.0))
 
 	# Job node — inside pump room pocket
 	_add_interactable("cistern_filter_core_node", "Cistern Filter Core", "Press E: recover filter core", Vector3(-7, 0.95, -9.5), Color(0.0, 1.0, 0.8))

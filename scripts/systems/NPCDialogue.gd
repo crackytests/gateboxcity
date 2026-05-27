@@ -15,6 +15,12 @@ signal focus_changed(interactable: NPCDialogue, has_focus: bool)
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	var billboard := get_node_or_null("Sprite3D") as DirectionalBillboard
+	if billboard != null:
+		billboard._load_frames_from_paths()
+		if billboard.texture == null and not billboard.frames.is_empty():
+			billboard.texture = billboard.frames[min(4, billboard.frames.size() - 1)]
+		billboard.align_bottom_to_origin(0.02)
 
 
 func interact() -> Dictionary:

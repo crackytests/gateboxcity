@@ -1,6 +1,8 @@
 extends Node
 
 signal cybernetics_changed
+signal inventory_changed(summary: String)
+signal reputation_changed(summary: String)
 
 var items: Dictionary = {}
 var reputation: Dictionary = {
@@ -23,6 +25,7 @@ var completed_jobs: Dictionary = {}
 var job_flags: Dictionary = {}
 var last_mission_result := ""
 var world_flags: Dictionary = {}
+var quest_states: Dictionary = {}
 var cybernetics: Dictionary = {}
 const SAVE_PATH := "user://gatebox_save.json"
 const WAN_NOTE_ITEM := "Wan Note"
@@ -151,9 +154,82 @@ const COOTERS_JOBS := {
 	},
 }
 
+var QUEST_DEFS: Dictionary = {
+	"wake_up_call": {
+		"title": "Wake-Up Call",
+		"type": "campaign",
+		"objectives": [
+			{"id": "display_recovered", "text": "Recover the broken display", "required": true},
+			{"id": "arm_disabled", "text": "Disable the goon's right arm", "required": true},
+			{"id": "coolant_routed", "text": "Route soul coolant (optional)", "required": false},
+		],
+	},
+	"hub_power_restore": {
+		"title": "Restore Hub Power",
+		"type": "hub",
+		"giver": "Mister Static",
+		"active_flag": "quest_hub_power_active",
+		"done_flag": "hub_power_restored",
+		"objectives": [
+			{"id": "hub_power_restored", "text": "Repair the generator coupling", "required": true, "done_flag": "hub_power_restored"},
+		],
+		"objective_text_active": "Hub: repair the generator coupling in the basement.",
+		"objective_text_done": "Hub power restored.",
+	},
+	"hub_lan_restore": {
+		"title": "Restore Hub LAN",
+		"type": "hub",
+		"giver": "Vessel",
+		"active_flag": "quest_hub_lan_active",
+		"done_flag": "hub_lan_restored",
+		"objectives": [
+			{"id": "hub_lan_restored", "text": "Restore the LAN tap in the north corridor", "required": true, "done_flag": "hub_lan_restored"},
+		],
+		"objective_text_active": "Hub: restore the LAN tap in the north corridor ceiling.",
+		"objective_text_done": "Hub LAN restored.",
+	},
+	"hub_cistern": {
+		"title": "Connect Hub Water",
+		"type": "hub",
+		"giver": "Vera",
+		"active_flag": "quest_hub_cistern_active",
+		"done_flag": "hub_cistern_connected",
+		"objectives": [
+			{"id": "hub_cistern_connected", "text": "Install the water conduit at the cistern junction", "required": true, "done_flag": "hub_cistern_connected"},
+		],
+		"objective_text_active": "Hub: install water conduit at the cistern west walkway junction.",
+		"objective_text_done": "Hub water connected.",
+	},
+	"hub_clear_court": {
+		"title": "Clear the Court",
+		"type": "hub",
+		"giver": "Ladderboy",
+		"active_flag": "quest_clear_court_active",
+		"done_flag": "atrium_cleared",
+		"objectives": [
+			{"id": "atrium_cleared", "text": "Remove three debris piles from the central atrium", "required": true, "done_flag": "atrium_cleared"},
+		],
+		"objective_text_active": "Hub: remove three debris piles from the central atrium.",
+		"objective_text_done": "Hub atrium cleared.",
+	},
+	"hub_store_4": {
+		"title": "Claim Store 4",
+		"type": "hub",
+		"giver": "Velvet Coil",
+		"active_flag": "quest_store_4_active",
+		"done_flag": "store_4_claimed",
+		"objectives": [
+			{"id": "store_4_cleared", "text": "Wipe the terminal and clear debris in Store 4", "required": true},
+		],
+		"objective_text_active": "Hub: wipe the terminal and clear the debris in Store 4.",
+		"objective_text_done": "Store 4 claimed.",
+	},
+}
+
 
 func add_item(item_name: String, count := 1) -> void:
 	items[item_name] = int(items.get(item_name, 0)) + count
+	inventory_changed.emit(get_inventory_summary())
 
 
 func spend_item(item_name: String, count := 1) -> bool:
@@ -163,6 +239,7 @@ func spend_item(item_name: String, count := 1) -> bool:
 	items[item_name] = int(items[item_name]) - count
 	if int(items[item_name]) <= 0:
 		items.erase(item_name)
+	inventory_changed.emit(get_inventory_summary())
 	return true
 
 
@@ -233,6 +310,7 @@ func is_dreaming_generator_failing() -> bool:
 
 func add_reputation(faction_name: String, amount: int) -> void:
 	reputation[faction_name] = int(reputation.get(faction_name, 0)) + amount
+	reputation_changed.emit(get_faction_summary())
 
 
 func mark_quest_completed(quest_id: String) -> void:
@@ -404,6 +482,7 @@ func save_game() -> bool:
 		"completed_jobs": completed_jobs,
 		"job_flags": job_flags,
 		"world_flags": world_flags,
+		"quest_states": quest_states,
 		"cybernetics": cybernetics,
 		"last_mission_result": last_mission_result,
 		"event_deck": EventDeckSystem.get_deck_for_save(),
@@ -439,6 +518,7 @@ func load_game() -> bool:
 	completed_jobs = parsed.get("completed_jobs", {})
 	job_flags = parsed.get("job_flags", {})
 	world_flags = parsed.get("world_flags", {})
+	quest_states = parsed.get("quest_states", {})
 	cybernetics = parsed.get("cybernetics", {})
 	last_mission_result = str(parsed.get("last_mission_result", ""))
 	EventDeckSystem.restore_from_save(parsed.get("event_deck", []))
@@ -472,3 +552,118 @@ func _migrate_reputation_keys() -> void:
 
 func _objective_flag(job_id: String) -> String:
 	return "%s_objective_done" % job_id
+
+
+# ── Unified quest system ────────────────────────────────────────────
+
+func start_quest(quest_id: String) -> bool:
+	if not QUEST_DEFS.has(quest_id):
+		return false
+	if not quest_states.has(quest_id):
+		quest_states[quest_id] = {"objectives": {}}
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	if def.has("active_flag"):
+		set_world_flag(str(def.get("active_flag")), true)
+	return true
+
+
+func is_quest_started(quest_id: String) -> bool:
+	if quest_states.has(quest_id):
+		return true
+	# Backward compat: fall back to active_flag world_flag for pre-unified saves
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	if def.has("active_flag"):
+		return bool(get_world_flag(str(def.get("active_flag"))))
+	return false
+
+
+func mark_quest_objective(quest_id: String, obj_id: String) -> void:
+	if not quest_states.has(quest_id):
+		quest_states[quest_id] = {"objectives": {}}
+	var state: Dictionary = quest_states[quest_id]
+	if not state.has("objectives"):
+		state["objectives"] = {}
+	state["objectives"][obj_id] = true
+	# Propagate to world_flag if the objective defines one
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	for obj in def.get("objectives", []):
+		if str((obj as Dictionary).get("id", "")) == obj_id:
+			var done_flag := str((obj as Dictionary).get("done_flag", ""))
+			if not done_flag.is_empty():
+				set_world_flag(done_flag, true)
+			break
+
+
+func is_quest_step_done(quest_id: String, obj_id: String) -> bool:
+	var qs: Dictionary = quest_states.get(quest_id, {})
+	var objs: Dictionary = qs.get("objectives", {})
+	if bool(objs.get(obj_id, false)):
+		return true
+	# Also accept direct world_flag if the objective declares a done_flag
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	for obj in def.get("objectives", []):
+		if str((obj as Dictionary).get("id", "")) == obj_id:
+			var done_flag := str((obj as Dictionary).get("done_flag", ""))
+			if not done_flag.is_empty():
+				return bool(get_world_flag(done_flag))
+	return false
+
+
+func can_complete_quest(quest_id: String) -> bool:
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	if def.is_empty():
+		return false
+	for obj in def.get("objectives", []):
+		if bool((obj as Dictionary).get("required", false)):
+			if not is_quest_step_done(quest_id, str((obj as Dictionary).get("id", ""))):
+				return false
+	return true
+
+
+func complete_quest(quest_id: String) -> void:
+	mark_quest_completed(quest_id)
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	if def.has("done_flag"):
+		set_world_flag(str(def.get("done_flag")), true)
+	if quest_states.has(quest_id):
+		quest_states[quest_id]["completed"] = true
+	else:
+		quest_states[quest_id] = {"objectives": {}, "completed": true}
+
+
+func get_quest_objective_text(quest_id: String) -> String:
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	if def.is_empty():
+		return ""
+	if is_quest_completed(quest_id):
+		return str(def.get("objective_text_done", str(def.get("title", quest_id)) + " complete."))
+	if def.has("objective_text_active"):
+		return str(def.get("objective_text_active", ""))
+	# Campaign quests: build from objectives list
+	var objs: Array = def.get("objectives", [])
+	if objs.is_empty():
+		return str(def.get("title", quest_id)) + ": in progress."
+	var parts: PackedStringArray = []
+	for obj in objs:
+		var done := is_quest_step_done(quest_id, str((obj as Dictionary).get("id", "")))
+		var label := str((obj as Dictionary).get("id", "")).replace("_", " ")
+		parts.append("%s (%s)" % [label, "done" if done else "needed"])
+	return "%s: %s" % [str(def.get("title", quest_id)), ", ".join(parts)]
+
+
+func get_active_hub_quests() -> Array:
+	var result: Array = []
+	for quest_id in QUEST_DEFS.keys():
+		var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+		if str(def.get("type", "")) != "hub":
+			continue
+		if not is_quest_started(quest_id):
+			continue
+		if is_quest_completed(quest_id):
+			continue
+		result.append({
+			"id": quest_id,
+			"title": str(def.get("title", quest_id)),
+			"objective_text": get_quest_objective_text(quest_id),
+		})
+	return result

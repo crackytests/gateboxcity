@@ -12,8 +12,11 @@ signal defeated
 @export var ranged_damage := 5.0
 @export var attack_cooldown := 1.15
 @export var player_path: NodePath
+@export var detection_range := 14.0
 @export var pacified_dialogue_name := "Gatebox Guard"
 @export_multiline var pacified_dialogue_text := "Linda has marked you safe. Please proceed without running."
+
+enum AIState { PATROL, COMBAT }
 
 @onready var parts_root: Node3D = %BodyParts
 @onready var billboard = $Visuals/GreenlineBillboard
@@ -27,6 +30,12 @@ var attack_flash_timer := 0.0
 var right_arm_destroyed := false
 var is_defeated := false
 var is_pacified := false
+
+var ai_state := AIState.PATROL
+var patrol_points: Array[Vector3] = []
+var _patrol_index := 0
+var _patrol_dwell_timer := 0.0
+var _patrol_dwell_time := 2.0
 
 
 func _ready() -> void:
@@ -52,34 +61,23 @@ func _physics_process(delta: float) -> void:
 
 	if player == null:
 		player = get_tree().get_first_node_in_group("player") as Node3D
+		move_and_slide()
 		return
 
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	if is_pacified:
+	if is_pacified or stun_timer > 0.0:
 		velocity.x = move_toward(velocity.x, 0.0, move_speed)
 		velocity.z = move_toward(velocity.z, 0.0, move_speed)
 		move_and_slide()
 		return
 
-	var to_player := player.global_position - global_position
-	to_player.y = 0.0
-
-	if stun_timer > 0.0:
-		velocity.x = move_toward(velocity.x, 0.0, move_speed)
-		velocity.z = move_toward(velocity.z, 0.0, move_speed)
-	elif to_player.length() > attack_range:
-		var direction := to_player.normalized()
-		velocity.x = direction.x * move_speed
-		velocity.z = direction.z * move_speed
-		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
-	else:
-		velocity.x = move_toward(velocity.x, 0.0, move_speed)
-		velocity.z = move_toward(velocity.z, 0.0, move_speed)
-
-	if stun_timer <= 0.0:
-		_try_attack(to_player.length())
+	match ai_state:
+		AIState.PATROL:
+			_process_patrol(delta)
+		AIState.COMBAT:
+			_process_combat(delta)
 
 	var visual_scale := 1.0
 	if attack_flash_timer > 0.0:
@@ -87,6 +85,51 @@ func _physics_process(delta: float) -> void:
 	$Visuals.scale = Vector3.ONE * visual_scale
 
 	move_and_slide()
+
+
+func _process_patrol(delta: float) -> void:
+	if _has_line_of_sight():
+		ai_state = AIState.COMBAT
+		return
+	if _patrol_dwell_timer > 0.0:
+		_patrol_dwell_timer -= delta
+		velocity.x = move_toward(velocity.x, 0.0, move_speed)
+		velocity.z = move_toward(velocity.z, 0.0, move_speed)
+		return
+	if patrol_points.is_empty():
+		velocity.x = move_toward(velocity.x, 0.0, move_speed)
+		velocity.z = move_toward(velocity.z, 0.0, move_speed)
+		return
+	var target := patrol_points[_patrol_index]
+	var to_target := target - global_position
+	to_target.y = 0.0
+	if to_target.length() < 0.5:
+		_patrol_dwell_timer = _patrol_dwell_time
+		_patrol_index = (_patrol_index + 1) % patrol_points.size()
+		velocity.x = move_toward(velocity.x, 0.0, move_speed)
+		velocity.z = move_toward(velocity.z, 0.0, move_speed)
+	else:
+		var direction := to_target.normalized()
+		var patrol_speed := move_speed * 0.5
+		velocity.x = direction.x * patrol_speed
+		velocity.z = direction.z * patrol_speed
+		var look_target := Vector3(target.x, global_position.y, target.z)
+		if global_position.distance_squared_to(look_target) > 0.01:
+			look_at(look_target, Vector3.UP)
+
+
+func _process_combat(_delta: float) -> void:
+	var to_player := player.global_position - global_position
+	to_player.y = 0.0
+	if to_player.length() > attack_range:
+		var direction := to_player.normalized()
+		velocity.x = direction.x * move_speed
+		velocity.z = direction.z * move_speed
+		look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, move_speed)
+		velocity.z = move_toward(velocity.z, 0.0, move_speed)
+	_try_attack(to_player.length())
 
 
 func _on_part_damaged(part: BodyPart, _amount: float, remaining_hp: float) -> void:
@@ -203,3 +246,30 @@ func _show_part_break_effect(part: BodyPart) -> void:
 	$Visuals.add_child(marker)
 	marker.global_position = part.global_position
 	marker.name = part.display_name.replace(" ", "") + "BreakMarker"
+
+
+func _has_line_of_sight() -> bool:
+	if player == null:
+		return false
+	var from := global_position + Vector3.UP * 0.8
+	var to := player.global_position + Vector3.UP * 0.8
+	var dist := from.distance_to(to)
+	if dist > detection_range:
+		return false
+	var space_state := get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [get_rid()]
+	var result := space_state.intersect_ray(query)
+	if result.is_empty():
+		return true
+	var hit_dist := from.distance_to(result.position)
+	return hit_dist >= dist - 0.5
+
+
+func set_patrol_points(points: Array[Vector3]) -> void:
+	patrol_points = points
+	_patrol_index = 0
+
+
+func alert() -> void:
+	ai_state = AIState.COMBAT

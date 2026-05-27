@@ -107,6 +107,8 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
 		"hardlight_gate_panel":
 			_use_hardlight_gate()
+		"hub_debris_pile_1", "hub_debris_pile_2", "hub_debris_pile_3", "store_4_terminal":
+			_handle_hub_node(interactable)
 		_:
 			_handle_job_node(interactable)
 
@@ -129,6 +131,60 @@ func _spawn_hardlight_bridge() -> void:
 	if _bridge_body != null and is_instance_valid(_bridge_body):
 		return
 	_bridge_body = _add_box("HardlightBridge", Vector3(9, 0.25, 2.2), Vector3(-0.5, 1.35, -5.0), _mat_hardlight)
+
+
+func _handle_hub_node(interactable: WardInteractable) -> void:
+	match interactable.interactable_id:
+		"hub_debris_pile_1", "hub_debris_pile_2", "hub_debris_pile_3":
+			var pile_flag := interactable.interactable_id.replace("hub_debris_", "hub_atrium_debris_") + "_cleared"
+			_clear_debris_pile(interactable, pile_flag)
+		"store_4_terminal":
+			if bool(GameState.get_world_flag("store_4_claimed", false)):
+				hud.show_dialogue("Store 4 Terminal", "Already wiped. Velvet Coil is making it something worth having. The shelving situation is improving.")
+				return
+			if not GameState.is_quest_started("hub_store_4"):
+				hud.show_dialogue("Store 4 Terminal", "Old corporate squatter data still on this terminal. Velvet Coil at the Faded Atrium has context on what needs clearing.")
+				return
+			GameState.mark_quest_objective("hub_store_4", "store_4_cleared")
+			if GameState.can_complete_quest("hub_store_4"):
+				GameState.complete_quest("hub_store_4")
+			interactable.queue_free()
+			focused_interactable = null
+			_update_prompt()
+			hud.show_dialogue("Store 4 Terminal", "The squatter partition wipes clean. Store 4 is empty and legal, which is either a fresh start or a threat depending on who is counting.")
+			hud.push_log("store 4 terminal wiped")
+			GameState.set_world_flag("_pending_arrival_text", "Store 4 is mine now. The acoustics are acceptable. The data I wiped was less interesting than expected, which is always the way.")
+			GameState.set_world_flag("_pending_arrival_speaker", "Velvet Coil")
+			_refresh_hud()
+
+
+func _clear_debris_pile(interactable: WardInteractable, pile_flag: String) -> void:
+	if bool(GameState.get_world_flag(pile_flag, false)):
+		hud.show_dialogue("Debris Pile", "Already cleared. Three down. The atrium has floor again.")
+		return
+	if not GameState.is_quest_started("hub_clear_court"):
+		hud.show_dialogue("Debris Pile", "Structural debris from the ceiling collapse. Ladderboy at the Faded Atrium has a plan for clearing the atrium.")
+		return
+	GameState.set_world_flag(pile_flag, true)
+	interactable.queue_free()
+	focused_interactable = null
+	_update_prompt()
+	var done_1 := bool(GameState.get_world_flag("hub_atrium_debris_pile_1_cleared", false))
+	var done_2 := bool(GameState.get_world_flag("hub_atrium_debris_pile_2_cleared", false))
+	var done_3 := bool(GameState.get_world_flag("hub_atrium_debris_pile_3_cleared", false))
+	var cleared_count := (1 if done_1 else 0) + (1 if done_2 else 0) + (1 if done_3 else 0)
+	if cleared_count >= 3:
+		GameState.mark_quest_objective("hub_clear_court", "atrium_cleared")
+		if GameState.can_complete_quest("hub_clear_court"):
+			GameState.complete_quest("hub_clear_court")
+		hud.show_dialogue("Debris", "Third pile cleared. The atrium has floor again. Ladderboy will be insufferably correct about how this changes the traffic flow.")
+		hud.push_log("hub atrium fully cleared")
+		GameState.set_world_flag("_pending_arrival_text", "Atrium is clear. People are walking through it. I did not think we would get to that part. I was wrong, which is fine, I do it on purpose sometimes.")
+		GameState.set_world_flag("_pending_arrival_speaker", "Ladderboy")
+	else:
+		hud.show_dialogue("Debris Pile", "Pile cleared. %d of 3 done. Keep going — the atrium has two more opinions about how the floor should look." % cleared_count)
+		hud.push_log("atrium debris pile cleared (%d/3)" % cleared_count)
+	_refresh_hud()
 
 
 func _handle_job_node(interactable: WardInteractable) -> void:
@@ -187,10 +243,10 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 
 
 func _build_materials() -> void:
-	_mat_floor = _make_mat(Color(0.42, 0.40, 0.44), Color(0.03, 0.02, 0.04), 0.10, "", Vector3(4, 4, 1))
-	_mat_wall = _make_mat(Color(0.38, 0.36, 0.40), Color(0.02, 0.02, 0.03), 0.08, "", Vector3(3, 3, 1))
-	_mat_catwalk = _make_mat(Color(0.50, 0.48, 0.52), Color(0.03, 0.03, 0.05), 0.12, "", Vector3(2, 2, 1))
-	_mat_sludge = _make_mat(Color(0.06, 0.10, 0.06, 0.85), Color(0.04, 0.14, 0.04), 0.6, "", Vector3.ONE)
+	_mat_floor = _make_mat(Color(0.42, 0.40, 0.44), Color(0.03, 0.02, 0.04), 0.10, "res://assets/textures/atrium/mall_floor_tile.png", Vector3(8, 8, 1))
+	_mat_wall = _make_mat(Color(0.38, 0.36, 0.40), Color(0.02, 0.02, 0.03), 0.08, "res://assets/textures/atrium/mall_wall_panel.png", Vector3(6, 4, 1))
+	_mat_catwalk = _make_mat(Color(0.50, 0.48, 0.52), Color(0.03, 0.03, 0.05), 0.12, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(6, 6, 1))
+	_mat_sludge = _make_mat(Color(0.06, 0.10, 0.06, 0.85), Color(0.04, 0.14, 0.04), 0.6, "res://assets/textures/atrium/sludge_surface.png", Vector3(3, 3, 1))
 	_mat_sludge.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_mat_hardlight = _make_mat(Color(0.05, 0.3, 0.9, 0.82), Color(0.1, 0.5, 1.0), 2.0, "", Vector3.ONE)
 	_mat_hardlight.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -255,6 +311,16 @@ func _build_geometry() -> void:
 
 	# Hardlight gate panel — Route 3 environmental. West ground, accessible before crossing sludge.
 	_add_interactable("hardlight_gate_panel", "Hardlight Gate Panel", "Press E: extend hardlight bridge", Vector3(-8.5, 0.95, -2.0), Color(0.2, 0.4, 1.0))
+
+	# Hub quest nodes — debris piles and Store 4 terminal. Only spawn if not yet cleared.
+	if not GameState.get_world_flag("hub_atrium_debris_pile_1_cleared"):
+		_add_interactable("hub_debris_pile_1", "Debris Pile", "Press E: clear debris (1/3)", Vector3(7.5, 0.95, 5.0), Color(0.65, 0.52, 0.32))
+	if not GameState.get_world_flag("hub_atrium_debris_pile_2_cleared"):
+		_add_interactable("hub_debris_pile_2", "Debris Pile", "Press E: clear debris (2/3)", Vector3(-7.0, 0.95, 4.0), Color(0.65, 0.52, 0.32))
+	if not GameState.get_world_flag("hub_atrium_debris_pile_3_cleared"):
+		_add_interactable("hub_debris_pile_3", "Debris Pile", "Press E: clear debris (3/3)", Vector3(0.0, 0.95, 8.5), Color(0.65, 0.52, 0.32))
+	if not GameState.get_world_flag("store_4_claimed"):
+		_add_interactable("store_4_terminal", "Store 4 Terminal", "Press E: wipe terminal data", Vector3(8.5, 0.95, -0.5), Color(0.1, 0.6, 0.8))
 
 	# Relay node — north end of catwalk. The hardlight bridge and NW ramp give a clean approach from west.
 	_add_interactable("atrium_relay_node", "Atrium Relay", "Press E: record relay pulse", Vector3(-2, 2.15, -10.5), Color(0.6, 0.2, 1.0))

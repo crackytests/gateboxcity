@@ -108,21 +108,44 @@ func _ready() -> void:
 
 
 func _stabilize_district_npcs() -> void:
+	var placements := {
+		"pipe_father_gideon": Vector3(-6.8, 0.0, 11.4),
+		"kiki_baja": Vector3(5.8, 0.0, 7.4),
+		"velvet_coil": Vector3(6.2, 0.0, -2.8),
+		"mister_static": Vector3(5.8, 0.0, 14.0),
+		"ladderboy": Vector3(-6.4, 0.0, -14.8),
+		"sunday": Vector3(-6.7, 0.0, -1.2),
+		"brickmouth_ronnie": Vector3(6.9, 0.0, -14.4),
+	}
 	for node in get_tree().get_nodes_in_group("district_npc"):
 		var npc := node as DistrictNPC
 		if npc == null:
 			continue
 		var pos := npc.global_position
+		if not npc.npc_id.is_empty() and placements.has(npc.npc_id):
+			pos = placements[npc.npc_id]
 		pos.y = 0.0
 		npc.global_position = pos
 		npc.home_position = pos
 		npc.wander_target = pos
-		npc.wander_radius = minf(npc.wander_radius, 1.35)
+		npc.wander_radius = minf(npc.wander_radius, 1.8)
+		npc.set_physics_process(true)
+		var npc_shape := npc.get_node_or_null("CollisionShape3D") as CollisionShape3D
+		if npc_shape != null:
+			npc_shape.position.y = 0.8
+		var detect_area := npc.get_node_or_null("DetectArea") as Area3D
+		if detect_area != null:
+			detect_area.position.y = 1.0
 		var sprite := npc.get_node_or_null("Sprite3D") as DirectionalBillboard
 		if sprite != null:
+			sprite.visible = true
+			sprite.shaded = false
+			sprite.double_sided = true
+			sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 			sprite._load_frames_from_paths()
 			if sprite.texture == null and not sprite.frames.is_empty():
 				sprite.texture = sprite.frames[min(4, sprite.frames.size() - 1)]
+			sprite.align_bottom_to_origin(0.02)
 
 
 func _process(delta: float) -> void:

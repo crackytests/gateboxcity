@@ -6,6 +6,8 @@ class_name DirectionalBillboard
 @export var target_camera_path: NodePath
 @export var idle_bob_height := 0.04
 @export var idle_bob_speed := 2.0
+@export var bottom_align_to_origin := false
+@export var ground_clearance := 0.02
 
 var target_camera: Camera3D
 var base_y := 0.0
@@ -19,6 +21,7 @@ func _ready() -> void:
 	base_y = position.y
 	texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	_load_frames_from_paths()
+	_refresh_bottom_alignment()
 	if not target_camera_path.is_empty():
 		target_camera = get_node_or_null(target_camera_path) as Camera3D
 
@@ -61,6 +64,12 @@ func show_part_broken(part_name: String) -> void:
 func show_defeated() -> void:
 	defeated = true
 	modulate = Color(0.45, 0.9, 0.55, 0.75)
+
+
+func align_bottom_to_origin(clearance := 0.02) -> void:
+	bottom_align_to_origin = true
+	ground_clearance = clearance
+	_refresh_bottom_alignment()
 
 
 func _face_camera_yaw() -> void:
@@ -139,3 +148,21 @@ func _load_frames_from_paths() -> void:
 		texture = frames[4]
 	elif texture != null:
 		frames.append(texture)
+	_refresh_bottom_alignment()
+
+
+func _refresh_bottom_alignment() -> void:
+	if not bottom_align_to_origin:
+		return
+
+	var tallest := 0.0
+	for frame_texture in frames:
+		if frame_texture != null:
+			tallest = maxf(tallest, float(frame_texture.get_height()) * pixel_size)
+	if tallest <= 0.0 and texture != null:
+		tallest = float(texture.get_height()) * pixel_size
+	if tallest <= 0.0:
+		return
+
+	base_y = tallest * 0.5 + ground_clearance
+	position.y = base_y

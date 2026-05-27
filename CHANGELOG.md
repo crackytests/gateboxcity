@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.0.5 - 2026-05-27
+
+### Added
+
+- Added the next Faded Atrium/quest-location buildout pass, including new route/location content and supporting texture folders.
+- Added Rocker Fellar Keep scene/script scaffolding and planning notes for the next location sprint.
+
+### Changed
+
+- Expanded hub quest, event deck, faction, and world-state persistence support across the Faded Atrium and Sub-Sub-Basement route loop.
+- Improved district billboard grounding while keeping ambient NPCs mobile and pushable.
+- Updated route and combat scripts for the latest tactical survival FPS slice.
+
+### Fixed
+
+- Fixed Redot parser crashes caused by inferred `Variant` world-flag values in MallHub and Collapsed Service Atrium.
+- Fixed quest-location startup stability for the current route scenes.
+- Improved runtime billboard frame loading so district NPCs remain visible after scene updates.
+
 ## v0.0.4c - 2026-05-26
 
 ### Fixed

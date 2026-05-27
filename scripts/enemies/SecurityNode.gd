@@ -62,6 +62,9 @@ func _try_attack() -> void:
 	if distance > active_range:
 		return
 
+	if not _has_line_of_sight():
+		return
+
 	var player_health := player.find_child("PlayerHealth", true, false)
 	if player_health == null:
 		return
@@ -72,6 +75,21 @@ func _try_attack() -> void:
 	pulse_light.light_energy = 3.0
 	attacked_player.emit("security node pulse hit for %d" % roundi(damage))
 	attack_timer = attack_cooldown * (1.45 if antenna_destroyed else 1.0)
+
+
+func _has_line_of_sight() -> bool:
+	if player == null:
+		return false
+	var from := global_position + Vector3.UP * 0.5
+	var to := player.global_position + Vector3.UP * 0.8
+	var dist := from.distance_to(to)
+	var space_state := get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	var result := space_state.intersect_ray(query)
+	if result.is_empty():
+		return true
+	var hit_dist := from.distance_to(result.position)
+	return hit_dist >= dist - 0.5
 
 
 func _on_part_damaged(_part: BodyPart, _amount: float, _remaining_hp: float) -> void:

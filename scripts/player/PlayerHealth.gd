@@ -24,3 +24,8 @@ func apply_damage(amount: float) -> void:
 	damaged.emit(final_amount, current_hp, max_hp)
 	if current_hp <= 0.0:
 		died.emit()
+
+
+func heal(amount: float) -> void:
+	current_hp = minf(current_hp + amount, max_hp)
+	health_changed.emit(current_hp, max_hp)

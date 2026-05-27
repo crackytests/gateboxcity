@@ -88,6 +88,8 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
 		"pipe_pressure_valve":
 			_use_pipe_valve()
+		"hub_generator_coupling":
+			_handle_hub_node(interactable)
 		_:
 			_handle_job_node(interactable)
 
@@ -103,6 +105,25 @@ func _use_pipe_valve() -> void:
 	hud.show_dialogue("Pressure Valve", "A wet crack and the pipe pressure drops. Something in the north section stops clicking. The difference between dangerous and currently dangerous.")
 	hud.push_log("pipe valve bled — security node offline")
 	_refresh_hud()
+
+
+func _handle_hub_node(interactable: WardInteractable) -> void:
+	match interactable.interactable_id:
+		"hub_generator_coupling":
+			if GameState.get_world_flag("hub_power_restored"):
+				hud.show_dialogue("Generator Coupling", "Already repaired. The coupling is seated. The generator is running on something more reliable than tape and optimism now.")
+				return
+			if not GameState.is_quest_started("hub_power_restore"):
+				hud.show_dialogue("Generator Coupling", "The hub generator runs a coupling through here. Mister Static at the Faded Atrium knows what needs fixing.")
+				return
+			GameState.mark_quest_objective("hub_power_restore", "hub_power_restored")
+			if GameState.can_complete_quest("hub_power_restore"):
+				GameState.complete_quest("hub_power_restore")
+			hud.show_dialogue("Generator Coupling", "The coupling seats with a solid click that makes the whole pipe section sound less afraid. Hub generator coupling secured.")
+			hud.push_log("hub generator coupling repaired")
+			GameState.set_world_flag("_pending_arrival_text", "Generator is stable. Coupling held. I have been apologising to it for six weeks — I can stop now.")
+			GameState.set_world_flag("_pending_arrival_speaker", "Mister Static")
+			_refresh_hud()
 
 
 func _handle_job_node(interactable: WardInteractable) -> void:
@@ -161,9 +182,9 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 
 
 func _build_materials() -> void:
-	_mat_floor = _make_mat(Color(0.58, 0.66, 0.62), Color(0.02, 0.08, 0.065), 0.18, "res://assets/textures/leak_street/wet_concrete_floor.png", Vector3(5, 5, 1))
-	_mat_wall = _make_mat(Color(0.62, 0.68, 0.64), Color(0.015, 0.07, 0.055), 0.14, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(3, 3, 1))
-	_mat_pipe = _make_mat(Color(0.55, 0.45, 0.34), Color(0.12, 0.07, 0.02), 0.18, "", Vector3.ONE)
+	_mat_floor = _make_mat(Color(0.58, 0.66, 0.62), Color(0.02, 0.08, 0.065), 0.18, "res://assets/textures/leak_street/wet_concrete_floor.png", Vector3(8, 8, 1))
+	_mat_wall = _make_mat(Color(0.62, 0.68, 0.64), Color(0.015, 0.07, 0.055), 0.14, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(6, 4, 1))
+	_mat_pipe = _make_mat(Color(0.55, 0.45, 0.34), Color(0.12, 0.07, 0.02), 0.18, "res://assets/textures/pipes/pipe_metal.png", Vector3(4, 4, 1))
 	_mat_neon = _make_mat(Color(0.02, 0.12, 0.09), Color(0.0, 1.0, 0.55), 1.5, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -209,6 +230,11 @@ func _build_geometry() -> void:
 
 	# Environmental interactable — west passage. Using valve despawns the security node (Route 3).
 	_add_interactable("pipe_pressure_valve", "Pressure Valve", "Press E: bleed pressure valve", Vector3(-7, 0.95, 0.5), Color(0.85, 0.55, 0.1))
+
+	# Hub quest node — generator coupling. Deep northwest passage, past divider wall gap.
+	# Only spawned if not already repaired.
+	if not GameState.get_world_flag("hub_power_restored"):
+		_add_interactable("hub_generator_coupling", "Generator Coupling", "Press E: repair generator coupling", Vector3(-6.5, 0.95, -10.5), Color(0.9, 0.55, 0.1))
 
 	# Job nodes
 	_add_interactable("pipe_blood_sample_node", "Pipe Blood Sample Bulb", "Press E: collect pipe blood", Vector3(-5.5, 0.95, 6.5), Color(0.0, 1.0, 0.55))

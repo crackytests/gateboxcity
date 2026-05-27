@@ -7,9 +7,7 @@ extends Node3D
 @onready var weapon: Weapon = $Player/CameraPivot/Camera3D/WeaponMount/ScrapPistol
 @onready var enemy: Enemy = $GoonMaterial
 @onready var reinforcement: Enemy = $GateboxReinforcement
-@onready var inventory = $Systems/InventorySystem
 @onready var quest = $Systems/QuestSystem
-@onready var factions = $Systems/FactionSystem
 
 var focused_npc
 var focused_exit
@@ -32,10 +30,10 @@ func _ready() -> void:
 		hud.push_log("world event: Gatebox node spawned reinforcement")
 	else:
 		reinforcement.queue_free()
-	inventory.inventory_changed.connect(hud.set_inventory_summary)
+	GameState.inventory_changed.connect(hud.set_inventory_summary)
+	GameState.reputation_changed.connect(hud.set_faction_summary)
 	quest.objective_changed.connect(hud.set_objective)
 	quest.quest_completed.connect(_on_quest_completed)
-	factions.reputation_changed.connect(hud.set_faction_summary)
 	for pickup in get_tree().get_nodes_in_group("loot"):
 		pickup.picked_up.connect(_on_loot_picked_up)
 		if not pickup.auto_pickup:
@@ -68,17 +66,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		if GameState.load_game():
 			WorldDirector.restore_from_game_state()
 			WorldDirector.set_region(WorldDirector.REGION_SUB_BASEMENT)
+			quest._sync_from_game_state()
 			hud.set_inventory_summary(GameState.get_inventory_summary())
 			hud.set_faction_summary(GameState.get_faction_summary())
 			hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 			hud.set_world_state(WorldDirector.get_hud_summary())
+			hud.set_objective(quest.get_objective_text())
 			hud.show_system_message("GAME LOADED")
 		else:
 			hud.show_system_message("NO SAVE FOUND")
 
 
 func _on_loot_picked_up(item_name: String) -> void:
-	inventory.add_item(item_name)
 	GameState.add_item(item_name)
 	if item_name == "Broken Gatebox Display":
 		quest.mark_display_recovered()
@@ -150,13 +149,9 @@ func _update_prompt() -> void:
 
 
 func _on_quest_completed(_quest_id: String) -> void:
-	inventory.add_item("Mall Arcade Token")
 	GameState.add_item("Mall Arcade Token")
-	factions.add_reputation("System X", 1)
-	factions.add_reputation("Gatebox Corporation", -1)
 	GameState.add_reputation("System X", 1)
 	GameState.add_reputation("Gatebox Corporation", -1)
-	GameState.mark_quest_completed(_quest_id)
 	GameState.last_mission_result = "Wake-Up Call complete"
 	if quest.soul_coolant_routed:
 		GameState.set_world_flag("gatebox_node_stabilized", true)
@@ -203,7 +198,6 @@ func _route_soul_coolant() -> void:
 	GameState.set_world_flag("gatebox_node_stabilized", true)
 	GameState.add_reputation("Gatebox Corporation", 1)
 	GameState.add_reputation("System X", -1)
-	hud.set_faction_summary(GameState.get_faction_summary())
 	hud.show_dialogue("Linda", "Thank you for choosing stabilization. Your care has been noted, indexed, and placed somewhere tender.")
 	hud.push_log("soul coolant routed to Gatebox node")
 	focused_coolant.queue_free()
