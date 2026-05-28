@@ -2,6 +2,12 @@ extends Enemy
 class_name Splice
 
 var _berserk_active := false
+
+
+func _ready() -> void:
+	if drop_item.is_empty():
+		drop_item = "neural_splice"
+	super._ready()
 var _berserk_timer := 0.0
 
 const BERSERK_MULT := 1.8

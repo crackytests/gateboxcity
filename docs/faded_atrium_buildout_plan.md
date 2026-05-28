@@ -23,6 +23,75 @@ The script builds geometry in `_ready()`. NPC nodes are either always-present or
 
 ---
 
+## IMPLEMENTATION NOTE — Current Build (2026 update)
+
+The shipped hub diverged from the flat 8-store sketch below into a **two-floor mezzanine**. The
+sections after this note are preserved as original design intent; where they conflict, the build
+described here wins.
+
+### Actual layout
+
+```
+            UPPER FLOOR (mezzanine, floor surface y=6.4, reached by central escalators)
+   [Vera][Kiki Baja][Ladderboy][Velvet Coil]      <- upper north store row, z(-9..-16)
+            |  railings ring the atrium void  |
+   ========================================== central escalators (x=±1.5, z+4 → z-4) ==========
+            GROUND FLOOR
+   [Mister Static][Gideon][Bar(Store3)][Unclaimed(Store4)]   <- south store row, z(+9..+16)
+            CENTRAL ATRIUM x(-16..+16) z(-9..+9) h=10
+            (route gates + System X terminal + mission board + cybernetics kiosk live here)
+   North service stub + basement hatch (z -9..-16)   |   South entry corridor (z +16..+25, player spawn)
+```
+
+- **Ground-floor tenants (phase 1):** Mister Static (x=-12), Pipe Father Gideon (x=-4). Store 3 (x=+4)
+  is the sealed Bar; Store 4 (x=+12) is an unclaimed sealed slot (dressing only — see Velvet Coil below).
+- **Upper-floor tenants (phase 2+):** Vera (x=-12), Kiki Baja (x=-4), Ladderboy (x=+4) arrive at phase 2;
+  Velvet Coil (x=+12) arrives at phase 3. All stand at z=-12.5, y=7.45, behind a shop counter (NPC focus
+  radius widened to 2.6 so they're reachable across the counter). Each upper store is dressed by
+  `_build_upper_shop()` (counter, back shelving, crate, one character prop).
+- **Upper-floor access** requires the escalators, which are a small fetch task (Motor Crate → Escalator
+  Console). Phase 2's log line points the player at the escalator if it isn't running yet.
+
+### Light services (per `AskUserQuestion` decision)
+
+- **Vera** — heals the player to full HP on every interaction; her cistern quest still runs in dialogue.
+- **Kiki Baja** — reads out current Wan Moa Torai standing.
+- **Ladderboy** — gives the Clear-the-Court quest hook (existing).
+- **Velvet Coil** — opens the cybernetics menu (surgical suite) — phase 3 only.
+- **Vessel (hub bar)** — the repaired bunny android tends the hub's Cooters branch once the bar opens.
+  Marbles keeps the *original* Cooters elsewhere; the mall bar is Vessel's. Vessel relocates from the
+  atrium (LAN-quest spot) to behind the bar counter when `bar_open` is set.
+
+### Bar (Store 3) — now a real phase-3 quest
+
+`bar_open` is **no longer auto-set by phase 2**. Store 3 stays sealed; a "Bar Door" interactable in
+front of it opens the bar **only when `hub_cistern_connected` is true** (`_open_bar()` → removes seal,
+builds bar interior, spawns Marbles, re-checks phase). This restores the doc's original intent.
+
+### Velvet Coil reconciliation
+
+The old ground-floor "Store 4 claim" quest (`hub_store_4`) is **deprecated** — Velvet Coil now lives in
+the **upper** fourth store as the surgical suite, arriving at phase 3 after `coil_invitation_accepted`
+(set via the invitation flow in `SubSubBasementDistrict.gd`). Ground Store 4 stays a sealed dressing slot.
+
+### Phase gating (as built)
+
+- **Phase 2** = `hub_power_restored` AND `hub_lan_restored` → spawns upper tenants, unlocks basement hatch.
+- **Phase 3** = `hub_phase_2` AND `hub_cistern_connected` AND `nursery_culture_saved` AND `bar_open`
+  → Velvet Coil arrives, hub radio + planters/warm-light dressing pass.
+
+### Upper-floor access notes
+
+- The atrium **north wall** (`AtriumWallNL/NR/NTop` at z=-9.2) is **ground-floor height only (y 0..6)**.
+  It must NOT extend to full height (y=10) or it seals the mezzanine off from the upper store row —
+  the upper walkway connects to the stores through the entry pillars at z=-9.
+- The **active escalator** material (`_mat_esc_on`) uses low emission (~0.35) with a bright cyan albedo,
+  so the step texture stays readable instead of blowing out to a solid cyan slab.
+
+(Dev shortcuts F7 / 0-key used during buildout have been removed.)
+
+---
+
 ## Layout
 
 ```

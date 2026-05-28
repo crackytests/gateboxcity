@@ -1,0 +1,4036 @@
+--- PAGE 189
+
+13
+1 8 7
+Threats in the Zone
+e ffect:  Give the players a chance to notice that something 
+is amiss, such as a number of cadavers on the ground or a 
+pipe leaking green sludge. Anyone who proceeds despite the 
+warning signs suffers one Rot Point per minute in the area.
+ROT WIND
+A wind carrying foul Rot-ridden fumes sweep across 
+the sector. The air is filled by dust and a sickening 
+stench.
+e ffect:  The Rot Wind immediately inflicts one Rot Points on 
+every person caught in it. In addition, any water or grub car-
+ried by the PCs will be contaminated by Rot, inflicting one Rot 
+Point per ration consumed. The Rot Wind lasts D6 hours.
+SINKHOLE
+The ground suddenly gives in, and a huge hole into 
+the ground or into some ancient underground facil-
+ity opens up.
+e ffect:  Anyone close to the collapse must make a Move roll to 
+avoid falling into the Sinkhole. Doing so inflicts one point of 
+damage in itself – and can expose the victim to any number 
+of underground threats, such as monsters or Rot. Climbing up 
+can also be difficult, usually requiring a Move roll.
+TEMPERATURE DROP
+Suddenly, the wind picks up, the temperature drops 
+and a heavy snowfall starts. Then, the wind and 
+the snowing stops. A wall of white clouds forms 
+a tall cylinder right above the PCs. A crystal blue 
+sky can be seen above. The serenity comes with a 
+cost – the temperature drops dramatically. Exposure 
+can be lethal.
+e ffect:  Any Zone travelers caught out in the open must imme-
+diately roll to Endure severe cold (page 93). One roll every 
+15 minutes is required, until the cold spot passes (after D6 
+hours) or the PCs move out of the sector. Lighting a fire can 
+keep the cold at bay, but it requires firewood and an Agility 
+roll (no skill used).
+Comment:  Use this phenomenon only in winter. In 
+the summertime, use Heat Wave instead.
+±0
+±0
+±0
+UNEXPLODED ORDNANCE
+This entire area is scarred by gunshots and explo-
+sions. In the ground, mines and/ or unexploded gre-
+nades and bombs are hidden. Walking through this 
+area is very dangerous.
+e ffect:  Anyone who walks through the area must make a 
+Move roll. Failure means triggering a Blast Power 6 explo-
+sion at Arm’s Length (page 94).
+VACUUM
+The
+
+--- PAGE 190
+
+
+
+
+
+--- PAGE 191
+
+14
+1 8 9
+ARTIFACTS
+14
+ARTIFACTS
+Artifacts are the most valuable things the PCs can 
+find. These rare functional items from the Old Age 
+can give them power over other mutants, bring 
+knowledge to the People, and even show the way 
+to Eden.
+The text on all of the Artifact Cards in the Mu-
+tant: Year Zero Card Deck  is repeated here, and 
+some of the more intricate artifacts are described 
+in more detail.
+How PCs can find and understand how to use 
+artifacts is explained in Chapter 8.
+HANDLING ARTIFACTS
+You as GM decide when and where a PC may find 
+an artifact. When the PCs explore a new sector in 
+the Zone a Stalker can use the Find the Path skill to 
+find artifacts, but remember that you are not bound 
+by this roll. You can also let the PCs find artifacts in 
+other places, like in a settlement or carried by an NPC.
+Use artifacts as a reward for exploration, but 
+also to create drama and tension within and around 
+the group of PCs. Artifacts are powerful and valu-
+able things – whoever finds an artifact will gain 
+influence over others, but also risks becoming a 
+target for NPCs or other PCs.
+THE ARTIFACT CARDS
+Normally, you let the player who finds an artifact 
+draw an Artifact Card or roll on the artifact table 
+below. If you want to root the artifact more firmly 
+in the environment, you can draw the card without 
+showing it and describe the surroundings, before 
+handing the card over. A third option is that you 
+simply choose which artifact a PC finds.
+The title on the Artifact Card (or the entry on 
+the table) tells you what the artifact is, while the rest 
+of the text describes the item without mentioning 
+its name. When a PC gets an Artifact Card, have the 
+player first read the description without revealing 
+the headline. It’s fun for the other players to guess 
+what the artifact is before it is revealed. That the 
+players realize what an artifact is doesn’t mean that 
+the PCs do.
+THE ARTIFACT TABLE
+If you don’t have access to the Mutant: Year 
+Zero Card Deck , you can roll D666 on this 
+table instead of drawing a card to randomly 
+determine what artifact a PC finds.
+D666 a rt ifact
+111–114 Air Mattress
+115–122 Antidepressants
+123–126 Assault Rifle
+131–1
+
+--- PAGE 192
+
+14
+1 9 0
+GAmemaster’s Section
+D666 a rt ifact
+135–142 Battery
+143–146 Bicycle
+151–154 Binoculars
+155–162 Bow & Arrow
+163–166 Canoe
+211–214 Cassette Player (Metaplot)
+215–222 Chainsaw
+223–226 Comic Book
+231–234 Compass
+235–242 Crossbow
+243–246 Diary
+251–254 Diving Gear
+255–262 Dress
+263–266 Energy Pills
+311–314 Flashlight
+315–322 Flare Gun
+323–326 Gas Mask
+331–334 Generator
+335–342 Guitar
+343–346 Hand Grenade
+351–354 Hockey Helmet
+355–362 Hunting Rifle
+363–366 ID Card (Metaplot)
+411–414 Jerrycan
+415–422 Katana
+423–426 Kevlar Vest
+431–434 Lifestyle Magazine
+435–442 Map of the Zone
+443–446 Motor Boat
+451–454 Painkillers
+455–462 Painting
+463–466 Perfume Bottle
+511–514 Protective Suit
+515–522 REGEN
+523–526 Revolver
+531–534 Scooter
+535–542 Semi-Automatic Pistol
+543–546 Shotgun
+551–554 Smoke Grenade
+D666 a rt ifact
+555–562 Soda Can
+563–566 Stimulants
+611–614 Sunglasses
+615–622 Tuxedo
+623–626 Umbrella
+631–634 Video Camera (Metaplot)
+635–642 Wrench
+643–666 Re-Roll
+THE DAWN VAULT
+Any mutant who finds an artifact is supposed to 
+hand it over to the Dawn Vault, for the good of the 
+People (page 113). These days, far from all mutants 
+follow that rule, but the general principle is still 
+there and helps the development of the Ark – each 
+artifact handed in gives a bonus to the Ark’s DEV 
+level. Use this to place PCs in moral dilemmas – 
+should they help themselves or act for the common 
+good?
+KK AIR MATTRESS
+This inflatable old bed offers unbeatable sleeping 
+comfort! It’s dirty and worn, and hard to inflate if 
+you don’t know how to do it.
+Effect: Sleeping on the air mattress is very effec-
+tive. A single hour is enough to recover all of 
+your lost Wits (page 90).
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+KK ANTIDEPRESSANTS
+When life in the Zone feels dark and hopeless, these 
+little pills in a plastic bottle can give you chemical 
+relief.
+Effect: When eating these pills, you immediately 
+heal all doubt that you have suffered. Unfor-
+tunately, there are only enough pills left for 
+D6 doses. When you have consumed them all, 
+you must discard this artifact. Tiny item.
+DEV Requirement: Technology 20  
+DEV 
+Bonus: —
+
+
+
+--- PAGE 193
+
+14
+1 9 1
+ARTIFACTS
+KK ASSAULT RIFLE
+A rusty but awe-inspiring weapon, capable of un-
+leashing a hail of bullets at your enemies. Bullets 
+are usually far too valuable to waste in this way, 
+but the weapon itself will give you respect among 
+the People.
+Effect: Gear Bonus +3 to Shoot. Weapon dam-
+age 2, Long range. Has a clip, which means 
+that you don’t need to reload after every shot. 
+Capable of full automatic fire (page 86).
+DEV Requirement: Technology 20 
+DEV Bonus: Technology +D6, Warfare +D6
+KK AUTOMOBILE
+This motor-driven carriage is s rust-ridden wreck, 
+but it can be repaired. With a successful Jury-Rig 
+roll, a Gearhead can get it running again. The en-
+gine can run on gasoline or on booze (one dose per 
+Zone sector traveled).
+Effect: The car can carry five mutants, increases 
+the movement rate in combat and cuts the 
+time it takes to explore a sector in the Zone 
+by half. It can also be used to escape from 
+threats or to ram enemies. How vehicles work 
+is fully explained on page 94. Gear Bonus: +3. 
+Armor Rating: 3. Resilience: 1.
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6
+KK BATTERY
+A heavy lump of metal that the Old Ones used to 
+connect to machines to make them work. There still 
+seems to be some power in it…
+Effect: Used to power other artifacts that require 
+electrical power. Can be recharged with a 
+Generator (the artifact or the project).
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+KK BICYCLE
+This rust-infested old vehicle from the Old Age is 
+simple yet ingenious in its design. It has two thin 
+wheels, a handlebar and pedals. The rubber tires 
+are thick and rugged – perfect for navigating the 
+Zone terrain.
+Effect: The bicycle can carry one mutant, in-
+creases the movement rate in combat and 
+cuts the time it takes to explore a sector in 
+the Zone by half. It can also be used to es-
+cape from threats. How vehicles work is fully 
+explained on page 94. Gear Bonus: +2. Resil-
+ience: 1.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK BINOCULARS
+A strange metal object made of two connected tubes 
+with pieces of glass inside each. If you look through 
+the tubes, everything around you looks much big-
+ger. Us
+
+--- PAGE 194
+
+14
+1 9 2
+GAmemaster’s Section
+Effect: Gear Bonus +3 to the Scout and Find the 
+Path skills. Light item.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK BOW & ARROW
+The People can create bows, but not like this one. 
+It is constructed in some type of ancient material, 
+and packs a massive punch.
+Effect: Gear Bonus +2 to the Shoot skill. Weapon 
+damage 1, Long range. Needs arrows.
+DEV Requirement: —
+DEV Bonus: Technology +1, Warfare +1
+KK CANOE
+A strange, oblong vehicle made of dented metal. It 
+has two seats and two plastic paddles tucked away 
+underneath.
+Effect: The canoe can carry up to four mutants 
+over water and can be used to explore coastal 
+sectors of the Zone. It can be used to escape 
+from threats on water, and gives a +2 Gear 
+Bonus to the Move skill in such situations. 
+Resilience: 1.
+DEV Requirement: —
+ 
+ 
+DEV 
+Bonus: Technology +1
+KK CASSETTE PLAYER (METAPLOT)
+A cracked and yellowed plastic contraption with 
+buttons and knobs and a lid along one side. Inside, 
+there is a piece of plastic with two holes in it. On 
+top of the device a thin metal rod is mounted.
+Effect: Requires a Battery or Generator (the arti-
+fact or the project) to work. Can play music 
+from the Old Age and receive radio signals, if 
+anyone is still transmitting…
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6, Culture +D6
+Comment: This artifact can help the PCs find 
+Eden. Read more in Chapter 16.
+KK CHAINSAW
+This rattling monster of a contraption can be 
+wielded as a melee weapon to horrible effect. But 
+starting the engine takes a full turn and requires a 
+dose of gasoline or booze.
+Effect: Wielded as a weapon, the chainsaw gives 
+you a +2 Gear Bonus and has weapon damage 
+3. Heavy item.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK COMIC BOOK
+A booklet made of brittle old paper from the Old 
+Age. You can hardly turn the yellowed pages with-
+out tearing them apart. They show images of mus-
+cular men and women in tights, fighting each other. 
+The fashion sense during the Old Age was clearly 
+very odd.
+Effect: None. Tiny item.
+DEV Requirement: —
+DEV Bonus: Culture +D6
+KK COMPASS
+A piece of plastic with a dial on it. A needle spins 
+and points i
+
+--- PAGE 195
+
+14
+1 9 3
+ARTIFACTS
+Effect: The compass gives you Gear Bonus +2 to 
+the Find the Path skill.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK CROSSBOW
+A silent and deadly ancient weapon, made of a 
+light-weight metal. Easier to aim and fire than a 
+normal bow.
+Effect: Gear Bonus +3 to the Shoot skill. Weapon 
+damage 1, Long range. Uses arrows, not 
+bullets.
+DEV Requirement: Technology 5
+DEV Bonus: Technology +1, Warfare +1
+KK DIARY
+A worn notebook with hand-written text on the 
+waterlogged pages. If you can read the Old Ones’ 
+script, you can make out what it says.
+Effect: This artifact connects to the game’s meta-
+plot. Read more about it in Chapter 16.
+DEV Requirement: Culture 20  
+DEV 
+Bonus: Culture +D6
+KK DIVING GEAR
+A full-body suit in a rubbery material from the Old 
+Age. The strange suit comes with shoes like the 
+feet of a frog, a plastic facemask and a rusted metal 
+cylinder with tubes and gauges.
+Effect: Heavy item. It gives you Gear Bonus +3 
+to using the Move skill underwater. It also 
+HOW MANY ARTIFACTS?
+Don’t let the PCs find too many artifacts 
+too soon. Artifacts should be rare and val-
+uable. As a general rule, don’t let the PCs 
+find more than one or two artifacts per 
+session, in total. You can let some NPCs 
+have artifacts, but that should also be a 
+rare occurrence – NPCs’ artifacts have a 
+tendency to end up in the hands of the 
+PCs. And if the PCs still would come a 
+across a large amount of artifacts – re-
+member that others will try to get their 
+hands on them…
+protects you against gases and gives you 
+Protection Rating 3 against the Rot.
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6
+KK DRESS
+A large and wide piece of clothing in thin, ancient 
+cloth that still glitters despite decades of dirt and 
+dust. The cloth hardly covers your upper body at 
+all, but hangs around your legs and makes it hard 
+to walk. Very impractical – but pretty.
+Effect: Gear Bonus +2 to Manipulate. Does not 
+count as an item when you wear it.
+DEV Requirement: Culture 10
+DEV Bonus: Culture +D6
+KK ENERGY PILLS
+The pills in this bottle will quickly give you your 
+energy back when you’re exhausted.
+Effect: When eating these pills, you immediate
+
+--- PAGE 196
+
+14
+1 9 4
+GAmemaster’s Section
+KK GAS MASK
+This crusty old black rubber mask covers your en-
+tire face and has a big filter in front of your mouth. 
+The mask is worn and scratched, but still works.
+Effect: Light item. Protects you against gases and 
+gives you Protection rating 3 against the Rot.
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+KK GENERATOR
+A heavy, rusty old machine that seems completely 
+worthless at first glance. But a Gearhead knows that 
+this contraption is worth its weight in gold. If you 
+fill it up with fuel it can generate electrical power.
+Effect: Heavy item. Requires one dose of booze 
+per day. Can power other artifacts or projects.
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6
+KK GUITAR
+A strange and brittle wooden contraption with 
+strings stretched across a hole in the middle. 
+Against all odds it has survived the Apocalypse 
+with hardly a scratch, and if you pull on the strings, 
+beautiful sounds are heard.
+Effect: If you learn to play the guitar, you’ll be 
+popular around the campfire. Provides +3 
+Gear Bonus to Manipulate, but only in situa-
+tions where you get a chance to play.
+DEV Requirement: Culture 20  
+DEV 
+Bonus: Culture +D6
+KK HAND GRENADE
+A rusty metal lump that explodes with a deafening 
+bang if you pull the pin out. Handle with caution!
+Effect: Light item. You throw the grenade using 
+the Shoot skill. It has no Gear Bonus and the 
+range is Short. If the attack succeeds, the gre-
+nade lands within Near range of the target, if 
+not it lands within Short range. The explosion 
+has Blast Power 9 and weapon damage 2.
+DEV Requirement: Technology 20 
+DEV Bonus: Technology +D6, Warfare +D6
+KK HOCKEY HELMET
+An ancient piece of headgear made of blue plastic. 
+It’s a little cracked and worn, but still provides solid 
+protection for your head.
+Effect: Protection Rating 3 against damage.
+DEV Requirement: —
+ 
+DEV 
+Bonus: Technology +1
+KK HUNTING RIFLE
+This long firearm is worn and scratched, but its 
+great firepower and range will make sure you are 
+feared in the Zone.
+Effect: Gear Bonus +2 to Shoot. Weapon damage 
+2, Long range. Has a clip, which means that 
+you don’t need to reload after every shot.
+DEV Requir
+
+--- PAGE 197
+
+14
+1 9 5
+ARTIFACTS
+Comment: This artifact can help the PCs into 
+Eden. Read more in Chapter 16.
+KK JERRYCAN
+A rusted but intact metal jerrycan filled with fuel, 
+which stinks and is very flammable. The fuel can 
+power up ancient vehicles again – or be used as a 
+firebomb.
+Effect: The fuel can be used to fill up the tanks 
+of old vehicles (page 94). If used as a weapon, 
+you light a fuse stuffed into the nozzle and 
+then throw the can with the Force skill. No 
+Gear Bonus, Short range. If the attack suc-
+ceeds, the can lands within Near range of 
+the target, if not it lands at Short range. The 
+explosion has Blast Power 6.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +1
+KK KATANA
+In a crumbling sheath lies a long, thin sword. It 
+feels good in your hand and the blade is still sharp 
+– very sharp.
+Effect: Gear Bonus +3 to the Fight skill. Weapon 
+damage 2.
+DEV Requirement: —
+DEV Bonus: Culture +D6
+KK KEVLAR VEST
+This heavy vest already has some holes in it, but 
+still gives you great protection from bullets and 
+others attacks.
+Effect: Armor Rating 6 against damage from 
+external attacks.
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+
+
+
+--- PAGE 198
+
+14
+1 9 6
+GAmemaster’s Section
+KK LIFESTYLE MAGAZINE
+A thick bundle of waterlogged paper that once was 
+glossy. On the front cover and everywhere inside 
+the magazine, there are pictures of the Old Ones. 
+They all smile and look healthy and happy. Their 
+homes are bright and beautiful, their motor car-
+riages shine in the sunlight. Between the pictures, 
+texts describe what life was like in the Old Age. It 
+must have been heaven.
+Effect: None. Tiny item.
+DEV Requirement: —  
+DEV 
+Bonus: Culture +D6
+KK MAP OF THE ZONE
+This brittle and torn map shows what the Zone 
+looked like in the Old Age. It is very valuable to a 
+Stalker to navigate among the ruins, but can also 
+bring valuable knowledge to the People.
+Effect: Gear Bonus +3 to Find the Path. Tiny item.
+DEV Requirement: Culture 10
+ 
+DEV 
+Bonus: Culture +D6
+KK MOTOR BOAT
+A dinghy in cracked and dirty plastic. It still seems 
+to float. It has an outboard motor, but to make it 
+run again a Gearhead needs to make a Jury-Rig 
+roll. The motor can run on gasoline or booze (one 
+dose per sector traveled in the Zone).
+Effect: The boat can carry up to seven mutants, 
+increases the movement speed in combat 
+and cuts the time it takes to explore a coastal 
+Zone sector by half. It can also be used to 
+escape from threats or to ram enemies at sea. 
+How vehicles work is fully explained on page 
+94. Gear Bonus: +3. Resilience: 2.
+DEV Requirement: Technology 20  
+DEV 
+Bonus: Technology +D6
+KK PAINKILLERS
+These little pills quickly numb the pain from your 
+wounds and bruises.
+Effect: On eating these pills, you immediately 
+heal all damage points that you have suffered. 
+They have no effect against critical injuries. 
+There are only enough pills left for D6 doses. 
+When you have consumed them all, you must 
+discard this artifact. Tiny item.
+DEV Requirement: Technology 20 
+ 
+DEV 
+Bonus: —
+KK PAINTING
+A large piece of art in a wooden frame. The image 
+shows a skinny man on a bridge, holding his hands 
+to his face and screaming. The Old Ones were truly 
+a strange lot. This artifact is of no obvious use, but 
+you can always use it to adorn the walls in your 
+den – or hand it in to the Dawn Vault.
+Effect: None.
+DEV Requirement: —
+DEV
+
+--- PAGE 199
+
+14
+1 9 7
+ARTIFACTS
+KK REVOLVER
+A gun made of heavy steel, resting comfortably in 
+your hand. The weapon is a little rusty, but still in 
+surprisingly good condition. It’s easy to use too.
+Effect: Gear Bonus +3 to the Shoot skill. Weapon 
+damage 2, Short range. Has a drum that can 
+be loaded with several bullets, so you don’t 
+need to reload after every bullet fired.
+DEV Requirement: Technology 10 
+DEV Bonus: Technology +D6, Warfare +1
+KK SCOOTER
+Two wheels, an engine and a rusted handle – the 
+perfect Zone vehicle. To make the scooter opera-
+tional a Gearhead must first make a roll for the 
+Jury-Rig skill. The engine can run on gasoline or 
+on booze (one dose per two Zone sectors traveled).
+Effect: The scooter can carry two mutants, in-
+creases the movement speed in combat and 
+cuts the time it takes to explore a sector in 
+the Zone by half. It can also be used to es-
+cape from threats or to ram enemies. How 
+vehicles work is fully explained on page 94. 
+Gear Bonus: +2. Resilience: 1.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK SEMI-AUTOMATIC PISTOL
+A light-weight and easily concealable handgun, 
+small enough to hide in your sleeve. Very handy 
+in a tight spot.
+Effect: Light item. Gear Bonus +2 to the Shoot 
+skill. Weapon damage 2, Short range. Has a 
+clip, meaning you don’t need to reload after 
+every shot.
+DEV Requirement: Technology 10 
+DEV Bonus: Technology +D6, Warfare +1
+KK SHOTGUN
+A sawed-off firearm with two heavy barrels. At close 
+range it is a fearsome weapon that inspires awe in 
+every mutant in the Ark.
+Effect: Light item. Gear Bonus +3 to the Shoot 
+skill. Weapon damage 3, Short range. Can be 
+fired twice before it needs to be reloaded.
+DEV Requirement: Technology 10 
+DEV Bonus: Technology +D6, Warfare +1
+KK SMOKE GRENADE
+With a hissing noise, this old metal tube spews 
+out black smoke that blocks vision. You can use 
+this effect to escape from a fight that is going 
+against you.
+Effect: You can use the smoke grenade to escape 
+from conflict (page 81) instead of using the 
+Move skill. You can even roll first and use the 
+grenade if the roll fails.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +1, Warfare +1
+KK SODA CAN
+A red
+
+--- PAGE 200
+
+14
+1 9 8
+GAmemaster’s Section
+KK STIMULANTS
+These tiny white pills look unimposing, but if you 
+eat them they will immediately sharpen your senses 
+and make you very alert. You might not sleep for 
+a few days though.
+Effect: When eating these pills, you immediately 
+heal all confusion points that you have suf-
+fered. There are only enough pills left for D6 
+doses. When you have consumed them all, 
+you must discard this artifact. Tiny item.
+DEV Requirement: Technology 20
+DEV Bonus: —
+KK SUNGLASSES
+A pair of glasses with darkened lenses. The glass is 
+scratched but intact and covers your eyes – a useful 
+edge in tough negotiations.
+Effect: Gear Bonus to the Manipulate and Intimi-
+date skills. Tiny item.
+DEV Requirement: —
+DEV Bonus: Culture + 1
+KK TUXEDO
+A set of clothes with a black jacket, pants and a shirt. 
+On the front of the shirt, a wrinkled strip of cloth 
+hangs. These ancient clothes will impress everyone 
+around you.
+Effect: Gear Bonus +2 to Manipulate. Does not 
+count as an item when you wear it.
+DEV Requirement: Culture 10
+DEV Bonus: Culture +D6
+KK UMBRELLA
+With a simple motion you can unfold this contrap-
+tion to create a protective dome of cloth and metal 
+– useful against the Rot and the acid rain in the Zone.
+Effect: Protection Rating 3 against the Rot (page 
+126).
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK VIDEO CAMERA (METAPLOT)
+A fist-sized device with a tube at one end. Along the 
+side, there are several buttons and a small screen 
+that can be folded out. This contraption needs a 
+Generator or a Battery to work (artifact or project).
+Effect: This device can record moving images 
+and sound. Perhaps something is already 
+recorded on it?
+DEV Requirement: Technology 30  
+DEV 
+Bonus: Technology +D6
+Comment: This artifact can help the PCs find the 
+way to Eden. Read more in Chapter 16.
+KK WRENCH
+A heavy metal tool from the Old Age, rusted but 
+worth its weight in gold for Gearheads. Useful for 
+bludgeoning other mutants too.
+
+
+
+--- PAGE 201
+
+14
+1 9 9
+ARTIFACTS
+w ea P on b on u S Da M ag e r an ge c o MM en t
+Assault Rifle +3 2 Long Clip, Full-Auto.
+Chainsaw +2 3 Arm’s Length Heavy item.
+Compound Bow +2 1 Long
+Crossbow +3 1 Long
+Flare Gun +2 2 Short
+Hunting Rifle +2 2 Long Clip.
+Katana +3 2 Arm’s Length
+Revolver +3 2 Short Clip.
+Semi-Auto Pistol +2 2 Short Clip, light item.
+Shotgun +2 3 Short Two barrels.
+v ehicle b on u S a r M or r e S il ience o cc u P an t S
+Bicycle  +2 * —  1  1
+Sc
+ooter +2 —  1  2
+Mo
+torcycle +3 —  1  2
+Bu
+ggy +2 2  2  3
+Au
+tomobile +3 3  2  5
+Bu
+s +2 3  5 40
+T
+ruck +2 6  5  4
+St
+eam Car (page 111) +1 3  3 10
+C
+anoe  +2
+* —  1  4
+Mo
+torboat +3 1  2  7
+Sc
+rap Ship (page 109)  +1
+* 6 20 50
+Steam Train (page 112)  +1
+* 3 15 50
+Effect: Gear Bonus +3 to the Jury-Rig skill and +2 
+to the Fight skill. Weapon damage 1.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+OTHER ARTIFACTS
+There are 50 artifacts in this book. Considering that 
+the PCs shouldn’t find more than one or two arti-
+facts per session, these 50 should suffice for quite a 
+number of sessions. More artifacts will be published 
+in future expansions, and you are of course free to 
+make up more yourself – just be careful not to make 
+them too powerful.
+WEAPONS & VEHICLES
+Weapons and vehicles are two types of artifacts that 
+are especially sought after in the dawnworld. Some 
+are included in the Artifact Cards. These and others 
+can be found in the tables below.
+Bonus:  The number of Gear Dice that a weapon 
+gives to the Shoot or Fight skill, and a vehicle gives 
+to the Move or the Fight skill (when ramming an 
+enemy, see page 95). Some vehicles cannot be used 
+to ram – these are marked with an asterisk (*).
+Resilience: The number of points of damage that 
+needs to be inflicted on a vehicle before its Gear 
+Bonus is reduced one step.
+Armor:  The Armor Rating that the vehicle provides 
+to all passengers in the vehicle.
+Occupants:  The number of people who can fit into 
+or onto the vehicle, including the driver.
+
+
+
+--- PAGE 202
+
+
+
+
+
+--- PAGE 203
+
+15
+2 0 1
+Special Zone Sectors
+15
+Special 
+Zone Sectors
+This chapter describes five Special Zone Sectors 
+that you can place anywhere in the Zone. They 
+are complete scenario locations and contain 
+NPCs, conflicts and the events that PCs can get 
+involved in.
+Each Special Zone Sector stands on its own, 
+but you can link them together to create longer 
+scenarios if you like. Several of them are also con-
+nected to Threat Cards (Chapter 10), and some of 
+them have suggestions about where clues to Eden 
+can be placed for the PCs to find. Each Special 
+Zone Sector has a map overview, shown in two 
+versions:
+ K The GM map has small inset pictures show-
+ing the important locations in the sector.
+ K The player map lacks these inset pictures, 
+and can therefore be shown to the players 
+openly when the PCs arrive to the sector. The 
+player maps sit at the end of the chapter, and 
+can also be downloaded from the Modiphius 
+website.
+FOR A MOUTHFUL OF WATER
+The lack of grub and Rot-free water is an ever 
+present threat in Mutant: Year Zero . This Special 
+Zone Sector is focused on the second of these two 
+vital resources. Somewhere out in the Zone there 
+is a rich source of clean water, worth more than its 
+weight in gold to the People – and to other groups 
+in the Zone.
+This sector can be used early in your campaign, 
+as it introduces several central elements of the 
+game: the shortage of resources, the Zone-Ghouls 
+and the search for Eden. This Special Zone Sector 
+can even be used as the starting point for the entire 
+game (see the boxed text).
+INTRODUCTORY SCENARIO
+For a Mouthful of Water works well as an 
+introduction to Mutant: Year Zero . The game 
+then doesn’t start in the Ark, but rather with 
+the PCs already on a Zone expedition. Pick 
+
+
+
+--- PAGE 204
+
+15
+2 0 2
+GAmemaster's Section
+a sector on the Zone map 5–6 squares away 
+from the Ark – that’s where the PCs are when 
+the game starts. Add one or two NPCs to the 
+expedition too. If none of the PCs are a Dog 
+Handler and none have the Tracker mutation, 
+an NPC should have that role or mutation. To 
+kick the game off, read or paraphrase this 
+text to your players:
+“The most precious resource of all in the Ark 
+is something that we take for granted – clean 
+water. Some time ago, the Ark’s water supply 
+started to dry up. The People were getting 
+scared and edgy. Two weeks ago, the Boss 
+NN [insert the name of a Boss that the players 
+have established during the character gen-
+eration] decided to send an expedition into 
+the Zone. The mission was meant to explore 
+an ancient ruin that the Stalkers claim has an 
+endless supply of clean water. They called it 
+the Pure Plant. The problem was that the area 
+was crawling with Zone-Ghouls. Several days 
+passed, but the expedition did not return as 
+planned. Two days ago, NN sent out another 
+group of volunteers to search for the first expe-
+dition. You are these volunteers. For the past 
+two days, you have trekked through the Zone. 
+You have survived acid rain, been attacked 
+by Zone Rats and hidden from Zone-Ghouls. 
+Now, on the morning of the third day, you are 
+approaching the Pure Plant…”
+OVERVIEW
+In the distance, huge tanks and thick rusty pipes 
+rise from the wasteland. In the middle is a tall, con-
+crete tower, still standing after decades of decay. 
+When the PCs come closer, they realize the Pure 
+Plant is located on a small island in a mist-covered 
+lake (or bay, depending on where in the Zone you 
+have placed the sector). The island is about 100 
+yards from the shoreline. Apart from the tanks, 
+pipes and pools, several low ruined buildings can be 
+seen on the island, which is overgrown with weeds.
+In the Old Age, this installation was a water pu-
+rification plant. The entire island is penetrated by 
+tunnels and underground reservoirs with water of dif-
+ferent Rot levels. Thanks to maintenance work done 
+by the Zone-Ghouls (below) the plant actually still 
+works, and still pumps out clean water into the lake.
+
+
+--- PAGE 205
+
+15
+2 0 3
+Special Zone Sectors
+Tunnels:  Service tunnels penetrate the entire island. 
+Having lived here for years, the Zone-Ghouls know 
+these passages very well. There is a tunnel leading 
+from the control room building to the reservoirs, 
+but the water expedition members have not dared 
+go down there. In this tunnel, there is a solid metal 
+door that can be closed and locked with a success-
+ful Force roll.
+THE SITUATION
+When the Apocalypse came, the purification plant 
+stayed operational, thanks to an internal emergency 
+power plant and a group of workers who chose to 
+stay. Thanks to the clean water they survived, but 
+they could not completely escape the Rot. During 
+the generations that followed, they turned into what 
+the People now call Zone-Ghouls. They are very ter-
+ritorial and their leader Lutrell views any visitors 
+to the island as threats.
+The first water expedition from the Ark got into 
+trouble the instant they set foot on the island. Their 
+leader, the Stalker Vorhan, was attacked by the 
+Trash Hawk and carried off to the nest at the top of 
+the smokestack. The noise alerted the Zone-Ghouls, 
+who attacked the intruders. After a brief but bloody 
+battle the visitors sought refuge in the control room, 
+where they have now barricaded themselves and 
+don’t dare go out. The Zone-Ghouls are planning 
+a final attack.
+INHABITANTS
+Today approximately 50 Zone-Ghouls live on the 
+island, half adults and half children. Most of them 
+have typical stats (page 176), only their leader 
+Lutrell is described in more detail below. The water 
+FAMILIAR NPCs?
+If you like, you can replace the three 
+NPCs from the first water expedition with 
+NPCs that the PCs have relationships to. 
+This will make the interaction more inter-
+esting. If this is the first time these NPCs 
+appear in the game, you can just change 
+their names and use the stats as written.
+expedition from the Ark has been decimated since 
+it arrived to the island – the leader Vorhan was taken 
+by the Trash Hawk, and two others were killed by 
+the Zone-Ghouls. The three that remain – Nelma, 
+Grit and Lambda – are scared and very hostile to 
+the Zone-Ghouls.
+Nelma: After Vorhan’s death, the Enforcer Nelma 
+
+
+--- PAGE 206
+
+15
+T HE  R ESERVOIRS
+2 0 4
+GAmemaster's Section
+The Pure Plant
+Lutrell  is the leader of the Zone-Ghouls on the 
+island, who call themselves the “Pure Ones”. 
+Lutrell is a man who lives and dies by upholding 
+the ancient traditions: the daily water measure-
+ments with litmus paper, the bathing in Tank 3A 
+every evening, the cleaning of the water filters. 
+Traditions have kept the Pure Ones alive and will 
+continue to do so, Lutrell believes. Intruders on 
+the island are not welcome. However, Lutrell is no 
+fanatic. If the PCs try to negotiate with him, he 
+might make a deal. He can even consider giving 
+the People access to the clean water – if given 
+something substantial in return, of course. The 
+Pure Ones all wear worn plastic coveralls, and 
+most of them use protective face masks whenever 
+they leave the reservoirs.
+a ttributes:  Strength 3, Agility 3, Wits 5, Empathy 3.
+Skills:  Fight 2, Shoot 3, Move 2, Manipulate 2.
+g ea
+r:  Scrap knife, bow (seven arrows), old litmus papers, 
+torn wetsuit.
+The Trash Hawk  has its nest at the top of the 
+smokestack, but it’s often out hunting. Normal stats 
+(page 181).
+The Worm Swarm in the pool hall is a huge speci-
+men with a starting Strength score of 10. Otherwise 
+it has typical stats (page 181). The Zone-Ghouls 
+worship this beast, which they call the “Deep One”. 
+Every week they sacrifice animals to it.
+The Woman in the Tower: In the nest of the Trash 
+Hawk, bones and other remains of the bird’s prey of 
+are scattered, including the fresh corpse of Vorhan. 
+One of the old skeletons is fairly intact, and still 
+dressed in old and hacked up coveralls with strange 
+markings. A PC who examines the skeleton and 
+makes a Know the Zone roll, will realize that this 
+is a skeleton of a non-mutated human woman. In 
+her pocket, a waterlogged and yellowed diary can 
+be found – it is still legible. This diary is an artifact 
+that provides information about Eden. You can read 
+more about it in Chapter 16.
+
+
+
+--- PAGE 207
+
+15
+T HE  S MOKESTACK
+T HE  C ON
+TROL  RO
+OM
+2 0 5
+Special Zone Sectors
+
+
+
+
+--- PAGE 208
+
+15
+2 0 6
+GAmemaster's Section
+GEAR & ARTIFACTS
+ K The members of the first water expedition 
+have no grub or water at all, and are getting 
+desperate.
+ K Among the gory remains of the Stalker 
+Vorhan’s body in the Trash Hawk’s nest, the 
+PCs may find a scrap rifle (twin barrels, Gear 
+Bonus +2), six bullets, three rations of canned 
+food, five rations of clean water in plastic bot-
+tles and one random artifact.
+ K The dead woman in the nest on the smoke-
+stack has the Diary artifact.
+ K The Zone-Ghouls have dozens grub rations, 
+but are not likely to share them with the PCs. 
+Much of this grub is contaminated by Rot. 
+The Zone-Ghouls have 1–2 random artifacts 
+in their possession.
+ K In the reservoirs there is a practically endless 
+supply of clean water – the PCs just need to 
+make sure they drink from the right vats…
+EVENTS
+ K The PCs are attacked by Zone-Ghouls soon 
+after they set foot on the island. The Zone-
+Ghouls are as many as the PCs, and try to 
+ambush them (page 82). As soon as one of 
+them suffers damage, they will retreat. They 
+are not trying to kill the PCs (yet), just warn-
+ing them and testing their mettle. If the fight 
+goes very badly for the PCs, Nelma and her 
+crew may come to the rescue.
+ K The PCs find the remains of the first water 
+expedition: Nelma, Grit and Lambda. They 
+demand grub and water. They say that there 
+are Zone-Ghouls on the island and want the 
+PCs’ help to kill them or chase them off. First, 
+Nelma wants someone to climb the smoke-
+stack to see if their leader Vorhan is still alive. 
+Nelma says that a “flying monster” grabbed 
+him and flew off. Vorhan had grub and valu-
+able artifacts that must be retrieved.
+ K In the nest at the top of the smokestack 
+the PCs will find Vorhan very much dead – 
+hacked to pieces by the Trash Hawk. Among 
+the remains, the PCs may find plenty of 
+useful gear (above). Make sure the PCs also 
+find the Diary on the dead woman. Nelma 
+
+
+
+--- PAGE 209
+
+15
+2 0 7
+Special Zone Sectors
+demands that the PCs hand over everything 
+they found in the nest, including the Diary. 
+She will pass everything on to the Boss NN, 
+she says.
+ K The Trash Hawk attacks. The bird can strike 
+when the PCs are up in the nest, on their way 
+down, or at some other dramatically appropri-
+ate time. The Trash Hawk can also attack the 
+Zone-Ghouls. The bird will generally fly off 
+when wounded and return later.
+ K Nelma wants to attack the Zone-Ghouls head 
+on, and secure the clean water in the pool 
+halls. She demands that the PCs take part in 
+the attack. Without the water in the pools the 
+People are doomed, she says.
+ K Lutrell leads a delegation to talk to the intrud-
+ers. He is wary of the mutants’ powers and 
+makes sure he stays at Short range. If the PCs 
+can understand him (a Comprehend roll), he 
+will make it clear that he offers them safe pas-
+sage off the island with as much clean water 
+as they can carry. In return, he wants their 
+firearms and a vow that the People will never 
+come back to this place. Nelma will never ac-
+cept the deal, and the situation could escalate 
+into violence.
+ K The Zone-Ghouls attack in full force. This will 
+only happen when Lutrell feels truly threat-
+ened. The Zone-Ghouls greatly outnumber 
+the intruders, who would do wisely to flee or 
+negotiate – unless the PCs have very power-
+ful artifacts or lots of Mutation Points.
+ K Any violence in the pool halls wakes the 
+Worm Swarm, which attacks everyone nearby. 
+The Zone-Ghouls run for their lives from the 
+Deep One. If the PCs have the right muta-
+tions or powerful weapons they might be able 
+to defeat the monster. The Zone-Ghouls have 
+long feared the monster, and this event will 
+make them very grateful to the PCs.
+THE OTHER ARK
+Sooner or later the People will realize that they are 
+not the only mutants in the Zone – there are other 
+Arks. All Arks share the same origin (Chapter 16), 
+but have developed in very different directions over 
+the years. Some have simply collapsed. This Special 
+Zone Sector is an Ark that has survived – in its 
+very own way.
+The PCs can find their way here by chance or 
+be led here as the result of a Threat Card or an 
+
+--- PAGE 210
+
+15
+THE CHAIRMAN’S SUITE
+THE ARTIFACT STOREROOM
+2 0 8
+GAmemaster's Section
+The other Ark
+
+
+
+--- PAGE 211
+
+15
+HAND-CRANKED ELEVATOR
+PUSHWHEEL CONNECTED TO GENERATOR
+SLAUGHTERHOUSE
+CAGES FOR THE “GIVERS”
+2 0 9
+Special Zone Sectors
+themselves. The second thing that the PCs will 
+soon notice is that it is the women who call the 
+shots around here – the men are underlings and 
+slaves.
+After having been gawked at by the children 
+and guardedly greeted by the adults, the guests will 
+be stripped of their clothes and scrubbed with hot 
+water – a rather heavy-handed Rot decontamination 
+(page 126). They are then offered grub, as much as 
+they want, of some kind of dried meat. Any ques-
+tions – about the meat or anything else – are met 
+by silence or answers “not to worry about it”. The 
+PCs hear about the “Chairman”, who seems to be 
+the ruler of this Ark and is mentioned with deep 
+reverence and respect. Some call him “the source 
+of all life”.
+The PCs are free to move around inside the set-
+tlement, except for the basement and the Chair-
+man’s penthouse (below), but are constantly being 
+watched. Inside the building there is even working 
+electric light, but the lamps flicker and sometimes 
+go out completely.
+THE SITUATION
+The Chairman rules this Ark as a dictator. The 
+source of his power is that he – and only he – can 
+father children with the women of the Ark. All other 
+men and women here are barren to each other, just 
+like the People in the PCs’ own Ark. The explana-
+tion behind this is that the Chairman is no mutant. 
+He is a Zone-Ghoul who was adopted by Eden sci-
+entists in this Ark at a young age – so long ago that 
+none of the inhabitants remember it (or do they?). 
+As a consequence of this, all other men in the Ark 
+are treated like slaves (or worse, see below).
+In this Ark, starvation set in much earlier than 
+in the PCs’ Ark. To survive, the inhabitants went 
+out into the Zone and started to hunt – and eat – 
+Zone-Ghouls, who are numerous in this area. The 
+hunting raids triggered violent counterattacks. A 
+low-intensity war has now been raging for years 
+between the Zone-Ghouls and the Chairman’s Ark.
+When the Zone-Ghouls no longer were enough 
+to feed the inhabitants – and the increasing number 
+of children – the Chairman decreed that the men 
+of the settl
+
+--- PAGE 212
+
+15
+2 1 0
+GAmemaster's Section
+on. Many of the men are now dubbed “Givers” and 
+work hard as slaves until they are butchered and 
+eaten. But the number of Givers is running low, and 
+discontent is simmering. When the Chairman hears 
+about the PCs and their Ark he sees a new source 
+of food for his ever-growing flock of children…
+INHABITANTS
+In this Ark, there are NPCs with the same roles as 
+in the PCs own Ark – create stats for typical inhabit-
+ants just like you would in the Ark (page 139). Stats 
+for a few important NPCs follow below.
+The Chairman  is consumed by his desire for power 
+and control. He views himself as a divine being. He 
+is skinny and pale, and wears a black robe and a 
+hood to protect his translucent skin against the sun 
+– which hurts him just like it does all Zone-Ghouls 
+(page 176). The Chairman’s goal is to find a new 
+source of grub for his children.
+a ttributes:  Strength 3, Agility 4, Wits 5, Empathy 5. 
+Skills:  Fight 2, Move 3, Shoot 4, Manipulate 5. 
+g ea
+r:  Revolver (artifact, 5 bullets).
+Rebeth:  An Enforcer who is blindly loyal to the 
+Chairman. She is tall, wears her black hair in a long 
+ponytail and has no other goal than to prove herself 
+to the Chairman.
+a ttributes:  Strength 5, Agility 4, Wits 2, Empathy 3.
+Skills:  Fight 4, Move 2, Shoot 3.
+Mutations:  Four-Armed, Extreme Reflexes, 6 MP .
+g ea
+r:  scrap rifle (three-barreled, 6 bullets), spiked bat.
+
+
+
+--- PAGE 213
+
+15
+2 1 1
+Special Zone Sectors
+Krin: A Stalker who secretly doubts the rule of the 
+Chairman. She has not dared to tell anyone else – 
+but she could try to use the PCs as a catalyst for 
+a revolt.
+a ttributes:  Strength 3, Agility 5, Wits 4, Empathy 2.
+Skills:  Move 2, Shoot 4, Heal 2, Find the Path 2. 
+Mutations:  Flame Breath, 3 MP .
+g ea
+r:  scrap rifle (weapon damage 3, 4 bullets), scrap knife.
+Dink:  Krin’s slave and companion on her Zone trav-
+els. He suspects that Krin doubts the Chairman, and 
+considers ratting on her in order to gain favor with 
+the Chairman and be spared the fate of a Giver.
+a ttributes:  Strength 5, Agility 3, Wits 2, Empathy 2.
+Skills:  Fight 2, Move 2, Endure 4. 
+Mutations:  Rot-Eater, 1 MP .
+g ea
+r:  Scrap spear, road sign (artifact).
+Naphta:  A Gearhead who prefers to spend her time 
+alone, delving into the mysteries of the Old Age. 
+Tries to stay away from trouble, but could be re-
+cruited to either side in case of a revolt.
+a ttributes:  Strength 2, Agility 3, Wits 5, Empathy 3.
+Skills:  Fight 1, Shoot 3, Jury-Rig 3.
+Mutations:  Pathokinesis, 3 MP .
+g ea
+r:  Bicycle chain, scrap pistol (twin-barreled, 4 bullets).
+ARTIFACTS
+This Ark has a sizeable collection of scrap and arti-
+facts in the tower’s basement. In a dark garage there 
+are lots of broken items from the Old Age, as well as 
+4–5 functional artifacts. One of the artifacts leading 
+the way to Eden (Chapter 16) may be located here.
+In addition, in the garage there are three ancient 
+buses that have been repaired and fitted with ar-
+mor plating, flamethrowers and scrap cannons by 
+Naphta. These rolling fortresses are sometimes 
+used for larger raids against the Zone-Ghouls, and 
+could be used against the PCs’ Ark.
+GRUB, WATER & BULLETS
+In this Ark there is enough dried meat (below) to 
+feed all inhabitants for a week. Most of it is stored 
+in the basement, where there is also a broken old 
+water pipe that still carries enough Rot-free water 
+for everyone to drink. The female inhabitants usu-
+ally carry D6 bullets each, but there is no central 
+stockpile. The men (except the Chairman) have no 
+guns and no bullets.
+EVENTS
+ K The PCs are led to meet the Chairman in 
+person. Th
+
+--- PAGE 214
+
+15
+2 1 2
+GAmemaster's Section
+horizontal wheel pushed around by 5–6 Givers, 
+hour after hour until they collapse. In another 
+cold basement room, the darkest secret of this 
+Ark is hidden – a slaughterhouse where Givers 
+who are too exhausted to work are butchered 
+for food. The entrance to the basement is 
+guarded by two Enforcers with scrap pistols. 
+The escape attempt can be the spark that trig-
+gers a revolt against the Chairman, and the 
+PCs might get caught in the middle of it.
+ K If the PCs reveal where their Ark is located, or 
+if the Chairman finds out some other way (by 
+having the PCs followed, for example), he will 
+lead a raiding party there. The three armored 
+buses (above) will roll through Zone to the 
+PCs Ark. If it is wintertime, then they can 
+drive across frozen rivers or lakes. The raid 
+has Battle Level 3 (page 114), but the Chair-
+man doesn’t attack head on – instead he be-
+sieges the Ark. He demands that ten mutants 
+be handed over to him as slaves. If the People 
+give in to this demand the Chairman will 
+leave, but come back at some later time and 
+demand even more “slaves”. Any slaves given 
+to the Chairman will be turned into Givers (if 
+they are men) or impregnated by the Chair-
+man (if they are women). Sooner or later the 
+People will need to confront the Chairman 
+and deal with him once and for all.
+THE NOVA CULT
+In the world after the Fall, many strange cults have 
+appeared. The psionic sect that calls itself “Nova” 
+is one of the strangest – and most dangerous of 
+them all.
+OVERVIEW
+In a flat scrubland in the Zone, there is a large cir-
+cular metal slab, ten yards across, on the ground. 
+Nearby, there are a few simple wooden sheds with 
+corrugated metal roofs. From inside the sheds, ani-
+mals can be heard grunting and squealing. Moving 
+closer, the PCs smell animal manure. A hunchback 
+mutant with reptilian features walks between the 
+sheds (this is Ohm, see below). Inside the sheds 
+about 30 pigs are kept, all mutated and surly.
+On occasion (i.e. at a moment of your choosing) 
+the large metal slab will slide away with a loud scrap-
+ing noise. A deep rumble rises from the underground 
+silo that is revealed, and a plume of steam a
+
+--- PAGE 215
+
+15
+2 1 3
+Special Zone Sectors
+born, but none of them have been luminescent so 
+far. The fanatical Plutonia has forced the mothers 
+to leave the infants to die in the Zone. Now, the 
+young priestess Abbetina (below) is pregnant, and 
+has decided that she will never let Plutonia take her 
+child from her.
+Plutonia believes that Abbetina bears the lumi-
+nescent child and that the Doomsday will come soon. 
+She has managed to start up the missile launch sys-
+tem, and is now considering an appropriate target for 
+this weapon of mass destruction. In the meantime, 
+several cult members are starting to question Pluto-
+nia’s leadership. She has responded by handing out 
+“holy pills” (sedatives), to make the cult members 
+more docile. But this state of affairs cannot last…
+INHABITANTS
+The first creatures the PCs meet in this Zone sector 
+are probably Ohm and his surly mutant hogs, that 
+he keeps for the cult. The Nova Cult itself has 20 
+members. Mostly, they stay down in their under-
+ground “temple” where they meditate and study 
+artifacts from the Old Age. Sometimes, they go on 
+patrols in the Zone, to leave infants to die (above 
+and page 173) or to search for artifacts.
+All Nova Cult members have shaved heads and 
+wear long robes. Some adorn themselves with glit-
+tering items they have found in the Zone. A few 
+wield simple scrap weapons like spears and knives, 
+but most are unarmed. All cult members are power-
+ful psionic mutants. For stats, see page 174.
+Ohm, Pig Farmer. A large, reptilian hunchbacked 
+mutant with a cloven tongue. He moves jerkily, 
+speaks with a lisp and is dressed in blue coveralls. 
+He has followed Plutonia from the start, but he is 
+not accepted as a full member of the cult as he does 
+not have any psionic mutations. He is sick of being 
+treated like a second-rate mutant, and might take 
+the chance to get back at the cultists, given the 
+chance. Deep inside, he still loves Plutonia however. 
+And his hogs.
+a ttributes:  Strength 5, Agility 3, Wits 3, Empathy 2.
+Skills:  Fight 3, Move 2.
+Mutations:  Reptilian, 3 MP .
+g ea
+r:  Scrap knife, gas mask (artifact).
+Plutonia , Cult Leader. Tall and anemic woman with a 
+shaved head. Walks with regal stride
+
+--- PAGE 216
+
+15
+O HM ’ S  P IG S TY
+C UL
+T  H EA
+D q UA
+RTERS
+2 1 4
+GAmemaster's Section
+The Nova Cult
+scattered throughout the bunker. Let the players 
+draw random Artifact Cards, or choose something 
+appropriate from Chapter 14. It might even be one 
+of the artifacts leading the way to Eden (Chapter 16).
+The missile in the silo is of course also an arti-
+fact. However, it is set up within the silo and next 
+to impossible to remove. It is launched by a launch 
+key (carried by Plutonia at all times) and a simple 
+six-digit code (which only Plutonia knows). The de-
+structive power of the missile warhead is horren-
+dous. In the sector where it strikes, and in all eight 
+surrounding sectors, all buildings are leveled and 
+all life wiped out. Anyone within ten sectors of the 
+detonation suffer a Rot attack – the number of Rot 
+Points immediately suffered is equal to 10 minus 
+the distance to the detonation sector. This entire 
+area is then contaminated and all sectors within it 
+suffer from Rot Level 2 (Chapter 8).
+GRUB & WATER
+In locked cabinets, there is grub enough to feed 
+the cult for a week. There is meat from the pigs, 
+some grub grown by Ohm, and some canned food 
+from the Old Age. Only Plutonia has the key to 
+the cabinets. Clean water, enough to last a week, is 
+stored in plastic jerrycans and bottles scattered in 
+the underground complex.
+EVENTS
+Present the Nova cultists as aloof and mysterious. 
+They can show up in many places and be enemies 
+as well as allies to the People. See the Threat Card 
+The Zone Cult (Chapter 10) and the Zone threat 
+Nova Cultists (Chapter 13) for examples of how the 
+PCs can come into contact with the cult. They can 
+also hear about the cult from NPCs that they meet 
+when traveling in the Zone. When the PCs have 
+found their way to the cult’s headquarters, many 
+things might happen:
+ K A PC with the Luminescence mutation would 
+be seen as a holy creature by the cultists. 
+They all kneel in reverence, handing the PC 
+scrap and artifacts as gifts. It is up to the PCs 
+how they wish to handle the situation. Pluto-
+nia will feel threatened by the newcomers and 
+might resort to drastic action.
+
+
+
+--- PAGE 217
+
+15
+M ISSILE  S ILO
+2 1 5
+Special Zone Sectors
+
+
+
+
+--- PAGE 218
+
+15
+2 1 6
+GAmemaster's Section
+ K If the PCs come into conflict with Nova, Plu-
+tonia wants them captured and questioned 
+to find out if they have seen any unmutated 
+humans anywhere. After the interrogation – 
+whatever answers the PCs give – they will be 
+chained in the missile silo to be incinerated 
+when the missile is launched.
+ K Abbetina turns to the PCs for help to get rid 
+of Plutonia – and kill her if necessary. Abbet-
+ina may free the PCs if they have been cap-
+tured. She may even take this initiative if she 
+meets the PCs somewhere else, for example 
+in the Ark. In this case she might offer some 
+reward in the return for their help, such as a 
+clue to the location of Eden.
+ K Plutonia suddenly decrees that the Dooms-
+day will take place in just a few days. The 
+cult assembles in the temple and chants 
+incessantly. The PCs show up at the bunker, 
+or are already there. Do they try to stop her? 
+If pressed, Plutonia may very well launch the 
+missile even if Abbetina hasn’t given birth 
+yet. You decide what target Plutonia chooses, 
+if the missile lands somewhere in the Zone or 
+far away – perhaps hitting someone who will 
+retaliate?
+
+
+
+--- PAGE 219
+
+15
+2 1 7
+Special Zone Sectors
+THE HELLDRIVERS
+The Helldrivers are a gasoline-guzzling mutant clan 
+that the PCs can meet by the Ark (see the Threat 
+Card described in Chapter 10) or out in the Zone 
+(page 173). This Special Zone Sector describes the 
+Helldrivers’ main base of operations.
+OVERVIEW
+Even at a distance, the silhouette of a large, cubi-
+cal building can be seen against the horizon. The 
+building consists of eight open floors, with rows of 
+vehicles and wrecks seen on every floor.
+In the rubble around the main building, there 
+are a number of sheds, motorhomes, tents and ve-
+hicle wrecks turned into living quarters. There is 
+also a large metal cage with crude spectator stands 
+on either side. Several dozens of people – most with 
+colorful mohawk haircuts and black leather out-
+fits – mill about the area. Some are busy tinkering 
+with their vehicles, some lift weights and others 
+sit by a fire, eating. The rumble of engines is heard 
+constantly.
+The entire compound is encircled by a barbed-
+wire fence. At some points on the fence, red STOP-
+signs are mounted. Here and there, decomposing 
+remains of humanoids and animals lie on the 
+ground. The stench of death is pungent.
+THE SITUATION
+This settlement is the home of the Helldrivers, and 
+band of rough and tumble mutants who have been 
+exiled from their Arks (or left voluntarily). They 
+are led by Ilona the Corpse-Eater who first found 
+this old car park, packed with working vehicles. 
+Using these, the Helldrivers have raided other 
+settlements in the Zone, increasing their number 
+and improving their weaponry over the years. The 
+basement levels of the car park are filled with loot 
+from these raids. The Helldrivers have also taken 
+slaves, who now toil as chain-gang servants to the 
+Helldrivers.
+Ilona the Corpse-Eater is a large mutant who 
+has killed every rival who has tried to challenge her 
+leadership. She rules her horde with an iron fist – 
+the only way to control such an unruly bunch. Most 
+Helldrivers are violent and impulsive types, driven 
+by hatred and bitterness. Violent internal rivalry is 
+common. Lately, the supply of food and slaves has 
+been running low, and the Helldrivers are getti
+
+--- PAGE 220
+
+15
+ILONA’S ARMOR-PLATED TRAILER
+HELLDRIVER CARS
+GUARD ON THE ROOF
+2 1 8
+GAmemaster's Section
+The Helldrivers
+
+
+
+--- PAGE 221
+
+15
+WORKSHOP
+ARENA FOR CAGE FIGHTS
+2 1 9
+Special Zone Sectors
+Gaffa, Roadwarrior in Love. A tall, wiry Helldriver 
+dressed in black leather and long, stark red hair. She 
+has lots of scrap piercings in her face. She is Ilona’s 
+bodyguard and follows her everywhere. She sought 
+this position for one reason only – she loves Ilona 
+more than her own life. Gaffa is obsessed, jealous 
+and bloodthirsty.
+a ttributes:  Strength 2, Agility 4, Wits 3, Empathy 3.
+Skills:  Fight 3, Move 4, Shoot 4, Jury-Rig 2.
+Mutations:  Sprinter, 3 MP .
+g ea
+r:  Motorcycle, hockey helmet (artifact), scrap pistol, 
+scrap knife.
+Raff,  Forgotten Thief. A short and skinny charac-
+ter who prefers to stay in the background. He uses 
+nuts and bolts as ear piercings and wears his hair 
+in a purple mane, but is not much of a Helldriver. 
+He lives in constant fear of being beaten by other 
+Helldrivers, and always agrees with whatever others 
+tell him. Raff is a kleptomaniac and fills his pockets 
+with whatever he can find. He has no real loyalty to 
+Ilona, and only looks after his own interests.
+a ttributes:  Strength 2, Agility 4, Wits 2, Empathy 2.
+Skills:  Fight 1, Move 4, Jury-Rig 1.
+Mutations:  Human Magnet, 3 MP .
+g ea
+r:  Wrench (artifact).
+ARTIFACTS
+A number of artifacts can be found in the base of 
+the Helldrivers – if the PCs can get close enough 
+to get their hands on them.
+ K 10–20 armored and operational buggys and 
+cars (page 199).
+ K 200 car wrecks (of which 5–10 might be pos-
+sible to repair).
+ K 5–10 operational motorcycles.
+ K 30 motorcycle wrecks (of which 2–3 can be 
+repaired).
+ K 10 motorhomes and trailers (not operational).
+GEAR, GRUB AND WATER
+Scattered around the sheds and trailers, there is lots 
+of scrap that the Helldrivers have found on their 
+raids. Most of it is useless.
+
+
+
+--- PAGE 222
+
+15
+2 2 0
+GAmemaster's Section
+Behind the garage, there is an operational well 
+with clean water. On the top floor of the car park, 
+there is a stockpile of grub – enough to feed all of 
+the Helldrivers for a few days.
+EVENTS
+The Helldrivers can become dangerous enemies of 
+the People, perhaps one of the greatest threats out 
+there. However, manipulative PCs might strike up 
+an alliance with Ilona and her band of road war-
+riors. Here are three possible events that can lead 
+to major campaign events:
+ K Seven mutants from the Ark have been 
+taken prisoner by the Helldrivers. One or 
+more of them should be an NPC that a PC 
+has a relationship to. One might be a Boss. 
+The PCs are sent – or go on their own ini-
+tiative – to scout the Helldrivers’ base and 
+plan a rescue operation. It turns out that 
+some of the captives are being held in the 
+car park basement. One or two have been 
+sold as slaves to some other faction in the 
+Zone.
+ K The Helldrivers have had a huge drinking 
+binge. Most of the road warriors are sleep-
+ing it off in and around the car park. The 
+PCs can fairly easily enter the compound, 
+steal some gear and free at least some of 
+the slaves. Sooner or later, some Helldrivers 
+will wake up and spot the intruders.
+ K Two rival factions of Helldrivers duke it out 
+inside the compound. They drive around 
+the car park with their vehicles, trying to 
+ram each other. The fight escalates quickly 
+and soon a fuel tank explodes. The fire 
+spreads rapidly. A large pillar of smoke 
+rises and can be seen for miles. About 20 
+Helldrivers die in the battle and the fire. 
+The smoke attracts some other faction in 
+the Zone, who seizes the opportunity and 
+attacks the compound without mercy. The 
+PCs can get involved at any stage. They 
+can join the attackers, help the Helldrivers, 
+or just use the chaos and confusion to their 
+own ends.
+RUST CASTLE
+This Special Zone Sector is a trading post, a sanctu-
+ary where travelers from all corners of the Zone can 
+meet. It is also a place of intrigue – the calm in Rust 
+Castle is a thin veneer. We suggest that you don’t 
+let the PCs visit Rust Castle until they have had a 
+chance to explore the Zone to some extent and have
+
+--- PAGE 223
+
+15
+2 2 1
+Special Zone Sectors
+supply of pipes, metal plates, bolts, nuts, cables and 
+anything else a Gearhead might need. The Mechies 
+live on the top two decks of the ship, where they 
+also have a kitchen and some common rooms. The 
+lower decks of the wreck are a dark and tangled 
+maze of passageways and steep ladders. At strategic 
+locations, the Mechies have built hidden traps. The 
+lightweight Mechies won’t trigger them, but a fully 
+grown mutant might suddenly fall into a pit fitted 
+with sharp spears – or suffer some other deadly fate. 
+Spotting a trap requires a Scout roll, which is only 
+allowed if the PC actively looks for it. Anyone who 
+triggers a trap must make a Move roll (−2) to avoid 
+being injured. If the Move roll fails, roll for an at-
+tack using 4–8 Base Dice (weapon damage 1). The 
+attack cannot be parried.
+The Marketplace: The aft ramp of the ship fell off  
+long ago, and the lower car deck is partly filled with 
+water. It has turned into a small harbor, safe from 
+the wind and the rain. By the gate, the Mechies have 
+fitted a big portcullis built out of scrap. It can be 
+hand-winched up and down, to close and open the 
+gate as the Mechies see fit. Inside, on the upper car 
+deck, there is a marketplace where mutants gather 
+from all over the Zone to barter and exchange in-
+formation with the Mechies and each other. Very 
+few visitors are ever allowed to go further into the 
+ship – most are only allowed on the car deck.
+The marketplace of Rust Castle has come to 
+be used as neutral ground where even sworn en-
+emies leave their weapons at the door. Here, the 
+PCs can, for example, meet representatives from 
+the main factions of the Zone – like the Nova Cult 
+or the Helldrivers. Anyone is allowed to barter in 
+Rust Castle, after they have been approved by the 
+Mechies’ leader Nikkil and have paid a fee – a few 
+bullets. Nikkil keeps an eye on the market to make 
+sure the trade is free and fair.
+Nikkil and the other Mechies are protected by 
+the “Whoppers” – four colossal mutant guards. They 
+make every visitor turn over their weapons before 
+entering the semi-darkness inside Rust Castle. The 
+Whoppers will use force against anyone who causes 
+
+--- PAGE 224
+
+15
+THE MECHIES’ q UA RTERS
+UNDERWATER SUPPORT BEAMS
+2 2 2
+GAmemaster's Section
+Rust Castle
+
+
+
+--- PAGE 225
+
+15
+SPEAR TRAPS
+MARKETPLACE
+2 2 3
+Special Zone Sectors
+
+
+
+
+--- PAGE 226
+
+15
+2 2 4
+GAmemaster's Section
+a ttributes:  Strength 1, Agility 5, Wits 5, Empathy 3.
+Skills:  Move 4, Shoot 4, Know the Zone 3, Heal 3, Find the 
+Path 3.
+Mutations:  Extreme Reflexes, 3 MP .
+g ea
+r:  Twin-barrelled scrap rifle, seven bullets. The steamboat 
+Steelcrest (below).
+Ylora  is the Mechies’ Chronicler and teacher. She is 
+bony, blond and has a pug nose. Ylora sees knowl-
+edge of the world as an end in itself. She can often 
+be found in the Mechies library and schoolroom on 
+the top deck of Rust Castle, where she studies books 
+from the Old Age and teaches what she knows to 
+the other Mechies. Ylora travels the Zone with El-
+with, to document it and map it out. They are sisters 
+and stick together. Ylora is very verbacious and 
+never hesitates to speak her mind about anything.
+a ttributes:  Strength 1, Agility 4, Wits 5, Empathy 4.
+Skills:  Move 3, Comprehend 3, Heal 4, Inspire 4. 
+Mutations:  Insect Wings, 1 MP .
+g ea
+r:  Books, paper and pens.
+The Whoppers  are the Mechies’ bodyguards, all 
+Enforcers. They are two sisters and two brothers: 
+Elli, Roggi, Tir and Cad. They are all over seven 
+feet tall and weigh as much as two regular-sized 
+mutants. The Whoppers don’t originally belong to 
+the Mechie clan – they were wandering mutants 
+who were hired as guards by Nikkil a few years ago, 
+and have stayed on. All except Roggi like it here 
+– in Rust Castle, they get company, grub, shelter 
+and booze.
+a ttributes:  Strength 5, Agility 4, Wits 2, Empathy 2.
+Skills:  Fight 4, Shoot 2.
+Mutations:  Four-Armed (Elli), Corpse-Eater (Roggi), Acid 
+Spit (Tir), Sonar (Cad), 3 MP .
+g ea
+r:  Each Whopper has a scrap pistol with three bullets.
+STEELCREST AND SCRAPFLASH
+The steamboat Steelcrest was built five years ago 
+by the Mechie Konior, who was a very skilled Gear-
+head. He was killed by a Rotfish, and no one is likely 
+to build something like Steelcrest again. She is the 
+most prized possession of the Mechies, used to 
+travel the waters of the Zone.
+The boat is about 30 feet long and can carry 
+ten passengers. It cuts the time it takes to explore 
+a coastal Zone sector in half. It can also be used 
+to escape from threats or to ram enemies at sea. 
+How vehicles 
+
+--- PAGE 227
+
+15
+2 2 5
+Special Zone Sectors
+ K Suddenly, a deafening thunder shakes Rust 
+Castle, and the entire wreck tilts. Visitors to 
+the marketplace flee in their boats, fearing 
+the old ferry will sink. If the PCs stay and 
+if they are on friendly terms with Nikkil, he 
+admits that Rust Castle is crumbling from the 
+bottom up. It is only a matter of time before 
+the wreck collapses entirely. To make matters 
+worse, it seems like someone has deliberately 
+sabotaged the hull.
+ K Nikkil asks the PCs for help. He wants to 
+send Elwith and Steelcrest to search for metal 
+beams that can support the wreck, but he 
+needs extra manpower – preferably Enforcers 
+and Gearheads, but anyone willing to help is 
+welcome. Ylora and the Whopper Roggi also 
+join the expedition. During the journey, Roggi 
+will try to sabotage Steelcrest and – if he can – 
+get the PCs killed.
+ K The enemy faction conspiring against the 
+Mechies (above) attack Rust Castle in full 
+force. They try to blow holes in the old wreck 
+using explosive charges, in order to gain 
+entry and steal the treasures that they believe 
+are hidden inside. If they don’t succeed, the 
+attack could turn into a siege. The PCs can 
+choose to join the attackers or to help the 
+Mechies in the defense.
+
+
+
+--- PAGE 228
+
+15
+2 2 6
+GAmemaster's Section
+PLAYER MAP 1 : THE PUR E PLA NT
+
+
+
+--- PAGE 229
+
+15
+2 2 7
+Special Zone Sectors
+P LAYER  MAP  2 : T HE  O TH ER  A RK
+
+
+
+--- PAGE 230
+
+15
+2 2 8
+GAmemaster's Section
+PLAYER MAP 3 : THE HEL LDRIVERS
+
+
+
+--- PAGE 231
+
+15
+2 2 9
+Special Zone Sectors
+P LAYER  M AP  4 : R US T  C AS TLE
+
+
+
+--- PAGE 232
+
+
+
+
+
+--- PAGE 233
+
+16
+2 3 1
+THE PATH TO EDEN
+16
+THE PATH TO EDEN
+Where do the People come from? What is the origin 
+of their supernatural powers? Who is the Elder? 
+Where is Eden – and what happens if the People 
+find it? These existential questions might not be 
+something the PCs ponder every day in the harsh 
+post-apocalyptic world – but sooner or later they 
+will wonder. Search for answers. And these answers 
+are there for them to discover. But first – some back-
+ground. Do not read this if you are a player in Mu-
+tant: Year Zero. This text is for the GM’s eyes only.
+JEREMIAH ATWOOD
+During the final years of the Old Age, before the 
+final Fall, the scientists of the world searched for an-
+swers to the mounting threats against human civili-
+zation – war, disease, pollution, financial meltdown, 
+social unrest. One of the most brilliant – but also 
+the most controversial – of these scientists was Pro-
+fessor Jeremiah Atwood, an acclaimed geneticist. 
+In his view, suffering, misery and destruction were 
+hardwired into the very nature of the human race. 
+He questioned whether the survival of humanity 
+was actually desirable. Unsurprisingly, he was heav-
+ily criticized, and withdrew from the world to devote 
+himself entirely to his radical science projects.
+PROJECT EDEN
+Professor Atwood’s vision was to create a new, 
+mutated human race, free from selfishness and 
+aggression, to replace its human ancestors. The 
+work was to be his crowning achievement, and with 
+considerable resources at his disposal he was able 
+to delve deeper into human DNA than anyone had 
+done before. At its very core, he found an untapped 
+potential for change and adaptation, the very build-
+ing blocks of a new and improved being. He called 
+his vision Project Eden, as his goal was to create a 
+new and unspoilt society on Earth.
+THE RED PLAGUE
+As if from nowhere, a virus spread across the glo-
+balized world, bringing death and destruction on a 
+scale that humanity had never seen before. The con-
+tagion came to be known as the Red Plague, named 
+after the first symptom of the disease: bloodshot 
+eyes, that soon started to bleed profusely. At that 
+point, a painful death was only a day away. Profes-
+sor Atwood di
+
+--- PAGE 234
+
+16
+2 3 2
+GAmemaster’s Section
+open violence. Under the threat of total annihila-
+tion posed by the Red Plague, no one hesitated to 
+use the ultimate weapon. Global nuclear war broke 
+out, and one after another mushroom clouds rose 
+over the world’s major cities. Human civilization 
+was on its deathbed.
+THE GREAT ESCAPE
+The end of the world came fast, but humanity did 
+have time to try to save itself, like rats off a sinking 
+ship. The rich and powerful escaped the devastated 
+surface of the Earth and sought refuge underground, 
+at the bottom of the ocean – and out in the solar sys-
+tem. Huge shelters and space stations, the size of 
+small cities, were built. These were called enclaves. 
+The enclaves were big, but only had room for a frac-
+tion of the world’s population – the ones chosen for 
+their intelligence or skills, or simply the ones rich 
+enough to buy their way in. The rest of humanity 
+was left on Earth’s surface. Almost everyone was 
+lost. Just a few poor souls survived the horrors of 
+the Apocalypse, against all odds.
+THE TITAN POWERS
+The purpose of the enclaves was to preserve a small 
+remnant of human civilization. The enclaves were 
+built to be self-sufficient and peaceful, ruled by the 
+best scientists, philosophers and politicians that 
+humanity could muster. But the settlers brought 
+old grudges into the enclaves, and in the deep iso-
+lation and hopelessness they grew into suspicion 
+and hostility. The enclaves started to spy on each 
+other, accused each other of stealing resources from 
+the dying Earth and seeking dominion over others. 
+
+
+
+--- PAGE 235
+
+16
+2 3 3
+THE PATH TO EDEN
+Pacts were made and soon broken. Over time, a 
+handful of more established alliances among the 
+enclaves were formed, and became known as Titan 
+Powers. These were enclaves with a similar history 
+or ideology, or just a common enemy to overcome. 
+Research in the enclaves was increasingly turned 
+toward military purposes. Weapon systems and 
+robotic creatures, more advanced than a previous 
+generation could ever imagine, were created in the 
+darkness.
+THE ENCLAVE WAR
+Who first pressed the button is lost in the oblivion 
+of history. When the cold war between the Ti-
+tan Powers turned into a hot war, no enclave was 
+left untouched. Weapons of ultimate destructive 
+power that had been developed during the dec-
+ades that had passed since the Fall, were power-
+ful enough to cripple an enemy enclave with a 
+single strike.
+More than half of the existing enclaves were de-
+stroyed in the first few weeks of the war. Most of the 
+surviving enclaves were badly damaged and many 
+lost communication with the outside world. The 
+Enclave War entered a low-intensity phase, where 
+dying enclaves often did not know if their enemies 
+and allies were still out there or not. But the fear and 
+distrust ran deep, and no one ever called a cease-
+fire. The Enclave War is still going on, far above 
+and below the mutants of the Ark.
+PROJECT EDEN, PART 2
+One enclave – a colossal structure orbiting the 
+devastated Earth in low orbit like a metal moon 
+– survived the Enclave War relatively intact. It be-
+longed to the Titan Power called Mimir. While other 
+refugees from the dead planet fled further out into 
+the solar system, a group of scientists in this orbital 
+enclave harbored a burning desire to return to their 
+ancestral home.
+These Mimer scientists worshipped Jeremiah 
+Atwood like a betrayed messiah, and dreamt of com-
+pleting his plans. The field of genetic engineering 
+had evolved rapidly and was being used to adapt 
+humanity to a life in space. Could not the same 
+technology be used to adapt humanity to the rav-
+aged environment on the Earth’s surface?
+Project Eden was brought back to life, on a small 
+scale and hidden from the rulers of the enclave, who 
+ha
+
+--- PAGE 236
+
+16
+2 3 4
+GAmemaster’s Section
+refused to carry out her orders, and chaos ensued. 
+In the end, these scientists fled with the children 
+into the Zone, to the Arks. The doors to Eden closed 
+behind them forever.
+In the Arks, many of the scientists soon suc-
+cumbed to the Rot or were killed by grotesque 
+mutated monsters. They had no way to contact 
+Mimer. Some could not bear the isolation, misery 
+and filth, and took their own lives. Project Eden 
+was lost. But the young mutants lived on, unaware 
+of their origin.
+THE METAPLOT IN GAME
+The People’s settlement is of course one of the 
+Arks of Project Eden. And the Elder is a sur-
+viving scientist. This means the PCs are 
+actually not survivors of the Apoca-
+lypse, but rather research experi-
+ments planted on Earth’s surface 
+much later.
+These fundamental truths 
+can be revealed by the players 
+during the course of the game. 
+To do so, they must find the 
+old Eden command center – 
+that is, the Eden of the Peo-
+ple’s myths. If the PCs get 
+there and survive the threats 
+in the deeps, they will also get 
+an opportunity to leave Earth 
+on a one-way ticket and join hu-
+manity’s new civilization in the so-
+lar system. What happens there 
+is beyond the scope of this core 
+rulebook and will be explored in 
+a future expansion.
+THE ELDER
+The Elder is one of the researchers 
+of Project Eden. He knows the truth 
+about the People, but despite the col-
+lapse of Project Eden he has followed 
+the order to keep quiet during all these 
+years. To reveal the truth to the test 
+subjects would affect their behav-
+ior and disrupt the experiment, and 
+was therefore strictly forbidden. The Elder, or doc-
+tor Sebedius as his real name is, hoped that a res-
+cue mission would come to his aid. It never did. As 
+the years went by, the Elder became less and less 
+interested in his old life. And lately, he has become 
+weak and frail, harrowed by age, Rot and the hard 
+life in the Ark.
+As GM, you can use the Elder to give the PCs 
+clues about Eden and other things, but as he is so 
+diminished both physically and mentally that they 
+won’t be able to force any information out of him 
+that you don’t want them to have. If they interrogate 
+him, he ca
+
+--- PAGE 237
+
+16
+2 3 5
+THE PATH TO EDEN
+than giving them the artifact itself right away. Con-
+sider each of the three artifacts as plot devices that 
+you can use in whichever fashion you prefer.
+The three artifacts are the Cassette Player, the 
+Video Camera, and the ID Card. A fourth artifact, 
+the Diary, will tell the players a little about the back-
+story, but will not help them locate Eden.
+THE CASSETTE PLAYER
+This device has a radio receiver, and if they manage 
+to turn it on the PC will hear an ancient emergency 
+transmission that has been repeated for decades, 
+since the days of the Apocalypse. A stern voice 
+calls on everyone with “security clearance level 5 or 
+higher” to go to the nearest “command center”. The 
+voice then lists five such command centers, named 
+Alpha, Bravo, Charlie, Delta and Echo, and lists the 
+coordinates where each of them is located. All other 
+citizens are told to stay in their homes.
+A PC who hears the transmission and makes a 
+Comprehend roll will be able to figure out which 
+sectors of the Zone the five command centers are lo-
+cated in. Simply choose any five sectors on the map 
+that you like. Have them scattered all over the Zone. 
+Command Center Delta is Eden, but the PCs have 
+no way of knowing that without the Video Camera.
+THE VIDEO CAMERA
+This artifact holds a short video clip that shows 
+how the Eden scientists leave the bunker. Wear-
+ing heavy protective gear, they walk out through a 
+big metal door in the rockside. The scientists are 
+followed by thousands of children, no more than 
+three or four years old. Some of the children have 
+obvious mutations. On the partly opened gate a 
+flaking text says “Eden”, and below that, “Command 
+Center Delta”. Using this artifact, the PCs can both 
+learn about their origin and understand that Eden 
+
+
+
+--- PAGE 238
+
+16
+2 3 6
+GAmemaster’s Section
+and Command Center Delta are the same place. 
+They can also see what the terrain looks like in the 
+immediate vicinity of the gate to Eden.
+On the previous page, there is a picture that 
+shows a scene from the video clip. Show it to the 
+players when they watch the film stored in the Video 
+Camera.
+THE ID CARD
+Using this scratched and dirty ID card the PCs can 
+open the gate to Eden. The text on the card says 
+“Eden Security” which should make the players un-
+derstand its significance. Without this card, the PCs 
+will have no way to open the gate.
+THE DIARY
+This worn and waterlogged notebook used to be-
+long to one of the Eden scientists – not the Elder, 
+but one of his colleagues who left Eden at the same 
+time. A good place for the PCs to find the diary is 
+the old purification plant (page 201). If they find 
+the book and make a Comprehend roll, show them 
+Handout #1 (also available for download from the 
+Modiphius website). Note the Mimir logo on the 
+page – it will mean nothing to the PCs when they 
+first see it, but it will return inside Eden.
+COMMAND CENTER DELTA – EDEN
+Mythical Eden is a very important location in Mu-
+tant: Year Zero. Finding the old bunker and explor-
+ing it may very well be the culmination of a long 
+campaign – even though you certainly can play on 
+after Eden has been found.
+HISTORY
+The underground facility that the People call Eden 
+has a long history and has been thrown between 
+desperate hope to deep despair – twice. The bunker 
+complex was first built before the Fall as a shelter 
+for the people of the Old Age. It had been closed 
+and almost forgotten when the Red Plague came 
+and the wars broke out.
+Panicked people filled every shelter they could 
+find. In the biggest shelters, command centers were 
+established. From here, the leaders of the nation 
+could continue to rule from a safe location. In the 
+shelter with the code name Command Center Delta, 
+more than six thousand souls had sought refuge 
+when the gates were sealed. Most of them were lead-
+ing politicians and civil servants, others just rich or 
+lucky enough to squeeze in.
+The relief of having found protection did not 
+last long. Days turned
+
+--- PAGE 239
+
+16
+November 14
+I left the Ark like a thief in the night. I had no other 
+choice. They would never understand why I had to leave 
+them. They must fend for themselves now. I have to get 
+back to Eden.
+November 17
+I have walked through the Zone for three days. I think 
+Zone-Ghouls, or something worse, are stalking me. Am 
+I on the right path? I can’t remember the way. I have to 
+find a lookout point somewhere.
+November 18
+Was I right to leave my post? There was still so much 
+to learn, to discover. And I miss my children more than 
+anything.
+November 19
+The damned Zone-Ghouls attacked me just before 
+dawn. Only my insomnia saved my life. All food and 
+water is gone. The keycard to Eden as well. The 
+bastards might as well have killed me. There is no hope.
+HANDOUT #1: THE DIARY
+2 3 7
+THE PATH TO EDEN
+
+
+
+
+--- PAGE 240
+
+16
+SENTRY
+G AR
+AGE
+D OR
+MITORIES
+CO
+NTROL ROOM
+C RE
+MATORIUM
+GE
+NETICS LAB
+CRYO CHAMBER
+R EA
+CTOR
+ST
+ORAGE
+CELL BLOCK
+ROAD TUNNEL
+SERVICE AREA
+Project Eden
+2 3 8
+GAmemaster’s Section
+
+
+
+
+--- PAGE 241
+
+16
+KITCHEN/CANTEEN
+COMMAND BRIDGE
+INFIRMARY
+N UR
+SERY
+LI
+VING q UA
+RTERS
+2 3 9
+THE PATH TO EDEN
+protocol – to stay put and wait for the rescue and 
+ration the food. The resulting hunger fueled the 
+discontent, and finally the inevitable revolt broke 
+out. The leaders’ security guards, fearing for their 
+lives, resorted to violence. It turned into a blood-
+bath. The few survivors decided to leave the shelter 
+and venture out, in search of food. They never re-
+turned. Command Center Delta, one of humanity’s 
+last flickering lights of civilization, went out.
+Decades passed. Command Center Delta be-
+came a forgotten crypt in a ruined world – until 
+the Project Eden scientists searched ancient data 
+files for a good place on the Earth’s surface to base 
+their grand experiment in. They chose Command 
+Center Delta, which the scientists renamed Eden. 
+With their hyper-advanced technology, they quickly 
+restored the old shelter and added a genetics lab 
+and rocket launch silo to it. Yet again, this facility 
+would turn out to be a curse rather than the sal-
+vation of humanity. When Project Eden collapsed, 
+most of the scientists fled into the Zone. Only the 
+leader and founder of the project – Doctor Retzius 
+– and a few of her most loyal assistants, remained.
+THE CURRENT SITUATION
+When the PCs finally find Eden they might expect 
+the old bunker to be empty and deserted. This is not 
+the case. Doctor Retzius has lived in the deeps dur-
+ing the last two decades. Her assistants are forced 
+to spend most of their time in cryosleep, in order 
+to ensure the survival of Project Eden. With des-
+peration descending into madness she has tried to 
+create the perfect mutant race as professor Atwood 
+envisioned it, a resilient being who can withstand 
+the rigors of the Zone – and exterminate the “defec-
+tive” mutants from Project Eden’s first generation. 
+She thinks she has succeeded. The PCs might take a 
+different view when they meet the Omega Mutants, 
+as Retzius calls them.
+When the PCs knock on Eden’s door, Retzius is 
+in the final stages of preparation for releasing the 
+Omega Mutants into the Zone. She is not prepared 
+for the intrusion and reacts with fear and anger. 
+When 
+
+--- PAGE 242
+
+16
+2 4 0
+GAmemaster’s Section
+As the PCs explore Eden they may find clues 
+about the history of the bunker as well as their own 
+origin. Sooner or later they will run into the Omega 
+Mutants, and finally Doctor Retzius herself. It may 
+turn into a violent confrontation – but the PCs can 
+get unexpected help. Firstly, there is one “Alpha 
+Mutant” – as Retzius calls the first generation – who 
+has lived hidden in the darkness of the bunker for 
+all these years, and now sees an opportunity to fight 
+Retzius. Secondly, the doctor is over-confident re-
+garding the loyalty of the Omega Mutants – some 
+of them have doubts about their “mother” and can 
+change sides at a critical stage.
+THE GATE
+The entrance to Eden is a massive steel door in the 
+cliff face, big enough for a truck to drive through. 
+Despite its size, the gate is not easy to spot from a 
+distance, as it’s partly overgrown by weeds. Next to 
+the gate, there is a sign with the worn and almost 
+illegible text “Command Center Delta” on it. Above 
+that, there is somewhat clearer but still damaged 
+text that says “Eden”.
+The Gate:  Below the sign, there is a small electronic 
+card reader and a camera. Both seem out of order, 
+but if the ID Card (page 236) is held up against the 
+card reader, a small green diode will light up. Then, 
+the three feet thick solid metal door will slowly start 
+to rumble and slide aside, revealing a tunnel lead-
+ing into the darkness…
+Checkpoint:  Just inside the gate, on the right-hand 
+side, there is a small sentry box. It’s empty, apart 
+from some random scrap. There is a terminal and 
+a screen, but neither seem to work.
+The Tunnel:  A road tunnel slopes down, deep into 
+the ground. The air is cold and smells of damp rock. 
+It is pitch black (page 93), so without a torch, a flash-
+light or a Luminescent mutant, the PCs will have 
+to feel their way down. Along the sides there are 
+several car wrecks that have rusted away completely.
+The Garage:  After about 200 yards, the tunnel ends 
+in a large subterranean garage. There are more car 
+wrecks here, some of which are possible to Jury-Rig 
+into working order. On the far wall, there is a large 
+metal double blast door. There is card
+
+--- PAGE 243
+
+16
+HANDOUT #2: FL OOR  PL AN  OF  C OM MAND  C EN TER  D EL TA
+2 4 1
+THE PATH TO EDEN
+
+
+
+
+--- PAGE 244
+
+16
+2 4 2
+GAmemaster’s Section
+roll will realize the dead have been here for many 
+decades, as they are now little more than skeletons. 
+A handful of corpses seem to have been soldiers in 
+some kind of uniform, now decayed. Few weapons 
+are to be found, but if the PCs search thoroughly 
+you may allow them to find a semi-automatic pistol, 
+a kevlar vest or even an assault rifle.
+Main Corridor:  A main corridor runs all around the 
+Upper Circle. On both sides of the corridor, there 
+are doors leading to other rooms. At irregular in-
+tervals, the main corridor is blocked by thick metal 
+doors. Some are open but others are closed, the 
+latter can easily be opened manually by turning 
+the operating wheel. On the concrete walls warn-
+ing signs, arrows and numbers are printed in yel-
+low paint, now flaking and worn. Water pipes and 
+electricity cables run along the ceiling of the main 
+corridor.
+Dormitories: Command Center Delta was built to 
+accommodate 5,000 poor souls, and each and every 
+one of them was provided with a bunk bed. In these 
+deserted halls, there are thousands of narrow metal 
+beds. Now, there is little or nothing of value here. 
+The PC might find some scrap or a minor artifact.
+Canteen: A large room filled with long tables and 
+benches. Next to the canteen there is a simple 
+kitchen. There is plenty of old kitchen gear, but not 
+a single ration of grub.
+Infirmary:  A number rooms of with narrow hospital 
+beds and medical equipment. The rooms are filled 
+
+
+
+--- PAGE 245
+
+16
+HANDOUT #3: THE L OG  B OO K
+2 4 3
+THE PATH TO EDEN
+September 23
+Still no contact with Command Center Alpha. It has been 
+weeks now. Has it been attacked? Are they willfully ignoring 
+us? Have they allied with our enemies?
+October 17
+All contact with other Command Centers has ceased. Why is 
+no one coming to our aid? Are we the only ones left alive? 
+We have been forced to cut the food rations in half. The 
+civilians starve.
+November 01
+Renewed contact! Our technical staff today received a 
+transmission from a facility with which we have not had 
+contact before. They call themselves Elysium - the land of 
+eternal spring. They say they are part of a new alliance of 
+shelters, the beginning of a new nation. They say they are 
+coming to our rescue. For the first time in months I feel 
+hope.
+November 06
+Again, silence. Elysium is no longer responding to our 
+signals. What has happened? Have they abandoned us too? Has 
+something happened to them? Or was this just some kind of 
+cruel hoax?
+November 19
+Today civilians protested outside the Command Bridge. 
+Demanded food. I wanted to go out there and speak to them. 
+Major Hendricks stopped me. Too dangerous, he said.
+November 23
+The civilians are in uproar. I watch them on our monitors. 
+They chant, smashing furniture. They must understand 
+that Major Hendricks and his men had no choice. Some 
+civilians attacked them, tried to take their weapons. That 
+kind of behavior is unacceptable. It is unfortunate that 
+blood was spilt. Major Hendricks has my full support in 
+quenching this rebellion. My responsibility is not only to 
+help the civilians. It goes far beyond that - to safeguard 
+what is left of our nation. Our knowledge, our culture, 
+our civilization. My responsibility is the greatest one 
+imaginable. Why can’t they understand that?
+December 04
+It will soon be over now. This will be my last entry in this 
+log. I hear them beating at the door. It won’t be long now. So 
+many have died. Soon I will join them. But I won’t let those 
+bastards get me. I have no regrets. I did my duty. History 
+will be my judge. If mankind still has a future.
+
+
+
+--- PAGE 246
+
+16
+2 4 4
+GAmemaster’s Section
+by decomposed corpses, little more than skeletons, 
+lying on the beds and in piles on the floor. Most of 
+the dead have obvious damage from bullets, cuts 
+and blows. All medicine and everything else of 
+value have been looted long ago.
+Storage: Simple store rooms, also looted long ago.
+Incinerator:  Here, the inhabitants of Command 
+Center Delta would get rid of their refuse – and 
+many of their dead. A PC who makes a Comprehend 
+roll can get the incinerator to work again.
+Command Bridge: At the farthest point from the 
+entrance, the facility that used to be the seat of 
+governance for Command Center Delta is located. 
+The metal door that leads into this area has been 
+battered down by force from the outside. Around 
+the gate, there are many corpses, both civilians and 
+soldiers. Inside the Command Bridge are screens, 
+terminals, telephones, file cabinets and computers. 
+Most of the equipment is vandalized and covered 
+by a thick layer of dust. The dead lie everywhere, 
+mummified by the dry air here.
+A corpse dressed in a suit and tie sits by a desk, 
+reclined on a chair. He has an obvious gunshot 
+wound to his head, and a functional revolver lies on 
+the floor next to him. On the desk, there is a print-
+out of a computer log book. The log book describes 
+the final days of Command Center Delta. If the PCs 
+make a Comprehend roll, give them Handout #3. 
+They can also take the suit and the revolver (both 
+are artifacts).
+The Way Down: Next to the smashed gate leading 
+into the Command Bridge, there is another, smaller 
+metal door. It is also battered, but has not been 
+broken down. The door has a card reader and slides 
+open if the PCs use their ID Card. Inside, a steep 
+and narrow staircase leads deeper into the bedrock. 
+A faint light can be seen below. After a descent 
+of about a hundred feet, the PCs reach the Lower 
+Circle: the very heart of Project Eden.
+THE LOWER CIRCLE
+The first thing the PCs notice when stepping 
+into the lower circle is that it is warmer, drier and 
+brighter here, in stark contrast to the Upper Cir-
+cle. A pale blue light shines from light strips in 
+the ceiling. Some parts of the Lower Circle have 
+been de
+
+--- PAGE 247
+
+16
+HANDOUT #4: THE CH IL DS ’ D RA WING
+2 4 5
+THE PATH TO EDEN
+children caged at night, since a simple nightmare 
+could have very serious consequences. Here and 
+there, childrens’ drawing hang on the walls. One of 
+them, depicting Doctor Retzius and Doctor Sebe-
+dius (the Elder) is drawn by one of the PCs. Choose 
+one PC who looks at the drawings and tell him that 
+he suddenly is overcome by a strong sense of deja 
+vu. Give the player Handout #4. The PC remembers 
+nothing about the people in the drawing.
+Scientists’ Quarters:  This section contains separate 
+suites that were once used by the top management 
+of Command Center Delta – and later, by the scien-
+tists of Project Eden. They are sparsely furnished and 
+rather worn. There are few personal belongings here 
+apart from some clothes, but in one of the suites the 
+PCs may find a yellowed photo. It is a team picture 
+of the leading Eden researchers. Give the players 
+Handout #5. They immediately recognize Doctor 
+Sebedius as the Elder – but much younger.
+Emergency Exit: From the Scientist’s Quarters, a 
+narrow tunnel leads away from Eden. Where this 
+exit leads to in the Zone is up to you. It may even 
+be connected to a whole network of tunnels in the 
+bowels of the Zone.
+The Genetics Lab  is the heart of Project Eden. Here, 
+the first mutants were grown using DNA that the 
+researchers had brought with them from their en-
+clave in orbit. Later, Doctor Retzius continued her 
+work here and finally created the Omega Mutants.
+To the PCs, this room looks like a horror show. 
+Among test tubes, screens and terminals, there are 
+big glass vats with dead mutant infants and fetuses. 
+Some of them look like Alpha Mutants, others are 
+grotesquely deformed blends of animal and human 
+forms, still others have tentacles and other strange 
+outgrowths. Doctor Retzius has saved certain speci-
+men from failed experiments, to learn from them. 
+This environment is very suitable for having the 
+
+
+
+--- PAGE 248
+
+16
+HANDOUT #5: THE P HO TOGRAPH
+2 4 6
+GAmemaster’s Section
+PCs be attacked by an Omega Mutant – or even 
+meet Doctor Retzius herself.
+All of the technology in this room would take 
+years to Comprehend, if such comprehension is 
+even possible. But they can find interesting infor-
+mation here by just quickly browsing a terminal. 
+A PC who does that and makes a Comprehend roll 
+can read an electronic log from Project Eden. Give 
+the players Handout #6.
+In the Genetics Lab, there are terminals that 
+control doors and traps throughout the Lower Cir-
+cle (above). Artifacts may also be found here, for 
+example Sedatives, Painkillers and – if you feel 
+generous – a dose of REGEN.
+Cryolab: A smaller room next to the Genetics Lab 
+houses ten cryosleep pods with transparent lids. 
+Humans lie in three of them, two women and one 
+man, frozen solid but still alive. These are Doctor 
+Retzius’s lab assistants, whom she wakes from cry-
+osleep at regular intervals (below). The PCs can 
+wake them too, but this requires a successful Com-
+prehend roll. Failing the roll will kill the patient.
+Control Room: The walls of this room are covered 
+by video screens showing the Rocket Silo with the 
+rocket and space capsule at the top of it. To start 
+countdown and launch the rocket, a PC must first 
+Comprehend the terminals. An automated count-
+down from ten minutes then starts – if the PCs want 
+to fly off with the rocket, they have this long to get 
+into the capsule. The countdown cannot be stopped 
+once is has started.
+A metal door in the Control Room is marked 
+Rocket Silo, and leads to a narrow corridor to the 
+launch pad. Near the door, there are six small 
+booths with glass doors. Each booth contains a 
+silvery space suit with helmet in the shape of a 
+glass bubble. In the Control Room, there are also 
+normal terminals that control the doors and traps 
+in the Lower Circle.
+Cell Block: A section of the Lower Circle with 20 
+very cramped isolation cells. The floor, the ceiling 
+and the walls are all made of rusty metal. Each cell 
+has a door with a small observation hatch. These 
+cells were originally built to hold miscreants in 
+Command Center Delta behind bars, but they have 
+been r
+
+--- PAGE 249
+
+16
+2 4 7
+THE PATH TO EDEN
+The doors to the cells have keypad locks. Only 
+Retzius (and possibly Endel) knows the six-digit 
+codes. A PC who makes a Comprehend roll can 
+lock an open cell door, and then pick the code used 
+to open the lock again. The cell doors cannot be 
+opened from a normal terminal (above).
+Crematorium:  An incinerator like the one in the 
+Upper Circle, this one is however operational. Doc-
+tor Retzius uses it to dispose of failed genetic exper-
+iments. Anything living thrown into the incinerator 
+is killed instantly.
+Nuclear Reactor:  A narrow concrete corridor leads 
+to the nuclear reactor that powers Eden. The reactor 
+is leaking, and this section therefore has Rot Level 3 
+(one Rot Point per minute). There is a small control 
+room next to the reactor core.
+TRAPS
+The experiments of Project Eden have always been 
+dangerous – the scientists knew that their geneti-
+cally engineered beings could turn against them. To 
+protect themselves, they installed defense mecha-
+nisms in selected locations in the Lower Circle 
+– hidden traps based on gas, electricity or micro-
+waves. Where these traps are located is not set – as 
+GM, place them where you like. The traps can be 
+triggered from a terminal in the Genetics Lab or 
+the Control Room.
+Electric Trap:  A hidden circuit in the floor, ceil-
+ing and walls creates a strong electric current. This 
+works as an explosion with Blast Power 6, but it in-
+flicts fatigue (trauma to Agility) instead of damage. 
+Armor gives no protection, but mutations might. 
+Anyone who suffers fatigue from the attack must 
+make a Move roll to be able to move at all (this roll 
+does not count as an action). Failure means that 
+the victim is paralyzed and will be attacked again 
+in the same manner in the next turn.
+Gas Trap:  Metal doors close behind and in front of 
+the victims, who must make a Move roll to avoid 
+getting trapped between the doors. In the next turn, 
+a gas is pumped into the enclosure and anyone 
+trapped in it will be subject to an attack with six 
+Base Dice – every / rolled inflicts one point of con-
+fusion (trauma to Wits). The person who activated 
+the trap chooses when the doors open and the gas 
+disperses
+
+--- PAGE 250
+
+16
+HANDOUT #6: THE EDEN LOG
+2 4 8
+GAmemaster’s Section
+MARCH 5
+Phase 1 is complete. Everything is going according to plan. 
+Proposed sites for the Arks of Project Eden are all examined 
+and approved. The growth of the test subjects are within 
+expected parameters. They must be planted in the wild at a 
+young age so that we can study the effects of the toxins and 
+radiation on the mitosis in their bodies.
+We are humanity’s heroes. Professor Atwood was our savior, 
+not our executioner. When we finish his work, Mimir will 
+understand. Everyone will understand. History will prove us 
+right. ■
+MAY 21
+The test subjects exhibit unexpected and irregular behavior. 
+Fits of insubordination and violence, combined with their 
+hypergenetic abilities pose a direct security risk. I have 
+instructed Doctor Sebedius to install defense mechanisms in 
+the facility, using a fentanyl-based gas, high voltage and 
+microwaves, to protect the science team. In all probability, 
+it is just a temporary phase. ■
+JUNE 07
+The insubordination of the test subjects is escalating. 
+Doctor Aylo passed away this morning, after yesterday’s 
+attack from a test subject exhaling ignited gases at him. 
+Three test subjects were terminated by Doctor Sebedius 
+microwave traps. Adequate functionality. ■
+JUNE 09
+A total of 23 test subjects have now been terminated in 
+total. Some individuals in the science team exhibit lapses 
+of loyalty. Today, I revealed the genetic security mechanism 
+that is wired into every test subject of Project Eden: even 
+
+
+
+--- PAGE 251
+
+16
+2 4 9
+THE PATH TO EDEN
+when reaching a sexually mature age, they will be unable to 
+reproduce with each other, in order to avoid an uncontrolled 
+population growth. Doctor Sebedius’s emotional response can 
+only described as unprofessional. ■
+JUNE 17
+My decision is made. The test subjects must be terminated. 
+After last night’s riot, that cost nine science team members 
+their lives, there is no other choice. The test subjects 
+are much too unstable to be released into the external 
+environment. The fault is mine. We must start over. Project 
+Eden is too important to take any chances. ■
+JUNE 18
+The science team members protest against my decision. Their 
+emotional bonds to the test subjects have grown too strong 
+for them to react rationally. I will not change my mind. 
+They cannot stop me. My personal research assistants will 
+follow my orders. The terminations will commence tomorrow. ■
+JUNE 19
+Mutiny. During the night, the entire science team – Doctor 
+Sebedius, Doctor Barnabas, Doctor Thaddeus, Doctor Lucas 
+and Doctor Nathanael – have left Eden with all of the test 
+subjects and almost all of the research assistants. Only a 
+few loyal individuals remain by my side. I could not stop 
+them. ■
+JUNE 23
+After a re-evaluation of the current situation, the decision 
+is made: Project Eden will continue. New test subjects, with 
+improved genetic code, will be created. ■
+
+
+
+--- PAGE 252
+
+16
+2 5 0
+GAmemaster’s Section
+Now, after more than 20 years on Earth, Retz-
+ius is obsessed with the idea of “correcting the 
+mistake” of the Alpha Mutants and replacing them 
+with her own “improved” version – the Omega Mu-
+tants. She is an old woman now, and not quite as 
+on top of things as she once was. She can switch 
+between murderous rage, deep confusion and sud-
+den tenderness toward the PCs, as if they were 
+her own children – and then suddenly try to kill 
+them again.
+When lucid, Retzius calls the PCs “freaks” and 
+treats them with contempt. But she also wants to tell 
+them about Project Eden and explain her version 
+of what happened. She will deploy her Omega Mu-
+tants and the Titan (below) to defend her if attacked, 
+and she will draw her Maser Pistol if cornered only. 
+If she feels that she is losing the battle, she will try 
+to start the launch sequence for the rocket in the 
+silo and then try to flee in the capsule.
+Retzius always has her research assistant 
+Melvind at her side (below), but he is little more 
+than a mindless drone.
+a ttributes:  Strength 3, Agility 4, Wits 5, Empathy 3.
+Skills:  Move 2, Shoot 3, Comprehend 5, Heal 4.
+g ea
+r:  Retzius wears a protective suit that gives her Armor 
+Rating 3 against both damage and the Rot. In a holster, she 
+carries a Maser Pistol (see the boxed text below).
+THE OMEGA MUTANTS
+After the meltdown of Project Eden, Doctor Retzius 
+worked desperately to create “perfect” mutants in 
+the Genetics Lab. After a series of failed attempts, 
+all ending up in the Crematorium or in vats of for-
+maldehyde, she succeeded in creating a breed of 
+THE MASER PISTOL
+Doctor Retzius’s firearm looks like noth-
+ing the PCs have ever seen out in the 
+Zone. It’s an energy weapon called a 
+Maser Pistol. Maser is an acronym for 
+Microwave Amplification by Stimulated 
+Emission of Radiation. It is a light item 
+with Gear Bonus +2, weapon damage 3 
+and Short range. The gun emits a pow-
+erful burst of energy that is invisible to 
+the naked eye, but creates an explosion-
+like effect when it hits a solid surface. 
+The best thing about the Maser Pistol is 
+that it does not require any bullets. The 
+energy stored in the pistol will last
+
+--- PAGE 253
+
+16
+2 5 1
+THE PATH TO EDEN
+mutants she calls “Omega” – the final species. They 
+are fast and strong, resilient to physical damage and 
+Rot, and have the ability to suck energy from their 
+victims. However, their intelligence and speech are 
+limited, about on level of a human three-year-old 
+child.
+Appearance:  The Omega Mutants are hairless 
+and their bodies are covered by thick and dark 
+lizard-like grey scales. Their eyes are also reptil-
+ian. They can navigate in pitch darkness using a 
+form of sonar, emitting a squealing noise painful 
+to humans and Alpha Mutants. You can use this 
+sound to scare the players when the PCs are ex-
+ploring Eden.
+Behavior: There is a total of ten Omega Mutants in 
+Eden. Most are kept behind bars in the Cell Block 
+in the Lower Circle, but Doctor Retzius often lets 
+out one or two at a time to be experimented on or 
+to carry out physical labor. When Retzius realizes 
+that there are intruders in Eden, she will release 
+more Omega Mutants to hunt them. She is reluctant 
+however to let them all out, fearing another revolt. 
+This fear is not unfounded – some of the Omega 
+Mutants have a vague dream of freedom. These 
+doubters may view the PCs arrival as a chance to 
+break out of their slavery.
+Language: The Omega Mutants’ speech is limited 
+and hard to understand for others. A PC who wants 
+
+
+
+--- PAGE 254
+
+16
+2 5 2
+GAmemaster’s Section
+to Manipulate an Omega Mutant must first speak 
+to it for a while and make a Comprehend roll.
+a ttributes:  Strength 5, Agility 4, Wits 2, Empathy 3.
+Skills:  Fight 4, Move 4, Sneak 5, Scout 4.
+a rm
+or:  The Omega Mutants’ thick scales give them Armor 
+Rating 6 against both damage and Rot.
+w ea
+pons:  Claws and fangs (weapon damage 2).
+Mutations:  As opposed to the Alpha Mutants, the Omega 
+Mutants all have the same mutations: Parasite and Sonar. All 
+start out with 5 MP .
+THE TITAN
+In one of the cells in the Cell Block, Retzius keeps a 
+horribly mutated creature whom she calls the Titan. 
+It is an early failed prototype of the Omega Mu-
+tants that completely lacks the capacity for higher 
+intelligence. Retzius kept the Titan alive anyway, 
+because it exhibited extreme aggressiveness and 
+resilience – two attributes that she wanted to instill 
+in the Omega Mutants.
+If Retzius has her back against a corner, she may 
+very well release the Titan. It is completely mind-
+less and will try to kill and eat every living thing 
+in its path. The Titan looks like a 10 feet long slug 
+with a large ring-shaped maw, ringed by three-inch 
+long spike-like teeth. It normally moves slowly, but 
+is capable of sudden attacks with unexpected speed 
+and power.
+a ttributes:  Strength 10.
+Skills:  Fight 5.
+w ea
+pons:  Maw (weapon damage 1). A target that is hit 
+and suffers one or more points of damage will be partially 
+engulfed by the maw and suffers a new attack every turn 
+until the victim or the Titan is broken. If the Titan is damaged, 
+it will immediately heal one point of damage for every point 
+suffered by the victim. While trapped in the maw, the victim 
+can Fight or Shoot the Titan, but perform no other action. The 
+Titan dies if it is broken.
+THE LAB ASSISTANTS
+In the Cryolab, Doctor Retzius keeps three of her 
+trusted lab assistants – Reodor, Solan and Redic – 
+in cryonic sleep. The fourth, Melvind, is awake and 
+can usually be found by Retzius’s side. All of them 
+are unmutated humans.
+Retzius keeps her assistants mostly frozen in or-
+der to prolong their lives, so that they can continue 
+Project Eden after her death. However, the repeated 
+
+
+--- PAGE 255
+
+16
+2 5 3
+THE PATH TO EDEN
+w eapons:  Scrap knife.
+Mutations:  Reptilian, Sonar (3 MP).
+EVENTS
+In this section, suggested events and encounters 
+during the PCs’ visit to Eden are listed. They don’t 
+need to come in any particular order, and you de-
+cide which you want to use. Most of the events are 
+more suitable in the Lower Circle, but the first signs 
+of Endel and the Omega Mutants should occur in 
+the Upper Circle already.
+ K A PC hears a sound or sees movement in 
+the corner of the eye. It’s either Endel or an 
+Omega Mutant. A Dog Handler PC or one 
+with the Tracker mutation can follow the trail, 
+and even confront the creature. This event 
+can be used multiple times.
+ K A chilling shriek echoes through the cata-
+combs of Eden. It’s an Omega Mutant using 
+his Sonar to navigate in the darkness.
+ K A dead video monitor suddenly flickers to life. 
+Bright green text appears against the black 
+screen. “Turn back while you still can,” it says. 
+Doctor Retzius has spotted the intruders and 
+this is her first warning.
+ K Doctor Retzius speaks directly to the PCs 
+through the bunker’s old loudspeaker system. 
+She warns them and tells them to leave “this 
+restricted area”, but does not reveal who she 
+is and does not respond to questions. The 
+players may believe the voice comes from an 
+automated system. Retzius may contact the 
+PCs several times in this manner.
+ K The PCs find Endel’s den in a small service 
+room. There are blankets, trash and moldy old 
+crackers here, as well as old children’s draw-
+ings that Endel has saved.
+ K Endel reveals himself to the PCs. A good op-
+portunity to use this event is when the PCs 
+have gotten into serious trouble, or if they get 
+stuck and don’t know how to proceed. Endel 
+is on his guard and scared of the PCs, but 
+also hope they can help him escape.
+ K One or more Omega Mutants ambush the 
+PCs. The attack is quick and sudden, perhaps 
+from the ceiling. Remember that the Omega 
+Mutants know the facility very well. If the PCs 
+seem to be losing the battle, Endel can step 
+in to help them. The Omega Mutants will not 
+fight to the death unless told so by Retzius, 
+preferring to retreat and attack again later.
+ K A wounded Omega M
+
+--- PAGE 256
+
+16
+2 5 4
+GAmemaster’s Section
+ K The countdown to the rocket launch starts. If 
+the PCs do not activate the countdown them-
+selves, have Retzius or even Endel do it.
+THE END
+The faceoff in Eden can end in many different ways, 
+but sooner or later the PCs will confront Doctor 
+Retzius. Make sure the players get most of the an-
+swers they have sought – this is their final chance 
+to learn the truth about the People and the Ark.
+The confrontation with Retzius can end in vio-
+lence. She will not let herself be taken captive, un-
+less broken by trauma. If the fight goes against her, 
+she will activate the launch sequence and make a 
+run for the space capsule. If stopped, she will fight 
+until broken. At that point, the Omega Mutants will 
+stop fighting for her as well.
+The Countdown: One way or another, the count-
+down to the rocket launch will start. Unless the PCs 
+activate it themselves, have Retzius, Endel, or one of 
+the lab assistants do it. The countdown cannot be 
+stopped. The players must immediately make the 
+monumental decision of whether to leave Earth on 
+the rocket or stay behind.
+Toward the Stars:  If one or more PCs do want to 
+go – pause the game for a minute and speak di-
+rectly to the players, so that they fully understand 
+the consequences of the decision. Explain that 
+this will mean the campaign is over for these PCs 
+– at least until a planned future expansion, about 
+life in the solar system after the Fall, is released. 
+In the meantime, the campaign in the Zone can 
+continue, with other PCs. If one or more PCs go 
+with the rocket, read or paraphrase the boxed text 
+on this page.
+Back to the Ark:  PCs that don’t want to leave Earth 
+with the rocket can travel back home to the Ark. 
+Finding Eden is a feat that causes great excite-
+ment, but life in the Ark does not change that much. 
+Chroniclers and Gearheads will certainly go out to 
+study the bunker in detail, but the technology is so 
+far advanced that it is hard to understand and learn 
+from. Increase the Ark’s DEV levels in Technology 
+and Culture by 2D6 each, then continue the game. 
+
+
+
+--- PAGE 257
+
+16
+2 5 5
+THE PATH TO EDEN
+A possibility is that the People choose to move to 
+Eden and settle there.
+An open question is what happens to any 
+Omega Mutants and cryo-frozen lab assistants 
+that survive. Maybe they join the People (if al-
+lowed), maybe they flee into the Zone toward an 
+uncertain fate.
+THE LAUNCH
+All you hear is your own breath against the 
+glass visor and the calm female voice, count-
+ing down. “T minus 10 seconds. 9, 8, 7, 6, 5”. 
+Memories from the Ark flash before your eyes. 
+Of the People. Of your friends. The living. The 
+dead. “4, 3, 2”. No return. “1”. The capsule 
+shakes, a shiver in your seats grows to a roar. 
+Behind your backs, a pillar of fire lights up. 
+Y ou are pushed into your seats, you feel your 
+veins struggling to keep blood flowing to your 
+heads. The vibrations get worse, your teeth 
+clatter, the instruments on the panel in front of 
+you become a madly blinking blur. The roar 
+gets louder, hammering at your eardrums. 
+Then, a respite, a sudden silence. Metal rubs 
+against metal, something comes loose. Then, 
+the next kick. The roar and the vibrations are 
+back, closer, hotter. Y ou feel the heat of the fire 
+right through the metal and the plastic, right 
+through your shaking bodies, kicked off the 
+surface of the Earth. A small light in front of 
+you is buzzing, angrily red. Warning. Warn-
+ing. Warning. Then, it’s over. The roar is gone, 
+the utter silence deafening. The vibrations re-
+placed by absolute stillness. Y our bodies, lead 
+heavy a second ago, now weightless. Sound-
+lessly, the canopy around your capsule falls off. 
+Bright light cuts through the portholes. It’s black 
+out there. But not dark. Above you, the stars 
+paint their way. Beneath you, the ravaged 
+Earth curves off, covered in a yellowy haze. In 
+front of you – a weak light, growing stronger, 
+above the bent horizon. Not a star. An outpost. 
+A city of glittering metal. A new home.
+OTHER METAPLOTS
+The game is not over because Eden has been found. 
+You can easily create your own metaplots, provid-
+ing material for your campaign for many sessions. 
+The new metaplots can take many different forms. 
+Below are some guidelines for creating metaplots, 
+followed b
+
+--- PAGE 258
+
+16
+2 5 6
+GAmemaster’s Section
+medical care and a disciplined militia. A market-
+place is established inside the walls of the settlement, 
+which rapidly becomes a major power in the Zone.
+Humans and mutants unite in the fight against 
+a common enemy, such as the Helldrivers or the 
+Nova Cult. Together, they are victorious, and a for-
+mal alliance is formed. The People quickly come 
+to depend on their human neighbors, who provide 
+medical care, grub and work in all kinds of projects. 
+The human settlement expands and soon grows 
+into a proper town.
+A new watchtower is to be built in the human 
+settlement. Many of the People take part in the 
+work. Then – disaster strikes! The tower collapses, 
+and several mutants die. A wild protest breaks out, 
+tearing a rift between mutants and humans. But 
+most mutants remain dependent on their new hu-
+man masters.
+More humans arrive by the dozens, in trailers 
+drawn by Bitterbeasts. The population of the hu-
+man settlement doubles in a matter of weeks. New 
+houses are built, trade routes with other factions 
+in the Zone are established. Some of the humans 
+grow very rich, while most of the mutants remain 
+dirt poor. Discontent is brewing.
+The conflict between humans and mutants 
+intensifies. A militant human faction holds hate-
+stirring speeches in the marketplace, preaching that 
+mutants are second-rate beings that have no place 
+in the dawnworld. Some mutants are caught and 
+beaten or burnt to death.
+The mutants have had enough of the abuse. In 
+secret, they plan an attack against the humans. A 
+bloodbath is imminent unless someone – the PCs? 
+– can defuse the situation and give mutants and 
+humans a common purpose.
+THE HYDRA
+A strange humanoid is seen close to the Ark. It 
+looks like a mutant, but is far too big – twelve feet 
+tall, they say. The giant is very dangerous, Stalkers 
+have seen it kill monsters with his bare hands. The 
+killings instill the creatures of the Zone with fearful 
+respect. A horde of monsters and savage mutants 
+follow this strange leader wherever it goes. Every-
+one who tries to oppose it is slaughtered.
+The giant, whom followers call “the Hydra”, 
+is a near-immortal creature, a result of ancient 
+
+--- PAGE 259
+
+2 5 7
+Index
+a
+Acid Rain  18 4
+Acid Spit (mutation)  70
+A
+ctions  80
+A
+dmirer (talent)  65
+A
+ge  17
+A
+gility  18
+A
+gitator (talent)  65
+A
+iming  85
+A
+mbush  82
+A
+mphibian (mutation)  71
+A
+rcheologist (talent)  65
+A
+rk Map  98
+A
+rk Sheet  26
+9, 271
+Ark, the  97
+A
+rmor  88
+A
+rtifact Cards  13
+A
+rtifacts  18
+9
+Assassin (talent)  65
+A
+ssembly  10
+3
+Attributes  18
+A
+twood, Jeremiah  23
+1
+Automaton  17
+7
+b
+Bad Omens (talent)  65
+B
+argaining Position  82
+B
+arge Through (talent)  63
+B
+asic Skills  48
+B
+east Mutants  17
+1
+Big Dream  22
+B
+ig Smoke, the  11
+7
+Bitterbeast  17
+8
+Bloodhound (talent)  64
+B
+odyguard (talent)  65
+B
+onesaw (talent)  65
+B
+ooze  93
+B
+oss  38
+B
+roken  89
+B
+utcher (talent)  65
+c
+Character Sheets  11 , 265
+Chronicler  36
+C
+lose Combat  83
+C
+ombat Maps  82
+C
+ombat Veteran (talent)  66
+C
+ommand Center Delta  23
+6
+Commander (talent)  65
+C
+ommand (skill)  60
+C
+omprehending Artifacts  12
+4
+Comprehend (skill)  51
+C
+onditions  92
+C
+onfusion  88
+C
+ool Head (talent)  66
+C
+orpse-Eater (mutation)  71
+C
+ounselor (talent)  66
+C
+oup De Grace  89
+C
+over  89
+C
+oward (talent)  66
+C
+reating a Sector  15
+5
+Critical Injuries  90
+C
+ritical Injuries Table  91
+C
+ulture  10
+1
+Cynic (talent)  65
+D
+D6  11
+D
+66  11
+D
+666  11
+D
+amage  88
+D
+arkness  93
+D
+awn Vault, the  11
+3
+Dead Apple, the  12
+0
+Death  90
+D
+econtamination  12
+6
+Defense  84
+D
+ehydrated  92
+D
+en  24
+D
+EV  se
+e ‘Development Levels’
+Development Levels  10
+0
+Dice  11
+D
+og Handler  34
+D
+oubt  88
+e
+The Elder  99
+E
+lysium  23
+3
+Empathy  18
+E
+nclave War, the  23
+3
+Encumbrance  23
+E
+ndure (skill)  48
+E
+nforcer  26
+E
+nhancing Effects  70
+E
+vents in the Ark  13
+1
+Events in the Zone  13
+4
+Experience Points  25
+E
+xplosions  94
+E
+xtreme Reflexes (mutation)  72
+f
+Failure  44
+F
+ast Draw (talent)  66
+F
+ast-Forwarding  14
+F
+atigue  88
+F
+ight Dog (talent)  64
+F
+ight (skill)  49
+F
+ind The Path (skill)  56
+F
+irst Session  13
+7
+Fixer  32
+F
+lame Breather (mutation)  72
+F
+leeing  81
+F
+lyweight (talent)  66
+F
+ood Supply  10
+1
+For a Mouthful of Water  20
+1
+Force (skill)  49
+F
+our-Armed (mutation)  72
+F
+rog Legs (mutation)  72
+F
+uel  94
+F
+ull-Auto Fire  86
+g
+Gadgeteer (talent)  66
+G
+amemaster, the  9
+Ga
+me Principles  12
+9
+Gear  22
+G
+ear B
+
+--- PAGE 260
+
+2 5 8
+Mutant: Year Zero
+General Talents  65
+G
+M  se
+e ‘Gamemaster, the’
+Good Footwork (talent)  66
+G
+rappling  84
+G
+unslingers (talent)  65
+h
+Hard Hitter (talent)  66
+H
+ealing  90
+H
+eal (skill)  53
+H
+eavy & Light Items  23
+H
+elldrivers  17
+3, 217
+Human Magnet (mutation)  73
+H
+umanoids  17
+0
+Human Plant (mutation)  73
+H
+ybrid Play  14
+H
+ypothermic  93
+i
+Individual Play  14
+I
+nitiative Roll  79
+I
+nsectoid (mutation)  73
+I
+nsect Wings (mutation)  73
+I
+nspire (skill)  59
+I
+ntimidate (skill)  54
+I
+nventor (talent)  63
+j
+Jack of All Trades (talent)  66
+J
+uicy Info (talent)  64
+J
+ury-Rig (skill)  54
+K
+Know the Zone (skill)  52
+l
+Light Eater (talent)  67
+L
+oner (talent)  67
+L
+uminescence (mutation)  74
+M
+Make a Deal (skill)  57
+M
+anbeast (mutation)  74
+M
+aneuvers  80
+M
+anipulate (skill)  53
+M
+ap of the Zone  14
+M
+ean Streak (talent)  63
+M
+elee Weapons  86
+M
+etaplots, Other  25
+5
+Mimir  23
+3
+Mind Terror (mutation)  74
+M
+isfire  69
+M
+odification  47
+M
+onster Hunter (talent)  64
+M
+onsters  17
+6
+Morlocks  17
+3
+Motorhead (talent)  63
+M
+ovement  80
+M
+ove (skill)  50
+M
+utant Card Deck, the  12
+M
+utant’s Best Friend (talent)  65
+M
+utation Cards  13
+M
+utations  69
+n
+Name  18
+N
+ever Surrender (talent)  67
+N
+oatun  23
+3
+Non-Player Characters  13
+8
+Non-Typical Damage  92
+N
+ova Cultists  17
+3
+Nova Cult, the  21
+2
+NPC  se
+e ‘Non-Player Characters’
+o
+Other Ark, the  20 7
+P
+Pack Mule (talent)  67
+P
+arasite (mutation)  75
+P
+athokinesis (mutation)  75
+P
+C  se
+e ‘Player Character’
+Performer (talent)  65
+P
+ermanent Rot Points  12
+6
+Permanent Trauma  70
+P
+ersonal Arithmetic (talent)  67
+P
+henomena  18
+4
+Player Character  17
+P
+layers  8
+Pr
+oject Eden  23
+1
+Projects  10
+2
+Puppeteer (mutation)  74
+P
+ure Plant, the  20
+4
+Pushed Damage  92
+P
+ushing  44
+P
+yrokinesis (mutation)  75
+r
+Racketeering  61
+R
+acketeer (talent)  65
+R
+ange  80
+R
+anged Combat  84
+R
+anged Weapons  87
+R
+azorback  18
+0
+Reactive Effects  70
+R
+ebel (talent)  65
+R
+ecovery  89
+R
+elationships  22
+R
+eloading  85
+R
+epairs  55
+R
+eptilian (mutation)  76
+R
+esilient (talent)  65
+R
+etzius, Doctor  24
+7
+Role  17
+R
+ot Attack  12
+6
+Rot-Eater (mutation)  76
+R
+ot Finder (talent)  64
+R
+ot Hotspot  18
+6
+Rot Level  12
+5
+Rot, the  12
+4
+Ruins  16
+
+
+--- PAGE 261
+
+2 5 9
+Index
+Sharpshooter (talent)  67
+S
+hields  88
+S
+hoot (skill)  50
+S
+ic a Dog (skill)  58
+S
+kills  43
+S
+lave  40
+S
+leepless  93
+S
+leepless (talent)  67
+S
+neak Attack  82
+S
+neak (skill)  50
+S
+ocial Conflicts  82
+S
+onar (mutation)  76
+S
+pecialist Skills  54
+S
+pores (mutation)  76
+S
+printer (mutation)  77
+S
+talker  30
+S
+tarving  92
+S
+toic (talent)  67
+S
+trength  18
+S
+tunts  43
+S
+ucker Punch (talent)  63
+t
+Talents  63
+T
+eam Play  14
+T
+echnology  10
+1
+Telepathy (mutation)  77
+T
+herapist (talent)  67
+T
+hreat Cards  12
+T
+hreat Level  15
+8
+Threats Against the Ark  14
+5
+Threats in the Zone  16
+9
+Tinkerer (talent)  64
+T
+iny Items  24
+T
+itan Powers, the  23
+2
+Tracker (mutation)  77
+T
+rauma  88
+T
+ypical Session  15
+u
+Unexploded Ordnance  18 7
+v
+Vehicles  94
+V
+icious Creep (talent)  64
+w
+Wanderers  17 4
+Warfare  10
+1
+Weapons  86
+W
+eapon Specialist (talent)  67
+W
+heeler Dealer (talent)  64
+W
+its  18
+W
+orkhorse (talent)  66
+W
+ork Points  10
+3
+x
+XP  see ‘Experience Points’
+Z
+Zone Cook (talent)  67
+Z
+one Expeditions  12
+3
+Zone-Ghouls  17
+6
+Zone Leeches  18
+3
+Zone Log  27
+0, 272
+Zone Map, the  11
+7
+Zone Rats  18
+2
+Zone Sectors  20
+1
+Zone Smog  18
+7
+Zone Travel  12
+2
+
+
+
+--- PAGE 262
+
+2 6 0
+Mutant: Year Zero
+i te M c o S t r eq uire M en t w ei ght c o MM en t
+Grub (Ration) 1 — ¼ Restores Strength.
+Clean Water (Ration) ½ — ¼ Restores Agility.
+Booze (Dose) ¼ — 1 per bottle A bottle can contain 10 doses.
+Arrow ½ — ¼ —
+Rope 1 — 1 Gear Bonus +2 to Move roll when climbing.
+Grappling Hook 1 — 1 Gear Bonus +2 to Move roll when climbing 
+(requires rope).
+Torch ½ — ¼ Lights up the area within Near distance for 
+an hour.
+Oil Lantern 1–2 — 1 Lights up the area within Near distance. One 
+dose of booze lasts a day.
+Tinderbox 1 — ½ Used to light torches and oil lanterns.
+Flashlight 3–6 Workshop, 
+Battery 1 Lights up the area within Near distance.
+Jacket/Coat 1–2 — - Gear Bonus +2 to Endure severe cold.
+Boots 1–2 — - Gear Bonus +1 to Endure a harsh Zone trek.
+Spade 1 — 1 Gear Bonus +1 to any roll to work on an Ark 
+project.
+Blanket 1 — 1 Gear Bonus +2 to Endure severe cold.
+Tent 3–6 — 2 Gear Bonus +1 to Endure severe cold for 
+every occupant.
+Rot Suit 4–8 — - Protection Rating 3 against the Rot.
+Scrap Binoculars 3–6 — ½ Gear Bonus +1 to Scout.
+Tools 1–2 — 1 Gear Bonus +1 to Jury-Rig.
+Pots & Pans 1–2 — 1 Gear Bonus +1 when cooking Rot-contami-
+nated food (page 67)
+Brass Knuckles 1 — ½ Gear Bonus +1 to Fight, weapon damage 1.
+Scrap Knife 1 — ½ Gear Bonus +1 to Fight, weapon damage 2.
+Baseball Bat 1 — 1 Gear Bonus +2 to Fight, weapon damage 1.
+GEAR & SERVICES
+The list below contains items and services com-
+monly traded in the Ark. The cost (in bullets) is only 
+a guideline – remember, there are no set prices in 
+the Ark. Requirement tells you what projects need to 
+be completed in the Ark for the item to be generally 
+available. Weight tells you how many lines on you 
+gear list that the item requires.
+
+
+
+--- PAGE 263
+
+2 6 1
+Gear & Services
+i te M c o S t r eq uire M en t w ei ght c o MM en t
+Spiked Bat 1–2 — 1 Gear Bonus +2 to Fight, weapon damage 2.
+Machete 1–2 — 1 Gear Bonus +2 to Fight, weapon damage 2.
+Scrap Spear 1–2 — 1 Gear Bonus +1 to Fight, weapon damage 2, 
+Near range.
+Scrap Axe 3–6 — 2 Gear Bonus +1 to Fight, weapon damage 3.
+Slingshot 1 — ½ Gear Bonus +1 to Shoot, Short range, 
+weapon damage 1.
+Bow 1–2 — 1 Gear Bonus +1 to Shoot, Long range, weapon 
+damage 1.
+Scrap Pistol 3–6 Arsenal 1 Gear Bonus +1 to Shoot, Short range, 
+weapon damage 2.
+Scrap Rifle 4–8 Arsenal 1 Gear Bonus +1 to Shoot, Long range, weapon 
+damage 2.
+Derringer 3–6 Arsenal ½ Gear Bonus +1 to Shoot, Near range, 
+weapon damage 1.
+Flame Thrower 5–10 Arsenal 2 Gear Bonus +1 to Shoot, Near range, 
+weapon damage 2.
+Scrap Cannon 10+ Arsenal — Gear Bonus +1 to Shoot, Long range, weapon 
+damage 4.
+Bitterbeast Mount 5–10 Stables —
+—
+Dog 3–6 — — —
+Pig 3–6 Pigsty — —
+Slave 5–10 Slave Market — —
+Healer 3–6 — — Heal skill level 3–5, Bonesaw talent.
+Gearhead 10+ — — Jury-Rig skill level 3–5
+Stalker 4–8 — — Cost per day. Find the Path skill level 3–5.
+Bodyguard 3–6 — — Cost per day. Intimidate skill level 3–5.
+Chronicler 3–6 — — Writes a poem of your choice.
+
+
+
+--- PAGE 264
+
+2 6 2
+Mutant: Year Zero
+D666 i te M
+111 Action figure (He-Man)
+112 Alarm clock, mechanical
+113 Aquarium, no fish
+114 Barbie doll
+115 Baseball bat (page 86)
+116 Basket ball, flat
+121 Beard trimmer
+122 Beret, red
+123 Bible
+124 Bicycle chain (page 86)
+125 Bicycle frame, no wheels
+126 Bicycle pump
+131 Binder, full of financial records
+132 Boots (Gear Bonus +1 when hiking)
+133 Bouncing ball
+134 Box of cereal, unopened
+135 Box of chocolates (still edible, D6 rations of grub)
+136 Boxing glove
+141 Briefcase
+142 Bullhorn (broken)
+143 Can opener
+144 Candelabra
+145 Car tire
+146 Carving knife
+151 Cash register
+152 Cat 5 cable, 2D6 feet long
+153 Ceiling fan
+154 Champagne glasses, D6
+155 Chandelier
+156 Charcoal grill
+161 Children’s drawing
+162 Cigarettes, half-empty pack
+163 Clothes hanger
+164 Coffee cup with print
+165 Coffee table
+166 Coloring book for kids (half done)
+211 Comb
+D666 i te M
+212 Comic book, very violent
+213 Concrete mixer, rusty
+214 Cooking pot
+215 Credit card
+216 Crime novel
+221 Cutlery, D6 pieces
+222 Cylinder hat
+223 Dala horse
+224 Deodorant bottle
+225 Desk lamp
+226 Detergent, bottle
+231 Dice, D6
+232 Diving snorkel
+233 Doll
+234 Downhill ski (only one)
+235 Dress shoes, worn down
+236 Dumbbell, 10 lb
+241 Easel, for painting
+242 Eating knife (scrap knife)
+243 Electric guitar, broken
+244 Electric mixer
+245 Electric shaver
+246 Electric toothbrush
+251 Empty frame
+252 Extension cord
+253 Face mask, Donald Duck
+254 Face mask, skeleton
+255 Facemask, Santa Claus
+256 Fake fangs
+261 False teeth
+262 Fantasy novel, very thick
+263 Fire extinguisher
+264 Fireworks, D6, still functional
+265 Flashlight, broken
+266 Floor lamp
+311 Flute, plastic
+312 Folding chair
+Scrap table
+
+
+
+--- PAGE 265
+
+2 6 3
+Scrap Table
+D666 i te M
+313 Football
+314 Fork
+315 Frying pan (blunt instrument)
+316 Gaffer tape
+321 Glass pearls
+322 Golf club (blunt instrument)
+323 Grass seeds in small bag
+324 Hair dryer
+325 Hair gel
+326 Headphones, with microphone
+331 Hedge trimmer (scrap knife)
+332 Herbal salt
+333 Hockey club (blunt instrument)
+334 Hot dog cart
+335 Hubcap, Volvo
+336 IKEA chair
+341 Infant formula (gives D6 rations of grub)
+342 Instant coffee
+343 Instant noodles (D6 rations of grub)
+344 Iron pipe (blunt instrument)
+345 Jack
+346 Jeans, stonewashed
+351 Jigsaw puzzle
+352 Jumpsuit, cloth
+353 Key ring, 2D6 keys
+354 Keyboard, missing a few keys
+355 Ladder, rusty (Gear Bonus +1 when climbing)
+356 Ladies boots
+361 Ladies hat
+362 Laptop computer, broken
+363 Lawn mower
+364 Light bulbs, D6
+365 Lipstick
+366 Liquid soap
+411 Loudspeaker (broken)
+412 Love letter, yellowed
+413 Magnifying glass
+D666 i te M
+414 Mascara
+415 Mathematics book
+416 Microwave oven (broken)
+421 Mirror
+422 Movie DVDs, D6
+423 Movie poster
+424 Music CDs, D6
+425 National flag, torn
+426 Necktie
+431 Nicotine chewing gum
+432 Oriental carpet
+433 Pacifier
+434 Pack of tube socks
+435 Paper handkerchiefs, D666
+436 Pepper mill
+441 Photo album
+442 Photo of happy family
+443 Picture of a cat
+444 Piggy bank (empty)
+445 Plastic bags, D66
+446 Plastic bottle, empty
+451 Plastic dinosaur
+452 Plastic flowers, D6
+453 Plastic skeleton model
+454 Plastic straws, pack of 100
+455 Playing cards
+456 Popcorn, unopened bag
+461 Princess dress, for kids
+462 Prize medal
+463 Quilted jacket (Gear Bonus +1 against cold)
+464 Rabbit suit, adult size
+465 Recliner
+466 Remote control
+511 Roller skates
+512 Rubber boot
+513 Rubber duck
+514 Saxophone
+
+
+
+--- PAGE 266
+
+2 6 4
+Mutant: Year Zero
+D666 i te M
+515 Scarf, colorful (Gear Bonus +1 against cold)
+516 Scientific dissertation
+521 Scuba mask
+522 Scuba suit, worn out
+523 Sex toy
+524 Shopping cart
+525 Skateboard
+526 Sketch book, full of sketches
+531 Ski boot
+532 Ski hat (Gear Bonus +1 against cold)
+533 Skin lotion, bottle
+534 Sleeping pad
+535 Snowglobe
+536 Sofa, broken
+541 Spider-Man suit for kids
+542 Sports bottle
+543 Sports jersey
+544 Sports prize cup
+545 Stapler
+546 Starburst candy (one ration of grub)
+551 Stroller
+552 Surf board
+553 Suspenders
+554 Swimming goggles
+555 Synthesizer
+556 T-shirt with text “Heisenberg”
+561 Tabletop globe
+562 Teddy bear
+563 Telephone
+564 Tennis ball
+565 Thermometer, broken
+566 Tire iron
+611 Toilet brush
+612 Toothbrush
+613 Towel marked "Sheraton"
+D666 i te M
+614 Toy car
+615 Toy pirates
+616 Toy sword
+621 Toy tractor
+622 Toy train set
+623 Traffic cones, D6
+624 Trombone
+625 TV set, broken
+626 Twinkies, D6 (still edible, each is a ration of 
+grub)
+631 Typewriter
+632 Umbrella, broken
+633 Underwear
+634 Vacuum cleaner
+635 Vacuum flask
+636 Vase
+641 VHS cassette
+642 Video game console
+643 Vinyl record, well played
+644 Walking frame
+645 Walkman with headphones and cassette
+646 Wall clock
+651 Wallet full of moldy cash
+652 Water pistol
+653 Welding mask
+654 Whiskey bottle (empty)
+655 Whiteboard marker
+656 Wig, blonde
+661 Wine bottle, undrinkable (1 Rot Point)
+662 Wok
+663 Wrecking bar
+664 Wristwatch, broken
+665 Yellowed copy of the Mutant Chronicles RPG
+666 Yo-yo (blunt instrument)
+
+
+
+--- PAGE 267
+
+We shall not cease from exploration
+And the end of all our exploring
+Will be to arrive where we started
+And know the place for the first time.
+Four Quartets, T.S. Eliot
+
+
+
+--- PAGE 268
+
+We walked among gaping ruins and rusty car wrecks, monuments to the 
+fall of the Ancients. Naphta had been taken by a Deathworm and the 
+Rot had driven Hugust insane. We had no grub left and there was only 
+rotwater to drink. But we had to keep going. We had to find Eden. We 
+could not return to the Ark empty-handed, the fate of the People rested on 
+our shoulders. Suddenly, Franton, the insect-like Stalker leading our way 
+through the wasteland, stopped. “Zone-Ghouls”, he hissed, drawing his 
+scrap rifle. I inhaled, ready to spew out a cascade of flames at anyone 
+who dared come close. In the next instant, a chilling shriek rose from the 
+ruins around us.
+Mutant: Year Zero  takes you to the world after the great Apocalypse. Humanity’s proud 
+civilization has fallen. The cities are dead wastelands, winds sweeping along empty streets
+turned into graveyards. But life remains. Among the ruins, the People live. You are the 
+heirs of humanity – but not quite human anymore. Your bodies and minds are capable 
+of superhuman feats. You are mutants.
+The Mutant RPG franchise has three decades of rich history in Sweden, with the first 
+edition released in 1984. This is the game that later developed into Mutant Chronicles  to 
+widespread acclaim. Now, for the first time, a version of the original, post-apocalyptic 
+shade of Mutant is released to an international audience. This brand new version of the 
+classic game contains material for hundreds of hours of game time:
+freeleaguepublishing.com
+modiphius.com/mutant
+© 2014 Paradox Entertainment AB.
+MUTANT and related logos, characters, names, 
+and distinctive likenesses thereof are trademarks 
+of Paradox Entertainment AB unless otherwise 
+noted. Used with permission. All rights reserved.
+MUH050020MZ
+K  Create a unique mutant player 
+c
+haracter – including skills, talents, 
+mutations, gear and relationships –  
+in mere minutes.
+K   Push your character’s skills to their 
+limits, releasing amazing mutant powers 
+in the process.
+K   Fight fast and furious battles, making 
+e
+very bullet count and using a detailed 
+list of gruesome critical injuries.
+K  Set your game in one of the Zones 
+p
+rovided – The Big Smoke and The 
+Dead Apple

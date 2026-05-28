@@ -1,0 +1,2750 @@
+--- PAGE 50
+
+03
+4 8
+Player’s Section
+E X A M P L E
+Sixter has locked himself into his trailer. Hugust 
+wants to push the entire trailer into the dirty creek 
+nearby. Hugust has Strength 5 and Force skill level 1, 
+but the GM says the action is hard and gives Hugust 
+a −2 modification. Accordingly, he rolls five Base 
+Dice and one negative Skill Die. He rolls one / on 
+the Base Dice but also on the Skill Die! This / elimi-
+nates the other, and the roll fails. Hugust needs to 
+consider whether it’s worth it to push the roll.
+HELP FROM OTHERS
+Other PCs or NPCs around you can help you suc-
+ceed. They have to say so up front, before you roll 
+your dice. It also has to make sense in terms of the 
+story – they have to be physically present and be 
+able to support your action in a direct way. The 
+GM has final say.
+For every person helping you, you get a +1 modi-
+fication. No more than three people can help you 
+make the roll, which means your maximum modi-
+fication for help from others is +3.
+Specialist Skills: You can not get help when using 
+your specialist skill. When using a specialist skill, 
+you are always on you own.
+Conflicts: If you help someone in a conflict (Chap-
+ter 6) you lose your own action in the turn. You can 
+still perform a maneuver, however (page 80).
+Chroniclers  have the specialist skill Inspire, which 
+is also used to help others perform actions. See 
+more on page 59.
+NPCs can help each other in the same way as PCs. 
+Letting NPCs act in groups rather than individually 
+is often a useful way to handle a large number of 
+NPCs in conflicts.
+E X A M P L E
+Krin and her friends are back out in the Zone. Krin 
+wants to climb into a ruined house, where she thinks 
+there might be artifacts. Hugust helps her up, and 
+Krin gets a +1 modification to her roll.
+SIMULTANEOUS ACTIONS
+You and the other PCs can not  help each other when 
+you’re acting simultaneously , that is, performing the 
+same action side by side. Examples are struggling 
+your way through a fierce snowstorm (Endure) or 
+sneaking up on a group of Zone-Ghouls (Sneak). In 
+this case, you all roll separate rolls. If you want to 
+help someone, you can’t perform the action yourself.
+Stunts: If you roll several
+
+--- PAGE 51
+
+03
+4 9
+Skills
+can even choose this stunt when you only 
+roll one / – that means you help you 
+friend while sacrificing yourself.
+FORCE (STRENGTH)
+When wreckage or debris block your way 
+and you need to push or lift something 
+heavy, roll for Force. Use this skill for any 
+feat of strength.
+Failure:  It’s just too heavy. You need to 
+find another way. And what if the noise you 
+made attracted unwanted company?
+Success: With a groan, you push through and get 
+whatever it was out of your way.
+Stunts:  If you roll extra / beyond the first, 
+choose one of these stunts:
+ K You push or throw the object with great 
+force. One target of your choice within 
+Arm’s Length suffers damage equal to 
+the number of extra /.
+ K If applicable in the situation, you find or 
+reveal a hidden passage or object. The GM 
+decides what it is.
+FIGHT (STRENGTH)
+The world of Mutant: Year Zero  is a brutal place. 
+Sometimes, you have no choice but to fight for your 
+life, eye to eye. Roll for this skill when you attack 
+someone in close combat. Read more about con-
+flicts in Chapter 6.
+Failure:  You stumble and miss. Now it’s your op-
+ponent’s turn…
+Success:  You hit, and inflict weapon damage (page 
+87) on your opponent.
+Stunts: For every extra / you roll, choose one of 
+these stunts:
+ K You inflict one more point of damage. You 
+can choose this stunt multiple times, if you 
+roll several /.
+ K You subdue or tire your enemy. He suffers 
+one point of fatigue (page 88).
+ K You increase your initiative score by 2 (page 
+80), taking effect next turn.
+ K You knock or pull a weapon or other object 
+from your opponent. You choose which. Dur-
+ing a conflict, picking up a dropped object 
+counts as a maneuver (page 80).
+ K Your opponent falls to the ground or is 
+pushed back, for example through a doorway 
+or over a cliff.
+ENDURE
+
+
+
+--- PAGE 52
+
+03
+5 0
+Player’s Section
+ K You hold the opponent in a grapple. He needs 
+to successfully Fight you to break free, and 
+can’t perform any other action (or any maneu-
+ver) until he has done so – or until you are 
+broken or let him go.
+Weapons:  When you Fight you can use weapons 
+such as clubs, knives and spears. Read more on 
+page 83.
+Defense:  When someone Fights you, you can try to 
+defend yourself. When you defend, you also roll for 
+Fight, with a specific set of stunts available. Read 
+more on page 84.
+SNEAK (AGILITY)
+Often enough, it’s wiser to avoid conflict and in-
+stead Sneak by your enemies. Use this skill when 
+you try to move without being noticed, when you 
+set up an ambush or when you attempt a sneak 
+attack (page 81).
+Failure: Your enemy sees you or hears you, and the 
+element of surprise is lost.
+Success: You move like a shadow in the night, no-
+ticed by no one.
+Stunt: When setting up a sneak attack, you get a 
++1 modification to your first attack for every extra 
+/ rolled after the first.
+MOVE (AGILITY)
+When the heat is on and you are trying to dodge 
+the jaws of death, you need to keep a cool head 
+and Move fast. Roll for Move when you want to get 
+out of a conflict or some other hazardous situation. 
+Read more about how this skill is used in conflicts 
+in Chapter 6.
+Failure:  You are pinned down, backed into a corner 
+with no way out. Get ready for a fight.
+Success: You get out of the sticky situation, and 
+live to fight another day.
+Stunt: For every / you roll, you can help a friend 
+(PC or NPC) in the same spot of trouble as you. He 
+makes it out, and doesn’t have to roll himself. You 
+can even choose this stunt when you only roll one 
+/ – that means you help you friend while sacrific-
+ing yourself.
+Acrobatics: Also use the Move skill when balanc-
+ing, jumping or climbing. Failure in these cases can 
+be fatal!
+SHOOT (AGILITY)
+If you have a gun, and a bullet to load it with, you 
+can take down your enemy from a distance without 
+getting your hands bloody. You can barter for Jury-
+Rigged guns in the Ark (see the list at the back of 
+the book), and more powerful weapons from the 
+Old Age can be found in the Zone.
+Failure: The shot misses your ta
+
+--- PAGE 53
+
+03
+5 1
+Skills
+Stunts: For every extra / you roll, choose one of 
+these stunts:
+ K You inflict one more point of damage. You 
+can choose this stunt multiple times, if you 
+roll several /.
+ K You pin down your enemy. He suffers one 
+point of fatigue (page 88).
+ K You increase your initiative score by 2 (page 
+80), effective as of the next turn.
+ K Your target drops a weapon or another hand-
+held object. You choose which.
+ K Your opponent falls to the ground or is 
+pushed back, for example through a doorway 
+or over a cliff.
+Reloading:  Scrap guns are usually loaded with just 
+one bullet at a time. When you have fired it, you’ll 
+need to reload before you can fire again. Reload-
+ing is a maneuver  in conflicts. Some scrap guns 
+(page 55) and artifacts have magazines with sev-
+eral bullets, letting you fire again and again without 
+reloading.
+SCOUT (WITS)
+In the Zone you need to keep your eyes open if you 
+want to stay alive. When you spot something in the 
+distance, you roll for Scout in order to learn more 
+about it. It can be a place, a person, or a creature.
+Failure: You can’t really make out what it is, or you 
+mistake it for something else (the GM feeds you 
+false information).
+Success: You are able to make out what it is, and 
+if it appears like a threat to you or not. The exact 
+information you get is up to the GM.
+Stunts:  For every extra / you roll, you get to know 
+the answer to one of these questions:
+ K Is it coming for me?
+ K Are there more of them close by?
+ K How do I get in/past/away?
+Comment:  Only roll to Scout when you are actively 
+looking at or for something. You don’t roll when 
+another person or creature is sneaking up on you 
+– instead, they roll to Sneak.
+COMPREHEND (WITS)
+The world after the Apocalypse is a strange, incom-
+prehensible place for most mutants. The knowledge 
+of the Old Age has been worn out, just like the crum-
+bling ruins of the dead cities. Roll for Comprehend 
+SCOUT
+DON’T ROLL TO SPOT 
+HIDDEN THINGS
+Don’t roll for Scout when searching for 
+hidden objects close to you, such as 
+secret doors or hidden clues. If you de-
+scribe searching in the right place, the 
+GM should simply let you find whatever 
+is there. No dice roll 
+
+--- PAGE 54
+
+03
+5 2
+Player’s Section
+when you want to read an old text, know what a 
+particular ruin was used for, or understand and use 
+an artifact whose DEV level is higher than the Ark’s. 
+Read more about using artifacts in Chapter 7.
+Failure:  The object of your study makes no sense to 
+you at all, or you are mistaken (in this case, the GM 
+can feed you false information about the object):
+Success: You understand the nature or function of 
+the object. If it’s an artifact, you can use it.
+Stunts: For every / rolled beyond the first, you can 
+teach someone else how to use the artifact. 
+KNOW THE ZONE (WITS)
+The zonelands beyond the Ark’s borders are un-
+known wastes to most of the People. But there are 
+some individuals – mostly Stalkers and some dar-
+ing Chroniclers – who have ventured out and seen 
+what is out there. Roll for Know the Zone when 
+you encounter some creature or phenomenon in 
+the Zone and want to know stuff about it. The GM 
+will give you a modification depending on how rare 
+it is (Chapter 13).
+Failure: You have no, or the wrong, idea. The GM 
+can feed you false, or a mix of true and false, infor-
+mation (in this way, you will know that you have 
+failed your roll, but not what information to trust.)
+Success:  You know what it is, and its basic traits 
+or effects.
+Stunts: For every extra / you roll, you get the an-
+swer to one of these questions about the creature 
+or phenomenon:
+ K How can it hurt me?
+ K How can I hurt it?
+SENSE EMOTION (EMPATHY)
+To be able to read another mutant like an open book 
+can be a mightier weapon than even a firearm from 
+the Old Age. Roll for Sense Emotion when you want 
+to know an NPC’s mood or intent toward you. You 
+need to be within Short distance (page 80) and it 
+takes a few minutes.
+Failure: You fail to read, or misread, the NPC. The 
+GM can feed you false, or a mix of true and false, 
+information.
+Success:  The GM must reveal the NPC’s most 
+powerful emotion at this point in time – hate, fear, 
+contempt, love, etc.
+COMPREHEND
+MANIPULATE
+
+
+
+--- PAGE 55
+
+03
+5 3
+Skills
+Stunts: For every extra / you roll, you get the an-
+swer to one of these yes/no questions about the 
+NPC:
+ K Is he telling the truth?
+ K Does he want to hurt me?
+ K Does he want something from me?
+Strangers: If the NPC is not of the People you get 
+a −1 modification to your roll – strangers are harder 
+to read.
+MANIPULATE (EMPATHY)
+Lie, argue, threaten, seduce, or just reason sensibly. 
+There are many ways to get another mutant to see 
+things your way. The GM will give you a modification 
+depending on your bargaining position  (page 82).
+Failure: He won’t listen and he won’t do what you 
+want. He might start to dislike you, or even attack 
+you if provoked.
+Success:  He reluctantly does what you want, but 
+wants something in return. The GM decides what 
+this is, but it must be something you can reasonably 
+do. It is up to you whether to accept the deal or not.
+Stunts:  Extra / on your roll mean you sow fear and 
+doubt in your opponent’s heart. He suffers one point 
+of doubt (page 88) for every additional / you roll 
+after the first one. If he is broken by doubt, he does 
+what you want without demanding a return favor.
+Being Manipulated: NPCs and other PCs can Ma-
+nipulate you. If their roll succeeds, you must offer 
+them a deal of some sort. It’s then up to the GM (or 
+the other player) to accept or decline it.
+HEAL (EMPATHY)
+When you can’t take it anymore, when the Zone 
+has broken you and you’ve bitten the irradiated 
+dirt, you need friends to help you back up. The Heal 
+skill can be used in two ways:
+Mend the Broken:  A person who has suffered 
+enough trauma to reduce any of the four attributes 
+to zero is broken, and can’t carry on. If you success-
+fully Heal a broken person, he gets back to his feet 
+and immediately recovers a number of attribute 
+points equal to the number of / you rolled. No 
+resources are needed for this recovery. A failed roll 
+has no further effect.
+Save a Life: The most important use of the Heal 
+skill is to give first aid and stabilize critical injuries 
+– which might save your patient’s life. A failed roll in 
+this situation could kill him, however, so be careful. 
+Read more about this on page 90.
+HEAL
+
+
+
+--- PAGE 56
+
+03
+5 4
+Player’s Section
+SPECIALIST SKILLS
+Beyond the twelve basic skills, each role has one 
+unique specialist skill. These are described below.
+THE ENFORCER’S SKILL: 
+INTIMIDATE (STRENGTH)
+Everyone in the Ark knows you’re bad news. Often 
+you don’t even need to hit anyone to make them 
+back off. You know exactly which buttons to push 
+to subdue them – or provoke them. Roll for Intimi-
+date when you use your sheer physical presence 
+to get someone to do what you want. The rules for 
+bargaining position (page 82) apply, just like for 
+the Manipulate skill.
+Failure: He won’t be pushed around by a bully like 
+you. He might even attack you now, or hold the 
+grudge for the opportune moment.
+Success:  Your opponent must choose – either at-
+tack you right now (by Fighting, Shooting or using 
+a mutation), or bow to your will.
+Stunt: Additional / mean you strike fear into your 
+opponent’s heart. He suffers one point of doubt 
+(page 88) for every additional / you roll on top 
+of the first one.
+THE GEARHEAD’S SKILL: 
+JURY-RIG (WITS)
+The Zone is your own personal promised land. Eve-
+rywhere things from the Old Age lie about, things 
+you can use to build something new. You constantly 
+pick up odd bits of scrap, and at any point in time 
+you can sit down for a few hours to Jury-Rig a work-
+ing contraption. Some examples:
+ K A scrap gun (page 87).
+ K Four arrows.
+ K Scrap armor, Armor Rating 3 (page 88).
+ K A shield, made from a road sign. Armor Rat-
+ing 3.
+ K A Rot suit. Protection Rating 3 against the 
+Rot (page 126).
+ K Cold suit. Gives you Gear Bonus +3 to Endure 
+severe cold.
+ K An explosive charge, Blast Power 6 (page 
+94).
+ K A flaming torch.
+ K A lamp, lit by booze (one dose per hour) or 
+the Battery artifact.
+ K Binoculars. Gives you Gear Bonus +1 to Scout.
+ K A foghorn. Can be heard for miles around.
+ K Destillator. Produces D6 doses of booze in a 
+few hours.
+ K Camouflage. Gives you Gear Bonus +2 to 
+Sneak.
+ K Scrap raft. Can carry up to five mutants over 
+water.
+ K A cart. Can carry plenty of scrap and gear.
+ K Balloon. Can lift one person a few hundred 
+meters through the air, until the hot air runs 
+out.
+ K Scrap cannon (page 87). Every shot requires 
+an explosi
+
+--- PAGE 57
+
+03
+5 5
+Skills
+ K The device will take several days to finish.
+ K You need a particular piece of scrap, that you 
+don’t have. But you know who does…
+ K You need a certain artifact to make the device 
+work.
+Failure: If you fail the Jury-Rig roll, bad things hap-
+pen. The device will fall apart when you really need 
+it, or even blow up in your face. You can’t roll for 
+the exact same device again, unless you find new 
+scrap to use. Alternatively, the GM can set a new 
+precondition.
+Success:  If you make the roll, your construct works 
+– once. Most Jury-Rigged devices are temporary, 
+made to solve a problem here and now – but not 
+to last. Normally, your device will only last for one 
+action or use, then it will fall apart (the Gear Bonus 
+automatically drops to zero). You can use a stunt 
+to make it last longer (below).
+Stunts: For every extra / you roll beyond the first, 
+you get to choose one stunt. Some examples:
+ K The device is durable and can be used more 
+than once. It breaks down according to the 
+normal gear rules (page 46).
+ K The device’s Gear Bonus is increased by one.
+ K If it’s a weapon, its weapon damage is in-
+creased by one.
+ K A gun gets an extra barrel and can be fired a 
+second time before you need to reload. You 
+can choose this stunt several times for a 
+multi-barrel gun.
+ K The Armor/Protection Rating of an armor 
+or a Rot suit is increased by one. You can 
+choose this stunt multiple times.
+ K The Blast Power of an explosive charge 
+is increased by 3. You can choose this 
+stunt multiple times.
+ K You fit deadly shrapnel to an explosive 
+charge, increasing the weapon damage to 
+2 (page 94).
+ K A scrap raft can carry twice as 
+many people.
+Repairs:  You can do more than just build things 
+– you can also fix things that are broken. With a 
+successful Jury-Rig roll and few hours work you can 
+repair an object with reduced Gear Bonus. If you 
+succeed, the Gear Bonus is completely restored. If 
+you fail, the Gear Bonus is permanently reduced to 
+the current value. You can repair an object whose 
+Gear Bonus has been reduced to zero – but if you 
+fail the roll, the object is permanently destroyed.
+
+
+
+--- PAGE 58
+
+03
+5 6
+Player’s Section
+THE STALKER’S SKILL:  
+FIND THE PATH (AGILITY)
+Any fool can walk into the Zone. But if you don’t 
+know what you’re doing you’ll soon end up a corpse, 
+bones gnawed clean by the beasts of the wasteland. 
+Stalkers are a special breed, loners who went into 
+the Zone and came to know it even as kids. Other 
+mutants in the Ark look at you sideways, fearing 
+you will spread the Rot or just distrust you for be-
+ing different.
+Roll for Find the Path when you go into a new 
+sector of the Zone. Read more about Zone travels 
+in Chapter 8 and, for the GM, in Chapter 13.
+Failure: Any NPCs or monsters in the sector spot 
+you before you spot them, and if hostile, they might 
+ambush you (page 56).
+Success: You find a safe path and spot any threats 
+in the Zone before they spot you.
+Stunts: For every extra / you roll beyond the first, 
+you get to choose one stunt. Each stunt can only 
+be chosen once per roll:
+ K You find an artifact in the sector, if it’s there 
+to be found. You still might have to struggle 
+to get your hands on it.
+ K You can assess the general level of Rot in the 
+sector (page 125).
+ K You find D6 bullets, still live.
+ K You find D6 rations of grub contaminated by 
+the Rot. It can be edible plants or leftovers 
+from the Old Age. A Zone cook (page 67) can 
+cook the Rot out of the food.
+ K You find D6 rations of Rot-free water (rotwa-
+ter is usually plentiful).
+ K The exploration of the sector only takes half 
+the time (page 122).
+ K You rush through the sector in a quarter of 
+the time it would take to explore it. You avoid 
+all threats, but the sector does not count as 
+having been explored and you find no arti-
+facts, grub or water in it.
+Vehicles: Some Gearheads have a special passion 
+for cars, motorcycles and other vehicles from the 
+Old Age. Their biggest dream is to find a vehicle, 
+repair it, and rework it into a proper Zone ride. How 
+vehicles work is explained in Chapter 6.
+If you find a vehicle in decent shape, you can 
+repair it with a successful Jury-Rig roll. With a sec-
+ond, separate roll, you can custom build the vehicle 
+in a number of ways. For every /, choose one stunt 
+below. Each of these stunts be chosen several ti
+
+--- PAGE 59
+
+03
+5 7
+Skills
+Keep Looking:  You usually only roll to explore sec-
+tors that you haven’t explored before. An explored 
+sector should be considered empty, and contains no 
+threats unless the GM decides otherwise. You can 
+roll for Find a Path to find artifacts, grub and water 
+in a sector that has already been explored, however 
+– as long as you haven’t already chosen these stunts. 
+Each new roll takes as long as exploring the sector 
+did in the first place.
+Multiple Stalkers: If your group has several Stalk-
+ers, only one of you get to roll to Find a Path when 
+you enter a sector. Which one is up to you. If you 
+later roll to find grub, water and artifacts you can 
+all roll individually.
+THE FIXER’S SKILL:  
+MAKE A DEAL (EMPATHY)
+Hunger, strife and conflict – your livelihood. Earlier, 
+when there was plenty of grub and the Elder looked 
+after you like you were his own children, you were 
+a weak nobody. Now, you have found good use for 
+your talent of seeing people’s needs and fulfilling 
+them – for a price. You have dirt on almost everyone 
+in the Ark, and there is hardly anything you can’t 
+get your hands on.
+The most common use of the Make a Deal skill 
+is to find a contact to get you something you need 
+– be it grub, water, gear or a particular favor.
+Failure: You get stonewalled and nobody wants to 
+deal with you. Or worse, you step on somebody’s 
+toes and now you’re looking over your shoulder…
+Success:  You know who probably has what you 
+need. If he wants to give it to you is another matter 
+entirely – you need to roleplay this out. Often you’ll 
+need to Manipulate someone to get what you want.
+Deals on the Side: There is second way to use the 
+Make a Deal skill. You can do business on the side, 
+whenever you have a few hours to spare in the Ark. 
+You can only roll once per session. First, choose 
+what you’re trading in and with whom:
+
+
+
+--- PAGE 60
+
+03
+5 8
+Player’s Section
+ K Deal in grub – where’s it from, and who’s the 
+buyer?
+ K Deal in water – what’s the source, and who’s 
+the buyer?
+ K Deal in scrap – who’s the supplier, and who’s 
+the buyer?
+ K Deal in booze – who distills it and who’s the 
+buyer?
+ K Act as a courier or negotiator between rival 
+Bosses.
+ K Guard something or someone. What, who and 
+why?
+ K Steal something. What, from whom, and who 
+want’s it?
+Answer the above questions with help from the GM. 
+Then, roll to Make a Deal. If you fail, someone ends 
+up feeling cheated by you and you could be in a 
+world of hurt. If you succeed, choose one option for 
+every / you roll:
+ K You gain D6 bullets.
+ K You gain D6 rations of grub.
+ K You gain 2D6 rations of Rot-free water.
+ K You gain 2D6 doses of booze.
+ K You get dirt on someone. The GM decides on 
+who, and what the information is, but you are 
+free to make suggestions.
+Deals on the side can be handled summarily, just 
+roll the dice and move – as long as you make your 
+roll. If you fail, the consequences could be painful 
+and should be played out in more detail.
+THE DOG HANDLER’S SKILL: 
+SIC A DOG (AGILITY)
+Your dog is worth more to you than any mutant in 
+the Ark. The bond between you is almost telepathic. 
+You instinctively know what the animal wants, and 
+the dog can always read your state of mind and 
+defends you against any threat.
+Stats: This skill works a little differently. Skill level 
+1 means you have a dog that follows your every lead. 
+The dog has Strength 4 and Agility 6. You can use 
+the dog in several different ways:
+Fighting:  Your dog can Fight for you. Use your skill 
+level in Sic a Dog, and the dog’s Strength. You can 
+push the roll (risking damage to the dog), but it 
+won’t give you any Mutation Points.
+To Sic a Dog on you enemy counts as an action, 
+meaning you cannot perform any other action in 
+the same turn. You can perform a maneuver in the 
+same turn, however.
+Scouting:  The dog can Scout for you. Use your skill 
+level in Sic a Dog and your Wits score (the dog 
+doesn’t have Wits). You can push the roll normally.
+
+
+
+--- PAGE 61
+
+03
+5 9
+Skills
+Tracking:  Your dog can track a person or a creature, 
+even when there are no obvious tracks to follow. All 
+you need is a fresh scent or some object that has 
+been in possession of the prey recently. Roll to Sic 
+a Dog, using your Wits score. If successful, your 
+dog picks up the trail and can indicate in which 
+direction the prey has gone. For every extra / you 
+roll, choose one stunt:
+ K How far behind (in hours) are you?
+ K Is the prey wounded?
+ K Is the prey alone?
+Damage: An enemy can choose whether to attack 
+you or your dog. The dog suffers and recovers dam-
+age just like a mutant. If the dog’s Strength reaches 
+zero it dies – something you’ll surely make your 
+opponent pay dearly for!
+Finding a new mutt in the Ark isn’t hard – it 
+takes a few days and a successful Sic a Dig roll to 
+tame a new one. A failed roll will result in a fight. 
+Out in the Zone, wild dogs are less common.
+Grub and Water:  Your dog is a survivor, eating 
+garbage and drinking rotwater. You don’t need to 
+supply its daily grub and water – but you do need 
+to give it extra grub or water to recover its trauma 
+(page 90).
+Sympathy:  Your dog gives you all the sympathy 
+you need to recover lost Empathy. You don’t need 
+the company of another mutant (page 90).
+E X A M P L E
+Jony wants to Fight the Stalker Yassan and Sics his 
+dog on him. Jony uses his skill level in Sic a Dog (3) 
+and the dog’s Strength score (4), meaning he rolls 
+three Skill Dice and four Base Dice. Yassan is hurt 
+but fires back and hits the dog with his scrap gun, 
+causing two points of damage. The dog loses two 
+points of Strength and Jony can feel his rage rising…
+THE CHRONICLER’S SKILL: 
+INSPIRE (EMPATHY)
+Your mission in life is to witness and record the 
+People’s fate in the dawnworld – but also to in-
+terfere when needed. When other mutants lose 
+their resolve you can help them find their cour-
+age again – and when they stray from the right 
+path, you can guide them back. Roll for Inspire 
+when you wish to help or hinder another person 
+rolling for a skill.
+Help:  When using this skill, you can give all of your 
+rolled / to the person you are helping. It counts as 
+if he had rolled them himself, 
+
+--- PAGE 62
+
+03
+6 0
+Player’s Section
+Literate: Most of the Ark’s inhabitants can’t read 
+or write, at least not as long the Culture DEV level 
+is low (page 101). Chroniclers are different – duti-
+fully, you have maintained the knowledge of let-
+ters, words and numbers, taught to you by the Elder 
+when you were children.
+E X A M P L E
+Krin is climbing up into a tall ruined building in the 
+Zone, and must roll to Move. The Chronicler Silas 
+Inspires her. He rolls five Basic Dice (Empathy 5) 
+and three skill dice (skill level 3 in Inspire), and gets 
+one /. That’s very good news for Krin, who doesn’t 
+roll any / herself. With the encouragement from 
+Silas, she makes the climb.
+A little later, Krin wants to Shoot an attacking 
+Zone-Ghoul. Silas wants to stop her believing the 
+conflict can be resolved without shedding blood. He 
+rolls for Inspire, and gets one /. Now, Krin must roll 
+at least two / to hit the ghoul.
+THE BOSS’S SKILL:  
+COMMAND (WITS)
+As a Boss, you are never alone. You always have your 
+gang of mutants nearby, ready to rush to your aid. 
+Command works a little differently from other skills.
+Size:  Your skill level is an indicator of how large 
+your gang is – every level represents about 3–4 
+members.
+Stats: A basic gang mostly consists of Enforcers, 
+and maybe a Dog Handler and a Fixer. The gang 
+members will have typical NPC stats for their roles 
+– see Chapter 9. You can improve their stats with 
+talents (Chapter 4). Try to give all of your gang 
+members roles and names.
+Weapons:  Your basic gang is armed with clubs and 
+other improvised melee weapons. Their weaponry 
+can also be improved with the Armed Gang talent.
+Grub, Water and Bullets:  As long as you are in the 
+Ark, your gang members have enough grub and 
+water to survive. If they have guns, they also have 
+just enough bullets. Out in the Zone, it’s another 
+matter – there, you have to provide food, water and 
+bullets for your gang members.
+Command:  Your gang members are all NPCs, under 
+the GM’s control. But you can order them around 
+– all of them or some of them – with the Command 
+skill. Your roll is modified according to the task you 
+
+
+
+--- PAGE 63
+
+03
+6 1
+Skills
+want done the table below, and any other factors 
+the GM finds relevant.
+Failure:  If your Command roll fails, someone in 
+your gang rebels against you! You’ll need to fight 
+him one-on-one, to make an example of what hap-
+pens to anyone who questions your leadership. If 
+you lose this fight (and live), your gang abandons 
+you. You can find a new gang, but it will take some 
+weeks and a successful Command roll. This process 
+should be at least partly roleplayed out.
+Success: If the Command roll succeeds, your gang 
+(or the individual members given the order) per-
+forms the task you want. If any of the factors in 
+the table change during the task, you’ll need to roll 
+again.
+Racketeering: Bosses thrive on the fear of others. 
+You can use the Command skill to demand bullets, 
+grub and other resources from people in the Ark. 
+Decide who your target is, and roll to Command. It 
+takes a few hours, and you can only roll once per 
+session. For every / you roll, choose what you get 
+from the list below.
+ K D6 bullets.
+ K D6 rations of grub.
+ K 2D6 rations of Rot-free water.
+ K 2D6 rations of booze.
+You can play out the encounter, or handle it sum-
+marily with a dice roll. You don’t even have to go 
+yourself, you can send you gang to do your dirty 
+work for you (in this case, use the modifications 
+table above). If the racketeering Command roll fails, 
+something goes wrong. Maybe someone refuses 
+to pay up and attacks you, maybe your gang runs 
+into henchmen of another Boss. Details are up to 
+the GM.
+Projects: You can order your gang to work on the 
+People’s projects instead of doing the hard labor 
+yourself. Roll to Command instead of the skill listed 
+for the project. Read more about the projects in the 
+Ark in Chapter 7.
+THE SLAVE’S SKILL:  
+SHAKE IT OFF (STRENGTH)
+It’s the Slave’s fate in life to endure pain and suf-
+fering. As a Slave, you have learnt to shake off the 
+abuse – whether physical or psychological. You 
+can shut out the outside world and let the pain 
+fade away. Roll for Shake it Off any time you suf-
+fer trauma, of any kind (page 88). You can’t use 
+the skill against trauma suffered when you push 
+a dice roll.
+Failure:  The pain is just
+
+--- PAGE 64
+
+
+
+
+
+--- PAGE 65
+
+04
+6 3
+Talents
+04
+Talents
+To get a much needed edge in a world fallen into 
+ruins you must find your own niche, something you 
+and no one else can do. Such special abilities are 
+called talents. Talents can affect how you use skills 
+or how you recover from trauma, or even let you do 
+things that are quite simply impossible to others.
+STARTING TALENTS
+You can choose one talent for your PC at the start of 
+the game. Your role decides which you can choose 
+from – see the role descriptions on pages 26–41.
+NEW TALENTS
+You can learn new talents by earning Experience 
+Points (page 25). When you have earned five XP, 
+you can trade them in for a new talent. When this 
+happens, you can either choose one more from the 
+three available from the start, or you can pick one 
+from a set of general talents that are available for 
+everyone.
+Only Once:  As a general rule, you can only choose 
+each talent once, but there are some exceptions. Al-
+ways write down new talents that you learn on your 
+character sheet.
+E X A M P L E
+Krin has earned five XP and can learn a new talent. 
+She picks Flyweight, that gives her an edge in close 
+combat despite her low Strength score.
+THE ENFORCER’S TALENTS
+KK BARGE THROUGH
+You can Move using Strength instead of Agility.
+KK MEAN STREAK
+When you Intimidate someone and give your victim 
+doubt, he suffers one extra point of it.
+KK SUCKER PUNCH
+The weapon damage of your unarmed attacks is 2 
+instead of 1.
+THE GEARHEAD’S TALENTS
+KK INVENTOR
+You get a +2 modification when you use Jury-Rig to 
+create a new device (page 54) – but not when you 
+repair something.
+KK MOTORHEAD
+You get a +1 modification when you use a vehicle to 
+ram someone (Fight) or to escape from a conflict 
+(Move). You also get a +1 when you Jury-Rig to re-
+pair or modify a vehicle (page 56).
+
+
+
+--- PAGE 66
+
+04
+6 4
+Player’s Section
+KK TINKERER
+You get a +2 modification when you Jury-Rig to 
+repair a piece of gear – but not when you build 
+something new.
+THE STALKER’S TALENTS
+KK MONSTER HUNTER
+You get a +2 modification when you Scout a beast 
+of any kind. 
+KK ROT FINDER
+When using Find a Path you have access to a new 
+stunt that you can choose when you roll extra / – 
+to find the most Rot-free route through the sector. 
+The Rot level counts as one step lower during this 
+visit to the sector.
+KK SCAVENGER
+You get a +2 modification to Find a Path – with suc-
+cess you find any artifacts that may exist in a sector. 
+To identify threats, you must instead get stunts. You 
+can choose whether or not to use this talent when 
+you enter a new sector.
+THE FIXER’S TALENTS
+KK JUICY INFO
+Choose one important NPC of whom you have in-
+criminating information. Decide the nature of this 
+information together with the GM. Don’t overuse 
+this hold over the NPC – it could come back to 
+haunt you…
+KK VICIOUS CREEP
+When you Manipulate someone and give him doubt, 
+he suffers one extra point of it.
+KK WHEELER DEALER
+When you use the Make a Deal skill to make small 
+business on the side (page 57), you earn twice as 
+much of the commodity you choose.
+THE DOG HANDLER’S TALENTS
+KK BLOODHOUND
+You have trained your dog to be a skilled tracker. 
+You get a +2 modification when you use your dog 
+to follow a track (page 59). If the dog dies, you lose 
+this talent.
+KK FIGHT DOG
+You have trained your dog to be a deadly little mon-
+ster. You get a +2 modification when you use the 
+dog to Fight (page 58). If the dog dies, you lose 
+this talent.
+BONESAW
+
+
+
+--- PAGE 67
+
+04
+6 5
+Talents
+KK MUTANT’S BEST FRIEND
+Your dog can get you out of any trouble. It can help 
+you Endure and Move. Use your Sic a Dog skill level 
+instead of these skills, and the dog’s attribute scores 
+– Strength and Agility, respectively. You can push 
+the rolls normally. Any trauma is suffered by your 
+dog instead of you, but you don’t get any Mutation 
+Points. If the dog dies, you lose this talent.
+THE CHRONICLER’S TALENTS
+KK AGITATOR
+You get a +2 modification when you Inspire some-
+one to Fight or Shoot.
+KK BONESAW
+You have learned the art of sawing bones and sew-
+ing skin – all in the interest of saving lives, of course. 
+You get a +2 modification when you roll to Heal a 
+critical injury (page 90), but not when tending to 
+someone who is broken by trauma.
+KK PERFORMER
+Once per session, if you’re in the Ark, you can 
+perform for the People. You can tell a story by a 
+trashcan fire, recite poetry or sing a song. Roll to 
+Inspire. Every / gives you D6 bullets or rations 
+of grub. A failed roll means someone doesn’t ap-
+preciate your art…
+THE BOSS’S TALENTS
+KK COMMANDER
+You get a +2 modification when you order your gang 
+to fight for you. You don’t get the modification in 
+any other situations, nor for racketeering.
+KK GUNSLINGERS
+The members of your gang all have scrap guns (pis-
+tols or rifles). As long as they’re in the Ark, they 
+have enough bullets to get by (but not more). In 
+the Zone however, you have to supply the bullets.
+KK RACKETEER
+You get a +2 modification when you use the Com-
+mand skill for racketeering in the Ark (page 61), 
+but not for other uses.
+THE SLAVE’S TALENTS
+KK CYNIC
+You get a +2 modification to Endure, but only when 
+suffering doubt (and for no other kinds of trauma).
+KK REBEL
+When rolling to Endure, for every / you roll, you 
+get a +1 modification to your next action. You must 
+use this bonus at the earliest possible opportunity – 
+that is, i the current turn or the next if you already 
+acted in the turn.
+KK RESILIENT
+You get a +2 modification to Endure, but only when 
+suffering damage (and for no other kinds of trauma).
+GENERAL TALENTS
+KK ADMIRER
+One NPC is very impressed by you, and will do 
+anything to help you or just to be ne
+
+--- PAGE 68
+
+04
+6 6
+Player’s Section
+equal to the creature’s original Strength. It doesn’t 
+work on swarms (page 176). The meat will usually 
+be contaminated by the Rot. That means it’s a good 
+idea to combine this talent with Zone Cook.
+KK COMBAT VETERAN
+You keep your cool under fire and can act effectively 
+when your enemy hesitates. This means you get to 
+add +2 to your initiative roll (page 79).
+You can also use this talent to increase your 
+initiative score by +2 during combat – but this will 
+cost you a maneuver. You can do this as many times 
+as you like during a conflict.
+KK COOL HEAD
+You can Move with Wits instead of Agility.
+KK COUNSELOR
+When you help someone, he gets an extra +1 modi-
+fication – but only if he is doing something you 
+told him to do.
+KK COWARD
+If someone Shoots at you and rolls a hit, you can 
+take cover behind a friend at Arms Length or Near 
+you. The friend has to accept taking a hit for you. 
+Roll to Move. It doesn’t count as an action. If the 
+roll is successful, the shot hits your friend instead 
+of you.
+KK FAST DRAW
+You can draw your weapon so fast it doesn’t cost 
+you a maneuver (page 80)
+KK FLYWEIGHT
+When you defend yourself in close combat (page 
+84), you can use Agility instead of Strength.
+KK GADGETEER
+You get a +2 modification when you try to Compre-
+hend an artifact from the Old Age.
+KK GOOD FOOTWORK
+You get a +2 modification when you defend in close 
+combat (page 84).
+KK HARD HITTER
+You get a +2 modification to Fight if you sacrifice 
+your maneuver in the turn. You can’t use the talent 
+for parrying.
+KK WORKHORSE
+You get a +2 modification when you work on a 
+project in the Ark (Chapter 7).
+KK JACK OF ALL TRADES
+You adopt a new role and immediately achieve skill 
+level 1 in the specialist skill of that role. You keep 
+your current skill level in the specialist skill of your 
+old role, but you can no longer improve it. You also 
+keep those of your talents that are specific to the 
+old role, but you can’t get new talents tied to the 
+role. It must make sense in the story for you to get 
+COUNSELOR
+
+
+
+--- PAGE 69
+
+04
+6 7
+Talents
+the new role. For example, to become a Boss you 
+need to find a gang that will follow you.
+Limitation:  This talent requires more experience 
+than others. You can’t get it until you have learned 
+at least three other talents first.
+KK LIGHT EATER
+You need only to eat one ration of grub per day to 
+avoid losing Strength.
+KK LONER
+You can recover lost Empathy (page 89) without 
+the company of others – all you need is to be by 
+yourself for a few hours.
+KK NEVER SURRENDER
+When you are broken by damage (your Strength 
+hits zero), you can get back on your feet immedi-
+ately, without anyone Healing you. Roll to Endure, 
+but without Base Dice (your Strength being zero). 
+For every / you roll, you get one point of Strength 
+back can keep fighting a little while longer. You 
+can’t push the roll. The talent has no effect against 
+serious or critical injuries.
+KK PACK MULE
+You can carry twice as many objects as normal with-
+out being encumbered (page 23).
+KK PERSONAL ARITHMETIC
+You can Sense Emotion with Wits instead of 
+Empathy.
+KK SHARPSHOOTER
+When you Shoot someone and hit, the target suffers 
+one extra point of damage – but only if you fire at 
+Long or Distant range.
+KK SLEEPLESS
+You can recover lost Wits by several other means 
+than sleeping (page 90):
+ K Jury-Rig a device (page 54).
+ K Enter an unexplored sector of the Zone.
+ K Comprehend an artefact.
+KK STOIC
+You can Endure using Wits instead of Strength.
+KK THERAPIST
+You get a +2 modification when you Heal someone 
+who is broken by doubt.
+KK WEAPON SPECIALIST
+You’re an expert at using a certain type of weapon 
+– choose one from the weapon lists (page 86) or an 
+artifact. When you use this weapon, you get a +2 
+modification. You can choose this talent sev-
+eral times, once for each weapon type. 
+You can be a specialist at fighting 
+unarmed or at using a “blunt ob-
+ject” – there are plenty of 
+those in the Zone.
+KK ZONE COOK
+You have mastered 
+the art of cooking 
+contaminated food 
+from the Zone well enough 
+to purge it from the Rot. 
+You can also purify con-
+taminated water. Roll to 
+Know the Zone – every 
+/ rolled purifies D6 ra-
+tions of grub or water.
+COMBAT VETERAN
+
+
+
+--- PAGE 70
+
+
+
+
+
+--- PAGE 71
+
+05
+6 9
+Mutations
+05
+Mutations
+Your mutations are your trump cards, superhuman 
+and unstoppable powers wired into your very DNA. 
+No one in the Ark – except maybe the Elder – knows 
+their origin. Can the answer be found in the place 
+of myth called Eden?
+You get one mutation at the start of the game, 
+and you can develop more later, during play. You 
+don’t get to choose your mutations – they are ran-
+dom, and you draw a Mutation Card or roll dice on 
+the table below to determine which you get.
+ACTIVATING MUTATIONS
+When you activate a mutation, no one can stop you 
+and you never risk failure. Most mutations have 
+several effects – you must choose which one of 
+them you want to use. To activate your mutation, 
+you need a Mutation Point (MP) – or more than one, 
+to increase the effect.
+ K At the beginning of every game session, you 
+get a number of MP equal to the number of 
+mutations you have.
+ K You can win more MP by pushing a dice roll 
+(page 44).
+ K You can save MP from one session to the next.
+ K You can never have more than 10 MP.
+Conflict: In a conflict (Chapter 6), activating a mu-
+tation usually counts as an action. This is not true 
+for reactive and enhancing effects, read more about 
+those below.
+MISFIRE
+That you can’t fail when using a mutation doesn’t 
+mean it’s without risk. Roll one Basic Die for each 
+MP you use to activate the mutation. If you roll one 
+or more =, the mutation misfires. It has its desired 
+effect, but something else happens too. Roll one 
+Basic Die to determine what:
+=
+Your mutant powers run amok, and you suffer one point of 
+permanent trauma. You choose which attribute is affected. 
+At the same time, you develop a new mutation.
+2
+You suffer the effect of the mutation, and take as much 
+trauma as your target. If the mutation doesn’t cause 
+trauma, you get disoriented instead and can’t act at all in 
+the next turn.
+3
+The mutation consumes twice the amount of MP you 
+intended to spend on it – without increasing the effect. You 
+can’t drop below zero MP .
+4 The mutation locks down after this use. You can’t use it 
+again for the rest of the session.
+5 The mutation changes your appearance in some way. You 
+choose how. The effect is onl
+
+--- PAGE 72
+
+05
+7 0
+Player’s Section
+Permanent Trauma  is truly permanent – your at-
+tribute score is permanently reduced by one step. 
+This means your body and mind will slowly degen-
+erate, as you get more and more mutated. This is 
+what it means to be a mutant.
+New Mutations: When you manifest a new muta-
+tion, just draw one new Mutation Card or roll once 
+on the mutations table in this chapter. You can 
+never have more than four mutations. Read more 
+on page 25.
+E X A M P L E
+Naphta has the Flame Breather mutation and 
+spends three MP to fry an enemy in a cascade of 
+fire. She rolls three Basic Dice and gets one = – mis-
+fire! She rolls one Basic Die and gets a 3, meaning 
+she loses another three MP. She only had four MP 
+to start with, meaning she’s now down to zero. Her 
+target takes three points of damage from the attack.
+REACTIVE EFFECTS
+Some mutations have what’s called reactive effects. 
+These are marked (R) on the Mutation Cards and in 
+this chapter. In a conflict, you can activate a reac-
+tive effect any time you want, and any number of 
+times in a single turn. Activating a reactive effect 
+does not count as an action or as a maneuver – all 
+you need is MP to spend.
+ENHANCING EFFECTS
+Another type of mutation effect is the enhancing 
+effect. These are marked (E). You activate an en-
+hancing effect at the same time as you perform 
+an action or a maneuver, to enhance it. Using an 
+enhancing effect does not count as an action or a 
+maneuver in itself.
+When using an enhancing effect with a skill 
+roll, roll for the mutation first and then for the skill.
+NPCs AND MUTATIONS
+Mutations for NPCs are handled exactly as for PCs. 
+A typical NPC mutant has one mutation, but there 
+NPCs with more than one do exist. When the GM 
+introduces a new mutant NPC she can draw Muta-
+tion Card(s) or roll on the table to determine which 
+mutation(s) he has – or simply pick something 
+appropriate.
+If the GM’s uses the cards to determine an 
+NPC’s mutations, these should be shuffled back into 
+the deck so that PCs and other NPCs can draw the 
+same mutations later on.
+Mutation Points:  Normally, an NPC enters the 
+game with three MP. This is not an absolute rule 
+– powerful mutants can have
+
+--- PAGE 73
+
+05
+7 1
+Mutations
+AMPHIBIAN
+Your body has inherited traits from fishes and rep-
+tiles, making you equally at home under water as 
+on land. With this mutation, you can:
+ K Breathe underwater for a few minutes. Cost: 
+1 MP. You swim quickly and smoothly like a 
+fish.
+ K Use your slippery scales to absorb damage 
+from external attacks. Every MP spent elimi-
+nates one point of damage. (R)
+ K Bite an enemy at Arm’s Length with your 
+numerous, small and very sharp teeth. It 
+inflicts damage equal to the number of MP 
+you spend.
+CORPSE-EATER
+Your metabolism is abnormally robust, as well as 
+your jaws and teeth. You can:
+ K Eat raw meat, even several days after the 
+prey’s death, without suffering Rot Points 
+(page 125). Small game counts as one ration 
+of grub each. Bigger creatures – or human-
+oids – count as two rations.
+ K Bite a victim at Arm’s Length. The attack 
+inflicts damage equal to the number of MP 
+spent.
+M UTATIONS  L IS T
+D66 Mutation
+11 Acid Spit
+12 Amphibian
+13 Corpse-Eater
+14 Extreme Reflexes
+15 Flame Breather
+16 Four-Armed
+21 Frog Legs
+22 Human Magnet
+23 Human Plant
+24 Insectoid
+25 Insect Wings
+26 Luminescence
+31 Manbeast
+32 Mind Terror
+33 Puppeteer
+34 Parasite
+35 Pathokinesis
+36 Pyrokinesis
+41 Reptilian
+42 Rot-Eater
+43 Sonar
+44 Spores
+45 Sprinter
+46 Telepathy
+51 Tracker
+52–66 Re-roll
+INSECTOID
+
+
+
+--- PAGE 74
+
+05
+7 2
+Player’s Section
+EXTREME REFLEXES
+You have superhuman reflexes, and you can:
+ K Add +5 to your initiative roll at the beginning 
+of a conflict. You can even use this effect to 
+increase your initiative score by +5 during 
+combat – but then it will cost you a maneuver.
+ K Fight or Shoot an enemy several times in the 
+same turn. Every extra attack costs you 1 MP. 
+(E)
+ K Dodge when someone Fights you, or Shoots 
+at you. Every MP spent reduces the damage 
+you take by one. You must activate the effect 
+before you roll for armor (page 88). (R)
+FLAME BREATHER
+You can spew out flammable gases and ignite them 
+on the way through your gullet to create a deadly 
+cascade of fire. You can:
+ K Set fire to a flammable object. Costs 1 MP.
+ K Spew fire at an enemy at up to Near range. 
+You inflict damage equal to the number of 
+MP you spend.
+ K Breath fire at a number of enemies equal 
+to MP spent. Each one takes one point of 
+damage.
+FOUR-ARMED
+You have four arms rather than two. You can:
+ K Fight twice in a row, in the same turn. The 
+extra attack costs you 1 MP and your maneu-
+ver for the turn. (E)
+ K Defend yourself against several close combat 
+attacks in the same turn. Every defense after 
+the first one costs you 1 MP. (E)
+ K Climb with ease. You can spend 1 MP instead 
+of rolling to Move when performing a difficult 
+climb.
+FROG LEGS
+With your powerful, frog-like leg muscles you can 
+perform superhuman leaps. You can:
+ K Jump about 30' horizontally or 15' vertically. 
+Costs 1 MP.
+ K Leap on an enemy at up to Short range and 
+immediately Fight them in the same turn. It 
+will cost you 1 MP and your maneuver for the 
+turn. (E)
+ K Get out of a dangerous situation by jump-
+ing to safety. Spend 1 MP instead of rolling 
+H UMAN  M AGNET
+
+
+
+--- PAGE 75
+
+05
+7 3
+Mutations
+to Move when you want to escape from a 
+conflict.
+HUMAN MAGNET
+You have the ability to generate strong magnetic 
+fields at will. You can:
+ K Push away or attract metal objects within 
+Short range, weighing no more than yourself. 
+Costs 1 MP.
+ K Throw metal objects at a target at up to Short 
+range. The damage is equal to the number of 
+MP you spend.
+ K Shield yourself against bullets and other 
+metal weapons. Every MP spent reduces the 
+damage from such an attack by one. (R)
+HUMAN PLANT
+Your body has inherited traits from the plant world. 
+You can:
+ K Get nourishment from sunlight. Spend 1 MP 
+instead of eating one ration of grub. Only 
+works outdoors.
+ K Your body is covered in sharp thorns that you 
+can use in close combat. Inflicts one point of 
+damage for every MP you spend.
+ K Use your bark-like skin to absorb damage 
+from external attacks. Every MP spent re-
+duces the damage by one. (R)
+INSECTOID
+Your body has inherited traits from the insect world. 
+You can:
+ K Use your hardened skin to reduce damage 
+taken from external attacks. Every MP spent 
+reduces the damage taken by one. (R)
+ K Climb a completely vertical surface for a few 
+minutes, at the cost of 1 MP.
+ K Quickly heal light wounds. Every MP spent 
+heals one point of damage – even if you are 
+broken. The mutation can’t heal serious or 
+critical injuries.
+INSECT WINGS
+You have grown fly-like or butterfly-like wings on 
+you back. You can:
+ K Fly up to 100' – then you must land.
+ K Fly up to an enemy at up to Short range and 
+immediately Fight them in the same turn. It 
+costs you 1 MP and your maneuver for the 
+turn. (E)
+ K Create an intense buzzing noise that drives 
+people up the walls. A number of persons 
+equal to MP spent suffer one point of doubt 
+each.
+INSECT  WINGS
+
+
+
+--- PAGE 76
+
+05
+7 4
+Player’s Section
+LUMINESCENCE
+Just like fireflies and certain types of fish, your body 
+has a natural ability to emit light. You can:
+ K Release a burst of light at a target at up to 
+Near range. For every MP spent, the victim is 
+completely blinded for one turn, and during 
+this time suffers the effects of total darkness 
+(page 93).
+ K Light up an area around you, up to Short 
+distance (about 100') for a few minutes. Costs 
+1 MP.
+ K Briefly bend the light around you, to obscure 
+your presence. You can use this effect to es-
+cape from a conflict without rolling to Move 
+(page 81).
+MANBEAST
+You are half human, half savage beast. You can:
+ K Attack one or more enemies at Arm’s Length 
+with your fangs and your claws. They will 
+take a total amount of damage equal to the 
+number of MP spent.
+ K Let rip a bestial roar. One enemy per MP 
+spent, at up to Near range, suffers one point 
+of doubt.
+ K Never give up. When you are broken by 
+damage or fatigue you can get up again and 
+recover trauma points equal to MP spent. You 
+will still suffer the effects of any critical inju-
+ries (page 90).
+MIND TERROR
+Your brain has the ability to affect the minds of oth-
+ers and create vivid hallucinations, at up to Near 
+range. You can:
+ K Torment your victim with visions that inflict 
+confusion or doubt (your choice) equal to the 
+number of MP spent.
+ K Confuse others to make them miss their next 
+action. Only works on humanoids. Costs 1 MP 
+per victim.
+ K Create an illusion so grand the victim will 
+believe it to be real. Costs 2 MP.
+PUPPETEER
+By sheer force of will you can take control of other 
+humanoid creatures and turn them into your pup-
+pets. You can:
+ K Decide what the victim’s next action is. 
+Cost is 1 MP. You need to look the victim 
+in the eyes, which is only possible at up to 
+Near range. The victim rolls for the action 
+M IND  T ERROR
+
+
+
+--- PAGE 77
+
+05
+7 5
+Mutations
+normally. If you want him to use 
+a mutation, you must spend the 
+extra MP yourself. If you force the 
+victim to hurt himself, he suffers 
+weapon damage plus one for every 
+MP spent.
+PARASITE
+You are a human parasite, capable of absorbing the 
+life-force of other living humanoid beings at Arm’s 
+Length. You can:
+ K Steal one point of any attribute from the 
+victim for every MP you spend. You cannot 
+exceed your own maximum score. This effect 
+does not heal serious or critical injuries, and 
+has no effect on permanent trauma.
+ K Steal a mutation from another mutant. Costs 
+1 MP. You can use the mutation in the next 
+turn – after that, the victim gets it back.
+ K Heal another humanoid’s trauma. Every 
+point to be healed costs 1 MP, and will 
+inflict the same amount (and type) of 
+trauma on you. You can even heal seri-
+ous or critical injuries – this will cost 
+you 2 and 4 MP, respectively, but not 
+damage you.
+PATHOKINESIS
+You have the ability to affect the emotional state of 
+others, at up to Near range. You can:
+ K Instill fear or anxiety in others. Your victim 
+suffers one point of doubt for every MP you 
+spend.
+ K Heal one point of doubt per MP spent. This 
+effect requires you to touch your target. You 
+can heal your own doubt.
+ K Affect the mood of a group. You cannot con-
+trol specific actions, only spread a general 
+sense of anger, joy, sorrow, love or fear. This 
+effect, which is roleplayed, lasts a few min-
+utes. Costs 1 MP.
+PYROKINESIS
+You have the ability to set things on fire with pure 
+force of will. You can:
+ K Set fire to a flammable, inanimate object. 
+Costs 1 MP.
+ K Make a living being burst into flame, at up to 
+Near range. Inflicts one point of damage per 
+MP spent. Armor has no effect.
+ K Melt ice or heat a cold area, eliminating the 
+effects of severe cold (page 93) for one hour. 
+Costs 1 MP.
+P YROKINESIS
+
+
+
+--- PAGE 78
+
+05
+7 6
+Player’s Section
+REPTILIAN
+Your body has inherited traits from reptiles. You 
+can:
+ K Change the color and pattern of your skin, 
+like a chameleon. You automatically succeed 
+a Sneak roll, and attacks against you are 
+performed as in total darkness (page 93). You 
+need to be mostly naked. The effects last for a 
+few minutes. Costs 1 MP.
+ K Contort your body to push yourself through a 
+hole or passage only a few inches wide. Costs 
+1 MP.
+ K Entrance a humanoid at up to Near range 
+with your reptilian eyes. Your victim suffers 
+one point of confusion per MP spent.
+ROT-EATER
+You are totally insensitive to the effects of the Rot. 
+You take Rot Points normally (page 125), but you 
+can:
+ K Spend 1 MP to eliminate one point of trauma 
+from the Rot. (R)
+ K Spend 1 MP to use one of your Rot Points to 
+recover one point of any attribute. You can’t 
+use permanent Rot Points (page 126).
+ K Emit concentrated Rot at an enemy at Arm’s 
+Length. Inflicts one point of damage for every 
+MP you spend. Each point also requires one 
+point of Rot, which is consumed in the attack. 
+You can’t use permanent Rot.
+SONAR
+By emitting a high frequency sound and listening 
+to its echoes you can:
+ K Sense your surroundings and effectively see in 
+total darkness for a few minutes. Costs 1 MP.
+ K Stun enemies at up to Short range. A number 
+of victims equal to MP spent suffer one point 
+of fatigue each.
+ K Disrupt an enemy at up to Short range who is 
+Shooting. Every MP you spend eliminates one 
+/ he has rolled. (R)
+SPORES
+You have hidden spore sacs on your body, capable 
+of spraying spore clouds against targets at up to 
+Near distance. The spores can:
+ K Make you victim’s eyes sting and his skin 
+itch. For every MP spent your victim suffers 
+one point of fatigue.
+ K Stink so horribly that the victim chokes or 
+suffers severe nausea. For every MP spent 
+your target suffers one point of damage. Ar-
+mor has no effect.
+R EPTILIAN
+
+
+
+--- PAGE 79
+
+05
+7 7
+Mutations
+ K Obscure you. Hidden in the cloud, you can 
+escape from a conflict without rolling to 
+Move. Costs 1 MP.
+SPRINTER
+Your leg muscles are extremely powerful, and you 
+can run extremely fast over a short distance. You can:
+ K Double your movement speed during one turn. 
+Every maneuver you spend on movement 
+counts as two (page 80). Costs 1 MP. (E)
+ K Escape from a conflict without rolling to 
+Move. Costs 1 MP.
+TELEPATHY
+By pure force of will you can read and affect the 
+mind of other humanoid creatures, at up to Near 
+range. You can:
+ K For every MP you spend, get the answer to 
+one of these questions: Is he lying? Is he 
+hiding something? What is he thinking right 
+now?
+ K Plant a simple thought in your subject’s mind. 
+He will think it is true. Costs 1 MP.
+ K Create a mental short circuit to fry your vic-
+tim’s brain. You inflict one point of confusion 
+per MP spent.
+TRACKER
+Your sense of smell is extremely well developed. 
+You can:
+ K Follow the trail of a person or monster – like a 
+bloodhound. Costs 1 MP per day.
+ K Sense an enemy Sneaking up on you (page 
+81). Every MP you use knocks out one / 
+rolled by him. Costs 1 MP. 
+ K Smell grub out in the Zone. Costs 1 MP and 
+gives you D6 rations of Rot-contaminated 
+grub.
+T ELEPATHY
+
+
+
+--- PAGE 80
+
+
+
+
+
+--- PAGE 81
+
+06
+7 9
+Conflict & Trauma
+06
+Conflict  
+& Trauma
+When someone gets in your way, you sometimes 
+have no choice but to force him to move. Some of 
+the skills described in Chapter 3 let you affect other 
+people, via manipulation, threats or physical force. 
+When someone wants to break you, and you want 
+to break him just as bad, you have a conflict.
+Conflicts can take a heavy toll on you character 
+and could even kill him. Before entering a conflict, 
+always ask yourself: Is it worth it?
+TURNS & INITIATIVE
+A conflict starts when you try to Manipulate, Shoot, 
+Fight or Intimidate someone – or when someone 
+does the same to you. Then it’s time to roll initia-
+tive. Roll initiative before you make any skill roll.
+INITIATIVE ROLL
+Roll a D6 each and add your respective current 
+Agility scores. No skill is used and you can’t push 
+the roll. The one who rolls highest, acts first. If it 
+is a tie, leave it to chance (any unmodified die roll, 
+keep rolling until the tie is broken).
+When both of you have acted the turn is over, 
+and a new turn starts. The order of initiative is set 
+for the entire conflict – you only roll initiative in 
+the first turn.
+Mutations & Talents: The Extreme Reflexes muta-
+tion and the Combat Veteran talent can affect your 
+initiative roll.
+Time: In the game, a turn can represent between 
+ten seconds and several minutes, depending on 
+circumstances and the skills used.
+MORE COMBATTANTS
+If you’re lucky, you have friends on your side in the 
+conflict. If you’re unlucky, your enemy has company 
+too. Anyone who wants to join the conflict rolls for 
+initiative at the beginning of the first turn. Your 
+results create a turn order, that you will follow for 
+the entire conflict. Write down your initiative scores, 
+so that you don’t forget. Break ties using any ran-
+dom die roll.
+
+
+
+--- PAGE 82
+
+06
+8 0
+Player’s Section
+NPC Groups:  For groups of NPCs with identical 
+stats, the GM only needs to roll one initiative roll 
+for the entire group. These NPCs act at the same 
+point in the turn order. The order in which these 
+NPCs act is up to the GM.
+CHANGING THE INITIATIVE
+You never reroll your initiative during a conflict, but 
+there are a few ways that you can increase your ini-
+tiative scores – and thus change your position in the 
+turn order for the next turn and onwards. You could:
+ K Use the Extreme Reflexes mutation  
+(page 72).
+ K Use stunts when you Fight or Shoot  
+(page 83).
+E X A M P L E
+Krin, Naphta, Marl and Silas are passing through 
+an old abandoned amusement park when four Zone-
+Ghouls attack. Everyone rolls initiative – current 
+Agility score plus D6. The GM rolls one joint roll for 
+the Zone-Ghouls. Krin gets 10, the GM 8, Naphta 
+4, Marl 5 and Silas 6. The turn order is thus Krin – 
+Zone-Ghouls – Silas – Marl – Naphta.
+ACTIONS & MANEUVERS
+When it’s your turn, you are allowed to perform one 
+action and one maneuver , or two maneuvers . An 
+action can be to:
+ K Roll for a skill.
+ K Activate a mutation (unless reactive or 
+enhancing).
+A maneuver can be to:
+ K Move one range step (below).
+ K Seek cover (page 89).
+ K Get an item from your gear.
+ K Pick up an item from the ground.
+ K Draw a weapon.
+ K Aim with a gun (page 85).
+ K Reload a gun (page 85).
+ K Use an item.
+IN A TURN YOU CAN:
+ K Perform an action and a maneuver
+…or…
+ K Perform two maneuvers.
+HELPING & HINDERING
+If you help or hinder another person (page 48), this 
+takes the place of your own action that turn. You 
+can, however, perform a maneuver while helping 
+or hindering.
+MUTATIONS
+Activating a mutation normally counts as an ac-
+tion. This means you cannot, as a rule, activate a 
+mutation and use a skill in the same turn. Some 
+mutations break this rule – those with reactive or 
+enhancing effects. This is explained on page 70 in 
+Chapter 5.
+RANGE & MOVEMENT
+In a conflict, the distance between you and your 
+enemy is expressed in range categories:
+ K Arm’s Length: Just next to each other.
+ K Near: A few steps away.
+ K Short: Up to 20–30 yards.
+ K Long: Up to a few hundred yards.
+ K
+
+--- PAGE 83
+
+06
+8 1
+Conflict & Trauma
+takes one  maneuver. For any movement beyond 
+Short distance, you need two maneuvers in direct 
+succession in the same turn to move one range 
+category – meaning you can’t perform an action 
+in the same turn.
+Mutations and vehicles can help you move 
+faster than normal.
+M OVEMENT
+b etween a n D r eq uire S
+Arm’s Length Near One maneuver
+Near Short One maneuver
+Short Long Two maneuvers
+FLEEING THE CONFLICT
+If you’re losing a fight, it’s often better to run away, 
+and survive, than to stay and fight to death. If you 
+want to get out of a conflict, roll to Move – a suc-
+cessful roll means you have found some way out, 
+and the conflict is over. However, you can’t use the 
+flee roll to move past an enemy blocking your way 
+– you can only flee back the way you came from.
+The GM can modify your roll depending on how 
+hard the terrain is to hide in. The distance to your 
+closest enemy also matters – see the table below.
+FLEEING CONFLICT
+D i S tance M o D if ication
+Arm’s Length −2
+Near −1
+Short ±0
+Long +1
+Distant No roll needed
+Note that you only need one successful roll to get out 
+of harm’s way, and leave the conflict. Also note that 
+you don’t need to roll at all if you’re at Distant range.
+If your roll fails it means that you are pinned 
+down and unable to get away for the moment – you 
+remain at the same range. The GM can let some 
+other misfortune happen to you as well. You can 
+try to flee again next turn.
+E X A M P L E
+The distance between the PCs and the Zone-Ghouls 
+is Short. To reach the enemies in the first turn of 
+conflict, Marl must use two maneuvers. In the next 
+turn, Marl can attack them in close combat. If he 
+had had a scrap spear (that can be used at Near 
+range) he could have attacked them in the first turn.
+Naphta wants to escape from the conflict, which 
+means she must roll to Move. Since the distance is 
+Short, she gets no modification to the roll.
+OTHER TYPES OF MOVEMENT
+There are of course other types of movement in con-
+flict besides advancing, retreating and fleeing. For 
+these, the GM assesses the situation and what you 
+are trying to accomplish. To run a short distance to 
+seek cover, for example, only requires a 
+
+--- PAGE 84
+
+06
+8 2
+Player’s Section
+Surprise:  If you attack in a way that the GM deems 
+likely to surprise your enemy, you get to add +3 to 
+your initiative roll.
+Sneak Attack: When you stalk someone and your 
+attack catches them unawares, it’s called a sneak 
+attack. First, roll to Sneak. You get a modification 
+according to how close you go, see the table below. 
+To attack in close combat, you’ll most often need 
+to get within Arm’s Length. If you fail, your target 
+spots you at your starting distance – roll initiative. If 
+you succeed, you get a free action  (but not a maneu-
+ver) before you roll initiative.
+If several people attempt to sneak attack to-
+gether, all must make separate rolls for the sneak 
+attack to work. If anyone fails, the attackers are 
+spotted.
+Ambush: A special kind of sneak attack is the am-
+bush  – you lie in wait for your enemy and attack 
+when he passes. When you ambush someone, roll 
+to Sneak modified for the distance to your target. 
+You automatically get a +2 modification because 
+you are still and the enemy moves.
+Tracker:  Note that the Tracker mutation can be 
+used to notice sneaks attacks and ambushes.
+SNEAK ATTACK
+D i S tance M o D if ication
+Arm’s Length −2
+Near −1
+Short ±0
+Long +1
+Distant +2
+SOCIAL CONFLICTS
+For non-violent conflicts you use the Manipulate 
+skill (page 53). The Enforcer can also Intimidate 
+(page 54).
+BARGAINING POSITION
+To be able to Manipulate or Intimidate someone, 
+you need:
+ K Your subject must be able to hear and under-
+stand you.
+ K What you want must be something that isn’t 
+completely unreasonable.
+If the GM thinks both of these conditions are met, 
+she will determine your bargaining position and 
+give you a modification based on it.
+Each of the following factors gives you a +1 
+modification:
+ K You have more people on your side.
+ K What you ask for doesn’t cost your opponent 
+anything.
+COMBAT MAPS
+Generally, you don’t need a detailed map 
+of the battlefield. The GM sets the scene 
+by pointing out a few main features, and 
+you’re all ready to go. However, if you 
+prefer to play the combat out in detail 
+on a combat map, you can do so – even 
+using appropriate miniatures if you want 
+to. Use a map grid, where 
+
+--- PAGE 85
+
+06
+8 3
+Conflict & Trauma
+ K The opponent has suffered trauma.
+ K You have helped your opponent earlier.
+ K You plead your case very well (GM’s 
+judgement).
+Each of the following factors give you a −1 
+modification:
+ K Your opponent has more people on his side.
+ K What you ask for is valuable, or dangerous.
+ K Your opponent has nothing to gain by help-
+ing you.
+ K You have difficulties understanding each 
+other.
+ K The range between you is Short or longer.
+GROUPS IN SOCIAL CONFLICTS
+When you want to Manipulate or Intimidate a 
+group of people, it is normally the group’s leader 
+or spokesperson that is the object of your skill roll. 
+Remember that you get a −1 modification if he has 
+more people behind him. If you push the leader in 
+your preferred direction, the other NPCs will gen-
+erally follow. If there is no clear leader in a group 
+of NPCs, you’ll need to Manipulate or Intimidate 
+them separately.
+GEAR
+Some gear – most often artifacts – can provide 
+a Gear Bonus to your attempts to Manipulate or 
+Intimidate.
+E X A M P L E
+Silas tries to Manipulate the leader of the Zone-
+Ghouls. The GM determines his bargaining position 
+to be bad – in the middle of the shootout the Zone-
+Ghouls have trouble hearing him, they don’t know 
+his language very well, and they have no obvious 
+benefit from listening to him. The GM gives Silas 
+a −3 modification.
+EFFECTS
+When you successfully Manipulate someone this 
+usually means that they do what you want – but 
+only if you give them something in return. They de-
+cide what it is they want, but it must be something 
+that you can reasonably accomplish. It is up to you 
+whether to accept the deal or not.
+If you successfully use the Intimidate skill 
+(page 54), your opponent must either do what you 
+want or to attack you immediately (by Fighting, 
+Shooting or using a mutation).
+Stunts:  Extra / on your roll mean you sow fear 
+or doubt in your opponent’s heart. He suffers one 
+point of doubt (page 88) for every additional / you 
+roll over and above the first one. If he is broken by 
+doubt, he does what you want without demanding 
+a return favor (or getting the option to attack you, 
+in the case of Intimidate).
+CLOSE COMBAT
+When you at
+
+--- PAGE 86
+
+06
+8 4
+Player’s Section
+ing a conflict, picking up a dropped object 
+counts as a maneuver (page 80).
+ K Your opponent falls to the ground or is 
+pushed back, for example through a doorway 
+or over a cliff.
+ K You hold the opponent in a grapple. He 
+needs to successfully Fight you to break free 
+(below).
+DEFENSE
+When someone Fights you, you can try to defend 
+yourself. When you defend, you also roll for Fight. 
+Roll your dice at the same time as the attacker. For 
+each / you roll, choose one stunt:
+ K You eliminate one / rolled by the attacker. If 
+he has no / left, his attack has no effect on 
+you.
+ K You increase your initiative score by 2 (page 
+80), taking effect next turn.
+ K You knock or pull a weapon or other object 
+from your opponent.
+ K Your opponent falls to the ground or is 
+pushed back, for example through a doorway 
+or over a cliff.
+ K You tire your enemy. He suffers one point of 
+fatigue.
+ K You counter-attack against your enemy and 
+inflict weapon damage. You cannot increase 
+this damage by using several /.
+Note that you can choose to make a counter-attack 
+instead of stopping your opponent’s attack. That 
+means you may hit each other simultaneously.
+Limitations:  There are several limitations to the 
+defense move:
+ K You must declare that you defend before the 
+attacker rolls his dice. If he misses anyway, 
+your defense is wasted.
+ K If you defend, you lose your next action – in 
+this turn if you haven’t acted yet, otherwise 
+in the next turn. You do keep your maneuver, 
+however.
+ K You can only defend yourself against one at-
+tack per turn. If you defend and get attacked 
+again in the same turn, you can’t defend 
+again.
+ K If the attacker uses a close combat weapon of 
+some kind but you don’t, you get a −2 modifi-
+cation to your defense roll.
+GRAPPLING
+As a stunt when you Fight someone, you can choose 
+to grapple him. He then needs to successfully Fight 
+you to break free. Until he has, he can’t perform any 
+other action (or any maneuver) – or until you are 
+broken or you choose to let him go.
+While you grapple your opponent, the only 
+actions you can perform are to Fight him or use 
+mutations against him.
+E X A M P L E
+Marl lunges at a Zone-Gh
+
+--- PAGE 87
+
+06
+8 5
+Conflict & Trauma
+MODIFICATION
+The farther away your target is, the harder it is to 
+hit. At Short range you get a −1 modification, and 
+at Long range you get −2. At Arm’s Length you get 
+−3, because it’s hard to aim at an enemy in close 
+combat. You don’t get this modification if you fire 
+at a defenseless or unwitting enemy.
+RANGE MODIFICATION
+D i S tance M o D if ication
+Arm’s Length −3*
+Near ±0
+Short −1
+Long −2
+* Does not apply for defenseless enemies.
+AIMING
+Before you Shoot you can spend one maneuver to 
+aim carefully. That gives you a +1 modification. If 
+you also have some solid piece of cover to lean on, 
+the bonus increases to +2. You must aim and fire 
+in the same turn – you cannot save the bonus for 
+a later turn.
+RELOADING
+Jury-Rigged firearms are normally loaded with one 
+bullet at a time. Every time you have fired a shot you 
+need to spend one maneuver to reload the weapon, 
+until you can fire again. Bows and slingshots also 
+need to be prepared with one maneuver before they 
+can be fired.
+Clip: Some artifact-guns have a clip that holds sev-
+eral rounds, letting you fire again and again without 
+reloading. You don’t need to keep track of how many 
+bullets remain in the clip – just assume it lasts until 
+the end of the combat.
+Multiple barrels:  Some Jury-Rigged firearms (page 
+54) and certain artifacts have two or more barrels, 
+loaded with one bullet each. You can only fire one 
+barrel at a time, but you don’t need to reload until 
+both of the barrels have been discharged.
+E X A M P L E
+Krin has sought cover behind a car wreck and fires at 
+a Zone-Ghoul. First, she aims carefully (one maneu-
+ver) which gives her a +1 modification. In her next 
+turn, she fires again. This time, she can’t get the aim 
+bonus, because she needs to use her maneuver in 
+the turn to reload.
+EFFECTS
+If your Shoot roll succeeds, you hit and your op-
+ponent suffers weapon damage. For every extra / 
+you roll, choose one stunt:
+ K You inflict one more point of damage. You 
+can choose this stunt multiple times, if you 
+roll several /.
+ K You pin down your enemy. He suffers one 
+point of fatigue (page 88).
+ K You increase your initiative score by 2 (page 
+80), effectiv
+
+--- PAGE 88
+
+06
+8 6
+Player’s Section
+E X A M P L E
+Krin fires at a Zone-Ghoul again and gets two /. 
+The scrap rifle has weapon damage 2. She chooses 
+to spend her extra / to increase the damage, inflict-
+ing a total of 3 damage points on the Zone-Ghoul.
+FULL-AUTO FIRE
+Some rare artifact weapons are capable of full auto-
+matic fire. When firing full auto, roll as usual for the 
+Shoot skill. You can push the roll normally – but it 
+will cost you one extra bullet. You can then continue 
+to push the roll, again and again. Every reroll costs 
+you one bullet. As usual, you risk fatigue and the 
+weapon risks being damaged every time you reroll. 
+You can push the roll as many times as you want, 
+until you run out of bullets or until you collapse or 
+the weapon breaks.
+Multiple targets:  When firing full auto, you can di-
+rect a pushed roll – including the first one – against 
+a different target. The first / you roll for a new 
+target will inflict weapon damage on that target. 
+Further / for the same target gives you stunts to 
+use on that target.
+E X A M P L E
+The Gearhead Naphta has come across an 
+ancient assault rifle. She opens fire at a Zone-
+Ghoul and rolls two Base Dice (she has Agility 
+2), two Skill Dice (she has Shoot skill level 2) and 
+three Gear Dice (for the gun). On her first roll, she 
+gets no /, but a Gear Die shows  
+ . Naphta pushes 
+the roll, knowing this will damage the weapon. She 
+uses up another bullet and rerolls six dice (all ex-
+cept the one showing 
+ . Now she rolls two / and 
+no = or 
+ . The Zone-Ghoul is hit and collapses to 
+the ground.
+But Naphta keeps shooting. She fires at another 
+Zone-Ghoul, pushing the roll again. She uses up an-
+other bullet and rerolls the four dice now showing 
+neither / nor 
+ . She rolls another /, hitting the 
+second Zone-Ghoul too. She still has three dice to 
+push, but chooses not to. Two enemies are hit, but 
+Naphta has spent three bullets and the Gear Bonus 
+of the assault rifle is reduced to +2. After combat, 
+she can repair the weapon with a Jury-Rig roll and 
+bring the Gear Bonus back up to +3.
+WEAPONS
+Weapons will make you more effective in close 
+combat, and they are a requirement for any kind 
+of ranged combat. B
+
+--- PAGE 89
+
+06
+8 7
+Conflict & Trauma
+You can find better weapons from the Old Age out 
+in the Zone – if you’re lucky.
+Bonus indicates how many Gear Dice the weapons 
+gives you to roll. Remember that the Gear Bonus 
+can be reduced if you push your skills roll. If the 
+Gear Bonus is reduced to zero, the weapon is broken 
+and must be repaired by a Gearhead before it can 
+be used again.
+Damage  indicates how many points of damage your 
+target will suffer if your attack succeeds. If you roll 
+more than one /, you can deal extra damage.
+Range  indicates the maximum range category 
+(page 80) at which the weapon can be used.
+Scrap weapons can be constructed by a Gearhead 
+(page 55). The Bonus and Damage ratings for these 
+indicated in the weapons table are just standard 
+values – skilled and/ or lucky Gearheads can build 
+weapons with higher scores. Scrap guns can also 
+be constructed with multiple barrels, so that they 
+can be fired repeatedly without reloading.
+Light weapons  only take up half a line in the inven-
+tory section of your character sheet.
+Flamethrowers  require one dose of booze for every 
+attack. Anyone hit catches fire and continues to burn 
+and takes one more point of damage until he makes 
+a Move roll. Every attempt counts as an action.
+Scrap cannons  are heavy weapons, not easily 
+moved by hand. Each attack requires an explosive 
+charge with minimum Blast Power of 6.
+Artifacts: Stats for weapons from the Old Age can 
+be found on the Artifact Cards and they are col-
+lected in a table on page 189 of this book.
+CALIBER
+In the basic game rules, we make no dis-
+tinction between rounds of different types 
+and calibers – any bullet can be used in 
+any weapon, to keep things simple. If you 
+like a little more realism, bullets can be 
+divided into three types: pistol, rifle and 
+shotgun. In this case, a Gearhead build-
+ing a scrap gun must decide what type of 
+ammunition it is made for. For artifacts, 
+the type of bullet needed is self-evident.
+R ANGED  WEAPONS
+w ea P on b on u S Da M ag e r an ge c o MM en t
+Thrown Rock — 1 Short
+Slingshot +1 1 Short Jury-Rigged.
+Bow +1 1 Long Jury-Rigged.
+Scrap Pistol +1 2 Short Jury-Rigged.
+Scrap Derringer +1 1 Near Jury-Rigged. Ligh
+
+--- PAGE 90
+
+06
+8 8
+Player’s Section
+TRAUMA
+There are four types of trauma in this game. Each 
+type will decrease one of your four attributes. You 
+indicate trauma that you suffer by using the check-
+boxes on your character sheet.
+Damage:  Bruises, bleeding wounds and broken 
+bones. Decreases your Strength.
+Fatigue:  Physical exhaustion, sweating and panting. 
+Decreases your Agility.
+Confusion: Lack of clarity, bewilderment and mis-
+judgement. Decreases your Wits.
+Doubt:  Lack of confidence, distrust, disappointment 
+and sadness. Decreases your Empathy.
+You can suffer trauma in several different ways:
+ K From external attacks. When someone suc-
+cessfully Fights you or Shoots at you, you 
+suffer damage equal to the weapon damage 
+– more if the attacker gets stunts and spends 
+them on increasing the damage. You can 
+suffer doubt when someone Manipulates or 
+Intimidates you. Mutations can also give you 
+trauma, of all types (see Chapter 5).
+ K By rolling = when you push a die roll. You 
+then suffer one point of trauma of the kind 
+connected to the attribute you rolled for 
+(above) for each = rolled. This is not only 
+negative – you also get one Mutation Point 
+for each point of trauma suffered in this way.
+ K From exposure to the Rot (page 124), from de-
+hydration, starvation and extreme cold (page 
+92) and from explosions (page 94).
+ARMOR & SHIELDS
+To protect you from damage (not other types of 
+trauma), Gearheads build armor from scrap – and 
+if you’re lucky, you can find functional body armor 
+from the Old Age out in the Zone.
+The effect of armor is determined by the Armor 
+Rating. You can only wear one type of armor at a 
+time. When you suffer damage, roll a number of 
+Gear Dice equal to the Armor Rating. For every / 
+you roll, the damage you suffer is reduced by one. 
+For every 
+  you roll, the Armor Rating is decreased 
+by one. The armor roll does not count as an action 
+and cannot be pushed. Armor can be repaired by 
+Gearheads (page 55).
+Armor has no effect against damage from de-
+hydration, starvation, hypothermia or from pushing 
+dice rolls.
+Shields:  Gearheads can also make shields from 
+road signs, trash-can lids and other kinds of scrap. 
+They work just like armor,
+
+--- PAGE 91
+
+06
+8 9
+Conflict & Trauma
+COVER
+When you enter a firefight, finding cover may save 
+your life. Look for something solid, like a brick wall 
+or a wrecked car. Taking cover counts as a maneu-
+ver (page 80).
+Cover has a Protection Rating and works exactly 
+like armor (above) – but is only effective against 
+ranged attacks. Cover is reduced by 
+  results, just 
+like armor. Cover can be combined with armor – roll 
+for cover first, then for armor.
+Aiming:  Cover can also be useful to rest your arms 
+on when Shooting. The bonus for aiming carefully 
+(page 85) increases to +2 when firing from cover.
+T YPICAL  C OVER
+c over t y P e Pr otection r at ing
+Shrubbery 2
+Furniture 3
+Wooden Door 4
+Car Door 5
+Brick Wall 6
+Sand Bag 7
+E X A M P L E
+Krin lies in cover behind the car wreck (Protection 
+Rating 5). A shot hits her, inflicting one point of dam-
+age. Krin rolls five Gear Dice for the cover. She gets 
+one / and suffers no damage. In the next turn, she’s 
+hit again. This time she rolls two 
+  but no /. Krin 
+is hurt and the Protection value of the car wreck is 
+reduced to 3. Krin would do wisely to find new cover 
+(costing her a maneuver if it’s nearby).
+BROKEN
+When an attribute score hits zero, you are broken. 
+You’ve had enough and lack the will or ability to 
+keep going. Exactly what it means to be broken 
+depends on what attribute has been depleted.
+Strength:  You’re knocked out, or in paralyzing pain. 
+Being broken by damage is much more danger-
+ous than by other types of trauma, because it also 
+means you suffer a critical injury (below).
+Agility: You’re physically exhausted.
+Wits: Your brain is overloaded and you can’t think 
+straight.
+Empathy:  You break down in fear, self-pity or 
+sorrow.
+EFFECT
+When broken, you cannot use any skills, perform ac-
+tions or activate mutations (not even reactive ones). 
+You can, however, perform one maneuver per turn 
+(page 80).
+GETTING BACK UP
+The fastest way to recover from being broken is for 
+someone else to successfully Heal you (page 53).
+In most cases though, you don’t need  to be 
+Healed to get back on your feet. As long as you’re 
+not dehydrated, starving or hypothermic (below), 
+you recover after D6 hours even if no one Hea
+
+--- PAGE 92
+
+06
+9 0
+Player’s Section
+ K At least four hours rest.
+ K A resource depending on the type of trauma.
+When both these conditions are met, you restore all 
+lost attribute points of the relevant type. You can 
+even recover multiple types of trauma simultane-
+ously, as long as you have access to the resources 
+needed. These are:
+ K Strength: A ration of grub.
+ K Agility: A ration of water.
+ K Wits: At least four hours of sleep.
+ K Empathy: A moment of closeness with an-
+other mutant. It can be a talk by the camp-
+fire, a moment of shared silence, or physical 
+contact.
+The resources needed for recovery come on top of 
+your daily needs of grub, water and sleep (below).
+MUTATIONS
+Some mutations let you recover trauma instantly. 
+This requires no resources, only Mutation Points 
+(see Chapter 5). However, mutations cannot nor-
+mally heal critical injuries (below).
+CRITICAL INJURIES
+Being broken is always bad, but being broken by 
+damage is especially dangerous – it can mean death.
+Before you are broken, damage points repre-
+sent bruises and minor cuts. Painful, but quickly 
+recovered with some rest and a little grub to give 
+you new energy (above). But when your Strength 
+falls to zero, you suffer a critical injury.
+Roll D66 on the table on page 91 to determine 
+what your critical injury is. Note it on your char-
+acter sheet.
+DEATH
+If your critical injury is listed as lethal , someone 
+must make a successful Heal roll to save you – 
+otherwise you die when the time period indicated 
+has passed. If you get back up on your own accord 
+(above) before you die, you can try to Heal yourself 
+– but with a −2 modification to the roll. Each person 
+trying to Heal you can only roll once.
+Instant Kill: Note that there are two critical inju-
+ries that kill you outright. If you roll either of these, 
+that’s it. Time to reduce the Ark’s population by one 
+and create a new mutant.
+HEALING
+Each critical injury has a specific effect that you 
+suffer during the healing time indicated (measured 
+in days).
+Care: If someone rolls to Heal you during the proc-
+ess of healing a critical injury, the remaining heal-
+ing time is reduced by half. Any roll to save your 
+life (above) does not count to
+
+--- PAGE 93
+
+06
+9 1
+Conflict & Trauma
+C RITICAL  I N j UR IES  T AB LE
+D66 i njury l et hal t i M e l i M it e ff ect During h ea ling h ea ling t i M e
+11 Lost Breath No — None. —
+12 Stunned No — None. —
+13 Sprained Wrist No — −1 to Shoot and Fight. D6
+14 Sprained Ankle No — −1 to Move and Sneak. D6
+15 Concussion No — −1 to Scout and Comprehend. D6
+16 Damaged Shin No — −1 to Move and Sneak. 2D6
+21 Broken Nose No — −1 to Manipulate, +1 Intimidate, Tracker mutation 
+disabled. 2D6
+22 Broken Fingers No — −1 to Shoot and Fight. 2D6
+23 Broken Toes No — −1 to Move and Sneak. 2D6
+24 Teeth Knocked Out No — −1 to Manipulate, +1 Intimidate. 2D6
+25 Groin Hit No — You suffer one point of damage for every roll you make 
+to Force, Move or Fight. 2D6
+26 Thigh Wound No — −2 to Move and Sneak. 2D6
+31 Biceps Wound No — −2 to Shoot and Fight. 2D6
+32 Severed Achilles 
+Tendon No — −2 to Move and Sneak. 2D6
+33 Dislocated Shoulder No — −3 to Force and Fight, can not use two-handed weapons. D6
+34 Broken Ribs No — −2 to Move and Fight. 2D6
+35 Broken Forearm No — Can not use two-handed weapons. 3D6
+36 Broken Leg No — −2 to Move and Sneak. 3D6
+41 Ear Torn Off No — −1 to Scout, Sonar mutation disabled. 3D6
+42 Gouged Eye No — −2 to Shoot and Scout. 3D6
+43 Punctured Lung Yes D6 days −2 to Endure and Move. 2D6
+44 Damaged Kidney Yes D6 days You suffer one point of damage for every roll you make 
+to Force, Move or Fight. 3D6
+45 Crushed Knee Yes D6 days −2 to Move and Sneak. 4D6
+46 Crushed Elbow Yes D6 days −2 to Force and Fight, can not use two-handed weapons. 4D6
+51 Crushed Foot Yes D6 days −3 to Move and Sneak. 4D6
+52 Bleeding Gut Yes D6 hours You suffer one point of damage for every roll you make 
+to Force, Move or Fight. D6
+53 Crushed Face Yes D6 hours −2 to Manipulate. 4D6
+54 Busted Intestine Yes D6 hours You suffer one Rot Point per hour until Healed. 2D6
+55 Damaged Spine No — Paralyzed from the waist down. Effect is permanent un-
+less Healed during healing time. 4D6
+56 Neck Injury No — Paralyzed from the neck down. Effect is permanent un-
+less Healed during healing time. 4D6
+61 Internal Bleeding Yes, −1 D6 minutes You suffer one point of damage for every roll you make 
+to Force, Move or Fight. 2D6
+6
+
+--- PAGE 94
+
+06
+9 2
+Player’s Section
+After two hours of wandering, Marl finds his 
+friends again. Silas gets to work and tries to Heal 
+Marl. His roll fails. He pushes the roll, knowing 
+Marl is probably a goner if he fails. He makes it, 
+rolling one / but also two =. Marl lives, but Si-
+las suffers two points of doubt from the harrowing 
+experience.
+Marl can now eat and rest to restore his Strength 
+after a few hours, but the critical injury will stay 
+for D6 days. Marls rolls a 4. For four days, Marl 
+will suffer one point of damage every time he rolls 
+to Force, Move or Fight. If Silas cares for him and 
+makes another Heal roll, Marl’s critical injury will 
+be gone in two days.
+NON-TYPICAL DAMAGE
+For some types of damage – for example from nox-
+ious gases, acid, or fire – the critical damage table 
+doesn’t work very well. If you are broken by a non-
+typical kind of damage like this, don’t roll on the 
+table – instead, use the line at the bottom named 
+“Non-Typical Damage”.
+PUSHED DAMAGE
+There is one case where you don’t suffer any criti-
+cal injury at all when broken by damage: When 
+you push a Strength roll so hard that you break 
+yourself (page 45). It’s very rare, but it can happen. 
+This means you can never kill yourself by pushing 
+a dice roll.
+CONDITIONS
+In the game, there are four conditions: starving, de-
+hydrated, sleepless and hypothermic. These condi-
+tions can cause trauma and block recovery.
+STARVING
+Every day, you must eat at least one ration of grub, 
+on top of what is needed to recover lost Strength 
+(above). After one day with no grub you are starving . 
+Note this in the checkbox on your character sheet. 
+Being starving has several effects:
+ K You cannot recover damage (restore Strength) 
+in any way. If broken by damage, you need 
+to eat some grub before you can get back 
+on your feet. You can recover other types of 
+trauma.
+ K You suffer one more point of damage per 
+day without grub. If broken by damage while 
+starving you will die after another day has 
+passed, unless you are given grub.
+ K As soon as you have eaten one ration of 
+grub, you are no longer starving and you 
+can recover normally. To recover all damage 
+(above) you need to consume another
+
+--- PAGE 95
+
+06
+9 3
+Conflict & Trauma
+SLEEPLESS
+Every day, you must get at least four hours of contin-
+uous sleep. After one day without enough sleep, you 
+become sleepless . Note this in the checkbox on your 
+character sheet. Being sleepless has several effects:
+ K You cannot recover confusion (restore Wits) 
+in any way. If broken by confusion, you need 
+to sleep for four hours or more before you can 
+get back on your feet. You can recover other 
+types of trauma.
+ K You suffer one more point of confusion per 
+day without sleep. If broken by confusion 
+while sleepless you will collapse and fall un-
+conscious for four hours or more.
+ K As soon as you have at least four hours of 
+sleep, you are no longer sleepless and you 
+can recover Wits normally. To recover all con-
+fusion you need to sleep another four hours.
+HYPOTHERMIC
+In the Ark, you can warm yourselves by the trashcan 
+fires or huddle up close to each other under old 
+tarpaulin and cloth when the Zone cold is bitter. 
+Out in the Zone, the cold can be a threat as deadly 
+as the Rot.
+When you are exposed to a cold environment, 
+the GM can make you roll to Endure at regular in-
+tervals. The colder it is, the more often you must 
+roll. Around the freezing point, once per day or so 
+is enough – in the deep atomic winter, you might 
+need to roll every hour. Things that can keep you 
+warm, like an old blanket or a jacket, can give you 
+Gear Dice to use.
+If the roll fails, you become hypothermic. This 
+has several consequences:
+ K You immediately suffer one point of damage 
+and one point of confusion – the cold makes 
+the blood flow more slowly to your brain.
+ K You may experience strange hallucinations 
+– the details are up to the GM. It is said that 
+someone who is freezing to death will experi-
+ence a burning heat, making them tear their 
+clothes off in the final moments before dying.
+ K You keep rolling to Endure at the same inter-
+vals, with the same effect if you fail a roll. If 
+broken by damage when hypothermic, you 
+die the next time you are called upon to roll.
+ K As long as you are hypothermic, you can-
+not restore Strength or Wits. It is only once 
+your are warm again, even if only heated by a 
+meagre campfire, th
+
+--- PAGE 96
+
+06
+9 4
+Player’s Section
+to make a Scout roll to get a good look at them. 
+That roll does not count as an action in conflicts 
+– you can Scout and attack in the same turn. You 
+can’t Shoot at targets at Short range or more in 
+total darkness.
+EXPLOSIONS
+In some parts of the Zone, the ground is covered by 
+deep craters, traces of the Ancients’ mighty weap-
+ons of mass destruction. Such weapons are rare now, 
+if they exist at all, but Gearheads can Jury-Rig some 
+pretty powerful explosive charges (page 54).
+The force of an explosion is measured in Blast 
+Power. When the detonation occurs, the GM – or the 
+player whose PC built the bomb – rolls a number of 
+Base Dice equal to the Blast Power for each person 
+within Near range of the blast. For every / rolled, 
+the victim suffers one point of damage. The roll 
+cannot be pushed. Victims at Arm’s Length from 
+the detonation suffer one extra point of damage.
+Effect Radius:  Powerful charges, with a Blast Power 
+of 7 or more, can harm people even at Short range. 
+The Blast Power is then reduced by 6. If there are 
+many people within Short range of the blast, the 
+GM can simplify the process by rolling just one 
+roll and apply the result to all victims.
+Shrapnel: Normal explosions have a weapon 
+damage of 1 – the damage is simply equal to 
+the number of / rolled (except at Arm’s Length, 
+where it is one more). A mean Gearhead 
+can arm his bomb with small bits of scrap, like ball 
+bearings or nails, to increase the effect. This is a 
+stunt when using the Jury-Rig skill. If so armed, the 
+Blast Power of the bomb is increased to 2.
+Vehicles:  Explosions can harm vehicles (below). 
+Roll for the damage to the vehicle as it was a person.
+E X A M P L E
+Naphta has built a pipe bomb with Blast Power 9 
+and weapon damage 2. When it detonates, one Zone-
+Ghoul is within Near distance. Naphta rolls two /, 
+which together with the weapon damage inflicts 
+three points of damage on the Zone-Ghoul. Within 
+Short range, there are five more Zone-Ghouls. They 
+are exposed to a blast with Blast Power 3. Naphta 
+rolls a joint roll for them, and gets one /. The five 
+Zone-Ghouls suffer two points of damage each.
+VEHICLES
+In the Zone, there are
+
+--- PAGE 97
+
+06
+9 5
+Conflict & Trauma
+Zone Travel:  Riding in a vehicle, exploring a sector 
+of the Zone map requires half the time compared 
+to walking (page 122).
+VEHICLES IN COMBAT
+In a conflict, you can move faster in a vehicle than 
+on foot. Every maneuver spent on movement counts 
+as two. For example, with only one maneuver you 
+can move directly from Short distance to Arm’s 
+Length, or from Long to Short distance.
+Escaping From Danger:  In a tight spot you can 
+use your vehicle to escape. Roll to Move as usual, 
+but use the Gear Bonus of the vehicle.
+Ramming Enemies: Most vehicles can be used as 
+weapons, to simply run over your enemies. The at-
+tack must occur at Arm’s Length. Roll to Fight, but 
+use your Agility and your Move skill instead. The 
+weapon damage is normally 1, but can be increased 
+by a Gearhead (page 56).
+E X A M P L E
+The Gearhead Naphta has found an old Volvo (Gear 
+Bonus +3) and got it running again. She wants to 
+ram a savage mutant from Short range. She uses 
+her maneuver in the turn to get to Arm’s Length, 
+and then uses her action to ram her enemy. She rolls 
+three Base Dice (Agility 3) two Skill Dice (Move skill 
+2) and three Gear Dice. She initially fails her roll but 
+decides to push it, ending up with one 
+  and two /. 
+The savage mutant suffers two points of damage, but 
+the Volvo’s Gear Bonus is decreased to +2.
+DAMAGE TO VEHICLES
+Just like any other gear, vehicles can break down 
+and lose Gear Bonus when you use them. When the 
+Gear Bonus reaches zero, the vehicle won’t start any 
+more, and needs to be repaired.
+Resilience: The Gear Bonus of a vehicle can also 
+be reduced by external damage. When a vehicle 
+has taken a number of damage points equal to its 
+Resilience rating, its Gear Bonus is reduced one 
+step. When the total amount of damage inflicted 
+on a vehicle reaches twice the Resilience rating, the 
+Gear Bonus is reduced another step, and so on.
+Armor:  Some vehicles have a metal hull protecting 
+the vehicle itself and its occupants. Gearheads can 
+improve the Armor Rating with the Jury-Rig skill.
+Ramming a Vehicle: You can also use a vehicle to 
+ram another vehicle – but only if your vehicle has 
+an equal or higher Resilience r
+
+--- PAGE 98
+
+
+
+
+
+--- PAGE 99
+
+07
+9 7
+The Ark
+07
+The Ark
+The Ark is your home. This is where you have grown 
+up together with the other mutants, protected from 
+the horrors in the Zone around you. The Elder has 
+kept you safe during the long winter, but the safe 
+haven is no more. The Elder is dying. The People 
+have become young adults, and grub is getting 
+scarce. Mutant is turning on mutant, pacts are 
+formed and plots whispered in the dark. But you 
+must find a way to work together. The People of the 
+Ark need to overcome their differences and find a 
+new path forward. Evolve, build a new civilization 
+on ruins of the old. If you can’t, the legacy of man-
+kind will be lost forever.
+CREATE YOUR ARK
+The Ark, a settlement with a few hundred inhabit-
+ants, is the starting point of the game. All PCs live 
+in the Ark and have grown up there. Maybe you 
+have never even left the Ark. The outside world, the 
+Zone, is unknown and dangerous. Only Stalkers and 
+other fools head out there.
+To create your Ark is the first thing you should 
+do when you have created your characters. It’s a 
+simple process – just follow the steps below. Use 
+the Ark Sheet at the end of this book, or download 
+it from the Modiphius website.
+1. ZONE LOCATION
+Before you create the Ark itself, you need to deter-
+mine what Zone it is in. Start by deciding where in 
+the world the Zone is located. It may well be some-
+where in your home country, or could be anywhere 
+in the world. Preferably the Zone should, at least 
+partly, contain the ruins of a city – why not your 
+own home town?
+Decide, as a group, what the general environ-
+ment in the Zone looks like. Is it flat or hilly? What 
+major rivers or coastlines are there, what landmarks?
+Premade Zones: In the next chapter, you can find 
+two premade Zone examples: The Dead Apple and 
+The Big Smoke. You can choose to play in either of 
+these Zones, or just use them only as inspiration 
+for your own Zone.
+2. THE ZONE MAP
+The next step is to create a general map of the Zone. 
+This map is based on reports from Stalkers or fad-
+ing charts from the Old Age. On the inside covers of 
+this book you will find maps of the two sample Zone 
+mentioned above. You can choose either of these 
+map
+
+--- PAGE 100
+
+07
+9 8
+Player’s Section
+miles wide. You might think this is small, but re-
+member that the Zone is a strange, labyrinthian 
+landscape, often covered in smog – movement in 
+the Zone is slow.
+Most of the Zone map will be blank at the start 
+of the game – only coastlines, major rivers or lakes, 
+prominent landmarks and places rumored to hold 
+great treasures or horrible dangers will be marked 
+out. As play evolves, you will fill in the map (or the 
+Zone Log) with details. Read more about exploring 
+the Zone in the next chapter.
+3. TYPE OF ARK
+Once your Zone map is done, it’s time to look closer 
+at the Ark itself and decide what it is. The People’s 
+sanctuary may be located in a variety of different 
+kinds of ruins from the Old Age. Examples:
+ K Airplane Wreck
+ K Bridge
+ K Farm
+ K Gated Community
+ K Junkyard
+ K Mall
+ K Oil Rig
+ K Prison
+ K Scrap Village
+ K Shelter
+ K Shipwreck
+ K Skyscraper
+ K Small Island
+ K Subway Station
+ K Trailer Park
+Discuss in the group and agree on something you 
+all like.
+4. ARK POSITION
+Decide jointly in the group which sector to place 
+the Ark in. Don’t put it right in the middle – the 
+central parts of the Zone are usually those most 
+contaminated by the Rot – but also not on the very 
+edge. It is recommended, if not totally necessary, 
+to place the Ark near the sea, a river or a large lake.
+5. THE ARK MAP
+The next step is to draw a rough map of the Ark, 
+that will make it easier for you to visualize where 
+things happen during play. Mark your PCs’ shelters 
+on the map, as well as the Elder’s refuge (step 6 
+below), the dens of the most important Bosses (step 
+7) and the water source of the Ark (step 10).
+In this chapter you will find two sample maps 
+of typical Arks – a scrap village and a beached pas-
+senger ferry. If you don’t have the time or the in-
+clination to draw your own map, use one of these. 
+You can also download the maps at www.modiphius.
+com/mutant.
+6. THE ELDER
+Determine where in the Ark the Elder lives. He 
+is rarely seen in person these days, but his den 
+is still a hub of activity in the Ark and this is 
+where the Chroniclers of the Dawn Vault (page 
+113) most often can be found. Mark the spot on 
+your Ark map.
+7. TH

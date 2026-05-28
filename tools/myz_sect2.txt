@@ -1,0 +1,1689 @@
+--- PAGE 16
+
+01
+1 4
+Player’s Section
+MAP OF THE ZONE
+When the game starts the Zone – that is, the world 
+outside the Ark – is alien and unknown. All the 
+People know is what a few brave Stalkers (page 30) 
+have seen, seldom more than the coastlines and 
+major landmarks.
+On the inside covers of this book, there are 
+maps of example Zones. These maps and more ex-
+ample Zones are also available for free download 
+from the Modiphius and Free League websites.
+The Zone maps have plenty of empty space – 
+during the game you will explore the Zone sector by 
+sector, and draw or note down what you find. Square 
+by square the map gets ever more detailed, until 
+your campaign is over. Read more about exploring 
+the Zone in Chapter 8.
+On our websites you can also find an empty 
+map template, with nothing but the grid and coor-
+dinates. You can use this template to draw a map 
+of your own Zone – perhaps based on your own 
+hometown?
+FAST-FORWARDING
+During the game you say what your character does 
+and the GM tells you how the world reacts, back and 
+forth. But to describe every minute of your mutants’ 
+life would get tedious. When nothing important is 
+going on, you can fast-forward the story, and con-
+tinue playing at a new time and place. Usually it’s 
+up to the GM to decide when it’s time to fast-for-
+ward, and where to continue. But players are free to 
+make suggestions. Usually it’s pretty obvious when 
+to fast-forward.
+Cutting between PCs.  When your characters are 
+in different locations, the GM will cut between you 
+when appropriate. Cut pretty often – every 15 min-
+utes or so is a good rule – so that no player is left 
+out for too long. And if your PC isn’t in the scene, 
+this doesn’t mean you have to be quiet – instead, 
+stay engaged, immersed and comment on the action. 
+Maybe you can even play an NPC for a little while?
+Don’t over-do it.  Mutant: Year Zero  is a game about 
+surviving and exploring a deadly world. There is no 
+comfort zone, no safe haven where nothing bad can 
+happen. Threats are everywhere – even in the Ark 
+– and expeditions into the Zone are always a gam-
+ble with your life at stake. In the Ark you can fast-
+forward the story every now and then, even jump 
+fo
+
+--- PAGE 17
+
+01
+1 5
+The people at the end of time
+HIM & HER
+The Ark may be a hellhole, but at least it doesn’t 
+discriminate. Hunger doesn’t care if you’re male or 
+female, and neither does the Rot. To reflect both 
+genders in the way the rules are written, and still 
+keep the language consistent, we use “he” for un-
+named players, PCs and NPCs, while the GM is 
+always a “she”. In every one of these cases, what 
+it really means is “he or she” – but it would be too 
+cumbersome to spell that out each and every time.
+ROLEPLAYING? WHAT’S THAT?
+If you have made it this far without knowing what a 
+roleplaying game is – congratulations! Welcome to 
+a creative and very rewarding hobby. Roleplaying 
+is a unique form of gaming that combines dice-
+rolling and storytelling. In a way that books, movies 
+and even video games cannot match, roleplaying 
+games let you create your own story together with 
+your friends, using the rules as a guide and support.
+The strength of a roleplaying game can also 
+be its weakness – the freedom to create the story 
+yourselves can feel overwhelming. But Mutant: Year 
+Zero  contains a lot of story hooks, events, locations 
+and personalities for you to fill your stories with, as 
+well as plenty of tools for the GM to use. And if you 
+need help or advice, there is a forum dedicated to 
+Mutant: Year Zero  at www.modiphius.com as well as 
+at www.freeleaguepublishing.com.
+Welcome!
+ABBREVIATIONS
+PC = Player Character
+XP = Experience Points
+GM = Gamemaster
+NPC = Non-Player Character
+DEV = Development Level
+A TYPICAL SESSION
+Game sessions of Mutant: Year Zero  can vary 
+a lot, but this is the typical rundown:
+1.  Br
+ing out your map of the Zone, character 
+sheets, dice and, if you have them, playing 
+cards for mutations and artifacts.
+2.  Ad
+d a number of new Mutation Points equal to 
+the number of mutations you have (page 19).
+3.  Ho
+ld an Assembly (Chapter 7), where you as 
+players decide on which projects the People 
+should undertake. Skip this step if no PCs are 
+in the Ark.
+4.  Le
+t the GM introduce a new threat to the Ark, 
+using Threat Cards or a dice roll (see Chapter 
+10). Skip this step if no PC is in the Ark, or if 
+enough is going on already.
+5.  Pl
+ay
+
+--- PAGE 18
+
+
+
+
+
+--- PAGE 19
+
+02
+1 7
+Your Mutant
+02
+Your Mutant
+Your Player Character (PC) – your mutant – is your 
+most important asset in Mutant: Year Zero. He is 
+your weapon, your eyes and ears in the world. But 
+he, in return, depends on you making the right de-
+cisions for him. Don’t screw it up. Take your PC 
+seriously and play him as if he was a real person. 
+It’s more fun that way. At the same time, don’t try 
+to protect your PC from every conceivable danger. 
+The goal of the game is to create a good story. For 
+that to happen you need to take risks – if you never 
+dare, you’ll never win.
+ROLE
+The first thing you pick for your mutant is his role. 
+The role determines who you are and what you 
+do in the Ark, your position in the Dawnworld. 
+There are eight roles to choose from, each de-
+scribed on pages 26–41 at the end of this chapter. 
+Avoid having several players pick the same role 
+for their characters, as this would make the group 
+less diverse.
+E X A M P L E
+The player Joanna is creating a PC, and she decides 
+that she wants to play a Stalker. She takes a charac-
+ter sheet and writes down her chosen role.
+AGE
+When were you born? You don’t know. Nobody in 
+the Ark does. But you are all young adults. There 
+are no older people except for the Elder. And there 
+are no children. Unlike the scrawny mutts that live 
+off the Ark’s refuse, the People bear no children. 
+You all realize what this means. If no children are 
+born, and no one arrives from elsewhere, it’s only 
+a matter of time before the People are extinct. Can 
+you find Eden before your time is up?
+OTHER ROLES
+The eight roles re those most common 
+in the Ark, but others can be introduced 
+– especially once the Ark develops into a 
+more advanced society (Chapter 7). New 
+roles will be published in the future, and 
+you can of course create your own. Every 
+role needs a key attribute, a specialist 
+skill and three unique talents. The skill 
+and the talents should be useful but not 
+overly powerful. Try to avoid overlap 
+with existing skills and talents.
+
+
+
+--- PAGE 20
+
+02
+1 8
+Player’s Section
+NAME
+Every role description gives you ten typical names, 
+five male and five female. Choose one of these 
+names, or make up your own name if you prefer.
+E X A M P L E
+Joanna picks the name Krin for her Stalker.
+ATTRIBUTES
+Your four attributes determines what basic strengths 
+and weaknesses you are born with. They are meas-
+ured on a scale from 1 to 5 for PCs and other regular 
+mutants. A higher score is better. Your attributes 
+are used when you perform important actions. The 
+attribute scores are decreased when you suffer dif-
+ferent types of trauma. If an attribute reaches zero 
+you are broken. Read more about this in chapter 6. 
+There you can also find out how you recover lost 
+attribute scores - by consuming a different resource 
+for each.
+Starting scores:  When you create your PC, you 
+should distribute a total of 14 points across the four 
+attribute scores. Each attribute must have a starting 
+value from 2 to 4 – except one. The attribute listed 
+as your “key attribute” by your role description may 
+have a starting score of 5.
+STRENGTH
+Raw physical power and endurance. Strength is de-
+creased by damage, and recovered by grub.
+AGILITY
+Your overall body control and motor skills. Agility 
+is decreased by fatigue, and recovered by water.
+WITS
+Intelligence, alertness and sharpness of mind. Wits 
+is decreased by confusion, and recovered by sleep.
+EMPATHY
+Your charisma and ability to read and affect others. 
+Empathy is decreased by doubt  and recovered by 
+sympathy.
+E X A M P L E
+Joanna gives Krin Strength 3, Agility 5, Wits 4 and 
+Empathy 2. She is allowed to set Agility to 5 because 
+Agility is the Stalker’s key attribute.
+EXTRA MUTATION
+If you choose to start the game with an extra muta-
+tion, one of your attribute scores must be decreased 
+one step (read more about mutations below).
+SKILLS
+Your skills are trained abilities and learning, things 
+you have picked up along the way in the harsh post-
+apocalyptic world. In this game there are twelve ba-
+sic skills that all mutants can use. In addition, every 
+role has a unique, thirteenth skill – a specialist skill.
+Skills are measured by skill level, from 0 to 5. 
+You can use a basic skill
+
+--- PAGE 21
+
+02
+1 9
+Your Mutant
+Starting Levels:  When creating your character, 
+you get to distribute 10 points across your skills. 
+The maximum starting level for any skill is 3, and 
+you must have at least level 1 in your specialist 
+skill – apart from that, you choose your skills 
+freely. You can increase your skill levels during 
+play (page 29).
+E X A M P L E
+Krin buys skill level 3 in Shoot, level 2 in Sneak and 
+Find the Path, and level 1 in Move, Know the Zone, 
+and Heal.
+TALENTS
+Talents are tricks, moves and minor abilities that 
+give you a small edge. They are more specialized 
+than skills and give you a way to fine-tune your char-
+acter. Talents are further explained in Chapter 4.
+You can pick one talent when creating your 
+character – but your choices are limited. Your role 
+description indicates which talents you can choose 
+from. You can learn more talents during the course 
+of the game, at which point you will have many 
+more talents to choose from.
+E X A M P L E
+Joanna gets to choose one from the talents Monster 
+Hunter, Rot Finder and Scavenger for Krin. She picks 
+Scavenger.
+MUTATIONS
+Your mutations are superhuman abilities. Where 
+the mutations come from, no one among the People 
+knows. The problem is that they are both unpredict-
+able and dangerous – even to yourselves. Besides, 
+they can’t always be activated on command. Some-
+times the power is there, ready to unleash, some-
+times it’s not.
+THE MUTATION DRAW
+Normally, you get only get one mutation from start. 
+You don’t get to choose your mutation – instead you 
+draw a random Mutation Card, or roll D66 once on 
+the Mutation Table on page 71. Learn to make the 
+most of the mutation you’ve got, even if you would 
+have preferred another. Mutations are random. Deal 
+with it.
+Two mutations?  Once you have drawn your first 
+mutation, you can, if you want to, draw a second mu-
+tation and start the game with two. The price you 
+pay is that you must decrease one of your attribute 
+scores by one step – your mind or body is more 
+mutated than most, but also more degenerated.
+If you choose to have two mutations, you may 
+end up starting the game with the score of 1 in an 
+attribute – however, this is hardly advisa
+
+--- PAGE 22
+
+02
+2 0
+Player’s Section
+CharaCter Sheet
+Attributes
+Strength Damage  ● ● ● ● ●
+Agility Fatigue  ● ● ● ● ●
+Wits Confusion  ● ● ● ● ●
+Empathy Doubt  ● ● ● ● ●
+Conditions
+Starving  ● Dehydrated  ●
+Sleepless  ● Hypothermic  ●
+CriticalInjuries:
+Mutations
+Gear
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Bullets:
+Skills
+Endure (Strength)
+Force (Strength)
+Fight (Strength)
+Sneak (Agility)
+Move (Agility)
+Shoot (Agility)
+Scout (Wits)
+Comprehend (Wits)
+KnowtheZone (Wits)
+SenseEmotion (Empathy)
+Manipulate (Empathy)
+Heal (Empathy)
+Experience Points
+● ● ● ● ● ● ● ● ● ●
+Armor rating
+Rot Points
+● ● ● ● ● ● ● ● ● ●
+Mutation Points
+● ● ● ● ● ● ● ● ● ●
+Appearance
+Face:
+Body:
+Clothing:
+Talents
+Relationships Buddy
+PC1: ●
+PC2: ●
+PC3: ●
+PC4: ●
+IHate:
+INeedtoProtect:
+MyBigDream:
+Weapons Bonus Damage range Special
+Name: Role:Krin
+Hidden under a hood
+Wiry, skinny
+Camouflage gear
+Scrap rifle
+Water, 2 rations
+Grub, 4 rations
+3
+5
+4
+2
+2
+3
+1
+1
+2
+Stalker
+Scavenger
+Rot-Eater
+4
+Scrap rifle
+The Stalker Yassan, who has gone deeper into the Zone
+The Slave Eriel. She doesn’t deserve a life in chains.
+To go deep into the Zone and find Eden
+Naphta has walked in the Zone with me
+Denrik is a pompous idiot
+Hugust might actually understand me
++1 1 Long Jury-Rigged
+Find the Path
+X
+X
+
+
+
+--- PAGE 23
+
+02
+2 1
+Your Mutant
+CharaCter Sheet
+Notes
+People I’ve met role Notes
+My Den
+Description:
+GearStashed:
+Tiny Items
+Yassan
+Eriel
+Stalker
+Slave
+The wreck of a van at the edge of the Ark
+
+
+
+--- PAGE 24
+
+02
+2 2
+Player’s Section
+RELATIONSHIPS AND DREAMS
+Without friends to back you up you won’t survive 
+for long in the Ark – and even shorter in the Zone. 
+But you have to know who you can trust. Turning 
+your back to the wrong mutant can kill you faster 
+than the Rot.
+Relationships are not the only things connect-
+ing you to the world. You also have a personal 
+dream of a better future.
+Your relationships and dreams affect how you 
+earn Experience Points (XP). These choices are also 
+important to the GM, who will use them to create 
+story elements for the game. This is explained fur-
+ther in Chapter 9.
+RELATIONSHIPS TO PCs
+When creating your PC you must describe your 
+relationship to all of the other PCs. You only need 
+to write one sentence per PC. Your role description 
+gives you premade options to pick from. If you pre-
+fer, you can ignore these options and create your 
+own relationships.
+Buddy:  When you have noted your relationships to 
+the other PCs you must choose which one of them 
+you feel closest to. That PC is your buddy. Mark 
+your choice in the checkbox on the character sheet.
+RELATIONSHIPS TO NPCs
+Next, choose two NPCs that you have a strong re-
+lationship to in some way. You must choose one 
+NPC whom you hate and another whom you want to 
+keep safe. Your role description provides premade 
+options here as well. If you prefer to make these 
+NPCs up by yourself (or together with the other 
+players in the group), that’s fine too.
+YOUR BIG DREAM
+Finally, choose what your big dream is, what you 
+want more than anything in the world. As in the 
+case of relationships, your role description provides 
+you with premade options to choose from. Use them 
+if you want to.
+CHANGING DREAMS & RELATIONSHIPS
+Events during the course of the game can change 
+your PC fundamentally. Your relationships to other 
+PCs, which NPCs matter most to you, and what your 
+big dream is – all of this is subject to change. After 
+every game session, when XP have been distributed, 
+you may change any or all of these freely. You are 
+not allowed to make changes during the session, 
+only after.
+E X A M P L E
+Krin is part of a group that includes the Gearhead 
+Naphta, the Fixer Denrik and t
+
+--- PAGE 25
+
+02
+2 3
+Your Mutant
+Starting Gear:  Your role description tells you what 
+weapons you can choose from when starting the 
+game, and how much grub, water and bullets you 
+have at the outset. Note that the Gearhead also gets 
+to draw a random Artifact Card (or roll once on the 
+Artifact table in Chapter 16) right at the start. If 
+you want to, you can use your bullets to buy extra 
+gear from the start. Use the gear list at the back of 
+this book.
+Grub & Water:  You must consume one ration of 
+grub and one ration of water per day, or you’ll suffer. 
+Read more about this on page 92.
+ENCUMBRANCE
+There’s a limit to how much gear you can carry - and 
+you don’t want to make yourself a target for robbers 
+anyway. You can carry a number of regular items 
+equal to double your Strength score. Use your base 
+Strength for this, not the temporarily decreased 
+value you get when you are hurt (page 88).
+Write it down! You must list everything you are 
+carrying on the character sheet. List up to one regu-
+lar item on each row of the sheet. If an item is not 
+on your sheet, you’ve forgotten it or lost it somehow. 
+You’ve only got yourself to blame.
+HEAVY & LIGHT ITEMS
+Heavy or otherwise cumbersome items are harder 
+to carry. An item designated as heavy counts as 
+two regular items, and takes up two rows on your 
+character sheet. Some objects may need as many as 
+three or even more rows on your sheet. At the op-
+posite end of the spectrum, there are items that are 
+light – they count as half of a regular item, and you 
+can list two of them on the same row on your sheet.
+
+
+
+--- PAGE 26
+
+02
+2 4
+Player’s Section
+GRUB, WATER & BOOZE
+Four rations of grub or water count as one regular 
+item. That means you can list four rations on one 
+row on your character sheet, or two rations plus 
+one light item.
+Booze  is normally kept in a bottle that counts as 
+one regular item. One such bottle contains ten 
+doses of the strong stuff (see chapter 6 for effects 
+of booze).
+TINY ITEMS & BULLETS
+Things even smaller than light items are called tiny. 
+They are so small and light that they don’t encum-
+ber you at all. The rule of thumb is: if the item can 
+be hidden in a closed fist, it’s tiny. Tiny things must 
+be noted on your character sheet even if they don’t 
+encumber you.
+Bullets:  Individual bullets count as tiny items. How-
+ever, more than 10 bullets count as a light item, 
+more than 20 as a basic item and more than 40 as 
+a heavy item.
+OVER-ENCUMBERED
+You can temporarily carry more than your normal 
+limit (Strength × 2 items). The drawback is that you 
+have to make a roll for the skill Endure (page 24) 
+when you want to walk a significant distance, for ex-
+ample crossing into a new sector when in the Zone 
+(page 122). The same rule applies if you drag some 
+other heavy object, like a broken mutant who needs 
+care in the Ark. If you fail your skill roll you have to 
+drop what you are carrying, or stay where you are.
+CARTS & RAFTS
+In the Zone, you can use rafts, carts, vehicles and 
+the like to load heavy stuff onto. That way, you won’t 
+be over-encumbered by it. It’s up to the GM’s judg-
+ment how much can be loaded onto the cart or raft.
+E X A M P L E
+Krin starts the game with 4 bullets, 2 rations of grub 
+and 4 rations of water. She also chooses a scrap rifle. 
+Krin has Strength 2, and thus she can carry one more 
+regular item without being over-encumbered.
+YOUR DEN
+When you sleep you are a potential victim, incapa-
+ble of protecting yourself and your gear. Choose 
+where you sleep, and who you sleep next to, care-
+fully. Note the location of your den on your char-
+acter sheet. Here you can also keep any gear, grub, 
+water and bullets that you can’t bring with you. You 
+have to keep a record of everything you have in 
+your den.
+WHAT ARE YOU EATING?
+The Ark
+
+--- PAGE 27
+
+02
+2 5
+Your Mutant
+Your den should be located in the Ark or just 
+outside of it. You can share a den with other PCs or 
+NPCs – if you trust them. It’s a good idea to hold 
+off choosing your den until after you have decided 
+what the Ark looks like.
+DEVELOP YOUR MUTANT
+Your character won’t walk through the Zone unaf-
+fected. The harsh realities of life after the apoca-
+lypse will change you, that’s all you can be certain of 
+in an uncertain world. You can develop your mutant 
+in several different ways during the game.
+NEW MUTATIONS
+Every time you activate a mutation, there is a small 
+risk that your body or mind will suffer permanent 
+trauma. If that happens, you also gain a new muta-
+tion (page 70). Simply draw a new Mutation Card 
+or roll up new random mutation. Over time, this 
+means you will slowly become weaker – and more 
+mutated. This does not mean that you suddenly 
+develop completely new mutation – rather, latent 
+abilities awaken inside you. That’s what it means 
+to be a mutant.
+EXPERIENCE
+As a mutant, it is your fate to slowly decay and 
+mutate – but you can learn much before your end 
+comes. Such learning is measured in Experience 
+Points (XP). You get your XP at the end of every 
+session. Hold a debriefing and let the entire group 
+talk about that session’s event. For each of the fol-
+lowing questions that you can answer with a “yes”, 
+you get one XP:
+ K Did you participate in the session? (You get 
+one XP just for being there.)
+ K Did you perform a Day’s Work for a project in 
+the Ark (page 103)?
+ K Did you explore at least one new sector in the 
+Zone?
+ K Did you sacrifice or risk something for you 
+PC buddy (page 22)?
+ K Did you sacrifice or risk something for the 
+NPC you want to keep safe?
+ K Did you sacrifice or risk something to mess 
+with the NPC you hate?
+ K Did you sacrifice or risk something to reach 
+your big dream?
+The GM has the final say on how many XP each 
+PC should get, but let all players around the table 
+take part in the discussion. Mark your XP total in 
+the check boxes on your character sheet.
+RAISE A SKILL OR GET A TALENT
+Once you have collected five XP you can improve 
+your PC – either raise a skill of your choice by one 
+lev
+
+--- PAGE 28
+
+02
+2 6
+Player’s Section
+Enforcer
+Every day is a fight for survival. No one 
+knows that better than you. As long as 
+you can remember, you have been fight-
+ing. For grub, for bullets, for respect. Your 
+knuckles and your soul are hardened, 
+crushing a jaw no longer hurts. You 
+have learned the fighter’s secret: 
+It’s not about who is the strongest. 
+It’s about who will never quit.
+
+
+
+--- PAGE 29
+
+02
+2 7
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: broken nose, dead eyes, scarred head, 
+welding mask, hockey mask, metal jaw.
+ K Body: scarred, muscular, compact, wiry, huge, 
+arm prosthesis
+ K Clothing: worn leather coat, dirty coverall, 
+undersized T-shirt, cut-up car tires, hubcaps
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Barge Through
+ K Mean Streak
+ K Sucker Punch
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … wa
+s still standing after one of your punches.
+ … fo
+ught by your side. 
+ … left y
+ou to die.
+ … is 
+wonderful. Some day he/she will be yours.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Boss Johammed, who killed your previ-
+ous Boss and tortured you.
+ K The Enforcer Elon, the only one who beat you 
+in a fair fight.
+ K The Fixer Milix, who you think stole your 
+stash of grub.
+You need to protect:
+ K The Boss Marlotte, who provides grub for you.
+ K The Chronicler Astrina, whom you secretly 
+desire.
+ K Nobody. No one in this rotten world deserves 
+to live.
+YOUR BIG DREAM
+Choose from the options below or decide for 
+yourself.
+ K To crush everything that is pretty.
+ K That your beloved will love you back.
+ K To build rather than destroy.
+GEAR
+You start the game with D6 bullets, 2D6 rations of 
+grub and D6 rations of water.
+Choose one of these starting weapons:  Spiked bat, 
+brass knuckles (light weapon), scrap axe (heavy 
+weapon). You can buy extra gear with your bullets.
+Typical Names:  Hugust, Lenny, Marl, 
+Pontis, Otiak, Ingrit, Mubba, Nelma, 
+Rebeth
+Key Attribute:  Strength
+Specialist Skill:  Intimidate
+
+
+
+--- PAGE 30
+
+02
+2 8
+Player’s Section
+GEARHEAD
+For other people, the Zone is an empty 
+wasteland, littered with useless scrap and 
+garbage. For you, it’s a gold mine that is 
+never depleted. There are remains from 
+the Old Age everywhere, broken 
+technical wonders. You have mas-
+tered the art of turning them 
+into new, working contrap-
+tions. They’re not pretty. But 
+they work. Most of the time. 
+And the People have learned to 
+value your craft.
+
+
+
+--- PAGE 31
+
+02
+2 9
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: goggles, grinning, spiked hair, hairless, 
+bloodshot eyes, dirty, always chewing
+ K Body: thin, wiry, extremely skinny, midget, 
+abnormally fat
+ K Clothes: dirty yellow coverall, bicycle chains, 
+patched-up raincoat, T-shirt with heavy metal 
+motif, cables and light bulbs.
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Inventor
+ K Motorhead
+ K Tinkerer
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … is 
+awesome. Keep close.
+ … is 
+a bit slow on the uptake. Best explain stuff. 
+In detail. 
+ … ma
+kes you nervous. You don’t like the way he 
+looks at you.
+ … is 
+out for your gear. Keep it close.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Gearhead Pontiak, who thinks he’s so 
+smart.
+ K The Fixer Sixter, who tricked you out of an 
+artifact.
+ K The Stalker Kara, who left you in the Zone.
+You need to protect:
+ K The Boss Johammed, who pays well for 
+jury-rigs.
+ K The Enforcer Elon, who is always there when 
+you need him.
+ K The Stalker Yassan, who has promised to take 
+you deep into the Zone.
+YOUR BIG DREAM
+Choose from the options below or decide for 
+yourself.
+ K To build something that will change the Peo-
+ple’s life forever.
+ K To find Eden and explore all the technical 
+marvels hidden there.
+ K To build a weapon that causes widespread 
+destruction.
+GEAR
+You start the game with 2D6 bullets, D6 rations 
+of grub and D6 rations of water. You may also roll 
+for one artifact, which you will start the game with.
+Choose one of these starting weapons:  brass 
+knuckles, bicycle chain, scrap pistol. You can buy 
+extra gear with bullets.
+Typical Names:  Quark, Octane, Plonk, 
+Zingo, Zippo, Delta, Iridia, Loranga, 
+Nafta, Zanova
+Key Attribute:  Wits
+Specialist Skill:  Jury-Rig
+
+
+
+--- PAGE 32
+
+02
+3 0
+Player’s Section
+Stalker
+Let them stare at you in disgust. Let 
+them shy away from you, afraid the Rot 
+will infect them. Let them fear you like 
+death itself. Let them. They hate you, but 
+they need you. Only you know the way 
+through the Zone, the safe paths cross-
+ing the gravelands of the Old Age. You 
+know where the artifacts are hidden, you 
+know where the monsters roam. You are 
+a Stalker.
+
+
+
+--- PAGE 33
+
+02
+3 1
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: hidden under a hood, scarred face, hair-
+less, sickly pale, bandaged
+ K Body: androgynous, wiry, muscular, short
+ K Clothes: raincoat, coverall, camouflage gear, 
+army boots, backpack
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Scavenger
+ K Monster Hunter
+ K Rot Finder
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … wa
+lked with you in the Zone and lived.
+ … is 
+a pompous idiot. If he gets in your way, 
+he’s going down. 
+ … might a
+ctually understand you. Do you dare 
+to open up?
+ … is 
+a danger to everyone. Keep your distance.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Stalker Yassan, because he went deeper 
+into the Zone than you.
+ K The Enforcer Jonats, who killed your only 
+friend.
+ K The Chronicler Astrina, who won’t leave you 
+alone.
+You need to protect:
+ K The Gearhead Pontiak. A pain in the neck, but 
+without you he’s dead.
+ K The Slave Eriel. No one deserves a life in 
+chains. Especially not her.
+ K No one. If they can’t protect themselves they 
+deserve to die.
+YOUR BIG DREAM
+Choose below or decide for yourself.
+ K To venture deep into the Zone and find Eden.
+ K To some day stop wandering and find peace.
+ K To find something worth dying for.
+GEAR
+You start the game with D6 bullets, D6 rations of 
+grub and 2D6 rations of water.
+Choose one of the following starting weapons: 
+scrap rifle, scrap pistol, bow (with 5 arrows). You 
+can buy extra gear with your bullets.
+Typical Names:  Danko, Endel, Franton, 
+Hammed, Max, Felin, Jena, Katin, Krin, 
+Tula
+Key Attribute:  Agility
+Specialist Skill:  Find the Path
+
+
+
+--- PAGE 34
+
+02
+3 2
+Player’s Section
+Fixer
+Bullets? Grub? Water? Artifacts? A warm 
+body next to yours? Whatever people 
+want, you can get it. Somehow. Seeing the 
+needs of others and fulfilling them, that 
+has been your strategy for survival as 
+long as you can remember. Since 
+your were a weak little runt and 
+learned to survive by staying 
+close to the strong kids.
+
+
+
+--- PAGE 35
+
+02
+3 3
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: pleasant, always smiling, unnaturally 
+attractive, greasy
+ K Body: slender, skinny, midget, abnormally fat, 
+no legs
+ K Clothes: suit, dress, colorful T-shirt, leather 
+coat, hat, gloves
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Wheeler Dealer
+ K Vicious Creep
+ K Juicy Info
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … sc
+ammed you out of some bullets. He’s going 
+to pay for it.
+ … sa
+ved you from trouble. What does he want in 
+return?
+ … is 
+your way to the top. Stay close.
+ … is 
+stupid and easy to manipulate.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Fixer Milix, who owes you bullets but 
+won’t pay up.
+ K The Boss Johammed, who double-crossed you 
+and had Enforcers beat you up.
+ K The Gearhead Pontiak, who never delivers 
+what he promises.
+You need to protect:
+ K The Enforcer Jonats. You need him and he 
+needs you.
+ K The Stalker Yassan, because of the loot he can 
+find in the Zone.
+ K The Boss Marlotte, who is your protector in 
+the Ark.
+YOUR BIG DREAM
+Choose below or decide for yourself.
+ K To make a deal big enough to give you bul-
+lets to last a lifetime.
+ K To one day become a boss and get a gang of 
+you own.
+GEAR
+You start the game with 2D6 bullets, 2D6 rations 
+of grub and D6 rations of water.
+Choose one of the following starting weapons: 
+scrap knife, brass knuckles, scrap derringer (all are 
+light weapons). You can buy extra gear with your 
+bullets.
+Typical Names:  Abed, Denrik, Fillix, 
+Jonar, Leodor, Jolisa, Lula, Marlian, 
+Monja, Novia
+Key Attribute:  Empathy
+Specialist Skill:  Make a Deal
+
+
+
+--- PAGE 36
+
+02
+3 4
+Player’s Section
+Dog Handler
+If there’s something the Ark is not in 
+short supply of, it’s wild mutts. Unlike you 
+mutants, the dogs breed constantly and 
+survive by feeding on refuse and – when 
+needed – each other. You can’t even re-
+member how your sorry excuse for a dog 
+became yours, but now it’s worth more to 
+you than any mutant. You live in a symbi-
+otic mutual dependency – you give your 
+dog grub, and it will tear the jugular off  
+anyone who stands in your way.
+
+
+
+--- PAGE 37
+
+02
+3 5
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: hairless, scarred, pastry pale, unblink-
+ing, disfigured
+ K Body: wiry, scrawny, short, hunched
+ K Clothes: overalls, padded jacket, leather 
+jacket, hoodie, heavy boots
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Bloodhound
+ K Fight Dog
+ K Mutant’s Best Friend
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … is 
+disliked by your dog. And therefore, by you 
+as well.
+ … think
+s he is all that. Idiot. 
+ … clearl
+y dislikes you and your dog.
+ … is 
+the object of your secret desires.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Fixer Sixter, who has seen you cry and 
+needs to die.
+ K The Enforcer Jonats, who kicked your last 
+dog to death.
+ K The Boss Marlotte, who tries to control you.
+You need to protect:
+ K The Boss Johammed, who gives you and your 
+dog grub.
+ K The Chronicler Astrina, who loves you but 
+won’t admit it.
+ K Your dog. Her life is worth that of ten of those 
+lousy mutants.
+YOUR BIG DREAM
+Choose from the options below or decide for 
+yourself.
+ K To kill the next mutant who looks at you 
+sideways.
+ K For the one you desire to feel the same way 
+about you.
+ K To leave the Ark with your dog and find a bet-
+ter life elsewhere.
+GEAR
+You start the game with D6 bullets, D6 rations of 
+grub and D6 rations of water.
+Choose one of the following starting weapons: 
+bicycle chain, scrap knife, slingshot, scrap rifle. You 
+can buy extra gear with your bullets.
+Typical Names:  Finn, Jony, Mohan, 
+Montiak, Rasper, Anny, Brie, Krinnel, 
+Linna, Sofin
+Dog Names:  Grim, Grock, Fingo
+Key Attribute:  Agility
+Specialist Skill:  Sic a Dog
+
+
+
+--- PAGE 38
+
+02
+3 6
+Player’s Section
+Chronicler
+Everything must be recorded. All the Peo-
+ple does must be taken note of, nothing 
+forgotten. The Elder has been saying that 
+as long as you can remember. The most 
+gifted among you he made Chroniclers, 
+tasked with writing down the fate of 
+the People in yellowed notebooks. You 
+have filled many books by now. The 
+Elder will soon be gone – but you 
+won’t betray your pledge to him.
+
+
+
+--- PAGE 39
+
+02
+3 7
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: sickly pale skin, hairless head, friendly 
+face, piercing eyes, serious
+ K Body: skinny, hunchback, abnormally tiny, 
+gnarled
+ K Clothes: worn coverall with a number on it, 
+raincoat, worn suit, covered by paraphernalia 
+from the Old Age.
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Bonesaw
+ K Agitator
+ K Performer
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … is 
+the hero of your story, but doesn’t know it.
+ … doesn’t 
+understand his own good, and needs 
+to be saved. 
+ … is 
+a threat to the entire People.
+ … will die 
+soon. It’s only a matter of time.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Chronicler Davin, whose lies the People 
+love listening to.
+ K The Boss Marlotte, who is an uncivilized 
+barbarian.
+ K The Stalker Kara, who refused to be the hero 
+of your story.
+You need to protect:
+ K Your worn notebook.
+ K The Boss Johammed, who wants what’s best 
+for the People.
+ K The Gearhead Pontiak. His talents are needed 
+in the Dawnworld.
+YOUR BIG DREAM
+Choose from the options below or decide for 
+yourself.
+ K For the Ark to become a place of culture and 
+learning.
+ K To write the great story of how the People 
+finds Eden.
+ K To bring children to the People and teach a 
+daughter or son all they need to know about 
+the Dawnworld.
+GEAR
+You start the game with D6 bullets, D6 rations of 
+grub and D6 rations of water.
+You get no weapons for free, but you can buy gear 
+with your bullets.
+Typical Names:  Erister, Olias, Maxim, 
+Silas, Victon, Amara, Danova, Johalin, 
+Hanneth, Miri
+Key Attribute:  Empathy
+Specialist Skill:  Inspire
+
+
+
+--- PAGE 40
+
+02
+3 8
+Player’s Section
+Boss
+Human civilization may have collapsed, 
+but the world hasn’t ended equally for all. 
+Some lead and others follow - now as in 
+the Old Age. You lead. Through intrigue, 
+manipulation and naked violence 
+you have convinced a gang of 
+mutants to follow you as their 
+leader. That doesn’t mean 
+your life is simple – there is 
+always another Boss who wants 
+to break you or some underling 
+who wants to take your place.
+
+
+
+--- PAGE 41
+
+02
+3 9
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: moon face, scarred face, hairless, greasy 
+hair, watery eyes
+ K Body: standing upright, short, abnormally fat, 
+has no legs and needs to be carried
+ K Clothes: suit, dress, protective coverall, fur 
+coat, hat, jewelry
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Commander
+ K Gunslingers
+ K Racketeer
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … is 
+your right hand, who you trust with your 
+life.
+ … stole fr
+om you, and thinks you don’t know. 
+ … is 
+a useful tool.
+ … dar
+ed to defy you, and needs to pay for it.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Boss Marlotte, who is your worst rival.
+ K The Enforcer Jonats, who refuses to join your 
+gang.
+ K The Stalker Kara. She led you into the Zone 
+and tried to kill you.
+You need to protect:
+ K The Fixer Sixter, who runs your business.
+ K The Chronicler Astrina, you want her to write 
+an epic about you.
+ K The Enforcer Elon, who is a human shield 
+protecting you from your enemies.
+YOUR BIG DREAM
+Choose from the options below or decide for 
+yourself.
+ K To eliminate all of your rivals and become the 
+ruler of the Ark.
+ K To build a new and better civilization in the 
+Dawnworld.
+ K To one day be relieved of all responsibilities 
+and finally be free.
+GEAR
+You start the game with 2D6 bullets, 2D6 rations 
+of grub and D6 rations of water.
+Choose one of the following starting weapons: 
+spiked bat, scrap knife, scrap pistol. You can buy 
+extra gear with your bullets.
+Typical Names:  Augustian, Kristor, 
+Maximon, Mohamin, Oskartian, Brik -
+to
+ria, Elona, Gunitt, Natara, Bristin
+Key Attribute:  Wits
+Specialist Skill:  Command
+
+
+
+--- PAGE 42
+
+02
+4 0
+Player’s Section
+Slave
+It feels good to be a slave. To know your 
+place. To have a purpose. Not having to 
+choose your own path, doing your own-
+er’s bidding. To make her proud. And 
+still. Somewhere, deep inside, you have 
+a dream of a new place, a new life. Where 
+everything could be different.
+
+
+
+--- PAGE 43
+
+02
+4 1
+Your Mutant
+APPEARANCE
+Choose from the options below or decide for 
+yourself.
+ K Face: expressionless, disfigured, rough, dead 
+eyes, hairless
+ K Body: powerful, muscular, skinny, hunchback, 
+ape-like
+ K Clothes: none, chains, torn T-shirt, dirty 
+coverall
+TALENTS
+Choose one, you can learn more later. Talents are 
+explained in Chapter 4.
+ K Cynic
+ K Rebel
+ K Resilient
+RELATIONSHIPS TO OTHER PCs
+Choose from the options below or decide for 
+yourself.
+ … is 
+your owner. His will is your law. For now.
+ … wants 
+to hurt your owner. Keep an eye on 
+him.
+ … tre
+ats you like garbage.
+ … is 
+your ticket to freedom. Stay close.
+RELATIONSHIPS TO NPCs
+Choose from the options below or decide for 
+yourself.
+You hate:
+ K The Boss Johammed, your previous owner 
+who always tormented you.
+ K The Enforcer Elon, who beats you whenever 
+he gets the chance.
+ K The Fixer Milix, who promised you freedom 
+but let you down.
+You need to protect:
+ K The Fixer Sixter. You feed him secrets about 
+your owner.
+ K The Enforcer Jonats, who gives you some 
+grub now and then.
+ K The Slave Eriel. The people at the bottom 
+need to stick together.
+YOUR BIG DREAM
+Choose from the options below or decide for 
+yourself.
+ K To rebel, kill all of the Bosses and free all 
+Slaves.
+ K Nothing but to please your owner and make 
+him proud.
+ K To escape the misery in the Ark and find a 
+better life elsewhere.
+GEAR
+You start the game with no bullets, D6 rations of 
+grub and D6 rations of water.
+Choose one of the following starting weapons: 
+spiked bat, bicycle chain, slingshot.
+Typical Names:  Dink, Fils, Hent, Mart, 
+Wilo, Alia, Eria, Henny, Kim, Lin
+Key Attribute:  Strength
+Specialist Skill:  Shake it Off
+
+
+
+--- PAGE 44
+
+
+
+
+
+--- PAGE 45
+
+03
+4 3
+Skills
+03
+Skills
+Roleplaying is a conversation. The GM sets the 
+scene, you describe what you do, the GM tells you 
+how NPCs react – then you respond, and so on – 
+back and forth. The story grows one step at a time. 
+But the world of Mutant: Year Zero is a desperate 
+place inhabited by desperate people. Sooner or later 
+things will come to a head, a point of no return, 
+a conflict that cannot be settled by just talking it 
+through. Then it’s time to bring out the dice and 
+use one of your skills.
+ROLLING DICE
+There are twelve basic skills in this game. Any mu-
+tant can use these. Furthermore, every role has one 
+unique thirteenth skill. Every skill is connected to 
+one of the four attributes – Strength, Agility, Wits 
+and Empathy. Skills are measured in skill levels, 
+from 0 to 5.
+/ MEANS SUCCESS
+When you use a skill, first describe what your char-
+acter does or says. Then, grab a number of Skill 
+Dice (green) equal to your skill level, and a number 
+of Base Dice (yellow) equal to the current value of 
+the attribute connected to the skill. If you are using 
+the right tool, you also get a number of Gear Dice 
+(black). Then just roll all the dice together.
+For your action to succeed, you must roll at least 
+one / symbol – if not, your action fails. If you roll 
+more than one /, you can perform stunts (page 
+48 and forward).
+The = Symbol: On the Base Dice, the “one” is re-
+placed by the symbol =. These have no effect on 
+this first roll – only count them when you push your 
+roll (page 44).
+THE BASIC SKILLS
+ K Endure (Strength)
+ K Force (Strength)
+ K Fight (Strength)
+ K Sneak (Agility)
+ K Escape (Agility)
+ K Shoot (Agility)
+ K Scout (Wits)
+ K Comprehend (Wits)
+ K Know the Zone (Wits)
+ K Sense Emotion (Empathy)
+ K Manipulate (Empathy)
+ K Heal (Empathy)
+
+
+
+
+--- PAGE 46
+
+03
+4 4
+Player’s Section
+ROLLING WITHOUT SKILL LEVEL
+You can always roll for a skill, even if your skill 
+level is zero – just roll Base Dice for the attribute, 
+plus any Gear Dice. The exception to this rule are 
+the roles’ specialist skills – to use these, you need 
+at least skill level 1.
+E X A M P L E
+Krin spots some Zone-Ghouls in a ruined house. 
+She wants to Sneak closer. Krin has Agility 5 and a 
+Sneak skill level of 2, which means she gets to roll 
+five Base Dice and two Skill Dice.
+THE ART OF FAILURE
+If you roll no /, something goes wrong. You’re now 
+at the GM’s mercy. The only thing she can’t  say 
+is “nothing happens”. Failure should always have 
+consequences. For each skill listed below, there are 
+guidelines for what failure can mean, but the final 
+decision is up to the GM. It could be that you suffer 
+trauma, lose something valuable, need to make a 
+detour, or face a new threat of some kind. Sounds 
+harsh? You have a final lifeline if you really want to 
+avoid failing – you can push your roll.
+Conflicts:  In conflicts (Chapter 6), a failed roll 
+doesn’t need to have very severe consequences 
+in itself. It’s usually enough of a consequence that 
+your attack misses the enemy – making it his turn 
+to act and get back at you. The GM can  impose 
+additional consequences of a failed roll even in con-
+flicts though – such as your missed gunshot hitting 
+someone other than who you were aiming for.
+E X A M P L E
+Despite her seven dice, Krin rolls no /. She stum-
+bles on a piece of wreckage, and the sound alerts the 
+Zone-Ghouls. They shriek in anger and charge at her!
+ROLLS WITHOUT SKILL
+If an action you want to perform in the game does 
+not fit any skill, you and the GM should consider if 
+this really is a situation worth a dice roll. The GM 
+can just make a quick judgement call and move 
+on. If you still feel dice should be rolled, the GM 
+decides what attribute is most useful in the situa-
+tion, and you roll only Base Dice.
+PUSHING YOUR ROLL
+If you are desperate to succeed, you can push your 
+roll. That means you grab all dice that didn’t come 
+up with a /, = or 
+ , and roll them again. You get a 
+new shot at rolling /. You can never push dice that 
+s
+
+--- PAGE 47
+
+03
+4 5
+Skills
+= MUTATES YOU
+When you push yourself this hard there is a risk 
+that you will exhaust yourself in the process – even 
+to the point of breaking. When you push a roll you 
+suffer one point of trauma to the attribute used for 
+every = you have rolled. All = count, even the ones 
+in your first roll, before you re-roll. How trauma 
+works, and how you recover from it, is explained 
+in Chapter 6.
+But there is an upside too. Pushing yourself to 
+the limit of your ability can release powerful mu-
+tant energies in your mind or body. When you push 
+a roll, you also get one Mutation Point (MP) for 
+every point of trauma suffered (that is, equal to the 
+number of = rolled). You need MP to activate your 
+mutations (Chapter 5).
+In short – to connect with your mutant powers 
+you need to push so hard you risk hurting yourself 
+– but if you do you’ll be able to command unstop-
+pable powers…
+E X A M P L E
+The Enforcer Hugust wants to beat up Sixter, a Fixer. 
+Hugust rolls three Skill Dice (skill level 3 in Fight) 
+and five Base Dice (Strength 5). He gets two = but 
+no /. If he chooses to push the roll, he knows he 
+will suffer at least two points of damage (trauma to 
+Strength) – the = he rolled stay on the table. Hugust 
+takes the hit and rerolls six dice. He gets one / but 
+also one more =. Hugust succeeds, but suffers three 
+points of damage himself and gets three Mutation 
+Points. He hits Sixter in the face, but strains a muscle 
+in the process.
+DESCRIBE YOUR ACTION
+Roleplaying is all about the story. Just 
+stating what skill you use and to what 
+end is not enough. First, set out what you 
+want to achieve, so that everyone around 
+the table knows what’s at stake. Then, 
+roll the dice. If you succeed, inter-
+pret the result and explain what 
+happens. Describe what your 
+character does in some de-
+tail; what he says or even 
+what he thinks. If you push 
+your roll, describe what you 
+do. Do it right away, don’t 
+wait for a prompt from the 
+GM – but if your roll fails, 
+then it’s her job to de-
+scribe the consequences.
+SNEAK
+
+
+
+--- PAGE 48
+
+03
+4 6
+Player’s Section
+ONE SHOT ONLY 
+As a general rule, you only get one shot at particu-
+lar action. When the dice have been rolled – and 
+pushed, if you so choose – you can’t roll again to 
+achieve the exact same thing. You’ll have to try 
+something else or wait until the circumstances have 
+changed in some major way. Or let another PC try.
+In conflicts (Chapter 6), the GM should be more 
+forgiving. You can attack the same enemy over and 
+over if he won’t go down – it’s enough if you de-
+scribe what you do differently this time.
+NPCs AND SKILLS
+NPCs use skills just like PCs do. The GM rolls dice 
+for them, they can push their rolls, suffer trauma 
+and get Mutation Points just like PCs. But the GM 
+should only roll for actions that directly affect a PC 
+– for example, when the NPC is Fighting or Caring 
+for a PC. In other cases, the GM should generally 
+just decide the outcome of the action, without roll-
+ing dice.
+GEAR BONUS
+To improve your chance of success, you can use 
+gear. A piece of gear can be a baseball bat to hit 
+someone with, a rope to climb with or a pair of sun-
+glasses from the Old Age to impress someone with.
+A useful object will give you a Gear Bonus – a 
+number of Gear Dice to roll (the black ones). You 
+can see your Gear Bonus on the weapons tables on 
+pages 86 and 87, and on the general gear list at the 
+end of the book.
+You roll your Gear Dice together with your 
+Base Dice and Skill Dice when you perform an 
+action. This way, you improve your chances 
+of rolling / and succeeding.
+Normally, you can only use one piece of 
+gear at a time. You can’t get Gear Bonus for 
+the same roll from more than one object.
+GEAR BREAKS
+When you use a piece of gear and you push your 
+roll (above), the gear might get damaged. When 
+you push a roll, you must reroll all Gear Dice that 
+don’t show 
+  or / (one or six on a normal die). For 
+every Gear Die that shows 
+  after you have pushed 
+the roll, the Gear Bonus decreases by one. The gear 
+has been damaged and is not as effective anymore. 
+Gear Dice won’t  give you Mutation Points – only 
+Base Dice do that.
+If the Gear Bonus reaches zero the gear no 
+longer works at all. If it’s an artifact, it also won’t 
+g
+
+--- PAGE 49
+
+03
+4 7
+Skills
+E X A M P L E
+Sixter draws his scrap gun and fires at Hugust. Six-
+ter has Agility 3, Shoot skill level 1 and the gun has 
+Gear Bonus +1. He gets to roll three Base Dice, one 
+Skill Die and one Gear Die. He rolls no / but one 
+. He chooses to push the roll, knowing that will 
+break the gun. Now he rolls a / and hits, but the 
+gun’s Gear Bonus is reduced to zero.
+MODIFICATION
+Sometimes external factors help you to succeed. 
+This gives you extra Skill Dice to roll. On other oc-
+casions, something hampers your action. In those 
+cases, you roll fewer Skill Dice than normal. Either 
+way, such adjustments are called modifications.
+Modification +1 means you roll one extra Skill 
+Die, +2 means you roll two extra Skill Dice, and so 
+on. Modification −1 means you roll one Skill Die 
+fewer than normal, −2 means two fewer, and so on.
+Modification only ever affects Skill Dice – never 
+Base Dice or Gear Dice.
+If several modifications apply to the same roll, 
+add them together. Modification +2 and −1 added 
+together gives you a modification of +1.
+Negative Dice:  If, after modification, you end up 
+with exactly zero Skill Dice, you just roll your Base 
+Dice (and any Gear Dice). If you go below zero, you 
+must roll this negative number of Skill Dice. Any / 
+on negative Skill Dice eliminate an equal number 
+of / on Base or Gear Dice. If you push your roll 
+you must reroll negative Skill Dice too (except the 
+ones showing / of course).
+You can get modifications in two ways: through the 
+difficulty of the action itself, or through help from 
+others.
+DIFFICULTY
+Normally, the GM doesn’t assess how difficult an 
+action is. You only roll dice in challenging situa-
+tions – period. But sometimes, the GM might want 
+to underscore that external factors help or hinder 
+an action. Use this table for guidance:
+Difficulty Mo D if ication
+A Breeze +3
+Simple +2
+Easy +1
+Normal ±0
+Demanding −1
+Hard −2
+Insane −3
+There are also cases when modifications are im-
+posed by the rules, like when you aim carefully with 
+a gun (page 85), shoot at long range or if you’re in 
+a bad bargaining position when trying to Manipu-
+late someone (page 82). Some talents (Chapter 4) 
+can also give you a 
+
+--- PAGE 50
+
+03
+4 8
+Player’s Section
+E X A M P L E
+Sixter has locked himself into his trailer. Hugust 
+wants to push the entire trailer into the dirty creek 
+nearby. Hugust has Strength 5 and Force skill level 1, 
+but the GM says the action is hard and gives Hugust 
+a −2 modification. Accordingly, he rolls five Base 
+Dice and one negative Skill Die. He rolls one / on 
+the Base Dice but also on the Skill Die! This / elimi-
+nates the other, and the roll fails. Hugust needs to 
+consider whether it’s worth it to push the roll.
+HELP FROM OTHERS
+Other PCs or NPCs around you can help you suc-
+ceed. They have to say so up front, before you roll 
+your dice. It also has to make sense in terms of the 
+story – they have to be physically present and be 
+able to support your action in a direct way. The 
+GM has final say.
+For every person helping you, you get a +1 modi-
+fication. No more than three people can help you 
+make the roll, which means your maximum modi-
+fication for help from others is +3.
+Specialist Skills: You can not get help when using 
+your specialist skill. When using a specialist skill, 
+you are always on you own.
+Conflicts: If you help someone in a conflict (Chap-
+ter 6) you lose your own action in the turn. You can 
+still perform a maneuver, however (page 80).
+Chroniclers  have the specialist skill Inspire, which 
+is also used to help others perform actions. See 
+more on page 59.
+NPCs can help each other in the same way as PCs. 
+Letting NPCs act in groups rather than individually 
+is often a useful way to handle a large number of 
+NPCs in conflicts.
+E X A M P L E
+Krin and her friends are back out in the Zone. Krin 
+wants to climb into a ruined house, where she thinks 
+there might be artifacts. Hugust helps her up, and 
+Krin gets a +1 modification to her roll.
+SIMULTANEOUS ACTIONS
+You and the other PCs can not  help each other when 
+you’re acting simultaneously , that is, performing the 
+same action side by side. Examples are struggling 
+your way through a fierce snowstorm (Endure) or 
+sneaking up on a group of Zone-Ghouls (Sneak). In 
+this case, you all roll separate rolls. If you want to 
+help someone, you can’t perform the action yourself.
+Stunts: If you roll several

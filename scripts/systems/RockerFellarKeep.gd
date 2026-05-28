@@ -769,9 +769,15 @@ func _add_enemy_splice(pos: Vector3, group: String, points: Array[Vector3] = [])
 	sp.name = "Splice"
 	sp.position = pos
 	sp.add_to_group(group)
+	sp.item_dropped.connect(_on_splice_item_dropped)
 	add_child(sp)
 	if not points.is_empty():
 		sp.set_patrol_points(points)
+
+
+func _on_splice_item_dropped(item_name: String) -> void:
+	hud.push_log("splice dropped: %s" % item_name.replace("_", " "))
+	hud.show_system_message("FOUND " + item_name.to_upper().replace("_", " "))
 
 
 func _add_security(pos: Vector3, group: String) -> void:

@@ -113,14 +113,10 @@ func _dress_mall(root: Node3D) -> void:
 	_add_light(root, "MuzakGlow", Vector3(0, 2.4, 0), Color(1.0, 0.08, 0.56), 0.9, 8.0)
 
 
-func _dress_faded_atrium(root: Node3D) -> void:
-	for i in range(5):
-		var x := -8.0 + i * 4.0
-		_add_box(root, "CounterfeitStorefront%d" % i, Vector3(x, 1.25, -8.75), Vector3(1.35, 0.95, 0.05), mat_glass)
-		_add_box(root, "DeadEscalatorStep%d" % i, Vector3(-4.0 + i * 1.0, 0.16 + i * 0.08, 1.5 + i * 0.45), Vector3(0.42, 0.08, 0.62), mat_rust)
-	for i in range(4):
-		_add_box(root, "FalseSkylightPanel%d" % i, Vector3(-6.0 + i * 4.0, 3.05, -1.0), Vector3(1.2, 0.04, 0.8), mat_cyan)
-	_add_light(root, "AtriumFalseSkyGlow", Vector3(0.0, 2.7, -1.0), Color(0.32, 0.95, 0.82), 0.8, 9.0)
+func _dress_faded_atrium(_root: Node3D) -> void:
+	# MallHub now owns the Faded Atrium layout. Keep this theme quiet so old
+	# placeholder boxes and false-skylight panels do not bleed into the new mall.
+	pass
 
 
 func _dress_sub_basement_district(root: Node3D) -> void:

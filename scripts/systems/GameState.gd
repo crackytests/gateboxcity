@@ -183,9 +183,9 @@ var QUEST_DEFS: Dictionary = {
 		"active_flag": "quest_hub_lan_active",
 		"done_flag": "hub_lan_restored",
 		"objectives": [
-			{"id": "hub_lan_restored", "text": "Restore the LAN tap in the north corridor", "required": true, "done_flag": "hub_lan_restored"},
+			{"id": "hub_lan_restored", "text": "Restore the LAN tap in the Water Reclamation Cistern", "required": true, "done_flag": "hub_lan_restored"},
 		],
-		"objective_text_active": "Hub: restore the LAN tap in the north corridor ceiling.",
+		"objective_text_active": "Hub: restore the LAN tap in the Water Reclamation Cistern (east end of the upper walkway).",
 		"objective_text_done": "Hub LAN restored.",
 	},
 	"hub_cistern": {

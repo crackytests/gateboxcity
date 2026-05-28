@@ -1,0 +1,3168 @@
+--- PAGE 96
+
+06
+9 4
+Player’s Section
+to make a Scout roll to get a good look at them. 
+That roll does not count as an action in conflicts 
+– you can Scout and attack in the same turn. You 
+can’t Shoot at targets at Short range or more in 
+total darkness.
+EXPLOSIONS
+In some parts of the Zone, the ground is covered by 
+deep craters, traces of the Ancients’ mighty weap-
+ons of mass destruction. Such weapons are rare now, 
+if they exist at all, but Gearheads can Jury-Rig some 
+pretty powerful explosive charges (page 54).
+The force of an explosion is measured in Blast 
+Power. When the detonation occurs, the GM – or the 
+player whose PC built the bomb – rolls a number of 
+Base Dice equal to the Blast Power for each person 
+within Near range of the blast. For every / rolled, 
+the victim suffers one point of damage. The roll 
+cannot be pushed. Victims at Arm’s Length from 
+the detonation suffer one extra point of damage.
+Effect Radius:  Powerful charges, with a Blast Power 
+of 7 or more, can harm people even at Short range. 
+The Blast Power is then reduced by 6. If there are 
+many people within Short range of the blast, the 
+GM can simplify the process by rolling just one 
+roll and apply the result to all victims.
+Shrapnel: Normal explosions have a weapon 
+damage of 1 – the damage is simply equal to 
+the number of / rolled (except at Arm’s Length, 
+where it is one more). A mean Gearhead 
+can arm his bomb with small bits of scrap, like ball 
+bearings or nails, to increase the effect. This is a 
+stunt when using the Jury-Rig skill. If so armed, the 
+Blast Power of the bomb is increased to 2.
+Vehicles:  Explosions can harm vehicles (below). 
+Roll for the damage to the vehicle as it was a person.
+E X A M P L E
+Naphta has built a pipe bomb with Blast Power 9 
+and weapon damage 2. When it detonates, one Zone-
+Ghoul is within Near distance. Naphta rolls two /, 
+which together with the weapon damage inflicts 
+three points of damage on the Zone-Ghoul. Within 
+Short range, there are five more Zone-Ghouls. They 
+are exposed to a blast with Blast Power 3. Naphta 
+rolls a joint roll for them, and gets one /. The five 
+Zone-Ghouls suffer two points of damage each.
+VEHICLES
+In the Zone, there are
+
+--- PAGE 97
+
+06
+9 5
+Conflict & Trauma
+Zone Travel:  Riding in a vehicle, exploring a sector 
+of the Zone map requires half the time compared 
+to walking (page 122).
+VEHICLES IN COMBAT
+In a conflict, you can move faster in a vehicle than 
+on foot. Every maneuver spent on movement counts 
+as two. For example, with only one maneuver you 
+can move directly from Short distance to Arm’s 
+Length, or from Long to Short distance.
+Escaping From Danger:  In a tight spot you can 
+use your vehicle to escape. Roll to Move as usual, 
+but use the Gear Bonus of the vehicle.
+Ramming Enemies: Most vehicles can be used as 
+weapons, to simply run over your enemies. The at-
+tack must occur at Arm’s Length. Roll to Fight, but 
+use your Agility and your Move skill instead. The 
+weapon damage is normally 1, but can be increased 
+by a Gearhead (page 56).
+E X A M P L E
+The Gearhead Naphta has found an old Volvo (Gear 
+Bonus +3) and got it running again. She wants to 
+ram a savage mutant from Short range. She uses 
+her maneuver in the turn to get to Arm’s Length, 
+and then uses her action to ram her enemy. She rolls 
+three Base Dice (Agility 3) two Skill Dice (Move skill 
+2) and three Gear Dice. She initially fails her roll but 
+decides to push it, ending up with one 
+  and two /. 
+The savage mutant suffers two points of damage, but 
+the Volvo’s Gear Bonus is decreased to +2.
+DAMAGE TO VEHICLES
+Just like any other gear, vehicles can break down 
+and lose Gear Bonus when you use them. When the 
+Gear Bonus reaches zero, the vehicle won’t start any 
+more, and needs to be repaired.
+Resilience: The Gear Bonus of a vehicle can also 
+be reduced by external damage. When a vehicle 
+has taken a number of damage points equal to its 
+Resilience rating, its Gear Bonus is reduced one 
+step. When the total amount of damage inflicted 
+on a vehicle reaches twice the Resilience rating, the 
+Gear Bonus is reduced another step, and so on.
+Armor:  Some vehicles have a metal hull protecting 
+the vehicle itself and its occupants. Gearheads can 
+improve the Armor Rating with the Jury-Rig skill.
+Ramming a Vehicle: You can also use a vehicle to 
+ram another vehicle – but only if your vehicle has 
+an equal or higher Resilience r
+
+--- PAGE 98
+
+
+
+
+
+--- PAGE 99
+
+07
+9 7
+The Ark
+07
+The Ark
+The Ark is your home. This is where you have grown 
+up together with the other mutants, protected from 
+the horrors in the Zone around you. The Elder has 
+kept you safe during the long winter, but the safe 
+haven is no more. The Elder is dying. The People 
+have become young adults, and grub is getting 
+scarce. Mutant is turning on mutant, pacts are 
+formed and plots whispered in the dark. But you 
+must find a way to work together. The People of the 
+Ark need to overcome their differences and find a 
+new path forward. Evolve, build a new civilization 
+on ruins of the old. If you can’t, the legacy of man-
+kind will be lost forever.
+CREATE YOUR ARK
+The Ark, a settlement with a few hundred inhabit-
+ants, is the starting point of the game. All PCs live 
+in the Ark and have grown up there. Maybe you 
+have never even left the Ark. The outside world, the 
+Zone, is unknown and dangerous. Only Stalkers and 
+other fools head out there.
+To create your Ark is the first thing you should 
+do when you have created your characters. It’s a 
+simple process – just follow the steps below. Use 
+the Ark Sheet at the end of this book, or download 
+it from the Modiphius website.
+1. ZONE LOCATION
+Before you create the Ark itself, you need to deter-
+mine what Zone it is in. Start by deciding where in 
+the world the Zone is located. It may well be some-
+where in your home country, or could be anywhere 
+in the world. Preferably the Zone should, at least 
+partly, contain the ruins of a city – why not your 
+own home town?
+Decide, as a group, what the general environ-
+ment in the Zone looks like. Is it flat or hilly? What 
+major rivers or coastlines are there, what landmarks?
+Premade Zones: In the next chapter, you can find 
+two premade Zone examples: The Dead Apple and 
+The Big Smoke. You can choose to play in either of 
+these Zones, or just use them only as inspiration 
+for your own Zone.
+2. THE ZONE MAP
+The next step is to create a general map of the Zone. 
+This map is based on reports from Stalkers or fad-
+ing charts from the Old Age. On the inside covers of 
+this book you will find maps of the two sample Zone 
+mentioned above. You can choose either of these 
+map
+
+--- PAGE 100
+
+07
+9 8
+Player’s Section
+miles wide. You might think this is small, but re-
+member that the Zone is a strange, labyrinthian 
+landscape, often covered in smog – movement in 
+the Zone is slow.
+Most of the Zone map will be blank at the start 
+of the game – only coastlines, major rivers or lakes, 
+prominent landmarks and places rumored to hold 
+great treasures or horrible dangers will be marked 
+out. As play evolves, you will fill in the map (or the 
+Zone Log) with details. Read more about exploring 
+the Zone in the next chapter.
+3. TYPE OF ARK
+Once your Zone map is done, it’s time to look closer 
+at the Ark itself and decide what it is. The People’s 
+sanctuary may be located in a variety of different 
+kinds of ruins from the Old Age. Examples:
+ K Airplane Wreck
+ K Bridge
+ K Farm
+ K Gated Community
+ K Junkyard
+ K Mall
+ K Oil Rig
+ K Prison
+ K Scrap Village
+ K Shelter
+ K Shipwreck
+ K Skyscraper
+ K Small Island
+ K Subway Station
+ K Trailer Park
+Discuss in the group and agree on something you 
+all like.
+4. ARK POSITION
+Decide jointly in the group which sector to place 
+the Ark in. Don’t put it right in the middle – the 
+central parts of the Zone are usually those most 
+contaminated by the Rot – but also not on the very 
+edge. It is recommended, if not totally necessary, 
+to place the Ark near the sea, a river or a large lake.
+5. THE ARK MAP
+The next step is to draw a rough map of the Ark, 
+that will make it easier for you to visualize where 
+things happen during play. Mark your PCs’ shelters 
+on the map, as well as the Elder’s refuge (step 6 
+below), the dens of the most important Bosses (step 
+7) and the water source of the Ark (step 10).
+In this chapter you will find two sample maps 
+of typical Arks – a scrap village and a beached pas-
+senger ferry. If you don’t have the time or the in-
+clination to draw your own map, use one of these. 
+You can also download the maps at www.modiphius.
+com/mutant.
+6. THE ELDER
+Determine where in the Ark the Elder lives. He 
+is rarely seen in person these days, but his den 
+is still a hub of activity in the Ark and this is 
+where the Chroniclers of the Dawn Vault (page 
+113) most often can be found. Mark the spot on 
+your Ark map.
+7. TH
+
+--- PAGE 101
+
+07
+9 9
+The Ark
+You should already have established some Bosses 
+when creating your characters, and one of your 
+PCs might even be a Boss himself. Before the 
+game starts, it can be a good idea to describe the 
+Bosses of the Ark a little, and even add one or 
+two more. Bosses come in different types, see the 
+list below.
+BOSS TYPES
+t he
+ Despot.  Is obsessed with power and loves 
+to demonstrate it. Lets others do his dirty 
+work. Sees enemies everywhere. Reacts with 
+extreme violence to any threats or signs of 
+mutiny.
+t he
+ c om
+mander.  Drills his underlings as if 
+they were soldiers in an army. Does not mind 
+getting blood on his own hands every now 
+and then – that’s good for morale.
+t he
+ a gi
+tator.  An inspiring figure who uses 
+fiery speeches to make the People dream of a 
+better future. Is able to rally the crowds and is 
+often seen as a threat by other Bosses.
+t he
+ r ev
+olutionary.  Wants to topple the Elder 
+once and for all, and create a new, fair and 
+equal order in the Ark. Wants to ban private 
+ownership, demote all Bosses and introduce 
+decision-making by consensus.
+t he
+ Kingpin.  Treats most of his underlings as 
+little more than slaves – as his own private 
+workforce. Often undertakes big and megalo-
+maniacal projects, and doesn’t hesitate to use 
+violence to get them done.
+ABOUT THE ELDER
+“Do you remember what it was like be-
+fore the Elder got sick? He used to walk 
+around in the Ark and talk. Talk and help 
+us with anything we needed. During the 
+days, it was school time and he taught the 
+People to read and count. At night, we’d 
+sit around the fires and listen to stories 
+about the Old Age. The Elder said he 
+hadn’t seen it with his own eyes, but that 
+he had read books and seen moving im-
+ages that showed what a fantastic time 
+it must have been. When the Elder got 
+sick, all that stopped. Maybe it’s the Rot 
+that finally got to him. Maybe he’s just 
+old. I don’t care which. I just want to sit 
+in his lap again, to hear him talk about 
+the green fields, the blue lakes and the 
+great cities full of people.”
+– Silas, Chronicler
+
+
+
+--- PAGE 102
+
+07
+1 0 0
+Player’s Section
+t he b ureaucrat.  A low-key leader who rules 
+by referring to the rules and commandments 
+of the Elder. Thinks that the People should do 
+as they always have.
+t he
+ c ul
+tist.  Has attracted a fanatical cult to 
+himself, and is seen as a divine being by his 
+followers. Any doubt of the leader’s wisdom 
+is punished harshly. Cults tend to isolate 
+themselves and are often viewed upon with 
+suspicion by the rest of the People.
+t he
+ c ol
+lector.  Is obsessed with artifacts from 
+the Old Age, and is constantly trying to ex-
+pand his collection. Will never turn anything 
+over to the Dawn Vault. Lives in his own world 
+and rarely leaves his lair.
+t he
+ h ar
+d w or
+ker.  Prefers to stand knee-deep 
+in the dirt and work side by side with his 
+henchmen. Has no interest in plotting and 
+scheming, and wants to build something new 
+rather than dig into the past.
+8. OTHER NPCs
+When you created your characters, several NPCs 
+were mentioned in the premade questions set out 
+in your roles. These are NPCs that you either hate 
+or want to keep safe.
+Discuss these NPCs a little more, and let the 
+GM take some notes about them. What are these 
+NPCs like? What do they want? If you like, you can 
+already expand the Ark with some further NPCs, 
+but you don’t need to – the GM will introduce more 
+NPCs during play. In Chapter 9, the GM will find 
+typical stats for NPCs.
+9. POPULATION
+Decide exactly how many inhabitants the Ark has 
+at the start of the game. Keep it around 200 – big 
+enough to create fractions and gangs, but small 
+enough for everyone to know everyone. The popula-
+tion size is important because no children are born 
+in the Ark, and after every game session some in-
+habitants will have died – from violence, hunger or 
+disease (page 115).
+10. WATER SOURCE
+Rot-free water is almost as rare and valuable as 
+grub in the Ark – and thus, a source of power and 
+influence. Decide what your source of clean water 
+is. Some possibilities: an old well, an uncontami-
+nated creek, a small purification device, a collector 
+of rainwater, an old waterpipe.
+11. DEVELOPMENT LEVELS
+Distribute 12 points across the four Development 
+Levels of the Ark (below).
+12. THE
+
+--- PAGE 103
+
+07
+1 0 1
+The Ark
+D EVELOPMENT  L EV ELS
+f oo D  Su PP ly
+The Food Supply DEV rating determines how hard it is to find something to eat in the Ark.
+0–9 The struggle to find grub is desperate. The People only have a meagre stockpile of food left in the Ark, and whatever ed-
+ible plants and animals individual mutants manage to grow or kill. One ration of grub is typically traded for one bullet.
+10–19
+Starvation still isn’t far away, but the People have enough grub to cover their day to day needs – as long as the harvest 
+or the hunt isn’t threatened. Typically, you can get two rations of grub in return for one bullet. Decrease the Session Body 
+Count (page 115) by one.
+20–29 Almost everyone in the Ark can fill their stomach every day, and there is even enough to put some aside for hard times. A 
+bullet will typically buy you three rations of grub. Decrease the Session Body Count by two (to a minimum of zero).
+30+
+No one in the Ark needs to go hungry. The People have the luxury to care about the taste of what they eat and drink, and 
+they have refined their skills of cooking and brewing. A bullet will normally buy you four rations of grub. Decrease the 
+Session Body Count by three (to a minimum of zero).
+c ulture
+The Culture DEV rating helps the People understand artifacts and other remains of the Old Age (page 124).
+0–9 With the exception of Chroniclers, the People completely lack any form of cultural expression beyond tales by the trash-
+can fire.
+10–19 Most of the People can read and write to a basic level. Some forms of cultural expression – like a place of worship, simple 
+staged plays or exhibitions of scrap and artifacts – may exist.
+20–29 Writing skills are more advanced and widespread – there might even be an organized school. There are most likely sev-
+eral forms of cultural expression in the Ark.
+30–39 The People have learned much about the ideals of the Ancients, and might even have developed some form of extended 
+suffrage and inclusive governance of the Ark.
+technology
+The most important use of the Technology DEV rating is to help the People to understand how artifacts are used.
+0–9 Apart from Gearheads, none of the People really understand technology
+
+--- PAGE 104
+
+07
+1 0 2
+Player’s Section
+Culture:  The People’s ability to express them-
+selves in writing, art and other forms of cultural 
+production.
+Technology:  The People’s ability to understand 
+artifacts and create new technical innovations.
+Warfare: The Ark’s ability to defend itself against 
+attacks, and stomp out enemies both outside and 
+within its walls.
+At the start of the game, you get to distribute 12 
+points between these four DEVs. Do it in any way 
+you like – you can set a DEV to zero if you like. Later 
+in this chapter you will see what the DEVs actually 
+mean in the game world. During the course of the 
+game, you can increase the four DEVs in two ways:
+ K You can let the People undertake projects.
+ K Your PCs can turn in artifacts to the Dawn 
+Vault.
+E X A M P L E
+Joanna’s group distributes 12 DEV points before 
+starting the game. They set Food Supply to 0, Cul-
+ture to 3, Technology to 3 and Warfare to 6.
+THE PEOPLE’S PROJECTS
+During the course of the game, you can develop 
+the Ark by having the People undertake projects . A 
+project can be anything from building a palisade or 
+starting a mushroom farm to setting up a tribunal 
+or opening a theater. A project does not only in-
+volve your particular PCs directly, but is undertaken 
+by a large section of the People.
+On page 104 and onward, you will find a list of 
+projects. All projects have minimum DEV ratings 
+(the lowest possible score in one or several DEVs 
+PLAYING WITH PROJECTS
+How working on projects affects the role-
+playing is up to you as a group. You can 
+handle it summarily – just roll dice and 
+move on – but the projects and work-
+ing on them can also generate dramatic 
+events played out in detail. Projects can 
+be threatened or even sabotaged, often 
+a source of desperate conflict. Projects 
+can also be used as a backdrop for other 
+events in the game.
+Ex AMPLE  ARK : B EA CHED  C RU ISE  S HI P
+
+
+
+--- PAGE 105
+
+07
+1 0 3
+The Ark
+for the project to be started) and a DEV bonus that 
+is added to the DEV once the project is completed.
+Choose projects carefully – the projects you un-
+dertake determine what kind of society you create.
+Zone Expeditions are a special type of project, and 
+follow a different rule set. Read more about them 
+in Chapter 8.
+ASSEMBLY
+At the start of every session, as long as one or more 
+PCs are in the Ark, the players should hold an As-
+sembly. That means you step out of your characters 
+for a short while, and instead represent the entire 
+People. Consider – as players, not as PCs – what 
+projects you think the People should undertake. An 
+Assembly follows these simple steps:
+ K Discuss which projects you think the People 
+should undertake at this time. Remember 
+that you can’t start a project if the Ark’s DEV 
+ratings are too low. You cannot choose a 
+project that has been completed before (with 
+some exceptions). If one or more projects are 
+ alr
+eady underway, you don’t need to start a 
+new one.
+ K After a few minutes of deliberation, each 
+player can nominate a project that he thinks 
+should be undertaken by the People. The 
+players don’t need to agree on one project, 
+but as we will see, projects will be completed 
+much faster if they do.
+ K Every player that has chosen a project notes 
+it down on the Ark map and on the Ark Sheet 
+(at the back of the book). Also note how many 
+Work Points remain to complete the project.
+WORK POINTS
+The list of projects (below) tells you how much work 
+a certain project needs to be completed, measured 
+in so called Work Points. The number of Work 
+Points is always multiplied by the number of PCs 
+in your group. Thus, a Palisade needs 4 Work Points 
+for a group with four PCs, but only 2 Work Points 
+in a group with two PCs.
+WORKING ON PROJECTS
+That a project has been started doesn’t mean that it 
+will be completed. For a project to progress during a 
+session, your characters  must work on it. Of course, 
+it’s not just your PCs who are actually working, but 
+their interest is used as an indicator of the commit-
+ment of the People as a whole.
+Whenever you like during the session, as long 
+as you are in the Ark, yo
+
+--- PAGE 106
+
+07
+1 0 4
+Player’s Section
+of remaining Work Points is reduced to zero the 
+project is completed, and can be used in the game 
+by PCs and NPCs alike.
+COMPLETED PROJECTS
+When a project is completed, draw a circle around 
+it on the map. The effect of a completed project 
+is set out in the project description – usually it 
+is only a DEV bonus, but in some cases goes be-
+yond this. To determine the DEV bonus, roll one 
+or more D6.
+DESTROYED PROJECTS
+PCs and NPCs can sabotage projects, whether 
+completed or not, during play. Projects can also be 
+destroyed by an attack against the Ark (page 114).
+A destroyed project is erased from the map. If 
+the project was complete, roll as many D6 as when 
+the project was completed and reduce the DEV rat-
+ings accordingly. The People can undertake the 
+same project again at a later time.
+Scrapping a Project: The People can deliberately 
+destroy an ongoing or completed project. This must 
+be decided at the Assembly, and all players must 
+be in agreement.
+LIST OF PROJECTS
+KK DEFENSES
+Palisades, earthworks or even a moat. Protects the 
+Ark against enemies on the outside, and makes it 
+harder to slip in or out unnoticed.
+DEV Requirement: None
+Skills: Force or Scout
+Work Points: 2 × number of PCs
+DEV Bonus: Warfare +2D6
+KK HUNTING PARTY
+The People organize expeditions into the Zone to 
+track and kill wild beasts for grub.
+DEV Requirement: None
+Skills: Endure or Shoot
+Work Points: 1 × number of PCs
+DEV Bonus: Food Supply +2D6
+KK CANNIBALISM
+If the Ark is on the brink of starvation, the People 
+can resort to desperate measures.
+DEV Requirement: None
+Skills: Fight or Manipulate
+Work Points: 1 × number of PCs
+DEV Bonus: Food Supply +3D6, Culture −D6
+Special: Increase the Session Body Count (page 
+115) by D6.
+KK CROPLAND
+A plot of land is set aside for the organized cul-
+tivation of grain, corn, turnips, radishes, or even 
+mushrooms. Simple tools like plows and harrows 
+are made and utilized.
+DEV Requirement: None
+Skills: Endure or Know the Zone
+Work Points: 3 × number of PCs
+DEV Bonus: Food Supply +3D6
+KK SLAVE MARKET
+The Bosses of the Ark start trading in slaves, taken 
+from the People or other groups in the Zone. They 
+trade with each o
+
+--- PAGE 107
+
+07
+1 0 5
+The Ark
+DEV Bonus: Food Supply +D6, Warfare +D6
+KK PIGSTY
+Pigs and other farm animals from the Old Age 
+roam free after the Apocalypse and have turned 
+into wild and often heavily mutated creatures. Yet, 
+they can be caught and brought into the service 
+of the People.
+DEV Requirement: None
+Skills: Endure or Know the Zone
+Work Points: 2 × number of PCs
+DEV Bonus: Food Supply +2D6
+KK TEMPLE
+A shrine where the People can worship the Ancients 
+in the Sky, the Firstborn Mutant or why not even 
+the Rot itself.
+DEV Requirement: None
+Skills: Endure or Manipulate
+Work Points: 1 × number of PCs
+DEV Bonus: Culture +D6
+KK ZONE WRESTLING
+A metal cage where the strongest mutants fight 
+each other for bullets and glory. Less physically 
+inclined mutants bet on the outcome. No weapons 
+are allowed in the cage, but mutations are consid-
+ered fair play.
+DEV Requirement: None
+Skills: Fight or Manipulate
+Work Points: 1 × number of PCs
+DEV Bonus: Warfare +D6
+KK ZONE EXPEDITION
+An expedition into the Zone is a special type of 
+project, described in detail in Chapter 8. It requires 
+no Work Points and can be undertaken several times 
+over. Only one Zone Expedition can be launched 
+per Assembly. The PCs can decide whether to join 
+the expedition or not.
+DEV Requirement: None
+Skills: None
+Work Points: None
+DEV Bonus: Variable
+KK MUSEUM
+An exhibition of objects from the Old Age. The Peo-
+ple can come here to learn about the ancient world.
+DEV Requirement: Culture 5
+Skills: Comprehend
+
+
+
+--- PAGE 108
+
+07
+1 0 6
+Player’s Section
+Work Points: 2 × number of PCs
+DEV Bonus: Culture +D6, Technology +D6
+KK STATUE
+A grand effigy of the Elder or a Boss with an in-
+flated ego.
+DEV Requirement: Culture 5
+Skills: Endure or Sense Emotion
+Work Points: 1 × number of PCs
+DEV Bonus: Culture +D6
+KK SUNDIAL
+A device consisting of a stick placed on a flat disc of 
+some kind, letting the People tell time by watching 
+the shadow of the stick move.
+DEV Requirement: Culture 5.
+Skills: Comprehend
+Work Points: 1 × number of PCs
+DEV Bonus: Technology +D6
+KK WATCHTOWER
+Up here, you can spot enemies from afar.
+DEV Requirement: Technology 5
+Skills: Endure or Scout
+Work Points: 1 × number of PCs
+DEV Bonus: Warfare +D6
+KK HARBOR
+A simple quay that makes is easier to load and un-
+load from boats and ships.
+DEV Requirement: Technology 10
+Other Requirement: The Ark must be close to 
+water.
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: —
+Special: This project is a requirement for a build-
+ing a Ship (below).
+KK MILL
+A simple mechanism that will grind plants into 
+flour for baking bread. Is powered by hand, a Water 
+Wheel or a Windmill.
+DEV Requirement: Technology 10
+Other Requirement: Cropland
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Food Supply +2D6
+KK SMOKEHOUSE
+A small house or shed where meat or fish caught in 
+the Zone is cured by smoke, making it last much 
+longer.
+Ex AMPLE  ARK : S CR AP  FO RTRESS
+
+
+
+--- PAGE 109
+
+07
+1 0 7
+The Ark
+DEV Requirement: Food Supply 5, Technology 10
+Other Requirement: Hunting Party
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Food Supply + D6
+KK MARKETPLACE
+Bartering has always taken place in the Ark, but with 
+a designated marketplace, trade is more organized.
+DEV Requirement: Food Supply 10, Culture 10
+Skills: Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Food Supply +D6, Culture +D6
+KK MILITA
+An armed force given the job to protect the Ark 
+against external enemies and maintain order 
+internally.
+DEV Requirement: Warfare 10
+Skills: Fight or Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Warfare +2D6
+KK LIBRARY
+A collection of books, magazines and newspapers 
+from the Old Age.
+DEV Requirement: Culture 10
+Skills: Comprehend
+Work Points: 3 × number of PCs
+DEV Bonus: Culture +3D6
+KK STABLES
+Bitterbeasts (page 178) and other animals in the 
+Zone can be caught to be used as mounts by the 
+People – but they need to be tamed and trained first.
+DEV Requirement: Food Supply 10
+Skills: Endure or Know the Zone
+Work Points: 2 × number of PCs
+DEV Bonus: Food Supply +D6, Warfare +D6
+Special: With completed Stables the People can 
+trade and use mounts for riding.
+KK TAVERN
+A place where the People can gather to eat, drink 
+and swap stories.
+DEV Requirement: Food Supply 10
+Skills: Endure or Sense Emotion
+Work Points: 1 × number of PCs
+DEV Bonus: Culture +D6
+KK THEATER
+A stage and ensemble, entertaining the People with 
+stage plays about life in the Ark or the fall of the 
+Ancients.
+DEV Requirement: Culture 10
+Skills: Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Culture +2D6
+KK TORTURE CHAMBER
+In this confined area, suspected evildoers and trai-
+tors in the Ark can be tormented until they divulge 
+everything they know – and more.
+DEV Requirement: Warfare 10, Culture 10
+Skills: Fight or Manipulate
+Work Points: 1 × number of PCs
+DEV Bonus: Warfare +D6
+KK TRIBUNAL
+A court given the power to mete out punishment 
+on mutants who steal, murder or disrupt the order 
+ABOUT THE BARREN PEOPLE
+“Our days are numbered. The People are 
+doomed to wither and die. We’re not like 
+the wild mutts or the Zone-Ghouls that 
+seem to mul
+
+--- PAGE 110
+
+07
+1 0 8
+Player’s Section
+of things. Corporal punishment is the norm, as the 
+Ark can hardly afford to keep people locked up for 
+very long. Hard labor or even exile are also possible 
+penalties.
+DEV Requirement: Warfare 10, Culture 10
+Skills: Fight or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Culture +D6, Warfare +D6
+KK WATER WHEEL
+A large wheel built from wood or scrap metal and 
+plastic, fitted with a number of blades or buckets.
+DEV Requirement: Technology 10
+Skills: Endure or Comprehend
+Work Points: 1 × number of PCs
+DEV Bonus: Technology +D6
+Special: Placed in a creek or waterfall, the Water 
+Wheel can power a Mill or a Generator.
+KK WORKSHOP
+This is the place to go if you need your broken gear 
+fixed – but it will cost you bullets to get anything 
+done.
+DEV Requirement: Technology 10
+Skills: Endure or Comprehend
+Work Points: 3 × number of PCs
+DEV Bonus: Technology +2D6
+Special: The Workshop is a requirement for sev-
+eral other projects.
+KK SURVEILLANCE
+A system of informers, where the People spy on 
+each other and report suspicious activity to one or 
+several Bosses.
+DEV Requirement: Warfare 10, Culture 10
+Skills: Sneak or Manipulate
+Work Points: 1 × number of PCs
+DEV Bonus: Warfare +D6
+KK CALENDAR
+Using a few simple astronomical observations 
+(when the Zone smog lifts enough to let the Peo-
+ple see the stars), the People manage to recreate a 
+yearly calendar of 365 days.
+DEV Requirement: Technology 15, Culture 10
+Skills: Comprehend
+Work Points: 1 × number of PCs
+DEV Bonus: Culture +D6
+KK WINDMILL
+A large fan-like structure placed on a tower of some 
+sort, ingeniously built to always turn into the wind.
+DEV Requirement:  Technology 15, Food Supply 10
+Other Requirement: Workshop
+Skills: Endure or Comprehend
+Work Points: 1 × number of PCs
+DEV Bonus: Technology +D6
+Special:  The Windmill can power a Mill or a Gen-
+erator – but only when the wind is blowing.
+KK INK & PAPER
+The People have discovered a method of turning 
+tattered paper from the Old Age, or plants growing 
+in the Zone, to paper – and can create simple inks 
+to write with.
+DEV Requirement: Technology 15, Culture 10
+Skills: Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Culture 
+
+--- PAGE 111
+
+07
+1 0 9
+The Ark
+KK ARMY
+An Army is more powerful than a Militia, and can 
+be used for actual military campaigns in the Zone.
+DEV Requirement: Warfare 20
+Skills: Fight or Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Warfare +2D6
+KK BANK
+A place where the People can deposit their valu-
+ables and be reasonably sure they are kept safe.
+DEV Requirement: Warfare 10, Culture 20
+Skills: Comprehend or Manipulate
+Work Points: 1 × number of PCs
+DEV Bonus: Culture +D6
+KK SHIP
+A ship built of scrap, bigger than anything a single 
+Gearhead could construct on his own. It could be 
+steam-powered if the People have completed the 
+Steam Engine project (page 111). If not, it is fitted 
+with sails or oars.
+DEV Requirement: Technology 20
+Other Requirement: Harbor
+Skills: Endure or Comprehend
+Work Points: 3 × number of PCs
+DEV Bonus: Food Supply +D6, Culture +D6, War-
+fare +D6
+Special: The Ship can carry about 50 passengers 
+and can used to explore coastal sectors of the 
+Zone. The time required is halved compared 
+to exploring on foot (page 122). The ship can 
+also be used to escape from threats at sea, 
+and gives Gear Bonus +1 in such situations. 
+Armor: 3. Resilience: 20.
+KK GENERATOR
+A machine built of wires and magnets, capable of 
+generating an electrical current.
+DEV Requirement: Technology 20
+Other Requirements: Workshop. Also requires a 
+Steam Engine, a functional vehicle from the 
+Old Age, or mutants on a treadmill. 
+Skills: Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Technology +2D6
+KK HELIOGRAPH
+A device capable of quickly sending short messages 
+over long distances, using light signals and mirrors. 
+DEV Requirement: Technology 20
+Other Requirements: Workshop – and the Peo-
+ple must have made contact with another 
+settlement, or established one of their own 
+(below). 
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Culture +D6
+KK SCHOOL
+Here the People can learn about the Old Age, and 
+all about what you have discovered about the 
+dawnworld.
+DEV Requirement: Culture 20
+Skills: Comprehend or Know the Zone
+Work Points: 2 × number of PCs
+DEV Bonus: Culture +D6, Technology +D6
+KK SHELTER
+Hidden tunnels and escape routes dug underneath
+
+--- PAGE 112
+
+07
+1 1 0
+Player’s Section
+KK PRINTING PRESS
+With this heavy piece of machinery the People can 
+print simple pamphlets, papers and books.
+DEV Requirement: Technology 20, Culture 20
+Other Requirement: Workshop, Ink & Paper 
+(above)
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Culture +2D6
+KK SETTLEMENT
+The People find a new spot to live and establish a 
+new settlement in a different sector. When the set-
+tlement is complete, decide how many of the Ark’s 
+inhabitants move there.
+DEV Requirement: Warfare 20, Culture 20
+Other Requirements: The new settlement must 
+be located in a sector explored by the PCs or 
+a Zone Expedition (Chapter 8), and at least 
+2D6 sectors away from the Ark.
+Skills: Endure
+Work Points: 3 × number of PCs
+DEV Bonus: —
+Special:  The new settlement will have its own DEV 
+ratings, and will start at zero in all of them. 
+New projects are undertaken in the new settle-
+ment, separately from the Ark. Some projects, 
+such as the Road, Heliograph and Railroad, 
+connect two settlements. They give their DEV 
+bonus to both settlements when completed.
+KK ROAD
+Transforms one of the paths in the Zone into a road, 
+which can be used by carriages or motor-driven ve-
+hicles. This project can be undertaken many times 
+over – every sector to be traversed by a Road counts 
+as a separate project.
+DEV Requirement: Technology 20
+Skills: Endure or Comprehend
+Work Points: 1 × number of PCs per sector
+DEV Bonus: Food Supply +D6, Culture +D6 – but 
+only when the Road reaches another settle-
+ment in the Zone. The DEV bonuses are for 
+the entire Road, not for every sector.
+
+
+
+--- PAGE 113
+
+07
+1 1 1
+The Ark
+Special: Traveling through a sector on a Road 
+(page 122) takes half the time.
+KK FOUNDRY
+In this steaming furnace the People can melt metal 
+scrap from the Old Age, and mold it into new items.
+DEV Requirement: Technology 25
+Other Requirement: Workshop
+Skills: Endure or Comprehend
+Work Points: 3 × number of PCs
+DEV Bonus: —
+Special: The Foundry is a requirement for several 
+advanced projects.
+KK EXPLOSIVES LAB
+A specialized workshop used to produce gunpowder 
+and other explosive substances.
+DEV Requirement: Technology 30, Warfare 10
+Other Requirement: Distillery
+Skills: Comprehend
+Work Points: 1 × number of PCs
+DEV Bonus: Warfare +D6
+Special: Combined with the Foundry, the Explo-
+sives Lab can be used to manufacture bullets. 
+Bullets are then bartered in the Ark at half 
+the normal cost.
+KK AUTOCRACY
+One Boss becomes the sole ruler of the Ark. His 
+word is law.
+DEV Requirement: Warfare 30
+Other Requirement: Cannot be combined with 
+Suffrage.
+Skills: Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Warfare +2D6
+KK FREE ENTERPRISE
+The People establish a system where every mutant 
+is free to seek his own fortune. Slavery is outlawed.
+DEV Requirement: Technology 30
+Other Requirement: Cannot be combined with 
+Collectivism, Autocracy or a Slave Market.
+Skills: Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Technology +2D6
+KK COLLECTIVISM
+All private ownership is outlawed. All mutants must 
+work for the common good, and all resources are 
+distributed equally.
+DEV Requirement: Food Supply 30
+Other Requirement: Cannot be combined with 
+Free Enterprise.
+Skills: Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Food Supply +2D6
+KK SUFFRAGE
+All mutants of the People get the right to vote about 
+issues that are important to the Ark.
+DEV Requirement: Culture 30
+Other Requirement: Cannot be combined with 
+Autocracy.
+Skills: Manipulate
+Work Points: 2 × number of PCs
+DEV Bonus: Technology +2D6
+KK STEAM ENGINE
+A marvelous machine that runs on firewood and 
+water.
+DEV Requirement: Technology 30
+Other Requirement: Foundry, Distillery
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Technology +2D6
+Special: Can power a Generator, 
+
+--- PAGE 114
+
+07
+1 1 2
+Player’s Section
+KK RAILROAD
+To build a rail link through the Zone is an advanced 
+and very demanding project. Every sector to be tra-
+versed by railroad counts as its own project.
+DEV Requirement: Technology 35
+Other Requirement: Foundry
+Skills: Endure or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: —
+Special: Makes it possible to build a Train (below).
+KK TRAIN
+When steam trains start to roll across the Zone, a 
+great step toward rebuilding the Ancients’ civiliza-
+tion has been taken.
+DEV Requirement: Technology 30
+Other Requirements: Steam Engine, Railroad
+Skills: Comprehend
+Work Points: 3 × number of PCs
+DEV Bonus: Food Supply +D6, Culture +D6, Tech-
+nology +D6 – but only when the Train runs 
+on a rail track that reaches another settlement 
+in the Zone. The DEV bonuses are for the 
+entire railway, not for every sector.
+Special: A Train can carry around 50 passengers 
+and will cross a sector in the Zone in mere 
+minutes – as long as nothing blocks the 
+tracks. The Train can also be used to escape 
+from threats or to ram enemies. Gear Bo-
+nus: +1. Armor: 3. Resilience: 15.
+KK ARSENAL
+In this specialized workshop, the People can mass-
+produce breech-loaded firearms. An Arsenal is often 
+combined with an Explosives Lab (above).
+DEV Requirement: Technology 35, Warfare 10
+Other Requirement: Foundry
+Skills: Shoot or Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Warfare +2D6
+Special: Breech-loaded firearms become available 
+in the Ark.
+KK SURGERY
+The bonesaws of the Ark have learned the anatomy 
+of the mutant body, as well as the use of ether or 
+other forms of anesthesia, and can perform simple 
+surgical operations.
+DEV Requirement: Technology 35
+
+
+
+--- PAGE 115
+
+07
+1 1 3
+The Ark
+Other Requirement: Distillery
+Skills: Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: None
+Special: Any rolls to Heal a critical injury at the 
+surgical clinic get a +2 modification. The Ses-
+sion Body Count (below) is reduced by one.
+KK ELECTRIC LIGHTS
+Illuminates the Ark like in the Old Age, and turns 
+it into a beacon seen for miles at night.
+DEV Requirement: Technology 40
+Other Requirements: Workshop, Generator
+Skills: Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Technology +2D6
+RADIO
+A very basic device capable of radio communication, 
+using a crystal of some sort to rectify the current.
+DEV Requirement: Technology 50
+Other Requirements: Workshop, Generator
+Skills: Comprehend
+Work Points: 2 × number of PCs
+DEV Bonus: Technology +2D6
+E X A M P L E
+In their first Assembly, Joanna and her fellow play-
+ers decide to start growing a Cropland close to the 
+Ark. There are four PCs in the group, which means 
+the project will require a total of 12 (3 × 4) Work 
+Points. During the first session, all PCs work on the 
+new Cropland and they roll a total of five /. At the 
+start of the next session, 7 Work Points remain. Dur-
+ing this session, the PCs put in some more work and 
+roll three /. 4 Work Points now remain until the 
+Cropland can be used to feed the People.
+THE DAWN VAULT
+The Elder no longer controls the Ark, the old man’s 
+word is no longer law. But one of his command-
+ments is still held in high regard by the People: To 
+collect artifacts from the Old Age, study them and 
+learn from them. Keep them in a safe place. The 
+Elder called this place the Dawn Vault.
+When you grew up, it was strictly forbidden to 
+keep artifacts that you found for yourselves. Eve-
+rything had to be turned over to the Dawn Vault, 
+studied and filed. In theory, that is still the rule. 
+But as hunger sets in and the old order falls apart, 
+mutants increasingly keep artifacts for themselves 
+or even barter them for grub.
+Still, the Dawn Vault remains, and is guarded 
+by a group of loyal Chroniclers who refuse to aban-
+don the Elder’s principles. Following his will, they 
+continue to collect artifacts, study them and teach 
+what they learn to anyone willing 
+
+--- PAGE 116
+
+07
+1 1 4
+Player’s Section
+ARTIFACTS
+You can find artifacts during treks through the Zone 
+– read more about that in Chapter 8. Apart from their 
+primary use, artifacts have two numeric values: DEV 
+Requirement and DEV Bonus, just like projects in 
+the Ark. All artifacts are described on the Artifact 
+Cards and in Chapter 14 of this book.
+The DEV Requirement  is the minimum level 
+in one of the four DEVs that the Ark must have 
+reached for all of the People to be able to easily 
+understand and use the artifact. This is explained 
+further in Chapter 8. The DEV Bonus is added to 
+the Ark DEV rating indicated – but only if the item 
+is handed in to the Dawn Vault.
+All this means that if you find an artifact, you 
+must choose between using it for yourself and 
+handing it in, to the benefit of all of the People.
+E X A M P L E
+When Naphta found her automatic rifle she had 
+to roll to Comprehend to be able to use it, since 
+the Ark’s Technology DEV was below 20. Had the 
+Technology DEV been 20 or more, she would have 
+automatically understood how the weapon works. If 
+Naphta turns her gun over to the Dawn Vault, the 
+Ark’s DEV ratings in Warfare and Technology each 
+increase by D6.
+ATTACKS AGAINST THE ARK
+You all know there are threats out there. Someday, 
+sooner or later, enemies will come to your gates to 
+try to kill you, to eradicate the People. It is only a 
+question of time. When the time comes, you need 
+to be ready to fight.
+When an enemy attacks the Ark in large num-
+bers, one of your players roll dice against the GM 
+to see how the battle unfolds. The roll will not de-
+cide the final outcome – that’s up to your PCs – but 
+only how the battle starts off, which side gets the 
+upper hand.
+The strength of each force is measured by its 
+Battle Level. The Battle Level of the Ark is equal 
+to one-tenth of the Warfare DEV rating, always 
+rounded up. If the Ark is alert and combat-ready, 
+its Battle Level is increased by one. The attackers’ 
+Battle Level is up to the GM – from 1 for a small 
+band of ill-equipped fighters to 5 or even more for 
+a large, heavily armed army.
+RESOLUTION
+When the battle starts, each side rolls a number 
+of Base Dice equal to its Battle Lev
+
+--- PAGE 117
+
+07
+1 1 5
+The Ark
+step per day – unless destroyed projects have de-
+creased the Ark’s Warfare DEV enough to cause a 
+permanent decrease in Battle Level.
+The enemy’s Battle Level is recovered at the 
+same speed – but only once they are back in their 
+home territory.
+E X A M P L E
+A large force of Zone-Ghouls attack the Ark in the 
+dead of night. The Ark has a Warfare DEV of 13, 
+giving it Battle Level 2. The attackers are many and 
+have Battle Level 3. The players roll two Base Dice, 
+the GM three. The players roll no / or =. The GM 
+rolls one / but also a = – the Zone-Ghouls advance, 
+but take losses as they go. Both the players and the 
+GM want to push their rolls. Now the players roll 
+two =! The GM rerolls one die, it comes up neither 
+/ nor =. The People counterattack and get the up-
+per hand. The GM wants to push again, while the 
+players (obviously) are happy with their two /. The 
+GM rolls again – and gets a =! The Zone-Ghouls are 
+beaten. The Ark wins the battle with a +1 difference, 
+indicating that the defenses held up well. The Ark 
+only lost D6 inhabitants in the battle.
+SESSION BODY COUNT
+Life in the Ark is hard. Violence, hunger and the 
+Rot claims victims almost every day. At the end of 
+every gaming session, one of the players – which 
+one is up to you – rolls one D6. The result tells you 
+how many inhabitants of the Ark that have died in 
+the meantime, beyond any PCs or NPCs who might 
+have lost their lives “on screen” during actual play.
+The GM is responsible for keeping track of the 
+Ark’s current population figure. She should always 
+note it down on the Ark Sheet. The figure will stead-
+ily decrease during the course of a campaign. Un-
+less you find some solution – that outsiders move 
+into the Ark or that you somehow find a way to 
+bring children into the world – the People are 
+doomed. It’s only a matter of time.
+Modified Body Count:  The session body count can 
+be decreased when the Ark’s Food Supply DEV rat-
+ing increases (page 100). On the other hand, the 
+Ark can lose additional inhabitants during a large-
+scale attack (above).
+b attle re S ul t S
+−2 or 
+lower
+Enemies flood into the Ark and destroy everything in their path. The People a
+
+--- PAGE 118
+
+
+
+
+
+--- PAGE 119
+
+08
+1 1 7
+Zone travel
+08
+Zone Travel
+The Zone, the wasteland surrounding the Ark, is a 
+labyrinth of decaying ruins and dark forests. It’s a 
+vast mass grave, full of crumbling monuments to 
+the Ancients’ hubris and arrogance. Out there, feral 
+savages and mutated monsters roam. And if you’re 
+lucky enough to survive the beasts, the invisible, 
+lethal Rot will sooner or later kill you.
+For as long as you can remember, the Elder has 
+warned you not to stray into the Zone. Yet, that’s 
+exactly where you need to go now, deep into the 
+unknown. To find knowledge. To find clues to the 
+origin of the People – and a path to your future.
+THE ZONE MAP
+The first thing you do, before starting your cam-
+paign, is to define your Zone. Create your own Zone 
+– based on your own home town or any suitable 
+metropolitan area – or use one of the two premade 
+Zones described in this chapter, with maps on the 
+inside covers of this book.
+The Zone map is a central component of the 
+game. At the start of the game, most of the Zone 
+map is empty. During the course of play, you will 
+fill it with content. You can make notes directly on 
+the map itself, or use a Zone Log , which you can 
+find at the back of this book or download from the 
+Modiphius website. There, you will also find a tem-
+plate that you can use to draw your own Zone maps.
+SECTORS
+The Zone map has a grid overlay. Every square in 
+the grid is called a sector. A sector is roughly one 
+square mile in size. The map, as well as the sectors, 
+is not only a tool for players – both are used by the 
+People too. Stalkers have divided the map into sec-
+tors to help exploration, and they draw new things 
+on the map as they explore the Zone further.
+EXAMPLE ZONE 1:  
+THE BIG SMOKE
+Outside, it’s a jungle, the old pictures show what it 
+was like, but not anymore. Now it’s choked by the 
+growth, and the mist … the mist that gets every-
+where, always probing, driftin’...
+The few of us who’ve been out there have got 
+some stories alright. The roads full of machines, bro-
+ken and smashed, the crumbling piles teetering on 
+edge, one whiff and they’ll fall like the others. Then 
+there’s the big ol’ places in the center of town. Mas-
+sive wit
+
+--- PAGE 120
+
+08
+1 1 8
+Player’s Section
+around it and great pickings inside if you can make 
+the jumps between the broken stepping stones of 
+buildings to get there, and survive to tell. No one 
+goes east anymore though. 
+Out West there’s streets where somethin’ pushed 
+everything back, rubble and machines. Like they was 
+looking to fix the streets but got nowhere. Maybe 
+they got lost in the mist like people do. There’s a 
+big place looks like it was used for fighting by the 
+Serpent Lake. Roof’s all broken, just banks of rotten 
+seats around a pool. They say the water is blood red 
+and there’s blades and stuff under the water. 
+North there’s a palace on the hill, an overgrown 
+tower they say and a vast glass house full of light, 
+can’t believe everything you hear but apparently a 
+princess lives in the tower called Alexandra. I always 
+dreamed I’d meet her one day. Still, sometimes there’s 
+is a glow in that direction at night so maybe I will.
+South there’s the big eye, creepy overgrown 
+thing, but there’s often a glow in the middle that 
+makes it look like a big eye, people say it’s just the 
+sunset shining through the middle but I dunno … 
+now and then the whole thing creeks, sounds like 
+wires stretching, or something big settling. Like it’s 
+breathing!
+Not many of us been south though, there’s only 
+a couple of ways across the river and seriously, you 
+don’t wanna fall into that dark mess! Since the other 
+bridges collapsed you’ve got the ‘Minster but for 
+half the span there’s just a crumbling rubble arch, 
+good enough for single file but you can feel it wob-
+bling, I don’t figure it will be there next year. 
+If you follow the river East, before it gets too hard 
+to see in the mist, there’s a big castle and a bridge 
+with two towers. Some ol’ raven still squawks at the 
+top of the castle so apparently we’re still safe though 
+dunno what a stupid bird has to do with anything. 
+The castle is like out of a fairy tale, it’s surrounded 
+by water, and there’s no way across unless you want 
+to risk the river – like I said, don’t fall in! The only 
+
+
+
+--- PAGE 121
+
+08
+1 1 9
+Zone travel
+way across the river to the south around here is the 
+bridge with two towers. You gotta get up one of the 
+towers and over those walkways at the top as the 
+bridge itself got smashed up. Real dark up there so 
+be careful, never know what’s waiting for you. 
+I can still see ol’ Ben, he’s leaning bad almost as 
+if he’ll topple over, kind of looks wrong but he’s still 
+there every morning, still says 6 o’clock. Sometimes 
+I swear I hear something from the top, like a muffled 
+bell. Can’t be though can it?
+Be careful around the Square (most the roads 
+are blocked with rubble there so you’ll be lucky to 
+make it that far anyways), the statue that was on the 
+top of the big column is smashed on the ground. 
+Now something else is on the top of the column but 
+the mist is so thick around there you can’t make 
+it out. Dunno if I ever wanna find out though, just 
+amazed it’s still standing.
+Another thing on the river – the old ship, with 
+big guns, half sunk but sometimes there’s lights 
+up top, a few people headed over ‘Minster to get a 
+closer look but never came back. 
+Lastly be careful of the tunnels, they’re mostly 
+flooded, just a lot of bad stuff down there, they say 
+there’s lot of ways to get around under the city 
+quick, come up in all kinds of cool places but well 
+the people usually saying that stuff ain’t the ones 
+who been so just be careful right?
+NOTES ON THE MAP
+On the premade Zone maps there are al-
+ready some notes – markings denoting 
+ruins, warnings of Rot-infested areas and 
+monsters, even wild guesses about the 
+location of Eden. Take these notes with a 
+big pinch of salt – all they reflect is what 
+Stalkers think is out there, and they may 
+very well be wildly inaccurate!
+
+
+
+--- PAGE 122
+
+08
+1 2 0
+Player’s Section
+EXAMPLE ZONE 2:  
+THE DEAD APPLE
+This used to be a great city, yeah? Once upon a 
+time. Now it’s all ruins running with kudzu like 
+great hands trying to pull what’s left of the build-
+ings down. But they ain’t pulled all the buildings 
+down yet. This city still has some fight in her. They 
+called it the New City, leastways that’s what I heard. 
+Who knows. So long ago now, yeah? In the mid-
+dle of it all is a place we call The Zone Swamps. I 
+been told this place used to be where people went 
+running and ate outside. Neither sounds safe in 
+a swamp, but maybe people back then were crazy. 
+They did blow up the world after all. There’s rumors 
+that say a cult lives somewhere inside, yeah? But 
+who’s going to go and see? I’m crazy, but I’m not 
+stupid. Gators out there twelve feet long if they’re 
+a foot. No lie. I know a fella that hunts them. Well… 
+he used to. Don’t nobody know him anymore.
+Among the big old buildings hulking against 
+the night is Death Tower. This building must once 
+have dwarfed everything around it. Biggest thing I 
+seen in my life. No lie. Its upper floors are collapsed 
+and the great beast is spilling moss like she’s crying, 
+yeah. It’s home to a gang you don’t want to tussle 
+with. They’re called The Death Tower Boys and, 
+after they kill you, they’ll eat your brain to absorb 
+your power. They ain’t the smartest people in the 
+city, so I don’t think it works for them.
+Getting out of the city across all that water, 
+you use the Bridge, see? But the people there have 
+themselves a toll. There’s some that say ancient ma-
+chines used to carry people across the Bridge, but 
+you know how people talk. Anyway, it’s one of the 
+few structures that, praise to the Gods, remained 
+largely intact. The Bridge is a thriving community 
+of folk living that civilized way of life so many of us 
+done forgot. They grow their own food and barter 
+with the outside. Don’t go thinking you’re gonna 
+
+
+
+--- PAGE 123
+
+08
+1 2 1
+Zone travel
+steal from them though. Bridgers have a defen-
+sive militia. I mean, look at it, it’s a bridge, yeah? 
+There’s only two ways on. That’s pretty easy to de-
+fend. Many a group has tried, and failed, to take 
+the bounty the Bridgers have made for themselves. 
+Bridgers take care of each other.
+Out there in the water is the F allen Lady. She’s 
+got all these spikes on her head. No one can tell you 
+for sure why. Today, she lies partly in a great bay, but 
+some bits of her can be reached. You can go inside 
+if the people who live there let you. Call themselves 
+Lighthouse Keepers, though I ain’t never seen a light-
+house. They’re a crazy bunch. Don’t argue too much 
+with them, yeah? At night, The Lady’s torch is lit 
+by large fires to warn oncoming ships that they are 
+about to enter an area where ruined buildings could 
+rip their hulls and sink them like stones. There’s sal-
+vagers that’ll hope that very thing happens.
+The ancients buried their dead beneath large 
+stones on which they wrote their names. Few of 
+those names are readable now, and fewer still want 
+to venture out to the place where they buried them. 
+I done it though, ‘cause I guide people when things 
+get tight. People whisper that the dead here don’t 
+all rest, but I never seen anything like that. Then 
+again, I only went once. I ain’t no fool. They call this 
+place The Deadlands. I know enough to respect a 
+name like that, yeah?
+Not for nothing, but Walled Island is the most 
+fortified place in the city. Walled Island is out in 
+the water, some say it always was. Pirates are there. 
+Powerful ones that’ll cut your head off for a scrap of 
+copper. Descended from nasty pieces of work and 
+ruled by a crazy man called “Calico Jack,” this small 
+city is one place you need to stay away from. No lie.
+That’s the main sites. I mean most of the place 
+is underwater right? Had to be one hell of city back 
+when things were good, and we weren’t killing each 
+other for food. Those must have been some fat days 
+indeed, yeah?
+
+
+
+--- PAGE 124
+
+08
+1 2 2
+Player’s Section
+ZONE TRAVEL
+Trekking into the Zone is not a venture to be 
+undertaken lightly. Prepare yourselves well, plan 
+where you want to go and how long you will be 
+gone for carefully. Bring plenty of grub, clean wa-
+ter and bullets. Weapons, preferably firearms, are a 
+given. If you can, have a Gearhead make you some 
+Rot-suits (below). They won’t make you immune 
+to the Rot, but they can help a little. If you can 
+find a Rot-Eater (page 76) to bring along, that’s a 
+big bonus. And finally, the most obvious advice 
+of all: never walk into the Zone without a Stalker 
+to lead the way.
+MOVEMENT ON THE ZONE MAP
+In the Zone, you move from sector to sector. You 
+can move diagonally. Each time you enter a new 
+sector, your Stalker can roll to Find the Path. If you 
+have several Stalkers, only one of them may roll. If 
+the terrain is very difficult, the GM can make you 
+roll to Endure just to get into the sector.
+EXPLORING A SECTOR
+Each time you enter a new sector, you generally 
+need to explore  it. That means the GM describes 
+the general terrain and any prominent ruins or 
+other landmarks. You tell her what you want to take 
+a closer look at, or what you want to avoid. In a new 
+sector, you can run into all kinds of threats, but also 
+find priceless artifacts.
+TIME & TRAVEL
+A typical sector takes four hours to explore, includ-
+ing any encounters. This might seem like a long 
+time, but bear in mind the Zone is a twisted maze 
+of overgrown ruins. You need to proceed very care-
+fully. Sectors with especially difficult terrain can 
+take even longer to explore, while fairly open sec-
+tors can be explored in half the time. The GM has 
+the final call.
+The Stalker: A Stalker who Finds the Path (page 
+56) can use a stunt to reduce the time it takes to 
+explore a sector by half – typically from four to two 
+hours. He can also rush you through a sector in a 
+quarter of the time and avoid all threats, but then 
+you will miss any artifacts, grub or clean water in 
+the sector.
+Vehicles:  If you are traveling in a vehicle (page 
+94), the time it takes to explore a sector is also cut 
+in half. This effect is cumulative with the Stalker’s 
+stunts – meaning a mount
+
+--- PAGE 125
+
+08
+1 2 3
+Zone travel
+Only one roll is allowed per sector and lookout 
+post, but the Stalker is allowed to roll again when 
+he actually enters the sector. The Stalker can, if 
+nothing blocks the view, roll to explore all eight 
+adjacent sectors.
+THE ZONE FOR THE GM
+How the GM handles Zone travel and creates the 
+environment that the PCs explore is discussed fur-
+ther in Chapter 11.
+ZONE EXPEDITIONS
+A Zone Expedition is something beyond just a mi-
+nor journey through the Zone, it is a bigger project 
+that involves the entire People. To undertake a Zone 
+Expedition is therefore a decision that must be 
+taken at the Assembly (page 103).
+THE GOAL
+When a Zone Expedition is undertaken, the As-
+sembly must first agree on its goal. In game terms, 
+it must always be to increase one of the four DEV 
+ratings of the Ark: Grub, Culture, Technology 
+or Defense. More than half of the players in the 
+group must be in agreement – if not, the expedition 
+doesn’t happen.
+TARGET SECTOR
+When the Assembly has agreed on the goal of the 
+expedition, you need to decide on the target loca-
+tion: choose a sector on the Zone map and what the 
+People believe it contains.
+To select the target sector, you must first pick 
+a starting sector. The starting sector must be one 
+that has been explored previously by the PCs, but 
+it must also be located next to an unexplored sector. 
+(If no sectors have been explored yet, the starting 
+sector is simply the one where the Ark is located.) 
+Then roll 2D6. The result indicates the distance, in 
+sectors, between the starting sector and the target 
+sector – in a straight line into unexplored Zone ter-
+ritory. Decide together, in the group, exactly where 
+the target sector is located.
+The Ruin:  Finally, decide what kind of ruin or other 
+structure the People believe is in the target sector. It 
+needs to be something that can reasonably increase 
+the chosen DEV rating. Some examples:
+Grub:  Old supermarket, lush valley, overgrown farm.
+Culture: Museum, library, movie theater.
+Technology: Factory, workshop, airplane wreck.
+Defense:  Military base, stockpile of explosives, 
+shelter.
+EXPEDITIONS WITH PCs
+If PCs join a Zone Expedition, play it out using the 
+n
+
+--- PAGE 126
+
+08
+1 2 4
+Player’s Section
+EXPEDITIONS WITHOUT PCs
+If no PC joins the expedition, it simply leaves and 
+is then handled in a summary fashion. Make a note 
+of what the target DEV rating and target sector of 
+the expedition is. In the next session, roll a D6 on 
+the table below at any convenient time:
+=
+One or a few survivors stagger back into the Ark. They 
+are hurt, exhausted, unhinged – or all of the above. The 
+GM decides what has happened to the expedition – and 
+if someone or something has followed the survivors back 
+to the Ark.
+2
+The entire expedition returns to the Ark, having failed 
+to reach the target sector. Something has forced them to 
+turn back – the GM decides what.
+3–4
+Nothing is heard from the expedition, and rumors 
+spread in the Ark regarding its fate. Roll again on this 
+table in the next gaming session. If you roll this result 
+three times, the expedition is lost for good and never 
+comes back. Its actual fate is up to the GM to decide.
+5
+The expedition returns, apart from D6 members who 
+have been killed along the way. It didn’t reach the target 
+sector, but found something else that is valuable or 
+interesting. One DEV rating other than the chosen one 
+(the GM decides which) is increased by 2D6.
+/
+The expedition returns in triumph. Its mission is accom-
+plished and the chosen DEV rating is increased by 2D6. 
+One D6 expedition members have been lost along the 
+way.
+ARTIFACTS
+Artifacts – items from the Old Age that still work or 
+can provide the People with useful knowledge – are 
+the single most important reason to venture into 
+the Zone. If you find a powerful artifact, you will be 
+praised as a hero in the Ark – but also envied by many.
+FINDING ARTIFACTS
+You can find artifacts by searching the sectors of the 
+Zone. When the GM says you have found an artifact, 
+draw an Artifact Card or roll on the table on page 
+189. Alternatively, the GM can decide what artifact 
+you find. Unless it’s possible, story-wise, to keep your 
+artifact hidden from the other PCs, you must let the 
+other players know what artifact you have found.
+COMPREHENDING ARTIFACTS
+Every artifact has a DEV Requirement. This is the 
+minimum score in one of the Ark’s four DEV r
+
+--- PAGE 127
+
+08
+1 2 5
+Zone travel
+Maybe it was just Nature’s revenge on the human 
+race for consuming the Earth’s natural resources 
+too greedily.
+For you, for the People, it makes no difference. 
+All you know, all you need to know, is that the Rot 
+kills. It’s out there, everywhere. It’s stronger in some 
+places, weaker in others. The effects of the Rot are 
+unpredictable – it can be anything from shivers and 
+a fever to hair loss and vomiting blood.
+ROT LEVEL
+The worst thing about the Rot is that it perme-
+ates your body and builds up inside you over time. 
+When you are contaminated by the Rot, you suffer 
+Rot Points. Mark them in the check boxes on your 
+character sheet.
+Every sector in the Zone has a Rot Level, from 
+zero and up. When you go into a new sector in the 
+Zone, you will usually not know the Rot Level in 
+it – so be careful and make sure you can get out 
+quickly if you need to. And when you learn the Rot 
+Level, don’t forget to note it down on the Zone map 
+or the Zone log.
+The Rot Level determines at what frequency you 
+take Rot Points:
+0
+Zone oasis.  The sector is as good as free from Rot. You 
+suffer no Rot Points here. The Ark is located in such a 
+sector.
+1 w ea
+k r ot
+.  In these sectors you get one Rot Point every 
+day.
+2 Strong r ot
+.  In such a sector you suffer one Rot Point 
+every hour.
+3 h ot
+spot.  Here, you will die quickly. You get one Rot 
+Point every minute.
+
+
+
+
+--- PAGE 128
+
+08
+1 2 6
+Player’s Section
+ROT ATTACK
+You can also get Rot Points from individual events 
+or actions in the Zone, such as consuming contami-
+nated grub or drink, wading through Rot-water or 
+coming into contact with contaminated creatures. 
+In these situations, you suffer one or more Rot 
+Points directly. This is called a Rot attack.
+Grub and Water: Eating or drinking one ration of 
+contaminated grub or water will typically give you 
+one Rot Point.
+EFFECTS OF THE ROT
+Every time you suffer a Rot Point, you must im-
+mediately roll a number of Base Dice equal to your 
+total amount of Rot Points. For every = you roll, you 
+suffer one point of damage (trauma to Strength).
+ROT SUITS
+Gearheads can construct primitive Rot suits from 
+bits of scrap (page 55). Typically, they provide a 
+Protection Rating of 3 against the Rot – this means 
+you get to roll three Gear Dice every time you suffer 
+a Rot Point – if you roll one or more / (six), the suit 
+absorbs the Rot Point. But for every 
+  you roll, the 
+Protection Rating decreases one step. The suit can 
+be repaired, just like any piece of gear.
+There are artifacts that can give you an even 
+better protection against the Rot. The Rot-Eater 
+mutation makes you immune to the effects of Rot-
+related trauma – you suffer no damage from it – but 
+you still accumulate Rot Points.
+DECONTAMINATION
+When you are back in the Ark or take refuge in 
+some other Rot-free area, one Rot Point will leave 
+your body every day. If you wash your body in clean 
+water, half of your Rot Points (rounded up) go away 
+immediately (you only get this effect from your first 
+wash on returning to the Ark).
+PERMANENT ROT POINTS
+When you are contaminated by the Rot, there is 
+a risk that it will stay in your body forever. Every 
+time you are about to lose one Rot Point, roll one 
+Base Die. If you roll a =, the Rot Points stays, and 
+becomes permanent. Mark this on your character 
+sheet.
+Permanent Rot Points stay with you for the rest 
+of your life, no matter how hard you scrub yourself. 
+Permanent Rot Points cannot be used by the Rot-
+Eater mutation.
+E X A M P L E
+Krin is out in the Zone. On the first day, she only 
+moves in sectors with Rot Level 1. In th
+
+--- PAGE 129
+
+08
+1 2 7
+Zone travel
+the GM gives her another Rot Point for spending the 
+day (mainly) in Rot Level 1 sectors. She rolls four 
+Base Dice and gets two =. Krin suffers two points 
+of damage.
+The next day, Krin returns to the Ark to be de-
+contaminated, which would eliminate two of her Rot 
+Points immediately. She rolls two Base Dice, and gets 
+one = – one Rot Point washed away, but the other be-
+comes permanent. After her 
+decontamination, Krin has 
+one permanent and two 
+temporary Rot Points. 
+As long as she stays in 
+the Ark, she loses one 
+temporary Rot Point per 
+day – but for each one, 
+she must roll to see if it 
+becomes permanent.
+ABOUT THE ENCLAVES
+“When the world ended, not all people 
+died. We are proof of that. They say some 
+people fled the Apocalypse. They dug 
+deep underground, dove to the bottom of 
+the ocean or left the Earth to build float-
+ing cities in the sky. These sanctuaries 
+were called enclaves. But the Apocalypse 
+didn’t let people get away that easily. 
+They say a great war broke out between 
+the enclaves, that the last people tried 
+their hardest to annihilate each other. 
+Mighty weapon-strikes crushed under-
+ground enclaves and felled others from 
+the sky in a rain of fire. How the war 
+ended? Who knows? Maybe it’s still go-
+ing on?”
+– Hanneth, Chronicler
+
+
+
+--- PAGE 130
+
+
+
+
+
+--- PAGE 131
+
+09
+1 2 9
+Your job as gamemaster
+09
+Your job  
+as gamemaster
+You are the Gamemaster. You are the Ark, you are 
+the Zone, you are the Rot itself. You are the friends 
+and enemies of the PCs, you are the monsters stalk-
+ing them among the ruins, you are the artifacts wait-
+ing to be discovered. You are the truth about the 
+People, you are the journey to discover that truth. 
+It’s a tough job, but also great fun. This chapter 
+tells you how to do it, and the following chapters 
+give you all the tools you need – on top of your 
+own imagination.
+Mutant: Year Zero  doesn’t require much prepa-
+ration on your part. There is no preset course of 
+events that you need to memorize, instead you 
+and the players create your story together, us-
+ing the tools of the game and your own creative 
+minds.
+In this chapter, you will find the basic princi-
+ples of the game, as well as typical events in the 
+Ark and in the Zone. There are also guidelines to 
+help you run your first session of Mutant: Year 
+Zero , and advice on how to create and manage 
+your NPCs.
+GAME PRINCIPLES
+Twelve basic principles underpin this game. Their 
+purpose is to help you set the right tone for the 
+game, and to be there as a support when you handle 
+various situations that can arise during play.
+1. EVERYTHING ROTS
+In the world of Mutant: Year Zero , nothing endures. 
+The PCs themselves decay and mutate, their gear 
+breaks, the Ark is about to tear itself apart. There 
+is no safe haven. If the players start to feel safe and 
+comfortable, it’s time to break something. Let the 
+players build things – gear, projects, relationships – 
+then threaten these things and make the PCs fight 
+to keep them.
+2. THERE IS NEVER ENOUGH GRUB
+To survive, the PCs must go out and look for re-
+sources. The game mechanics will create a constant 
+need for grub and clean water, and it’s your job to 
+make them fight for it. But don’t make the resources 
+impossible  to get. In the Ark, there is always a Fixer 
+
+
+
+--- PAGE 132
+
+09
+1 3 0
+GAmemaster’s Section
+or a Boss who can get grub – for a price. Out in the 
+Zone, Stalkers can find grub, but it will probably be 
+contaminated by the Rot…
+3. IF YOU’VE GOT IT, YOU’RE A TARGET
+If the PCs – against all odds – come across a large 
+amount of grub or bullets, or if they find a power-
+ful artifact, it doesn’t mean their troubles are over. 
+They will draw the envy of other mutants in the 
+Ark, who might try to cheat them or just plain kill 
+them and take their stuff. Make the PCs fight to 
+keep what they have.
+4. MUTATIONS ARE THERE TO BE USED
+The mutations are a central part of the game. Give 
+the PCs plenty of opportunities to use them. Since 
+the mutations are random and not chosen by the 
+players, they may find it difficult to find uses for 
+them. Help them by creating challenges tailored to 
+the PCs’ specific mutations. Is a PC Reptilian? Give 
+him an enemy to sneak by. Does another PC have 
+Insect Wings? Show her a lookout post to fly up to.
+5. EVERYTHING IS PERSONAL
+In Mutant: Year Zero, the PCs are not faceless ad-
+venturers killing for gold. They are individuals, with 
+dreams and relationships. Sure, they may strive to-
+ward a common goal and they may work for others 
+in return for grub or bullets – but in the end, the 
+game is about what the PCs want for themselves. 
+Treat your NPCs the same way – give them names, 
+give them goals, make them individuals.
+6. THE PLAYERS LEAD THE WAY
+Mutant: Year Zero  is about discovering the mys-
+teries of the Old Age and building a new society 
+among the ruins. That’s only going to be fun if the 
+players are allowed to go where they want and build 
+T HE  DERELICT  OI L  RI G  ( PA GE  1 47)
+
+
+
+--- PAGE 133
+
+09
+1 3 1
+Your job as gamemaster
+what they want. That doesn’t mean you should give 
+them everything they desire – on the contrary, the 
+more they want it, the more you should make them 
+fight for it. Your job is to challenge the PCs and give 
+their actions interesting consequences.
+7. THE PLAYERS HAVE THE ANSWERS
+Ask the players questions about their PCs. How they 
+feel, what they think, what has happened before and 
+what they plan to do next. Ask follow-up questions, 
+be specific. Use their answers when planning new 
+challenges for the PCs.
+You can even let the players decide minor 
+things not related to their PCs. What does that ru-
+ined building look like? Who meets them at the 
+gate of the Ark? You don’t have to describe every 
+detail – let the players contribute.
+8. THE END IS NEVER SET
+It’s fine to consider what twists and turns your cam-
+paign might take beforehand. If you want to prepare 
+possible encounters with NPCs or monsters, do so 
+– but don’t become a slave to your plans . Never decide 
+beforehand how a gaming session or a campaign 
+should end. Challenge the PCs, let them face dangers 
+and misery, but don’t try to control how the players 
+react. Instead, let their actions have consequences, 
+and create new challenges based on those conse-
+quences. That’s how the game world comes alive.
+9. DEATH IS A PART OF LIFE
+The world of Mutant: Year Zero  is a harsh place. To 
+kill PCs is not a goal in itself – but if it happens, let it. 
+Don’t fudge dice or throw in some miraculous deus 
+ex machina  to save a PC’s life. The players should 
+feel vulnerable. Creating a new PC is a quick proc-
+ess and introducing him to the group is usually easy, 
+since the Ark is small and everyone knows everyone.
+10. FEEL THE APOCALYPSE
+Paint a vivid mental picture of the post-apocalyptic 
+world for the players. Describe the blackened ruins 
+and the dead forests of the Zone, make the mutants 
+and the misery in the Ark come alive. Let them feel 
+hunger and thirst when grub and water runs out, 
+have them shiver in the atomic winter. But don’t 
+get long-winded – don’t list everything the PCs see, 
+hear and sense. Pick some detail – an object from 
+the Old Age, a particular mutan
+
+--- PAGE 134
+
+09
+1 3 2
+GAmemaster’s Section
+ K The Fixer Jonats comes running. Catching 
+his breath, he pants: “The Enforcers Marl and 
+Lenny are on their way here. They’re going to 
+beat you up.”
+ K “I swear by the Ancients – I’m not lying,” As-
+trina says. “I saw a creature made of metal 
+moving on the outskirts of the Ark last night.”
+FIGHT OVER PROJECTS
+During the Assembly (Chapter 7), the players decide 
+which projects the People will undertake. Having 
+NPCs try to sabotage or control the projects is usu-
+ally an effective way to engage players. Examples:
+ K The Boss Oscartian turns up with two Enforc-
+ers in tow. He demands the construction of 
+the temple to be stopped, and threatens to kill 
+anyone who doesn’t obey.
+ K The Generator, the machine meant to give the 
+People light in the darkness of the Zone, has 
+been bludgeoned into useless scrap. Someone 
+has sabotaged it during the night.
+ K The Boss Johammed spits a mouthful of blood 
+on his rival Maximon’s mauled body. “Alright, 
+you work for me now,” he says. “The palisade 
+goes there.”
+A THREAT ESCALATES
+Each of the 25 Threat Cards describes an internal or 
+external threat to the Ark. These threats usually can-
+not be ignored by anyone in the Ark, nor by the PCs. 
+In Chapter 10, these threats are described in more 
+detail, with suggestions on how to escalate them.
+You will usually draw or roll up a new threat at 
+the start of each session, but you can escalate them 
+whenever you want. Always try to make the threats 
+personal. Let them affect the PCs, or NPCs who are 
+important to them, in some concrete way.
+FIGHT OVER GEAR
+In Mutant: Year Zero, the PCs’ grub, bullets, weap-
+ons and other gear can make the difference between 
+life and death. Want to instantly increase the inten-
+sity of a gaming session? Have an NPC try to steal 
+a PC’s gear. It can be a stealthy theft leading to a 
+frantic chase for the perpetrator, or brute robbery. 
+Examples:
+ K The Gearhead Quark stares at the ancient 
+weapon you found in the Zone. “Can I hold it?” 
+he whispers. “Just for a minute?”.
+ K The baseball bat hits you square over the head 
+and you fall headlong in the mud, stunned. 
+“Give me your bullets,” Montiak hisses.
+ K A heavy 
+
+--- PAGE 135
+
+09
+1 3 3
+Your job as gamemaster
+ K “You tried to play me,” the Boss Johammed 
+hisses. “20 bullets before dawn, or we’ll kill you 
+and hang your corpse from the palisade.”
+ K The sharp smell of smoke billowing into your 
+den wakes you up. “We don’t take orders from 
+you any more!” your rival Lorango shouts from 
+outside. “Time to die!”
+AN NPC GETS INTO TROUBLE
+All PCs have enemies – but they also have people they 
+care about and need to protect. The players estab-
+lished who these people are when they created their 
+characters (Chapter 2). If you want to create instant 
+drama, pick one of these NPCs and threaten to kill 
+him – or worse. This should make the player spring 
+into action! And should he choose to leave his friends 
+to a horrible fate, he will soon realize he will be very 
+alone when he is in trouble himself. Examples:
+ K Jony breaks down in front of you. “What am I 
+going to do?” he sobs. “If I don’t pay Marlotte 
+before dawn, I’m dead.”
+ K Astrina is nowhere to be found. No one has 
+seen her since yesterday night. Apparently, 
+she was talking about going into the Zone.
+ K The rumor spreads like wildfire in the Ark. The 
+Boss Johammed is about to get lynched. Who 
+will get you grub if he dies?
+PC vs PC
+The PCs may be friends, but in the world of Mutant, 
+all friendship is tested – sooner or later. The most ef-
+fective way to make PCs turn on each other is to use 
+an NPC that both PCs have some relationship to. 
+Other methods include spreading rumors in the Ark, 
+or giving something to a PC that you know another 
+PC really wants. But be careful – you don’t want a 
+conflict between PCs to become a conflict between 
+players. Be sure to know your gaming group well 
+before you use this type of event. Examples:
+ K Astrina hesitates before she speaks. “I know 
+you enjoy spending time with Hugust. But there 
+is something I need to tell you about him.”
+ K “Come on in,” Marlotte says. “I have grub, 
+booze and a warm cabin. But not for your 
+friend there. He stays outside.”
+ K Franton lazily swings his bat through the air. 
+“Step aside. I have no fight with you. I only 
+want Silas.”
+UNWANTED CONSEQUENCES
+The Ark is a small and fragile society. Everything 
+the P
+
+--- PAGE 136
+
+09
+1 3 4
+GAmemaster’s Section
+EVENTS IN THE ZONE
+Out in the Zone, the game takes on a different char-
+acter from in the Ark. Instead of projects, power 
+struggles and intrigue, the PCs are generally alone 
+and exposed to the nightmares hunting among the 
+ruins. In the Zone, cooperation tends to be the norm. 
+Some of the typical events in the Zone are similar 
+to the ones in the Ark, but others are completely 
+different.
+To play these events out, you’ll generally want 
+to use one of the specific groups, monsters and 
+phenomena described in Chapter 13.
+A BEACON IN THE DISTANCE
+The Zone is full of threats and dangers, but also 
+of opportunities. Give the PCs something to strive 
+for, to journey toward. It can be a mysterious light 
+in the distance, a building that seems strangely in-
+tact, a gate to an ancient shelter, a group of strange 
+people in the distance, or something else. For in-
+spiration, have a look in Chapter 12 and Chapter 
+13. Examples:
+ K When darkness falls, you see that the Zone 
+tower ahead of you is illuminated. Across the 
+facade of the huge building, you see several 
+pools of light.
+ K In the room beyond, you spot what looks like 
+machinery from the Old Age. You can’t see 
+exactly what it is without going closer.
+ K “I swear,” the water trader says. “One day’s 
+walk that way, there is a huge metal gate in 
+the cliffside. It seems to be intact.”
+DANGER AHEAD
+Just like in the Ark, you can create dramatic ten-
+sion in the Zone by describing a looming threat, 
+something unnerving at the horizon. It’s most 
+effective if you have just used the Beacon in the 
+Distance event above, enticing the PCs to keep go-
+ing forward. The new threat creates an interesting 
+dilemma. Examples:
+ K When you get closer to the old warehouse you 
+see a flickering light, as if from a fire, inside 
+the ruined old building. Someone is there.
+Z ONE - GHOULS  ( PA GE  1 76)
+
+
+
+--- PAGE 137
+
+09
+1 3 5
+Your job as gamemaster
+ K At the horizon, you see a black wall forming. 
+“Dust storm,” the Stalker Yassan hisses. “We 
+have to seek cover.”
+ K Krin nervously scouts the surroundings. “It’s 
+getting dark, soon this place will be crawling 
+with Zone-Ghouls. I know your friend is out 
+there, but it’s too dangerous to keep searching 
+for him.”
+A HARD CHOICE
+Present a difficult dilemma to the players. It can be 
+the result of the two events listed above, Beacon in 
+the Distance and Danger Ahead – when they have 
+some enticing goal ahead of them, place a danger-
+ous threat or obstacle in their way. Will they press 
+on or turn back? You can also show them two differ-
+ent things to strive for, and make them choose one 
+of them – or split up. Or offer them two separate 
+paths to the same goal, and let them choose which 
+one to take. Few things engage players as much as 
+a meaningful choice. Examples:
+ K You start to climb over the remains of the 
+bridge, but realize the support-beams are 
+badly corroded by time. Your other option is to 
+wade through the water, but it could be con-
+taminated by the Rot. What do you do?
+ K The leeches fall from the ceiling and land 
+around you with heavy thuds. In the room 
+beyond them you see several, seemingly intact, 
+artifacts from the Old Age. What do you do?
+ K Krin reaches her hands toward you through 
+the narrow basement window. “Give me the 
+child! It won’t survive the acid rain!” Do you 
+hand the child over to her?”
+GEAR IS LOST
+Out in the Zone, the PCs’ gear – weapons, grub, bul-
+lets and artifacts – can be the difference between 
+life and death. If you really want to make your play-
+ers sweat – take their stuff. But always give them 
+a chance of getting it back some way. Examples:
+ K You heave yourself up onto the rusted support 
+beam, out of reach for the Zone-Ghouls. But in 
+the climb you drop your scrap rifle. Helpless, 
+you watch it fall to the ground far below.
+ K You struggle your way across the canal, but 
+your clothes and your gear are soaking wet. 
+All of your grub is drenched in Rot-water.
+ K When you wake up, Yassan is gone. It seems he 
+has taken all the grub you had.
+SLEEPLESS NIGHT
+To keep their Wits int
+
+--- PAGE 138
+
+09
+1 3 6
+GAmemaster’s Section
+ K The Zone-Ghoul’s iron bar hits Franton square 
+across the eyebrow, and he drops like a log. 
+The rest of you see him being dragged away. 
+What do you do?
+AN NPC GETS INTO TROUBLE
+Try to always bring at least one NPC on every jour-
+ney into the Zone – preferably an NPC that one or 
+more PCs have a relationship to. These NPCs are 
+perfect tools for creating drama in the Zone – place 
+the NPC in lethal danger and the PCs react. Will 
+they leave him to his fate? It is even more interest-
+ing if the PCs have different relationships to the 
+NPC, which can mean some may want to save him 
+while others would rather see him gone…
+ K Suddenly, heavy black lumps fall from the ceil-
+ing and hit Silas. He screams for help as the 
+leeches bite into his flesh and start drinking 
+his blood. What do you do?
+ K When you get there, Astrina is lying lifeless on 
+the ground. Some feral mutants stand crouched 
+over her, poking her with their scrap spears.
+ K The air is moldy and the ground covered by 
+mud. Danko, leading the way, screams for help 
+as his feet and legs are suddenly being pulled 
+down by the quicksand.
+PC vs PC
+A Zone trek is always challenging and can make 
+the PCs show what they’re made of. Bonds of friend-
+ship can be strained to the point of breaking – and 
+beyond. Have a PC find an artifact that another PC 
+would have more use for. Lure one PC in one direc-
+tion, and the rest in another. Have a PC’s grub or 
+artifact go missing and insinuate that an NPC that 
+another PC has a relationship to is guilty of the 
+theft. These kinds of events should be used with 
+great care. Examples:
+ K Franton would probably make better use of 
+the ancient weapon than you are able to. But 
+you’re the one who found it, right? Do you keep 
+it, or do you give it to him?
+ K Ok, are you sure you want to ignore the old 
+tower and keep going? Delta, you’re the Gear-
+head – what do you think?
+ K Hugust, you need grub to heal your injuries. Will 
+the rest of you give him what he needs? What if 
+there won’t be enough for the trip home?
+THE ZONE vs EVERYONE
+The Zone can divide, but it can also unite. Every 
+now and then, present the PCs with an obstacle 
+that th
+
+--- PAGE 139
+
+09
+1 3 7
+Your job as gamemaster
+ K A sharp ozonic smell fills the air and you spot 
+large, semi-transparent bubbles drifting to-
+ward you. Thin antennae protrude from their 
+strange, spherical bodies. What do you do?
+AN UNEXPECTED ENCOUNTER
+In the wasteland that is the Zone, there are many 
+enemies and threats. But if the PCs are lucky, they 
+might also run into people who are friendly – or at 
+least ready to negotiate. Read more about factions 
+in the Zone in Chapter 13.
+Let encounters with other factions be tense 
+meetings. Keep the players guessing. Let the PCs 
+meet a group of friendly mutants – who turn out 
+to be blood-thirsty cannibals. Or let the PCs meet 
+some wild Zone-Ghouls – who seek to bargain, not 
+to kill. Examples:
+ K The mutant strangers lay down their weapons. 
+“Come with us,” their leader says. “Come to our 
+settlement. We have enough grub for everyone 
+there.”
+ K One of the Zone-Ghouls stops the others. Slowly, 
+he puts his scrap spear on the ground and 
+holds his hands up to show he’s not armed.
+ K A mutant sits on a wrecked car, dressed in a 
+pieces of junk and scrap. He salutes you all by 
+name, and tells you he’s been waiting for you 
+to give you a message from your future.
+FIRST SESSION
+Your first session as GM for Mutant: Year Zero can 
+feel a little intimidating. You have no script to follow, 
+no pre-prepared story to lead the players through. 
+Don’t worry! The game mechanics – in the form of 
+Ark projects, Threat Cards, and the events above – 
+will give the players plenty to sink their teeth into. 
+Here are some thoughts and advice you might want 
+to take a look at before your first session:
+Don’t Make a Grand Plan.  Do not, prior to play, 
+think up a grandiose story for the PCs to follow. 
+The plot will grow organically, during play. Keep 
+an open mind and play to find out what happens.
+Make the Most of PC Generation. Be active and 
+engaged when the players generate their characters. 
+During the process, they establish their relation-
+ships to each other and to key NPCs. Take note of 
+all of these NPCs and use them during play.
+Begin with a Project and a Threat. The game will 
+typically begin in the Ark. Before the actual role-
+pla
+
+--- PAGE 140
+
+09
+1 3 8
+GAmemaster’s Section
+Then, you draw a Threat Card (or roll up a threat, 
+see Chapter 10). The project and the threat are your 
+basis for the first session of play. Start play with a 
+scene related to the project, and bring in the threat 
+to the Ark to escalate the situation.
+Take Your Time. During the first session, the play-
+ers get a feel for their characters. They need to find 
+their place in the Ark, to test their relationships 
+to the NPCs. Give it some time. Listen more than 
+you speak. Use the projects, use the threat, use the 
+relationships to NPCs when you feel the need to 
+move the story along, but don’t push it too hard. 
+Ask questions, take notes. See the first session as a 
+prologue, before the real action starts.
+Use What You Learn. When the first session is over, 
+things will already have happened. Conflicts have 
+been established, relationships tested. Planning 
+your second session, you’ll have plenty of threads to 
+pull. You’ll have an idea of where the story will go.
+PREPARING SESSIONS
+From the second session and onward, you can pre-
+pare a little more. Build on what you have established 
+earlier, and spend a little bit of time before the ses-
+sion to think about what might happen next. You can:
+ K Think up a few pre-prepared events, but no 
+more than one or two per PC.
+ K Choose a new threat against the Ark (Chapter 
+10), unless you prefer to keep drawing ran-
+dom Threat Cards.
+ K If the PCs are in the Zone, prepare an encoun-
+ter with a group, monster or phenomenon 
+(Chapter 13).
+ K Choose a special Zone sector (Chapter 15) to 
+place in the PCs path or lure them toward.
+ K Choose one of the clues pointing the way to 
+Eden (Chapter 16), and consider how the PCs 
+might find it.
+ K Make up something completely different.
+Avoid preparing too much – the more detailed your 
+plans are, the harder they are to adapt to the players 
+actions. 15–30 minutes of prep time before a ses-
+sion is usually enough. Trust the players and the 
+mechanics of the game to create story and drama!
+NON-PLAYER CHARACTERS
+You command acid storms and atomic winters. 
+Zone monsters and battle droids follow your every 
+word. Yet, your most powerful tools are your NP
+
+--- PAGE 141
+
+09
+1 3 9
+Your job as gamemaster
+The Coward talent (page 66) can be very useful to 
+keep an important NPC alive for longer.
+Mutations:  A typical NPC has one random mu-
+tation and three Mutation Points. If you want to 
+make a particular NPC a tougher opponent, you 
+can give him more mutations and more MP than 
+normal. Giving an NPC a mutation with a defensive 
+effect is also a good way to protect him.
+Name, Appearance, Goal:  Beyond the numeric 
+stats, there are three things you need to know about 
+every NPC:
+ K What’s his name?
+ K What does he look like and how does he act?
+ K What does he want?
+To help you to quickly create an NPC, there is an 
+extensive table at the end of this chapter. Pick the 
+stats and traits that you like, or let the dice make the 
+choice for you. Write the information down. Make 
+a list of all NPCs that have been introduced, and 
+keep it at hand when you play.
+PLAYING NPCs
+Technically, NPCs work just like PCs. They need 
+resources in the same way, they need to be Healed 
+if broken, and they can develop new mutations. But 
+in practice, you should ignore all game mechan-
+ics for NPCs as long as they don’t directly affect 
+a PC. Don’t count grub and water for every NPC 
+who follows the PCs into the Zone – instead keep 
+the freedom to decide when their resources run out, 
+for maximum dramatic effect. Don’t roll dice for 
+NPCs’ actions unless they attack or Heal a PC. You 
+can roll for NPC actions in other situation too if it 
+heightens the drama, but as a rule, don’t.
+NPCs in Groups:  When you handle several NPCs 
+with identical stats, you can let them perform actions 
+in a group instead of individually. See Chapter 3.
+LET THEM LIVE
+If you can, avoid having NPCs dying too 
+quickly. An NPC who survives and can 
+come back is much more interesting than 
+a dead NPC. In the Ark, there is always 
+some Bonesaw around who can save a 
+dying NPC.
+Avoid giving the PCs the chance 
+to get to an important NPC at an early 
+stage – if they have enough MP, nothing 
+can stop them. Try to place henchmen 
+in the way, so that the PCs need to deal 
+with them first.
+If the PCs despite your best efforts 
+kill off an enemy Boss or some other 
+important NPC – let it
+
+--- PAGE 142
+
+09
+1 4 0
+GAmemaster’s Section
+FINE-TUNING THE OPPOSITION
+As GM, it’s your job to make conflicts exciting by 
+making sure the PCs face challenging opposition. 
+Use the number of opponents, 
+their mutations and their weap-
+ons as measures to calibrate the 
+difficulty.
+A good rule of thumb is that a group of PCs 
+in decent shape will generally be able to defeat a 
+group of NPCs of similar size and gear, as long as 
+they have some MP to use. In combat, the enemies’ 
+level of Strength is also important to look at – a 
+group of Enforcers can be a hard to beat even for 
+battle-hardened PCs.
+As GM, you are always free to decide whether or 
+not to use the NPCs’ Mutation Points. If a fight is go-
+ing badly for the PCs, hold off using the NPCs’ MP 
+to give the PCs a fighting chance to turn the tide.
+The Zone is a dangerous place, and sometimes 
+the PCs will encounter opponents they simply 
+cannot beat. Remind the players that they can 
+escape (using the Move skill) and don’t need to 
+fight to death. Also remember that NPCs can Heal 
+dying PCs.
+BRING NPCs INTO THE ZONE
+Back at home in the Ark, the PCs are sur-
+rounded by NPCs that they already know. 
+You can let a PC run into an NPC that 
+wants something from him. In the Zone, 
+most NPCs the PCs meet will be stran-
+gers. It can be a good idea to let some of 
+the plots in the Ark follow the PCs into 
+the Zone, by sending one or more NPCs 
+with them for the journey. Use these 
+NPCs to help the PCs, or create trouble 
+for them. They may have hidden agendas 
+– maybe they secretly serve a rival Boss.
+RELATIONSHIP MAP
+A convenient way to handle NPCs is to 
+use a relationship map. Grab a blank 
+piece of paper and write down the PCs’ 
+names in the corners. In the middle, note 
+down the names of the most important 
+Bosses in the Ark. Between them, wher-
+ever there is space for it, write down 
+the names of other NPCs that the PCs 
+have relationships to. Then, draw lines 
+between names to mark a relationship, 
+and write a word or two next to the line 
+to describe it. The relationship map will 
+grow as play progresses and becomes a 
+valuable tool for you as a GM. It can give 
+you lots of ideas for dramatic events to 
+spring on the pla
+
+--- PAGE 143
+
+09
+1 4 1
+Your job as gamemaster
+DEALING WITH RESOURCES
+Bullets, grub and Rot-free water are scarce com-
+modities, and the game will often revolve around 
+acquiring these resources. It’s an important part 
+of your job as a GM to make the PCs fight for 
+these resources – but don’t make them impossi-
+ble to come by. Some roles have their own ways 
+of getting grub and water written into the rules 
+(the Fixer and the Boss in the Ark, the Stalker in 
+the Zone), but most of the time, you as GM are in 
+control of how much the PCs can get their hands 
+on. Some advice:
+Vary the Supply. Let the PCs find grub easily now 
+and then, in particular when the focus of the game 
+is on something else. Other times, make them risk 
+their lives for a single ration of grub. This will teach 
+the players not to take the resources for granted, 
+but at the same time not make them spend all their 
+time looking for them.
+Err on the Side of More. Don’t be afraid to give the 
+PCs plenty of grub and water every now and then. 
+When in doubt, give more rather than less. The PCs 
+can’t carry all that much anyway, and if they get 
+their hands on a big stash, someone is sooner or 
+later bound to try to take it from them!
+RANDOM GENERATION OF NPCs
+e nforcer S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Hugust Hulking posture, ape-like arms, 
+grunts
+Stop fighting and build something 
+instead
+Brass knuckles
+2 Ingrit Short and stocky, hoarse voice Beat up anyone in her way Bicycle chain
+3 Lenny Wiry, skinny and muscular Live another day, there is nothing else Spiked bat
+4 Marl Fat and with a wheezing voice Torment others and hear them scream Scrap knife
+5 Nelma Grotesquely tall, abnormal face Please the Boss Scrap axe
+6 Rebeth Weathered and scarred, hissing voice Show who’s strongest Scrap pistol
+g earhea DS
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Quark Skinny, spiked hair, always smiling Find Eden and the truth about the 
+People
+Scrap pistol, Gear Bonus 
++2
+2 Lambda Old blue coveralls, tools in every 
+pocket
+Recreate the technical marvels of the 
+Old Age
+Scrap pistol with three 
+barrels
+3 Loranga Bald, extremely dirty, kind Build things to help others None
+4 Naphta Burn-scarred skin, googles, smel
+
+--- PAGE 144
+
+09
+1 4 2
+GAmemaster’s Section
+Stal K er S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Danko Always wears a gasmask, never 
+speaks
+Go farther into the Zone than anyone 
+else
+Scrap rifle, Gear Bonus 
++2
+2 Franton Scarred face, brags a lot Be revered as a hero by the People Scrap pistol with two 
+barrels
+3 Hammed Dead eyes, coughs from Rot damage, 
+smells of booze
+Walk into the Zone and let the Rot 
+take him
+Scrap spear
+4 Jena Camouflage gear, constantly fiddles 
+with her gun
+Stalk a victim for days and then kill it Scrap rifle, weapon 
+damage 3
+5 Krin Skinny and wiry, always on her guard Keep out of trouble, avoid others Bow, Gear Bonus +2
+6 Tula Wears a torn raincoat, pulls an old 
+shopping cart
+Find something worth fighting for Slingshot
+f ixer S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Abed Bald and pudgy, constantly smiling Make the deal of a lifetime Scrap knife
+2 Denrik Unnaturally handsome, shiny hair Make others feel good and take 
+advantage of it
+—
+3 Fillix Stares at others’ gear, kleptomaniac Collect a large stockpile of grub and 
+gear
+Scrap pistol, Gear Bonus 
++2
+4 Jolisa Skinny, large staring eyes Abnormally interested in artifacts and 
+scrap
+Bicycle chain
+5 Lula Abnormally short, talks constantly Swindle the last bullet from everyone 
+else
+Scrap pistol
+6 Monja Wheezing voice, always wants to 
+trade something
+Become a Boss one day Scrap knife
+Dog h an D le r S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Anny Chews on a root, spits constantly Find someone other than her dog to 
+care for
+Slingshot
+2 Brie Black bangs cover a deformed eye Kill anyone who comments on her 
+appearance
+Scrap knife
+3 Finn Greenish, rough skin, mostly drunk Forget his sorrows Baseball bat
+4 Jony Face shaded by hood, silent and 
+aggressive
+Leave the Ark and find a better life Scrap axe
+5 Krinnel Only talks to her dog, never to people Give her dog something good to eat Bow
+6 Montiac Crew cut, irritable and violent Beat up anyone who speaks ill of his 
+dog
+Brass knuckles
+c hronicler S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Astrina Red mohawk, sees good in everyone Find a hero who can save the People Scrap knife
+2 Danova Wears a dress from the Old Age Understand what the El
+
+--- PAGE 145
+
+09
+1 4 3
+Your job as gamemaster
+D6 n a M e aP P ea rance g oa l w ea P on
+4 Maxim Skinny and weak, aged beyond his 
+years
+Write the story of how the People 
+finds Eden
+–
+5 Silas Unnaturally pale, translucent skin, 
+sad
+To make the Ark evolve into an ad-
+vanced society
+–
+6 Victon Boyish, reddish complexion, always 
+happy 
+Become the hero in the story about 
+the People
+Scrap knife
+b o SS e S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Brictoria Cold eyes, scarred face, crew cut Turn the People into an army and con-
+quer the Zone
+Scrap rifle, Gear Bonus 
++2
+2 Gunitt Short, skinny, wears a top hat Collect large amounts of artifacts Scrap pistol with three 
+barrels
+3 Cristor Tall and skinny, fiery eyes Topple the Elder and establish equal-
+ity in the Ark
+Spiked bat
+4 Marlotte Cool and detached Develop the Ark and lead the People 
+to a better life
+—
+5 Mohamin Legless and is carried around by 
+Slaves
+Rally more followers and leave the 
+Ark with his cult
+Scrap knife
+6 Oscartian Extremely fat, can hardly move Get rid of all rivals and take sole 
+power in the Ark
+Scrap pistol, weapon 
+damage 3
+Slave S
+D6 n a M e aP P ea rance g oa l w ea P on
+1 Dink Silent and observant, bitter and 
+treacherous
+Find someone to use to get free —
+2 Eria Arms and legs like logs, grim Toil away without complaining —
+3 Henny Dirty, always hums on some melody See the bright side of things —
+4 Hent Massive body with knobby skin, 
+hunchback
+Work and suffer until death sets him 
+free
+—
+5 Lin Wiry and grumpy, fights a lot To take her aggressions out on 
+anyone
+—
+6 Wilo Skinny and weak, a dreamer To escape from the Ark and never 
+come back
+—
+OTHER COMMON NAMES
+Abar, Alia, Alix, Almenkir, Amala, 
+Augustian, Bark, Benso, Delta, Doda, Dunk, 
+Edin, Elona, Emalina, Emdor, Endel, Ergom, 
+Erian, Erister, Felin, Fils, Gerber, Grits, 
+Gros, Hild, Ibit, Iridia, Johalin, Jol, Jonar, 
+Juna, Juperia, Kalgu, Kaska, Katin, Kim, 
+Koli, Leodor, Landon, Lard, Linna, Margot, 
+Marlian, Makron, Markot, Mart, Max,  
+ 
+Mintel, Miri, Mohan, Molger, Morris, 
+Mubba, Natara, Nelma, Nely, Novia, Octane, 
+Olias, Olli, Oslo, Otiak, Plonk, Piro, Pontis, 
+Rasper, Regis, Rog, Rutger, Sagabet, Sari, 
+Savik, Silia, Siniss, Slabados,
+
+--- PAGE 146
+
+
+
+
+
+--- PAGE 147
+
+10
+1 4 5
+Threats Against the Ark
+10
+Threats 
+against the Ark
+The Threat Cards describe internal and external 
+threats to the Ark. Draw a new Threat Card at the 
+start of each session, or whenever you feel like 
+stirring things up. There are three ways to draw 
+a Threat Card – you should agree in the group be-
+forehand which method to use:
+1.	Let a player draw a Threat Card and read the 
+text out loud.
+2.	Draw a Threat Card yourself, without reveal-
+ing its content.
+3.	Deliberately choose a Threat Card, rather 
+than picking one randomly.
+INTRODUCING THREATS
+The new threat will, together with any new or ongo-
+ing project, create a backdrop for the session. All of 
+the People will be affected by the threat, including 
+the PCs. If they are not affected directly, then have 
+an NPC they care about get into trouble.
+However, the threat does not have to dominate 
+the session completely. If the PCs are already knee-
+deep in intrigue and action, leave them to it. Or why 
+not throw the new threat into the mix, to shift the 
+balance of power in some interesting way?
+It’s your job as a GM to introduce the new 
+threat into the game. Use the threat as a basis for 
+events that you unleash on the PCs (Chapter 9). 
+You should introduce a new threat pretty early in 
+the session, but it doesn’t need to be the very first 
+thing that happens.
+ESCALATING THREATS
+The texts on the Threat Cards are brief and leave 
+many questions unanswered. That’s intentional – 
+the cards don’t give away the full  truth behind the 
+threat, since the players are meant to be able to 
+read them. The rest of this chapter repeats all the 
+information on the Threat Cards, and expands on it 
+with suggestions about how the threats can escalate.
+To Escalate a Threat is one of the ten standard 
+events in the Ark, as set out in Chapter 9. Of course, 
+you are free to change or add to these threats as 
+you see fit, or make up something completely dif-
+ferent. How the threats play out also depends on 
+the PCs’ actions. Note which threats you have 
+
+
+
+--- PAGE 148
+
+10
+1 4 6
+GAmemaster’s Section
+introduced into the game, and keep a record on 
+how they evolve.
+BOSS vs BOSS
+A Boss sees an opportunity to become top dog. Dur-
+ing one bloody night, she tries to wipe out all of 
+her competition and become the sole ruler of the 
+Ark. But one of her rivals survives, and launches a 
+counter-offensive. No one in the Ark is unaffected 
+– if you don’t pick a side, no one will protect you 
+against the raging violence.
+ K Both rivaling Bosses try to recruit the PCs to 
+their cause – with force, if necessary. PCs can 
+end up on opposing sides.
+ K A third Boss preaches calm and unity, and 
+wins the People’s support. Soon, he is tar-
+geted in an assassination attempt. The PCs 
+can carry out the deed or try to stop it.
+ K Finally, the Elder steps forward and speaks to 
+the People. But is it too late to stop the vio-
+lence, will the People listen?
+A CHILD OF THE PEOPLE
+The Slave Sira has complained of stomach pains 
+for some time, but who cares about a Slave? Now 
+everyone cares. They say that Sira will give birth to 
+a child. The news spreads like wildfire in the Ark. If 
+it’s true, it’s the first time that anyone can remember 
+that a child is born to the People.
+ K A violent power-struggle erupts between 
+Bosses who want to claim Sira and her un-
+born child for themselves. She quickly be-
+comes a symbol of the People’s future. Some-
+one might try to kidnap her – or hire the PCs 
+to do it.
+ K Sira refuses to say who the father is. Perhaps 
+it’s a mutant in the Ark, and the conception is 
+just a random accident of nature. Or the father 
+is someone from outside, like The Man on the 
+Beach (page 148), one of the Wanderers (page 
+152) or even a Zone-Ghoul (page 176).
+ K After some time, Sira gives birth. The People 
+celebrate, but the joy doesn’t last. The baby 
+is ill. Maybe there is a cure somewhere in the 
+Zone? In the meantime, the rivalry continues 
+between Bosses who want to take care of Sira 
+RANDOM T HR EATS  T AB LE
+If
+ you don’t have access to the Mutant: Year 
+Zero Card Deck , roll D66 on the table below 
+instead. All of the information on the cards is 
+repeated – and expanded on – in this chapter.
+threat S ag ain S t  th e  ar K
+11 
+
+--- PAGE 149
+
+10
+1 4 7
+Threats Against the Ark
+and the child. She might react by fleeing the 
+Ark – and if she does, she will be hunted.
+THE DERELICT OIL RIG
+Through the thick fog of the Zone it comes floating 
+slowly – a gigantic rusting metal hulk. The four-
+legged oil platform, as tall as the ruins at the heart 
+of the Zone, beaches and casts its ominous shadow 
+over the Ark. What secrets could be hidden inside it?
+ K Someone, preferably PCs, climb on board the 
+oil rig. They find several artifacts, but also 
+dozens of corpses. Strangely enough, they 
+seem to have been beaten to death – very 
+recently. Some are still warm. The dead 
+don’t seem to be mutants, but some carry 
+deformations.
+ K Log books show that the crew has lived on 
+the oil rig for generations – may ever since 
+the Fall. This find may make the players won-
+der about the People’s own origin – how and 
+when did they actually come to the Ark?
+ K Deep inside the oil rig, there is a survivor. He 
+is completely out of his mind and is guilty of 
+killing the others. He now stalks the intruders 
+and tries to kill them off one by one. If caught, 
+he rambles on about “Project Eden” and 
+seems terrified of the mutants.
+THE HELLDRIVERS
+It sounds like a thunderstorm in the distance. But 
+coming closer, the noise turns into the loud rev-
+ving of powerful engines, and every mutant in the 
+Ark runs to see what is coming. Dozens of cars and 
+motorcycles with grim drivers and riders roll up 
+to the gates. Stalkers have told stories about the 
+fearsome Helldrivers, few thought they were real. 
+Now, they are here.
+ K The Helldrivers (page 173) besiege the Ark. 
+They demand booze and grub in return for 
+not burning to the Ark to the ground with 
+their mounted flamethrowers.
+ K The Helldrivers try to recruit a PC, or an NPC 
+with a relationship to a PC.
+ K The situation sooner or later escalates to 
+open violence – unless the Helldrivers 
+can be persuaded to leave, or somehow be 
+out-maneuvered.
+THE HUNGER
+Grub has been scarce in the Ark for some time, but 
+now the situation is truly desperate. The stockpile 
+of canned food is gone, and every mutant has to 
+find their own means to feed themselves. Starvation 
+sets in and the fi
+
+--- PAGE 150
+
+10
+1 4 8
+GAmemaster’s Section
+Comment:  Read more about robots on page 177. 
+They will be described in depth in an upcoming 
+expansion to Mutant: Year Zero.
+THE LAST DROP
+The water source in the Ark fails. The well goes 
+dry, the water purifier breaks down or the cistern 
+bursts – whatever the reason, it’s a disaster. What-
+ever Rot-free water is left in cans and bottles will 
+only last a few days.
+ K A Boss tries to take control of what little wa-
+ter is left. Things get violent.
+ K Dehydrated mutants turn to drinking rotwa-
+ter from puddles and streams, and Rot fever 
+spreads in the Ark.
+ K In the end, the People have no other choice 
+than to find a new water source – or spare 
+parts if they can fix the old one.
+LOST TREASURE
+An expensive and important item in the Ark has 
+disappeared without a trace. It can be something 
+the People have built: a tool, a spare part, or an 
+artifact from the Old Age. The item has been sto-
+len in the dead of night. Now, everyone suspects 
+everyone else.
+ K A PC, or an NPC with a relationship to a PC, 
+is accused of the theft.
+ K A PC learns who is behind the theft. What 
+does he do with this information?
+ K The perpetrator – or someone who is unjustly 
+accused – flees the Ark. A lynch mob is or-
+ganized to find him.
+THE MAN ON THE BEACH
+No one knows where the man without memory 
+came from. One cold morning he lies shivering 
+with hypothermia on a beach near the Ark, where 
+some scavengers find him. He speaks in a strange, 
+foreign accent, but manages to explain that he can’t 
+remember who he is. Apart from a worn coverall 
+with strange markings, there are no clues to his 
+origin. He seems to lack all mutations.
+ K The stranger’s arrival causes a great stir in 
+the Ark. Several Bosses want to lock him up 
+and question him. The Chroniclers of the 
+Dawn Vault want to talk to him. The struggle 
+over what to do with him could turn violent.
+ K The man is confused, but step by step, his 
+memory returns. His cryptic harangues usu-
+ally make no sense, but at some point he 
+mentions Project Eden. He can even give a 
+clue to the location of Eden (Chapter 16).
+ K The stranger’s mind seems to clear up, he 
+seems more lucid, when suddenly, 
+
+--- PAGE 151
+
+10
+1 4 9
+Threats Against the Ark
+ K The expedition makes contact with another 
+faction in the Zone.
+MURDER IN THE ARK
+A generally well-liked person in the Ark, or someone 
+close to a PC, is found brutally murdered one morn-
+ing. The body has been hacked to pieces. Nothing 
+like this has ever happened in the Ark before.
+ K Soon, the killer is found, sitting catatonic and 
+covered in blood in his den. He has only one 
+excuse: The voices made me do it.
+ K It happens again. One mutant in a seemingly 
+happy couple beats her partner to death, and 
+then blames the “voices”. Paranoia grips the 
+Ark.
+ K A PC is affected. Suddenly, he just knows 
+a another PC must die, right now. He must 
+immediately Fight, and won’t stop until he is 
+broken or grappled down. Then, suddenly, the 
+voices stop.
+ K The source of the murderous voices is a dy-
+ing mutant, whose mind is falling apart. His 
+psionic nightmares randomly affect innocent 
+victims. When the People find out – how will 
+they deal with him?
+MUTANT MESSIAH
+A minor Boss dreams strange dreams and begins 
+to proclaim his visions of death and destruction to 
+the People. Fatalistic hopelessness and the futility 
+of all things are the core elements of this message, 
+which attracts a growing number of followers.
+ K A friend of a PC joins the cult, and soon asks 
+the PC to join too. The cult grows daily, caus-
+ing concern among the other Bosses.
+ K The cultists begin refusing to take part in any 
+of the projects in the Ark, instead spending 
+their days performing bizarre rituals. The rest 
+of the People suffer, and resentment towards 
+the cult grows.
+ K Finally, things come to a head – the cult must 
+be disbanded, leave the Ark or be destroyed. 
+Maybe the PCs get caught in the middle.
+THE MYSTERIOUS RUIN
+A Stalker has seen a strange building in the Zone. 
+Could there be grub or bullets there? A Boss 
+wants to send out an expedition, and is looking 
+for volunteers.
+ K If the PCs don’t volunteer, an NPC they have 
+a relationship to asks them to come.
+ K A rival Boss tries to sabotage the expedition. 
+He sends along a secret provocateur, who 
+tries to make everything go wrong.
+ K If the PCs visit the strange building and 
+return, 
+
+--- PAGE 152
+
+10
+1 5 0
+GAmemaster’s Section
+peaceful coexistence vanishes quickly, and a 
+violent showdown ensues.
+Comment:  Read more about beast mutants in 
+Chapter 13. They will be described in depth in a 
+coming expansion to Mutant: Year Zero.
+THE OTHER PEOPLE
+They come walking out of the smog without warn-
+ing. A group of mutants just like the People – but 
+not as skinny and miserable. They say they come 
+from a settlement out in the Zone, another Ark – 
+and they want an alliance. They ask some of the 
+People to come with them to their Ark, as guests.
+ K The visitors tell the People about the good 
+life in their Ark. They say it’s ruled by the 
+benevolent “Chairman”, and no mutant has to 
+go hungry. The visit divides the People into 
+two camps – one wants to visit the other Ark, 
+the other wants the visitors dead or in chains.
+ K Finally, the People decide to send an expedi-
+tion the other Ark. Try to get the PCs to join.
+Comment:  Read more about other Arks in Chap-
+ter 13. A complete example of another Ark can be 
+found in Chapter 15.
+PROJECT SABOTAGED
+Under the cover of darkness, someone has sabo-
+taged an important project in the Ark (Chapter 8). 
+All of the hard work is lost, and needs to be redone 
+from scratch. Everyone whispers about who did it 
+and why, and the People start to regard each other 
+with suspicion.
+ K A rumor spreads that the guilty person is an 
+NPC (preferably a Chronicler or Gearhead) 
+with a relationship to a PC.
+ K The suspected NPC comes to the PC for pro-
+tection, to save himself from being lynched. A 
+Boss wants him punished.
+ K The NPC reveals that he actually is the guilty 
+party. He wants to stop all attempts to build 
+a new society, to avoid another Apocalypse at 
+any cost.
+Comment: Chapter 7 explains what happens rules-
+wise when a project is destroyed.
+REVOLUTION!
+Discontent is brewing among the People. The mu-
+tants hunger, while the Bosses have their fill. All 
+it takes is a spark – an Enforcer strikes his Boss 
+– and soon the entire Ark is set aflame as Slaves 
+rise against their owners and take revenge for years 
+of abuse.
+ K A Boss that a PC has a good relationship with 
+is about to be lynched. Perhaps an NPC that 
+a PC is close 
+
+--- PAGE 153
+
+10
+1 5 1
+Threats Against the Ark
+ K In the tunnels, the explorers may find an old 
+supply room, with thick layers of dust but 
+also some useful artifacts.
+ K Further down, there is big mysterious 
+ ma
+chine that still seems to be active. The 
+machine can activate robots (page 177) or the 
+remains of a computerized defense system.
+STARFALL
+Suddenly, night turns into day. A light in the sky, 
+stronger than any star, shoots across the night sky 
+from east to west. The fireball disappears for an 
+instant, darkness briefly falling over the Zone again. 
+Then the horizon suddenly lights up in a massive 
+but silent explosion.
+ K The starfall spreads fear in the Ark. A cult 
+leader begins to preach that the People 
+should all leave the Ark and travel to the 
+place of impact. Among his followers is an 
+NPC close to a PC.
+ K The cult is about to leave, but is stopped by 
+force by another Boss who refuses to let the 
+People split apart.
+ K An expedition is sent to the point of im-
+pact. There is nothing there, apart from 
+
+
+
+--- PAGE 154
+
+10
+1 5 2
+GAmemaster’s Section
+Rot-contaminated debris of some strange ves-
+sel and a deadly robot (page 177) with orders 
+to kill all mutants it comes across…
+THE WANDERERS
+They come wandering through the Zone, a scrawny 
+and grim-faced bunch in tattered old clothes. They 
+speak in a strange and foreign accent, but manage 
+to explain that they have wandered for several years 
+from the mountains far away. They ask the People 
+for grub and protection. None of the wanderers 
+seem to have any mutations at all.
+ K It turns out that the wanderers intend to set-
+tle in the area for good – inside the Ark, or 
+just outside of it. Some of the wanderers treat 
+mutants as subordinate beings.
+ K Some Bosses grow increasingly hostile to-
+wards the wanderers, who start to act as if 
+they owned the place. Arguments and fist-
+fights break out.
+ K One fight ends with a wanderer getting killed 
+by a mutant. The conflict risks escalating into 
+open war, unless the two sides find a way to 
+coexist peacefully. Whatever happens, the 
+wanderers intend to settle in the Zone for 
+good.
+Comment:  The unmutated humans and their origin 
+will be described in depth in a future expansion to 
+the game.
+THE ZONE CULT
+There are rumors about a cult said to live in an 
+ancient bunker out in the zonelands. Stalkers have 
+seen men and women in long robes, strangely un-
+touched by the filth and cold of the Zone. Who are 
+they? Where do they come from? Do they have 
+knowledge or artifacts that can benefit the People?
+ K An NPC close to a PC says that she has met 
+one of the robed people near the Ark. She 
+says they are magical beings, and wants help 
+to visit them. She thinks she knows where 
+their bunker is.
+ K A few robed cultists suddenly appear by the 
+gate of the Ark. They are not talkative, and re-
+veal nothing about themselves. They want to 
+know if there are any unmutated humans in 
+the Ark (such as the Wanderers, page 152, or 
+the Man on the Beach, page 148). If so, they 
+want to barter goods in exchange for these 
+humans coming with them. If the People 
+refuse, the cultists will attempt a kidnapping 
+at some point.
+ K The People start to distrust the cultists and 
+fear their mental powers, i
+
+--- PAGE 155
+
+10
+D EVOURER  (PAGE 178)
+1 5 3
+Threats Against the Ark
+ZONE-GHOULS ATTACK
+They attack before dawn, without warning or mercy. 
+They come from the deeps of the Zone, and enter 
+the Ark while the People are sleeping. Then, the 
+massacre begins. The Zone-Ghouls kill, burn and 
+plunder with a feverish frenzy. Can the People stop 
+them – or is this the end?
+ K One PC witnesses how an NPC he has a 
+relationship to is surrounded by frenzied 
+Zone-Ghouls.
+ K The Zone-Ghouls set fire to part of the Ark. 
+The flames spread quickly.
+ K An NPC or a Boss tells a PC to flee with him. 
+The Ark is lost and staying is suicide, he says.
+Comment: Read more about the Zone-Ghouls on 
+page 176. Use the rules for attacks against the Ark 
+(page 114) to determine the flow of the battle. The 
+attackers have Battle Level 2, or higher.
+THE ZONE MONSTER
+The People have had enough. There is a wild beast 
+about that has torn mutants to pieces out in the 
+Zone, and even started attacking people collecting 
+scrap right outside the Ark’s walls. A Boss wants 
+to lead a hunting expedition into the Zone to deal 
+this threat once and for all.
+ K The expedition leaves to hunt the beast. PCs 
+are asked to join.
+ K The beast can be a razorback (page 180), a 
+devourer (page 178), or some other ferocious 
+monster in Chapter 13. The hunting party 
+finds the beast’s lair, riddled with remains of 
+Zone-Ghouls and mutants.
+ K The hunting team confronts the beast in a 
+fight to the death. An expedition from an-
+other Ark, or a group of Zone-Ghouls, can 
+help or hinder.
+THE ZONE SHAKES
+It starts as a deep rumble from the very 
+ground itself. Then the earth shakes, soon 
+violently. Anyone not holding on to something 
+is thrown to the ground. Then, as suddenly as it 
+started, it’s over. For now.
+ K The quakes return, even stronger. The Ark is 
+damaged by the tremors, perhaps destroying 
+a project.
+ K A Boss (preferably a Cultist, page 100) pro-
+claims that the quakes are a bad omen, a sign 
+of the Ancients’ dissatisfaction with the Peo-
+ple and a call for repentance.
+ K The PCs and other mutants might search for 
+the cause of the tremors. It is detonations in 
+a bunker deep underground, a war between 
+rival secu

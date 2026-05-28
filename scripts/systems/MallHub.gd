@@ -18,6 +18,15 @@ var _mat_pillar: StandardMaterial3D
 var _mat_trim_warm: StandardMaterial3D
 var _mat_trim_cool: StandardMaterial3D
 var _mat_sealed: StandardMaterial3D
+var _mat_upper: StandardMaterial3D
+var _mat_railing: StandardMaterial3D
+var _mat_esc_off: StandardMaterial3D
+var _mat_esc_on: StandardMaterial3D
+
+# Upper-floor tenant stores: floor surface is y=6.4, NPCs sit +1.05 above it like the ground floor.
+# Store bay spans z(-9..-16); tenants stand at z=-12.5 behind their counters.
+const HUB_UPPER_Y := 7.45
+const HUB_UPPER_Z := -12.5
 
 
 func _ready() -> void:
@@ -43,6 +52,7 @@ func _ready() -> void:
 	_build_geometry()
 	_apply_mall_world_state()
 	_wire_runtime()
+	_apply_gate_visibility()
 	hud.update_targeting(null, 0.0, 0.0)
 	hud.set_ammo(weapon.current_ammo, weapon.reserve_ammo)
 	hud.set_player_health(player_health.current_hp, player_health.max_hp)
@@ -117,8 +127,20 @@ func _handle_interact() -> void:
 			"Vessel":
 				_handle_vessel()
 				return
+			"Damaged Android":
+				_handle_vessel_android()
+				return
+			"Escalator Console":
+				_handle_escalator_console()
+				return
+			"Motor Crate":
+				_handle_motor_crate()
+				return
 			"Velvet Coil":
 				_handle_velvet_coil()
+				return
+			"Bar Door":
+				_handle_bar_door()
 				return
 		var line: Dictionary = focused_npc.interact()
 		hud.show_dialogue(_get_system_x_speaker(str(line.get("name", "System X"))), _get_system_x_line())
@@ -386,6 +408,33 @@ func _get_ending_line() -> String:
 	return "ENDING  unresolved"
 
 
+func _apply_gate_visibility() -> void:
+	# A gate is shown only when its route is unlocked (previous quest done) or
+	# when the quest is already completed (free return visit). Both conditions
+	# collapse to _is_route_unlocked(), which stays true after completion.
+	_set_gate_visible("MissionGate",       _is_route_unlocked("wake_up_call"))
+	_set_gate_visible("PacificationLift",  _is_route_unlocked("dream_audit"))
+	_set_gate_visible("TransitGate",       _is_route_unlocked("transit_breach"))
+	_set_gate_visible("SpireGate",         _is_route_unlocked("spire_lobby"))
+	_set_gate_visible("ExecutiveGate",     _is_route_unlocked("executive_suite"))
+	_set_gate_visible("CompanionCoreGate", _is_route_unlocked("companion_core"))
+	_set_gate_visible("LindaSpireGate",    _is_route_unlocked("linda_spire"))
+	_set_gate_visible("FinalPatchGate",    _is_route_unlocked("final_patch"))
+
+
+func _set_gate_visible(node_name: String, gate_on: bool) -> void:
+	var gate := get_node_or_null(node_name) as Area3D
+	if gate == null:
+		return
+	gate.visible = gate_on
+	gate.monitoring = gate_on
+	# Also disable/enable the collision shape so nothing can focus a hidden gate
+	for child in gate.get_children():
+		var col := child as CollisionShape3D
+		if col != null:
+			col.disabled = not gate_on
+
+
 func _save_game() -> void:
 	if GameState.save_game():
 		hud.show_system_message("GAME SAVED")
@@ -399,6 +448,7 @@ func _load_game() -> void:
 		WorldDirector.set_region(WorldDirector.REGION_FADED_ATRIUM)
 		_apply_mall_world_state()
 		_wire_runtime()
+		_apply_gate_visibility()
 		hud.set_inventory_summary(GameState.get_inventory_summary())
 		hud.set_faction_summary(GameState.get_faction_summary())
 		hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
@@ -433,20 +483,23 @@ func _wire_runtime() -> void:
 	_spawn_npc("mister_static", "Mister Static",
 		"The generator coupling is in the west passage. I have been managing it with tape and intention for six weeks.",
 		"Press E: talk to Mister Static",
-		Vector3(-10.5, 1.05, +10.0))
+		Vector3(-12.0, 1.05, +12.5))
 	_spawn_npc("gideon", "Pipe Father Gideon",
 		"The Pipe Church holds. Whatever comes down from the upper levels, the pipes remember it.",
 		"Press E: talk to Pipe Father Gideon",
-		Vector3(-3.5, 1.05, +10.0))
-	_spawn_npc("vessel", "Vessel",
-		"The LAN tap is severed. When it is live, System X can see the whole lower city again.",
-		"Press E: talk to Vessel",
-		Vector3(+3.5, 1.05, -10.0))
+		Vector3(-4.0, 1.05, +12.5))
+	if bool(GameState.get_world_flag("vessel_repaired", false)):
+		_spawn_vessel_npc()
+	else:
+		_spawn_vessel_prop()
+	_spawn_escalator_console()
+	_spawn_motor_crate()
 	_check_phase()
 	if GameState.get_world_flag("hub_phase_2", false):
 		_apply_phase_2()
 	if GameState.get_world_flag("hub_phase_3", false):
 		_apply_phase_3()
+	_spawn_bar_fixtures()
 	# Add ambient event cards to deck
 	EventDeckSystem.add_card("hub_ambient_phase1_a")
 	EventDeckSystem.add_card("hub_ambient_phase1_b")
@@ -476,136 +529,172 @@ func _check_phase() -> void:
 	if power and lan and not GameState.get_world_flag("hub_phase_2", false):
 		GameState.set_world_flag("hub_phase_2", true)
 		GameState.set_world_flag("coil_invitation_available", true)
-		_apply_phase_2()
 		hud.push_log("hub: working base established")
+		# _apply_phase_2() is called by _wire_runtime() immediately after _check_phase() returns
 
 	if GameState.get_world_flag("hub_phase_2", false) and cistern and culture and bar:
 		if not GameState.get_world_flag("hub_phase_3", false):
 			GameState.set_world_flag("hub_phase_3", true)
-			_apply_phase_3()
 			hud.push_log("hub: restored hub achieved")
+			# _apply_phase_3() is called by _wire_runtime() immediately after _check_phase() returns
 
 
 func _apply_phase_2() -> void:
-	GameState.set_world_flag("bar_open", true)
 	WorldDirector.set_generator_state(WorldDirector.GENERATOR_STABLE)
-	_spawn_npc("vera",     "Vera",      "Medical station. Bring clean water and I can keep people functional.",                                   "Press E: talk to Vera",      Vector3(+10.5, 1.05, -10.0))
-	_spawn_npc("kiki_baja","Kiki Baja", "Torai liaison. My job is to make sure they think we are manageable. I am very good at my job.",         "Press E: talk to Kiki Baja", Vector3(-3.5,  1.05, -10.0))
-	_spawn_npc("ladderboy","Ladderboy", "Vertical access workshop. The ceiling knows things the floor does not. I am the reason that is useful.", "Press E: talk to Ladderboy", Vector3(-10.5, 1.05, -10.0))
+	# Upper-floor tenant stores move in.
+	_build_upper_shop("VeraShop",   -12.0, Color(0.20, 0.85, 0.35))
+	_spawn_npc("vera",      "Vera",      "Medical station's open. Bring clean water and I can keep people functional. Talk to me and I will patch you up.", "Press E: see Vera (heal)",        Vector3(-12.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_build_upper_shop("KikiShop",    -4.0, Color(1.00, 0.45, 0.75))
+	_spawn_npc("kiki_baja", "Kiki Baja", "Torai liaison. My job is to make sure they think we are manageable. I am very good at my job.",                  "Press E: talk to Kiki Baja",      Vector3( -4.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_build_upper_shop("LadderShop",  +4.0, Color(0.35, 0.70, 1.00))
+	_spawn_npc("ladderboy", "Ladderboy", "Vertical access workshop. The ceiling knows things the floor does not. I am the reason that is useful.",          "Press E: talk to Ladderboy",      Vector3( +4.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
 	_unlock_basement_hatch()
+	# Point the player upstairs. If the escalators are still dead, they need the motor coupling first.
+	if bool(GameState.get_world_flag("escalator_repaired", false)):
+		hud.push_log("hub: upper stores occupied — Vera, Kiki Baja, Ladderboy")
+	else:
+		hud.push_log("hub: upper stores occupied — repair the escalators to reach them")
 
 
 func _apply_phase_3() -> void:
+	# Velvet Coil takes the fourth upper store (surgical suite) if her invitation was accepted.
 	if GameState.get_world_flag("coil_invitation_accepted", false):
-		_spawn_npc("velvet_coil", "Velvet Coil", "I am here conditionally. The conditions are holding. Ask me again in a week.", "Press E: talk to Velvet Coil", Vector3(+10.5, 1.05, +10.0))
+		_build_upper_shop("CoilShop", +12.0, Color(0.90, 0.30, 0.45))
+		_spawn_npc("velvet_coil", "Velvet Coil",
+			"The surgical suite is conditional and the conditions are holding. Sit on the table when you want hardware.",
+			"Press E: Velvet Coil (cybernetics)",
+			Vector3(+12.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_apply_phase_3_dressing()
 	_activate_hub_radio()
+
+
+func _apply_phase_3_dressing() -> void:
+	# The restored hub reads as inhabited: planters from Static's nursery at the south entry,
+	# warmer fill light, a couple of "people live here" props. Idempotent.
+	if has_node("Phase3Planter1"):
+		return
+	var planter := _make_hub_mat(Color(0.18, 0.20, 0.14), Color(0.20, 0.85, 0.30), 0.40)
+	var foliage := _make_hub_mat(Color(0.10, 0.28, 0.12), Color(0.15, 0.95, 0.35), 0.70)
+	# South entry corridor planters (corridor spans z+16..+25, x-7..+7)
+	_add_box("Phase3Planter1", Vector3(1.2, 0.6, 1.2), Vector3(-5.5, 0.3, +18.5), planter)
+	_add_box("Phase3Foliage1", Vector3(1.0, 1.2, 1.0), Vector3(-5.5, 1.1, +18.5), foliage)
+	_add_box("Phase3Planter2", Vector3(1.2, 0.6, 1.2), Vector3(+5.5, 0.3, +18.5), planter)
+	_add_box("Phase3Foliage2", Vector3(1.0, 1.2, 1.0), Vector3(+5.5, 1.1, +18.5), foliage)
+	# Warmer fill lights now that the hub is lived-in
+	_add_hub_light(Vector3(0.0, 4.0, +18.5), Color(0.4, 1.0, 0.5), 1.4, 9.0)
+	_add_hub_light(Vector3(0.0, 6.0, 0.0), Color(1.0, 0.7, 0.4), 1.2, 18.0)
 
 
 # ── Geometry ────────────────────────────────────────────────────────
 
 func _build_materials() -> void:
-	_mat_floor    = _make_hub_mat(Color(0.055, 0.048, 0.060), Color(0.08, 0.02, 0.08), 0.12)
-	_mat_wall     = _make_hub_mat(Color(0.040, 0.035, 0.045), Color(0.14, 0.02, 0.10), 0.25)
-	_mat_ceil     = _make_hub_mat(Color(0.025, 0.020, 0.030), Color(0.05, 0.01, 0.04), 0.08)
-	_mat_pillar   = _make_hub_mat(Color(0.065, 0.058, 0.072), Color(0.18, 0.04, 0.14), 0.30)
-	_mat_trim_warm = _make_hub_mat(Color(0.18, 0.04, 0.01),   Color(1.00, 0.35, 0.05), 1.40)
-	_mat_trim_cool = _make_hub_mat(Color(0.02, 0.04, 0.18),   Color(0.10, 0.60, 1.00), 1.20)
-	_mat_sealed   = _make_hub_mat(Color(0.06, 0.04, 0.06),    Color(0.30, 0.08, 0.25), 0.55)
+	# Structural surfaces: emission is a faint shadow tint only — texture must dominate.
+	# Accent surfaces (railing, sealed, pillar): slightly more glow but still texture-primary.
+	# Trim strips and active escalator: full neon — they are the light sources.
+	_mat_floor     = _make_hub_mat(Color(0.72, 0.68, 0.74), Color(0.40, 0.06, 0.32), 0.07, "res://assets/hub_floor_tile.png",      Vector3(8, 8, 1))
+	_mat_wall      = _make_hub_mat(Color(0.68, 0.63, 0.70), Color(0.32, 0.04, 0.26), 0.05, "res://assets/hub_wall_concrete.png",   Vector3(6, 4, 1))
+	_mat_ceil      = _make_hub_mat(Color(0.28, 0.25, 0.30), Color(0.10, 0.02, 0.08), 0.05, "res://assets/hub_ceil_panel.png",      Vector3(8, 8, 1))
+	_mat_pillar    = _make_hub_mat(Color(0.70, 0.64, 0.72), Color(0.42, 0.08, 0.35), 0.12, "res://assets/hub_pillar_concrete.png", Vector3(3, 4, 1))
+	_mat_trim_warm = _make_hub_mat(Color(0.88, 0.55, 0.18), Color(1.00, 0.40, 0.05), 1.60, "res://assets/hub_trim_warm.png",       Vector3(8, 1, 1))
+	_mat_trim_cool = _make_hub_mat(Color(0.22, 0.50, 0.88), Color(0.12, 0.72, 1.00), 1.50, "res://assets/hub_trim_cool.png",       Vector3(8, 1, 1))
+	_mat_sealed    = _make_hub_mat(Color(0.58, 0.46, 0.58), Color(0.70, 0.10, 0.55), 0.22, "res://assets/hub_sealed_panel.png",    Vector3(4, 3, 1))
+	_mat_upper     = _make_hub_mat(Color(0.63, 0.60, 0.66), Color(0.20, 0.06, 0.35), 0.08, "res://assets/hub_upper_floor.png",     Vector3(6, 6, 1))
+	_mat_railing   = _make_hub_mat(Color(0.64, 0.58, 0.68), Color(0.50, 0.10, 0.62), 0.22, "res://assets/hub_railing_metal.png",   Vector3(4, 2, 1))
+	# Offline escalator: cool neutral-gray albedo so it reads as material, not a glowing slab
+	_mat_esc_off   = _make_hub_mat(Color(0.52, 0.50, 0.46), Color(0.65, 0.22, 0.02), 0.16, "res://assets/hub_esc_on.png",          Vector3(1, 6, 1))
+	# Active escalator: brighter cyan albedo carries the "on" read; low emission so the step texture stays visible.
+	_mat_esc_on    = _make_hub_mat(Color(0.55, 0.80, 0.90), Color(0.10, 0.80, 1.00), 0.35, "res://assets/hub_esc_on.png",          Vector3(1, 6, 1))
 
 
 func _build_geometry() -> void:
-	# ── CENTRAL ATRIUM  x(-14..+14)  z(-6..+6)  h=6 ─────────────────
-	_add_box("AtriumFloor",  Vector3(28, 0.4, 12),  Vector3(0,      -0.2,  0),    _mat_floor)
-	_add_box("AtriumCeil",   Vector3(28, 0.4, 12),  Vector3(0,       6.2,  0),    _mat_ceil)
-	_add_box("AtriumWallW",  Vector3(0.4, 6,  12),  Vector3(-14.2,   3.0,  0),    _mat_wall)
-	_add_box("AtriumWallE",  Vector3(0.4, 6,  12),  Vector3(+14.2,   3.0,  0),    _mat_wall)
-	# Neon trim strips high on the long walls
-	_add_box("TrimWW", Vector3(0.12, 0.14, 10), Vector3(-14.1, 4.6,  0), _mat_trim_cool)
-	_add_box("TrimWE", Vector3(0.12, 0.14, 10), Vector3(+14.1, 4.6,  0), _mat_trim_cool)
-	# Pillars at each store-divider x position, front face of both store rows
-	_add_box("PillarSL", Vector3(0.5, 6, 0.5), Vector3(-7.0, 3.0, +6.0), _mat_pillar)
-	_add_box("PillarSC", Vector3(0.5, 6, 0.5), Vector3( 0.0, 3.0, +6.0), _mat_pillar)
-	_add_box("PillarSR", Vector3(0.5, 6, 0.5), Vector3(+7.0, 3.0, +6.0), _mat_pillar)
-	_add_box("PillarNL", Vector3(0.5, 6, 0.5), Vector3(-7.0, 3.0, -6.0), _mat_pillar)
-	_add_box("PillarNC", Vector3(0.5, 6, 0.5), Vector3( 0.0, 3.0, -6.0), _mat_pillar)
-	_add_box("PillarNR", Vector3(0.5, 6, 0.5), Vector3(+7.0, 3.0, -6.0), _mat_pillar)
+	# ── CENTRAL ATRIUM  x(-16..+16)  z(-9..+9)  h=10 ─────────────────
+	# Wider, taller — escalators live in the centre as a focal feature
+	_add_box("AtriumFloor", Vector3(32, 0.4, 18),  Vector3(0,     -0.2,  0),    _mat_floor)
+	_add_box("AtriumCeil",  Vector3(32, 0.4, 18),  Vector3(0,    +10.2,  0),    _mat_ceil)
+	_add_box("AtriumWallW", Vector3(0.4, 10, 18),  Vector3(-16.2, +5.0,  0),    _mat_wall)
+	_add_box("AtriumWallE", Vector3(0.4, 10, 18),  Vector3(+16.2, +5.0,  0),    _mat_wall)
+	# North wall — solid except for the basement hatch opening (x: -3..+3)
+	# North wall is GROUND-FLOOR ONLY (y 0..6). Above y=6 the mezzanine must stay open so the
+	# upper walkway connects to the upper store row (z -9..-16) through the entry pillars at z=-9.
+	_add_box("AtriumWallNL",   Vector3(13, 6, 0.4), Vector3(-9.5, +3.0, -9.2), _mat_wall)
+	_add_box("AtriumWallNR",   Vector3(13, 6, 0.4), Vector3(+9.5, +3.0, -9.2), _mat_wall)
+	# Fills above the basement hatch (hatch hole is y 0..4) up to the mezzanine floor (y=6).
+	_add_box("AtriumWallNTop", Vector3( 6, 2, 0.4), Vector3( 0.0, +5.0, -9.2), _mat_wall)
+	# Only build the hatch if phase 2 hasn't unlocked it yet
+	if not bool(GameState.get_world_flag("hub_phase_2", false)):
+		_add_box("BasementHatchDoor", Vector3(6, 4, 0.4), Vector3(0, +2.0, -9.2), _mat_sealed)
+	# Trim strips on the long walls
+	_add_box("TrimWW", Vector3(0.12, 0.14, 16), Vector3(-16.1, +7.5,  0), _mat_trim_cool)
+	_add_box("TrimWE", Vector3(0.12, 0.14, 16), Vector3(+16.1, +7.5,  0), _mat_trim_cool)
+	_add_box("TrimWWLo", Vector3(0.12, 0.14, 16), Vector3(-16.1, +2.5, 0), _mat_trim_warm)
+	_add_box("TrimWELo", Vector3(0.12, 0.14, 16), Vector3(+16.1, +2.5, 0), _mat_trim_warm)
+	# Pillars at south store-row junction (z=+9), marking each divider column
+	_add_box("PillarSL", Vector3(0.5, 10, 0.5), Vector3(-8.0, +5.0, +9.0), _mat_pillar)
+	_add_box("PillarSC", Vector3(0.5, 10, 0.5), Vector3( 0.0, +5.0, +9.0), _mat_pillar)
+	_add_box("PillarSR", Vector3(0.5, 10, 0.5), Vector3(+8.0, +5.0, +9.0), _mat_pillar)
 
-	# ── SOUTH STORE ROW (Stores 1-4)  x(-14..+14)  z(+6..+14)  h=4 ──
-	_add_box("SStoreFloor",    Vector3(28, 0.4,  8),  Vector3( 0,    -0.2, +10.0), _mat_floor)
-	_add_box("SStoreCeil",     Vector3(28, 0.4,  8),  Vector3( 0,    +4.2, +10.0), _mat_ceil)
-	_add_box("SStoreWallW",    Vector3(0.4, 4,   8),  Vector3(-14.2, +2.0, +10.0), _mat_wall)
-	_add_box("SStoreWallE",    Vector3(0.4, 4,   8),  Vector3(+14.2, +2.0, +10.0), _mat_wall)
-	# South (back) wall, split around south-corridor opening (x: -5..+5)
-	_add_box("SStoreBackW",    Vector3(9.0, 4, 0.4),  Vector3(-9.5,  +2.0, +14.2), _mat_wall)
-	_add_box("SStoreBackE",    Vector3(9.0, 4, 0.4),  Vector3(+9.5,  +2.0, +14.2), _mat_wall)
-	# Internal store dividers — start 2 units in from the front to leave open doorways
-	_add_box("SStoreDivL",     Vector3(0.3, 4,   6),  Vector3(-7.0,  +2.0, +11.0), _mat_wall)
-	_add_box("SStoreDivC",     Vector3(0.3, 4,   6),  Vector3( 0.0,  +2.0, +11.0), _mat_wall)
-	_add_box("SStoreDivR",     Vector3(0.3, 4,   6),  Vector3(+7.0,  +2.0, +11.0), _mat_wall)
-	# Store signs above each doorway
-	_add_store_sign("Sign1", Color(0.00, 0.90, 1.00), Vector3(-10.5, 4.0, +6.3))  # Mister Static — cyan
-	_add_store_sign("Sign2", Color(1.00, 0.65, 0.10), Vector3(-3.5,  4.0, +6.3))  # Gideon — amber
-	_add_store_sign("Sign3", Color(1.00, 0.15, 0.50), Vector3(+3.5,  4.0, +6.3))  # Bar — pink
-	_add_store_sign("Sign4", Color(0.45, 0.45, 0.45), Vector3(+10.5, 4.0, +6.3))  # Unclaimed — grey
-	# Sealed fronts: Store 3 (bar) and Store 4 — removed by quests
+	# ── NORTH SERVICE STUB  x(-3..+3)  z(-9..-16)  h=4 ──────────────
+	# Small utility passage behind the hatch door
+	_add_box("NCorFloor",  Vector3(6, 0.4,  7), Vector3( 0.0, -0.2, -12.5), _mat_floor)
+	_add_box("NCorCeil",   Vector3(6, 0.4,  7), Vector3( 0.0, +4.2, -12.5), _mat_ceil)
+	_add_box("NCorEnd",    Vector3(6,  4, 0.4), Vector3( 0.0, +2.0, -16.2), _mat_wall)
+	_add_box("NCorWallW",  Vector3(0.4, 4,  7), Vector3(-3.2, +2.0, -12.5), _mat_wall)
+	_add_box("NCorWallE",  Vector3(0.4, 4,  7), Vector3(+3.2, +2.0, -12.5), _mat_wall)
+
+	# ── SOUTH STORE ROW  x(-16..+16)  z(+9..+16)  h=5  (4 stores @ 8 wide each) ──
+	_add_box("SStoreFloor",  Vector3(32, 0.4,  7), Vector3( 0,    -0.2, +12.5), _mat_floor)
+	_add_box("SStoreCeil",   Vector3(32, 0.4,  7), Vector3( 0,    +5.2, +12.5), _mat_ceil)
+	_add_box("SStoreWallW",  Vector3(0.4, 5,   7), Vector3(-16.2, +2.5, +12.5), _mat_wall)
+	_add_box("SStoreWallE",  Vector3(0.4, 5,   7), Vector3(+16.2, +2.5, +12.5), _mat_wall)
+	# Back wall split around the wider south corridor opening (x: -7..+7)
+	_add_box("SStoreBackW",  Vector3(9, 5, 0.4), Vector3(-11.5, +2.5, +16.2), _mat_wall)
+	_add_box("SStoreBackE",  Vector3(9, 5, 0.4), Vector3(+11.5, +2.5, +16.2), _mat_wall)
+	# Dividers — 5 units deep from z+11, leaving a 2-unit open doorway
+	_add_box("SStoreDivL",   Vector3(0.3, 5, 5), Vector3(-8.0, +2.5, +13.5), _mat_wall)
+	_add_box("SStoreDivC",   Vector3(0.3, 5, 5), Vector3( 0.0, +2.5, +13.5), _mat_wall)
+	_add_box("SStoreDivR",   Vector3(0.3, 5, 5), Vector3(+8.0, +2.5, +13.5), _mat_wall)
+	# Store signs at top of the front face
+	_add_store_sign("SSign1", Color(0.00, 0.90, 1.00), Vector3(-12.0, 5.4, +9.3))  # Mister Static
+	_add_store_sign("SSign2", Color(1.00, 0.65, 0.10), Vector3( -4.0, 5.4, +9.3))  # Gideon
+	_add_store_sign("SSign3", Color(1.00, 0.15, 0.50), Vector3( +4.0, 5.4, +9.3))  # Bar
+	_add_store_sign("SSign4", Color(0.45, 0.45, 0.45), Vector3(+12.0, 5.4, +9.3))  # Unclaimed
+	# Sealed fronts
+	# Store 3 (bar) stays sealed until the Bar quest opens it (requires hub water).
 	if not bool(GameState.get_world_flag("bar_open", false)):
-		_add_box("Store3Seal", Vector3(6.8, 4.0, 0.3), Vector3(+3.5,  2.0, +6.15), _mat_sealed)
+		_add_box("Store3Seal", Vector3(7.8, 5.0, 0.3), Vector3( +4.0, 2.5, +9.15), _mat_sealed)
 	if not bool(GameState.get_world_flag("store_4_claimed", false)):
-		_add_box("Store4Seal", Vector3(6.8, 4.0, 0.3), Vector3(+10.5, 2.0, +6.15), _mat_sealed)
+		_add_box("Store4Seal", Vector3(7.8, 5.0, 0.3), Vector3(+12.0, 2.5, +9.15), _mat_sealed)
 
-	# ── NORTH STORE ROW (Stores 5-8)  x(-14..+14)  z(-6..-14)  h=4 ──
-	_add_box("NStoreFloor",    Vector3(28, 0.4,  8),  Vector3( 0,    -0.2, -10.0), _mat_floor)
-	_add_box("NStoreCeil",     Vector3(28, 0.4,  8),  Vector3( 0,    +4.2, -10.0), _mat_ceil)
-	_add_box("NStoreWallW",    Vector3(0.4, 4,   8),  Vector3(-14.2, +2.0, -10.0), _mat_wall)
-	_add_box("NStoreWallE",    Vector3(0.4, 4,   8),  Vector3(+14.2, +2.0, -10.0), _mat_wall)
-	# North (back) wall, split around service-corridor opening (x: -4..+4)
-	_add_box("NStoreBackW",    Vector3(10, 4, 0.4),   Vector3(-9.0,  +2.0, -14.2), _mat_wall)
-	_add_box("NStoreBackE",    Vector3(10, 4, 0.4),   Vector3(+9.0,  +2.0, -14.2), _mat_wall)
-	# Internal dividers
-	_add_box("NStoreDivL",     Vector3(0.3, 4,   6),  Vector3(-7.0,  +2.0, -11.0), _mat_wall)
-	_add_box("NStoreDivC",     Vector3(0.3, 4,   6),  Vector3( 0.0,  +2.0, -11.0), _mat_wall)
-	_add_box("NStoreDivR",     Vector3(0.3, 4,   6),  Vector3(+7.0,  +2.0, -11.0), _mat_wall)
-	# Store signs
-	_add_store_sign("Sign5", Color(0.20, 0.85, 0.35), Vector3(+10.5, 4.0, -6.3))  # Vera — green
-	_add_store_sign("Sign6", Color(0.60, 0.20, 0.90), Vector3(+3.5,  4.0, -6.3))  # Vessel — purple
-	_add_store_sign("Sign7", Color(1.00, 0.45, 0.75), Vector3(-3.5,  4.0, -6.3))  # Kiki Baja — pink
-	_add_store_sign("Sign8", Color(0.35, 0.70, 1.00), Vector3(-10.5, 4.0, -6.3))  # Ladderboy — blue
+	# ── SOUTH ENTRY CORRIDOR  x(-7..+7)  z(+16..+25)  h=5 ───────────
+	_add_box("SCorFloor",  Vector3(14, 0.4,  9), Vector3( 0.0, -0.2, +20.5), _mat_floor)
+	_add_box("SCorCeil",   Vector3(14, 0.4,  9), Vector3( 0.0, +5.2, +20.5), _mat_ceil)
+	_add_box("SCorEnd",    Vector3(14,  5, 0.4), Vector3( 0.0, +2.5, +25.2), _mat_wall)
+	_add_box("SCorWallW",  Vector3(0.4, 5,   9), Vector3(-7.2, +2.5, +20.5), _mat_wall)
+	_add_box("SCorWallE",  Vector3(0.4, 5,   9), Vector3(+7.2, +2.5, +20.5), _mat_wall)
+	_add_box("SCorTrimW",  Vector3(0.12, 0.14, 7), Vector3(-7.1, +4.0, +20.5), _mat_trim_warm)
+	_add_box("SCorTrimE",  Vector3(0.12, 0.14, 7), Vector3(+7.1, +4.0, +20.5), _mat_trim_warm)
 
-	# ── SOUTH ENTRY CORRIDOR  x(-5..+5)  z(+14..+24)  h=4 ───────────
-	_add_box("SCorFloor",  Vector3(10, 0.4, 10), Vector3(0,    -0.2, +19.0), _mat_floor)
-	_add_box("SCorCeil",   Vector3(10, 0.4, 10), Vector3(0,    +4.2, +19.0), _mat_ceil)
-	_add_box("SCorEnd",    Vector3(10, 4,  0.4), Vector3(0,    +2.0, +24.2), _mat_wall)
-	_add_box("SCorWallW",  Vector3(0.4, 4,  10), Vector3(-5.2, +2.0, +19.0), _mat_wall)
-	_add_box("SCorWallE",  Vector3(0.4, 4,  10), Vector3(+5.2, +2.0, +19.0), _mat_wall)
-	_add_box("SCorTrimW",  Vector3(0.12, 0.14, 8), Vector3(-5.1, 3.5, +19.0), _mat_trim_warm)
-	_add_box("SCorTrimE",  Vector3(0.12, 0.14, 8), Vector3(+5.1, 3.5, +19.0), _mat_trim_warm)
-
-	# ── NORTH SERVICE CORRIDOR  x(-4..+4)  z(-14..-24)  h=4 ─────────
-	_add_box("NCorFloor",  Vector3(8,  0.4, 10), Vector3(0,    -0.2, -19.0), _mat_floor)
-	_add_box("NCorCeil",   Vector3(8,  0.4, 10), Vector3(0,    +4.2, -19.0), _mat_ceil)
-	_add_box("NCorEnd",    Vector3(8,  4,  0.4), Vector3(0,    +2.0, -24.2), _mat_wall)
-	_add_box("NCorWallW",  Vector3(0.4, 4,  10), Vector3(-4.2, +2.0, -19.0), _mat_wall)
-	_add_box("NCorWallE",  Vector3(0.4, 4,  10), Vector3(+4.2, +2.0, -19.0), _mat_wall)
-	# Basement hatch door — seals the service corridor until phase 2 clears it
-	_add_box("BasementHatchDoor", Vector3(8, 4, 0.4), Vector3(0, 2.0, -14.2), _mat_sealed)
+	# ── UPPER LEVEL ───────────────────────────────────────────────────
+	_build_upper_level()
 
 	# ── LIGHTS ────────────────────────────────────────────────────────
-	# Atrium center lights
-	_add_hub_light(Vector3(-7.0, 4.5,  0.0), Color(1.0, 0.08, 0.72), 2.4, 12.0)
-	_add_hub_light(Vector3(+7.0, 4.5,  0.0), Color(0.1, 1.00, 0.45), 2.4, 12.0)
-	_add_hub_light(Vector3( 0.0, 4.5,  0.0), Color(1.0, 0.08, 0.72), 1.6, 10.0)
-	# Per-store lights (match NPC colors)
-	_add_hub_light(Vector3(-10.5, 3.0, +10.0), Color(0.00, 0.90, 1.00), 1.3, 7.0)  # Store 1
-	_add_hub_light(Vector3(-3.5,  3.0, +10.0), Color(1.00, 0.65, 0.10), 1.3, 7.0)  # Store 2
-	_add_hub_light(Vector3(+3.5,  3.0, +10.0), Color(1.00, 0.15, 0.50), 1.1, 7.0)  # Store 3
-	_add_hub_light(Vector3(+10.5, 3.0, +10.0), Color(0.45, 0.45, 0.45), 0.7, 7.0)  # Store 4
-	_add_hub_light(Vector3(+10.5, 3.0, -10.0), Color(0.20, 0.85, 0.35), 1.3, 7.0)  # Store 5
-	_add_hub_light(Vector3(+3.5,  3.0, -10.0), Color(0.60, 0.20, 0.90), 1.3, 7.0)  # Store 6
-	_add_hub_light(Vector3(-3.5,  3.0, -10.0), Color(1.00, 0.45, 0.75), 1.3, 7.0)  # Store 7
-	_add_hub_light(Vector3(-10.5, 3.0, -10.0), Color(0.35, 0.70, 1.00), 1.3, 7.0)  # Store 8
-	# Corridor lights
-	_add_hub_light(Vector3(0.0, 3.0, +19.0), Color(1.0, 0.35, 0.05), 1.5, 8.0)   # south corridor
-	_add_hub_light(Vector3(0.0, 3.0, -19.0), Color(0.6, 0.50, 0.40), 1.1, 7.0)   # north corridor
+	# Wide atrium — 7 spread lights for even coverage
+	_add_hub_light(Vector3(  0.0, 5.5,  0.0), Color(1.0, 0.08, 0.72), 2.8, 16.0)  # centre
+	_add_hub_light(Vector3(-12.0, 5.0,  0.0), Color(0.1, 1.00, 0.45), 2.2, 10.0)  # far west
+	_add_hub_light(Vector3(+12.0, 5.0,  0.0), Color(1.0, 0.08, 0.72), 2.2, 10.0)  # far east
+	_add_hub_light(Vector3( -6.0, 4.5, -5.0), Color(1.0, 0.08, 0.72), 1.8,  9.0)  # NW quad
+	_add_hub_light(Vector3( +6.0, 4.5, -5.0), Color(0.1, 1.00, 0.45), 1.8,  9.0)  # NE quad
+	_add_hub_light(Vector3( -6.0, 4.5, +5.0), Color(0.1, 1.00, 0.45), 1.8,  9.0)  # SW quad
+	_add_hub_light(Vector3( +6.0, 4.5, +5.0), Color(1.0, 0.08, 0.72), 1.8,  9.0)  # SE quad
+	# South ground-floor store lights
+	_add_hub_light(Vector3(-12.0, 3.5, +12.5), Color(0.00, 0.90, 1.00), 1.5, 8.0)  # Store 1
+	_add_hub_light(Vector3( -4.0, 3.5, +12.5), Color(1.00, 0.65, 0.10), 1.5, 8.0)  # Store 2
+	_add_hub_light(Vector3( +4.0, 3.5, +12.5), Color(1.00, 0.15, 0.50), 1.0, 8.0)  # Store 3 sealed
+	_add_hub_light(Vector3(+12.0, 3.5, +12.5), Color(0.45, 0.45, 0.45), 0.6, 8.0)  # Store 4 dark
+	# South corridor
+	_add_hub_light(Vector3(0.0, 3.5, +20.5), Color(1.0, 0.35, 0.05), 1.8, 9.0)
+	# North hatch stub
+	_add_hub_light(Vector3(0.0, 2.5, -12.5), Color(0.5, 0.40, 0.35), 0.9, 6.0)
 
 
 func _add_box(node_name: String, size: Vector3, pos: Vector3, mat: Material) -> StaticBody3D:
@@ -634,8 +723,38 @@ func _add_store_sign(node_name: String, color: Color, pos: Vector3) -> void:
 	var mesh := BoxMesh.new()
 	mesh.size = Vector3(1.8, 0.35, 0.1)
 	vis.mesh = mesh
-	vis.set_surface_override_material(0, _make_hub_mat(color.darkened(0.7), color, 1.6))
+	vis.set_surface_override_material(0, _make_hub_mat(color.darkened(0.7), color, 1.6, "res://assets/hub_sign_face.png", Vector3(1, 1, 1)))
 	add_child(vis)
+
+
+func _build_upper_shop(prefix: String, cx: float, accent: Color) -> void:
+	# Fits inside one upper store bay (z -9..-16). Floor surface is y=6.4.
+	# The tenant NPC stands at z=-12.5; the counter sits in front (toward the z=-9 doorway),
+	# shelving against the back wall, plus one character prop per tenant.
+	if has_node(prefix + "Counter"):
+		return
+	var floor_top := 6.4
+	var body_mat := _make_hub_mat(Color(0.26, 0.24, 0.28), accent, 0.30)
+	var accent_mat := _make_hub_mat(accent.darkened(0.5), accent, 0.85)
+	# Service counter facing the doorway
+	_add_box(prefix + "Counter",     Vector3(3.6, 1.0, 0.6),  Vector3(cx, floor_top + 0.5, -11.2), body_mat)
+	_add_box(prefix + "CounterTrim", Vector3(3.6, 0.08, 0.10), Vector3(cx, floor_top + 1.02, -10.88), accent_mat)
+	# Back shelving against the north wall
+	_add_box(prefix + "Shelf",     Vector3(5.2, 2.0, 0.4),   Vector3(cx, floor_top + 1.0, -15.7), body_mat)
+	_add_box(prefix + "ShelfGlow", Vector3(5.2, 0.10, 0.12), Vector3(cx, floor_top + 1.7, -15.45), accent_mat)
+	# A stocked crate to the side
+	_add_box(prefix + "Crate", Vector3(0.9, 0.9, 0.9), Vector3(cx + 2.4, floor_top + 0.45, -14.2), body_mat)
+	# Per-tenant character prop
+	match prefix:
+		"VeraShop":
+			_add_box(prefix + "Cot", Vector3(2.2, 0.5, 1.0), Vector3(cx - 1.8, floor_top + 0.25, -13.8), body_mat)
+		"KikiShop":
+			_add_box(prefix + "Terminal", Vector3(0.7, 0.5, 0.5), Vector3(cx, floor_top + 1.25, -11.2), accent_mat)
+		"LadderShop":
+			_add_box(prefix + "Ladder",  Vector3(0.16, 3.0, 0.16), Vector3(cx - 2.3, floor_top + 1.5, -15.6), accent_mat)
+			_add_box(prefix + "Ladder2", Vector3(0.16, 2.4, 0.16), Vector3(cx + 1.9, floor_top + 1.2, -15.6), body_mat)
+		"CoilShop":
+			_add_box(prefix + "OpTable", Vector3(2.4, 0.6, 1.1), Vector3(cx - 1.6, floor_top + 0.3, -13.8), accent_mat)
 
 
 func _add_hub_light(pos: Vector3, color: Color, energy: float, range_m: float) -> void:
@@ -647,7 +766,99 @@ func _add_hub_light(pos: Vector3, color: Color, energy: float, range_m: float) -
 	add_child(light)
 
 
-func _make_hub_mat(albedo: Color, emission: Color, emission_energy: float) -> StandardMaterial3D:
+func _build_upper_level() -> void:
+	# ── MEZZANINE RING  y=6 ──────────────────────────────────────────
+	# Escalators top out at z=-4, so the north strip starts there.
+	# Combined north strip + upper-store floor is one continuous slab.
+	_add_box("UpperNFloor",  Vector3(32, 0.4, 12), Vector3( 0.0, 6.2, -10.0), _mat_upper)  # z(-4..-16)
+	_add_box("UpperSFloor",  Vector3(32, 0.4,  5), Vector3( 0.0, 6.2,  +6.5), _mat_upper)  # z(+4..+9)
+	_add_box("UpperEFloor",  Vector3( 7, 0.4,  8), Vector3(+12.5, 6.2,  0.0), _mat_upper)  # x(+9..+16)
+	_add_box("UpperWFloor",  Vector3( 7, 0.4,  8), Vector3(-12.5, 6.2,  0.0), _mat_upper)  # x(-16..-9)
+
+	# ── UPPER NORTH STORE ROW  z(-9..-16)  y=6..y=10 ────────────────
+	# Phase-2/3 stores live on the second floor.
+	_add_box("UStoreCeil",   Vector3(32, 0.4, 7), Vector3( 0.0, 10.2, -12.5), _mat_ceil)
+	_add_box("UStoreWallN",  Vector3(32, 4, 0.4), Vector3( 0.0,  8.0, -16.2), _mat_wall)
+	_add_box("UStoreWallW",  Vector3(0.4, 4,  7), Vector3(-16.2, 8.0, -12.5), _mat_wall)
+	_add_box("UStoreWallE",  Vector3(0.4, 4,  7), Vector3(+16.2, 8.0, -12.5), _mat_wall)
+	# Dividers — 5 deep from z-11, leaving a 2-unit open doorway at z-9
+	_add_box("UStoreDivL",   Vector3(0.3, 4, 5), Vector3(-8.0, 8.0, -13.5), _mat_wall)
+	_add_box("UStoreDivC",   Vector3(0.3, 4, 5), Vector3( 0.0, 8.0, -13.5), _mat_wall)
+	_add_box("UStoreDivR",   Vector3(0.3, 4, 5), Vector3(+8.0, 8.0, -13.5), _mat_wall)
+	# Entry pillars at upper-store threshold
+	_add_box("UPillarL",  Vector3(0.5, 4, 0.5), Vector3(-8.0, 8.0, -9.0), _mat_pillar)
+	_add_box("UPillarC",  Vector3(0.5, 4, 0.5), Vector3( 0.0, 8.0, -9.0), _mat_pillar)
+	_add_box("UPillarR",  Vector3(0.5, 4, 0.5), Vector3(+8.0, 8.0, -9.0), _mat_pillar)
+	# Store signs (always shown — empty storefronts until NPCs arrive)
+	_add_store_sign("USign1", Color(0.20, 0.85, 0.35), Vector3(-12.0, 9.3, -9.3))  # Vera
+	_add_store_sign("USign2", Color(1.00, 0.45, 0.75), Vector3( -4.0, 9.3, -9.3))  # Kiki Baja
+	_add_store_sign("USign3", Color(0.35, 0.70, 1.00), Vector3( +4.0, 9.3, -9.3))  # Ladderboy
+	_add_store_sign("USign4", Color(0.90, 0.30, 0.45), Vector3(+12.0, 9.3, -9.3))  # Velvet Coil
+
+	# ── MEZZANINE RAILINGS ───────────────────────────────────────────
+	# North inner edge (z=-4): gap at x(-4..+4) for escalator exit
+	_add_box("RailNL", Vector3(12, 0.8, 0.15), Vector3(-10.0, 6.8, -4.0), _mat_railing)
+	_add_box("RailNR", Vector3(12, 0.8, 0.15), Vector3(+10.0, 6.8, -4.0), _mat_railing)
+	# South inner edge (z=+4): full width
+	_add_box("RailS",  Vector3(32, 0.8, 0.15), Vector3(  0.0, 6.8, +4.0), _mat_railing)
+	# East/west inner edges
+	_add_box("RailE",  Vector3(0.15, 0.8, 8), Vector3(+9.0, 6.8, 0.0), _mat_railing)
+	_add_box("RailW",  Vector3(0.15, 0.8, 8), Vector3(-9.0, 6.8, 0.0), _mat_railing)
+	# Neon trim on railing tops
+	_add_box("URailTrimNL", Vector3(12, 0.08, 0.10), Vector3(-10.0, 7.25, -4.0), _mat_trim_cool)
+	_add_box("URailTrimNR", Vector3(12, 0.08, 0.10), Vector3(+10.0, 7.25, -4.0), _mat_trim_cool)
+	_add_box("URailTrimS",  Vector3(32, 0.08, 0.10), Vector3(  0.0, 7.25, +4.0), _mat_trim_warm)
+	_add_box("URailTrimE",  Vector3(0.10, 0.08, 8),  Vector3( +9.0, 7.25,  0.0), _mat_trim_warm)
+	_add_box("URailTrimW",  Vector3(0.10, 0.08, 8),  Vector3( -9.0, 7.25,  0.0), _mat_trim_cool)
+
+	# ── CENTRAL ESCALATORS ───────────────────────────────────────────
+	# Two side-by-side ramps at x=±1.5, rising from z=+4 (y=0) to z=-4 (y=6)
+	# Ramp length = sqrt(6²+8²) = 10, angle = 36.87°
+	var esc_mat := _mat_esc_on if bool(GameState.get_world_flag("escalator_repaired", false)) else _mat_esc_off
+	_add_ramp("EscRampL", Vector3(2.6, 0.4, 10.0), Vector3(-1.5, 3.0, 0.0), +36.87, esc_mat)
+	_add_ramp("EscRampR", Vector3(2.6, 0.4, 10.0), Vector3(+1.5, 3.0, 0.0), +36.87, esc_mat)
+	# Centre divider and outer walls (same slope)
+	_add_ramp("EscDiv",     Vector3(0.18, 1.6, 10.0), Vector3(0.0,  3.75, 0.0), +36.87, _mat_pillar)
+	_add_ramp("EscWallL",   Vector3(0.18, 1.6, 10.0), Vector3(-4.1, 3.75, 0.0), +36.87, _mat_wall)
+	_add_ramp("EscWallR",   Vector3(0.18, 1.6, 10.0), Vector3(+4.1, 3.75, 0.0), +36.87, _mat_wall)
+	# Barrier across the bottom entrance when escalators are offline
+	if not bool(GameState.get_world_flag("escalator_repaired", false)):
+		_add_box("EscBarrier", Vector3(9.5, 2.0, 0.3), Vector3(0.0, 1.0, +4.3), _mat_sealed)
+
+	# ── UPPER LEVEL LIGHTS ───────────────────────────────────────────
+	# Mezzanine ambient
+	_add_hub_light(Vector3(+12.5, 7.5,  0.0), Color(0.3, 0.7, 1.0), 1.6, 9.0)  # east walk
+	_add_hub_light(Vector3(-12.5, 7.5,  0.0), Color(0.3, 0.7, 1.0), 1.6, 9.0)  # west walk
+	_add_hub_light(Vector3(  0.0, 7.5, +7.0), Color(1.0, 0.35, 0.05), 1.4, 9.0)  # south bridge
+	_add_hub_light(Vector3(  0.0, 7.5, -7.0), Color(0.1, 0.8, 1.00), 1.4, 9.0)  # north bridge
+	# Upper store lights (dim until phase activates)
+	_add_hub_light(Vector3(-12.0, 9.0, -12.5), Color(0.20, 0.85, 0.35), 1.2, 8.0)  # Vera
+	_add_hub_light(Vector3( -4.0, 9.0, -12.5), Color(1.00, 0.45, 0.75), 1.2, 8.0)  # Kiki Baja
+	_add_hub_light(Vector3( +4.0, 9.0, -12.5), Color(0.35, 0.70, 1.00), 1.2, 8.0)  # Ladderboy
+	_add_hub_light(Vector3(+12.0, 9.0, -12.5), Color(0.90, 0.30, 0.45), 1.0, 8.0)  # Velvet Coil
+
+
+func _add_ramp(node_name: String, size: Vector3, pos: Vector3, rot_x_deg: float, mat: Material) -> StaticBody3D:
+	var body := StaticBody3D.new()
+	body.name = node_name
+	body.position = pos
+	body.rotation_degrees = Vector3(rot_x_deg, 0.0, 0.0)
+	add_child(body)
+	var shape := BoxShape3D.new()
+	shape.size = size
+	var col := CollisionShape3D.new()
+	col.shape = shape
+	body.add_child(col)
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	var vis := MeshInstance3D.new()
+	vis.mesh = mesh
+	vis.set_surface_override_material(0, mat)
+	body.add_child(vis)
+	return body
+
+
+func _make_hub_mat(albedo: Color, emission: Color, emission_energy: float, texture_path: String = "", uv_scale: Vector3 = Vector3.ONE) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = albedo
 	mat.roughness = 0.88
@@ -655,12 +866,15 @@ func _make_hub_mat(albedo: Color, emission: Color, emission_energy: float) -> St
 	mat.emission = emission
 	mat.emission_energy_multiplier = emission_energy
 	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	mat.uv1_scale = uv_scale
+	if not texture_path.is_empty() and ResourceLoader.exists(texture_path):
+		mat.albedo_texture = load(texture_path)
 	return mat
 
 
 # ── NPC spawning ────────────────────────────────────────────────────
 
-func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: String, spawn_position: Vector3) -> void:
+func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: String, spawn_position: Vector3, focus_radius: float = 1.2) -> void:
 	var group_tag := "hub_npc_" + npc_id
 	if not get_tree().get_nodes_in_group(group_tag).is_empty():
 		return
@@ -672,10 +886,10 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 	npc.add_to_group("npc")
 	npc.add_to_group(group_tag)
 	add_child(npc)
-	# Collision sphere for proximity detection
+	# Collision sphere for proximity detection (wider for shop NPCs standing behind counters)
 	var col := CollisionShape3D.new()
 	var shape := SphereShape3D.new()
-	shape.radius = 1.2
+	shape.radius = focus_radius
 	col.shape = shape
 	npc.add_child(col)
 	# Visual capsule so the NPC is actually visible in the world
@@ -707,6 +921,94 @@ func _npc_color(npc_id: String) -> Color:
 		_:               return Color(0.8,  0.8,  0.8)   # fallback grey
 
 
+# ── Bar (Store 3) — phase-3 social beat, gated on hub water ──────────
+
+func _spawn_bar_fixtures() -> void:
+	# The bar slot only does anything once the hub has power+LAN (phase 2).
+	if not bool(GameState.get_world_flag("hub_phase_2", false)):
+		return
+	if bool(GameState.get_world_flag("bar_open", false)):
+		_open_bar_interior()
+	else:
+		_spawn_bar_door()
+
+
+func _spawn_bar_door() -> void:
+	var group_tag := "hub_bar_door"
+	if not get_tree().get_nodes_in_group(group_tag).is_empty():
+		return
+	var npc := NPCDialogue.new()
+	npc.npc_name = "Bar Door"
+	npc.dialogue_text = "Sealed shutter. Store 3."
+	npc.prompt_text = "Press E: examine the sealed bar"
+	npc.position = Vector3(+4.0, 1.05, +8.3)  # atrium side of the Store 3 seal
+	npc.add_to_group("npc")
+	npc.add_to_group(group_tag)
+	add_child(npc)
+	var col := CollisionShape3D.new()
+	var shape := SphereShape3D.new()
+	shape.radius = 1.6
+	col.shape = shape
+	npc.add_child(col)
+	var mesh_inst := MeshInstance3D.new()
+	var box := BoxMesh.new()
+	box.size = Vector3(0.5, 0.7, 0.25)
+	mesh_inst.mesh = box
+	mesh_inst.position = Vector3(0.0, 0.35, 0.0)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.10, 0.07, 0.04)
+	mat.emission_enabled = true
+	mat.emission = Color(1.0, 0.35, 0.10)
+	mat.emission_energy_multiplier = 0.6
+	mesh_inst.set_surface_override_material(0, mat)
+	npc.add_child(mesh_inst)
+	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _handle_bar_door() -> void:
+	if not bool(GameState.get_world_flag("hub_cistern_connected", false)):
+		hud.show_dialogue("System X", "Store 3 is a bar with a dead tap. Vera's cistern conduit feeds this wall too — connect the hub water first, then opening the shutter means something other than dust.")
+		hud.set_objective("Connect hub water (Vera's cistern quest) to open the bar.")
+		return
+	_open_bar()
+
+
+func _open_bar() -> void:
+	GameState.set_world_flag("bar_open", true)
+	var seal := get_node_or_null("Store3Seal") as StaticBody3D
+	if seal != null:
+		seal.queue_free()
+	for node in get_tree().get_nodes_in_group("hub_bar_door"):
+		node.remove_from_group("hub_bar_door")
+		node.queue_free()
+	focused_npc = null
+	_update_prompt()
+	_open_bar_interior()
+	_relocate_vessel_to_bar()
+	hud.show_dialogue("Vessel", "Shutter's up, tap's wet. This is the Cooters mall branch and I keep it. Marbles has the original; I have the one with better structural integrity and worse regulars. Sit down.")
+	hud.push_log("hub: the bar is open")
+	# Opening the bar may complete the phase-3 conditions.
+	_check_phase()
+	if GameState.get_world_flag("hub_phase_3", false):
+		_apply_phase_3()
+
+
+func _open_bar_interior() -> void:
+	# Store 3 ground-floor bay: x=+4, z(+9..+16), floor surface y=0.
+	if not has_node("BarCounter"):
+		var body := _make_hub_mat(Color(0.20, 0.16, 0.10), Color(1.0, 0.35, 0.10), 0.45)
+		var glow := _make_hub_mat(Color(0.30, 0.10, 0.05), Color(1.0, 0.45, 0.10), 1.20)
+		_add_box("BarCounter",     Vector3(5.0, 1.1, 0.7),  Vector3(+4.0, 0.55, +10.8), body)
+		_add_box("BarCounterTrim", Vector3(5.0, 0.08, 0.10), Vector3(+4.0, 1.12, +10.46), glow)
+		_add_box("BarBackbar",     Vector3(5.5, 2.2, 0.4),  Vector3(+4.0, 1.10, +15.6), body)
+		_add_box("BarBottles",     Vector3(4.5, 0.5, 0.25), Vector3(+4.0, 1.70, +15.4), glow)
+		_add_box("BarStool1", Vector3(0.4, 0.7, 0.4), Vector3(+2.4, 0.35, +9.9), body)
+		_add_box("BarStool2", Vector3(0.4, 0.7, 0.4), Vector3(+4.0, 0.35, +9.9), body)
+		_add_box("BarStool3", Vector3(0.4, 0.7, 0.4), Vector3(+5.6, 0.35, +9.9), body)
+		_add_hub_light(Vector3(+4.0, 3.0, +12.5), Color(1.0, 0.45, 0.10), 1.8, 8.0)
+	# Vessel tends this bar — relocated here by _relocate_vessel_to_bar() / spawned at the bar on load.
+
+
 # ── Hub structural changes ──────────────────────────────────────────
 
 func _unlock_basement_hatch() -> void:
@@ -716,9 +1018,13 @@ func _unlock_basement_hatch() -> void:
 
 
 func _activate_hub_radio() -> void:
-	var radio := get_node_or_null("HubRadio")
-	if radio != null:
-		radio.visible = true
+	# Build the hub radio prop near the central atrium once (phase 3 social texture).
+	if has_node("HubRadio"):
+		return
+	var radio_mat := _make_hub_mat(Color(0.12, 0.10, 0.14), Color(1.0, 0.45, 0.10), 0.9)
+	_add_box("HubRadio", Vector3(0.8, 0.9, 0.5), Vector3(-6.0, 0.45, +6.5), radio_mat)
+	_add_box("HubRadioGlow", Vector3(0.6, 0.10, 0.10), Vector3(-6.0, 0.75, +6.76), _make_hub_mat(Color(0.3, 0.1, 0.05), Color(1.0, 0.55, 0.15), 1.4))
+	_add_hub_light(Vector3(-6.0, 1.5, +6.5), Color(1.0, 0.5, 0.15), 1.0, 5.0)
 
 
 # ── Hub NPC interaction handlers ────────────────────────────────────
@@ -746,8 +1052,14 @@ func _handle_gideon() -> void:
 
 
 func _handle_vera() -> void:
+	# Service: Vera patches the player up to full whenever you stop by.
+	var before: float = float(player_health.current_hp)
+	player_health.heal(float(player_health.max_hp))
+	var restored: float = float(player_health.current_hp) - before
+	if restored > 0.0:
+		hud.push_log("Vera patched you up: +%d HP" % int(round(restored)))
 	if GameState.get_world_flag("hub_cistern_connected", false):
-		hud.show_dialogue("Vera", "Water is clean. Clinic is running. I have fixed four things today that should not have needed fixing. Normal day.")
+		hud.show_dialogue("Vera", "Water is clean, clinic is running, and you are at full. I have fixed four things today that should not have needed fixing. Normal day.")
 		return
 	if GameState.is_quest_started("hub_cistern"):
 		hud.show_dialogue("Vera", "West walkway of the cistern. Conduit junction. Do not let Torai log you there.")
@@ -778,32 +1090,263 @@ func _handle_ladderboy() -> void:
 
 
 func _handle_kiki_baja() -> void:
-	hud.show_dialogue("Kiki Baja", "Wan Moa Torai is watching this location. I am making sure that watching is all they do. If that changes I will tell you before they do.")
+	# Service: Torai liaison reads out your current standing with Wan Moa Torai.
+	var torai := int(GameState.reputation.get("Wan Moa Torai", 0))
+	var standing := "neutral — they have not decided what you are yet"
+	if torai > 0:
+		standing = "warming — they think you are useful, which is its own kind of danger"
+	elif torai < 0:
+		standing = "cooling — they think you are a problem, and problems get line items"
+	hud.show_dialogue("Kiki Baja", "Wan Moa Torai standing: %+d. %s. My job is to make sure that watching is all they do. If that changes, I will tell you before they do." % [torai, standing])
+	hud.push_log("Torai liaison: standing %+d" % torai)
 
 
 func _handle_vessel() -> void:
+	# Once the bar is open, Vessel is the hub bartender — give the social-hub beat.
+	if GameState.get_world_flag("bar_open", false):
+		hud.show_dialogue("Vessel", "Sit, breathe, let the lower city end without your supervision for five minutes. The stools are mostly real and the rain mutant does not visit this branch. People are drinking in a place they built instead of one they fled to. I will take it. So should you.")
+		return
 	if GameState.get_world_flag("hub_lan_restored", false):
 		hud.show_dialogue("Vessel", "Archive is live. System X has seventeen things to tell you. Sixteen are warnings. One is a joke. I have not identified which one.")
 		return
 	if GameState.is_quest_started("hub_lan_restore"):
-		hud.show_dialogue("Vessel", "North corridor ceiling panel. Splice kit. Hoodlums clipped the tap cable and did not leave a note.")
+		hud.show_dialogue("Vessel", "Water Reclamation Cistern — east end of the upper walkway. The tap cable is cut. Splice kit and two minutes of your time.")
 		return
 	GameState.start_quest("hub_lan_restore")
 	EventDeckSystem.add_card("hub_lan_exit")
 	EventDeckSystem.add_card("hub_lan_return")
-	hud.show_dialogue("Vessel", "The LAN tap is severed. North service corridor, ceiling panel above the junction. Bring a splice kit. When it is live, System X can see the whole lower city again. Some of what it sees will be your problem.")
+	hud.show_dialogue("Vessel", "The LAN tap is severed. Water Reclamation Cistern — east end of the upper walkway. Bring a splice kit. When it is live, System X can see the whole lower city again. Some of what it sees will be your problem.")
 	hud.push_log("quest started: hub LAN")
 	hud.set_objective(GameState.get_quest_objective_text("hub_lan_restore"))
 
 
+func _spawn_vessel_npc() -> void:
+	# Vessel (the repaired bunny android) stands in the atrium for the LAN quest, then tends the
+	# hub's Cooters bar branch once it's open. (Marbles keeps the original Cooters elsewhere.)
+	if bool(GameState.get_world_flag("bar_open", false)):
+		_spawn_npc("vessel", "Vessel",
+			"Hub tap's open. This is the Cooters mall branch — I keep this one.",
+			"Press E: talk to Vessel",
+			Vector3(+4.0, 1.05, +12.5), 2.6)
+	else:
+		_spawn_npc("vessel", "Vessel",
+			"The LAN tap is severed. When it is live, System X can see the whole lower city again.",
+			"Press E: talk to Vessel",
+			Vector3(+7.5, 1.05, +0.5))
+
+
+func _relocate_vessel_to_bar() -> void:
+	# Despawn the atrium Vessel and respawn it behind the bar (bar_open must already be true).
+	for node in get_tree().get_nodes_in_group("hub_npc_vessel"):
+		if is_instance_valid(node):
+			node.remove_from_group("hub_npc_vessel")
+			node.queue_free()
+	_spawn_vessel_npc()
+
+
+func _spawn_vessel_prop() -> void:
+	var group_tag := "hub_npc_vessel"
+	if not get_tree().get_nodes_in_group(group_tag).is_empty():
+		return
+	var npc := NPCDialogue.new()
+	npc.npc_name = "Damaged Android"
+	npc.dialogue_text = "Offline."
+	npc.prompt_text = "Press E: examine android"
+	# Placed in the central atrium near the mission board
+	npc.position = Vector3(+7.5, 0.0, +0.5)
+	npc.add_to_group("npc")
+	npc.add_to_group(group_tag)
+	add_child(npc)
+	var col := CollisionShape3D.new()
+	var shape := SphereShape3D.new()
+	shape.radius = 1.0
+	col.shape = shape
+	npc.add_child(col)
+	# Lying-down bunny android: capsule rotated 90° on Z, close to the floor
+	var mesh_inst := MeshInstance3D.new()
+	var capsule := CapsuleMesh.new()
+	capsule.radius = 0.28
+	capsule.height = 1.5
+	mesh_inst.mesh = capsule
+	mesh_inst.position = Vector3(0.0, 0.28, 0.0)
+	mesh_inst.rotation_degrees = Vector3(0.0, 0.0, 90.0)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.10, 0.09, 0.12)
+	mat.emission_enabled = true
+	mat.emission = Color(0.28, 0.08, 0.40)
+	mat.emission_energy_multiplier = 0.08
+	mesh_inst.set_surface_override_material(0, mat)
+	npc.add_child(mesh_inst)
+	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _spawn_escalator_console() -> void:
+	if bool(GameState.get_world_flag("escalator_repaired", false)):
+		return
+	var group_tag := "hub_npc_escalator"
+	if not get_tree().get_nodes_in_group(group_tag).is_empty():
+		return
+	var npc := NPCDialogue.new()
+	npc.npc_name = "Escalator Console"
+	npc.dialogue_text = "Offline."
+	npc.prompt_text = "Press E: check escalator status"
+	# Placed beside the bottom of the central escalators
+	npc.position = Vector3(+5.5, 1.05, +3.8)
+	npc.add_to_group("npc")
+	npc.add_to_group(group_tag)
+	add_child(npc)
+	var col := CollisionShape3D.new()
+	var shape := SphereShape3D.new()
+	shape.radius = 1.4
+	col.shape = shape
+	npc.add_child(col)
+	var mesh_inst := MeshInstance3D.new()
+	var box := BoxMesh.new()
+	box.size = Vector3(0.55, 0.75, 0.28)
+	mesh_inst.mesh = box
+	mesh_inst.position = Vector3(0.0, 0.38, 0.0)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.10, 0.07, 0.04)
+	mat.emission_enabled = true
+	mat.emission = Color(0.80, 0.30, 0.05)
+	mat.emission_energy_multiplier = 0.65
+	mesh_inst.set_surface_override_material(0, mat)
+	npc.add_child(mesh_inst)
+	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _spawn_motor_crate() -> void:
+	# Only exists while the escalator is broken and the coupling hasn't been found.
+	if bool(GameState.get_world_flag("escalator_repaired", false)):
+		return
+	if bool(GameState.get_world_flag("escalator_motor_found", false)):
+		return
+	var group_tag := "hub_motor_crate"
+	if not get_tree().get_nodes_in_group(group_tag).is_empty():
+		return
+	var npc := NPCDialogue.new()
+	npc.npc_name = "Motor Crate"
+	npc.dialogue_text = "Yellow-tagged crate. Escalator parts inside."
+	npc.prompt_text = "Press E: search crate"
+	npc.position = Vector3(+2.5, 0.0, -8.2)  # atrium side of the hatch, accessible before phase 2
+	npc.add_to_group("npc")
+	npc.add_to_group(group_tag)
+	add_child(npc)
+	var col := CollisionShape3D.new()
+	var shape := SphereShape3D.new()
+	shape.radius = 1.2
+	col.shape = shape
+	npc.add_child(col)
+	var mesh_inst := MeshInstance3D.new()
+	var box := BoxMesh.new()
+	box.size = Vector3(0.6, 0.5, 0.6)
+	mesh_inst.mesh = box
+	mesh_inst.position = Vector3(0.0, 0.25, 0.0)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.30, 0.22, 0.04)
+	mat.emission_enabled = true
+	mat.emission = Color(0.90, 0.65, 0.05)
+	mat.emission_energy_multiplier = 0.75
+	mesh_inst.set_surface_override_material(0, mat)
+	npc.add_child(mesh_inst)
+	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _handle_motor_crate() -> void:
+	if bool(GameState.get_world_flag("escalator_motor_found", false)):
+		hud.show_dialogue("System X", "Crate is empty. Motor coupling already retrieved.")
+		return
+	GameState.set_world_flag("escalator_motor_found", true)
+	focused_npc = null
+	_update_prompt()
+	for node in get_tree().get_nodes_in_group("hub_motor_crate"):
+		node.queue_free()
+	hud.show_dialogue("System X", "Escalator motor coupling recovered. Return to the console beside the escalators.")
+	hud.push_log("found: escalator motor coupling")
+	hud.set_objective("Bring the motor coupling to the escalator console.")
+
+
+func _handle_vessel_android() -> void:
+	if bool(GameState.get_world_flag("vessel_repaired", false)):
+		return
+	# Developer bypass flag
+	if bool(GameState.get_world_flag("vessel_repair_complete", false)):
+		_repair_vessel()
+		return
+	# If the player is carrying a neural splice, consume it and repair
+	if GameState.spend_item("neural_splice"):
+		_repair_vessel()
+		return
+	# No splice in hand — show intro or reminder
+	var already_told := bool(GameState.get_world_flag("vessel_quest_given", false))
+	GameState.set_world_flag("vessel_quest_given", true)
+	if already_told:
+		hud.show_dialogue("System X", "Android repair still requires a neural splice component. Defeat a Splice enemy in the job destinations below.")
+	else:
+		hud.show_dialogue("System X", "Bunny-class companion android, generation four or earlier. Motor cortex corrupted, memory lattice fragmented, power cell depleted. This unit can be restored. Find a neural splice component — Splice enemies carry them — and return here.")
+		hud.push_log("quest started: vessel repair")
+		hud.set_objective("Find a neural splice component. Splice enemies drop them in the job destinations. Return to the damaged android.")
+
+
+func _repair_vessel() -> void:
+	GameState.set_world_flag("vessel_repaired", true)
+	for node in get_tree().get_nodes_in_group("hub_npc_vessel"):
+		node.remove_from_group("hub_npc_vessel")
+		node.queue_free()
+	focused_npc = null
+	_update_prompt()
+	_spawn_vessel_npc()
+	hud.show_dialogue("Vessel", "Restart sequence complete. Memory lattice partial but functional. I know what I am and what needs to happen. The LAN tap is severed — I will explain.")
+	hud.push_log("android repaired: Vessel is online")
+	hud.set_objective("Talk to Vessel about the LAN tap.")
+
+
+func _handle_escalator_console() -> void:
+	if bool(GameState.get_world_flag("escalator_repaired", false)):
+		hud.show_dialogue("System X", "Escalators running. Upper level is open.")
+		return
+	if bool(GameState.get_world_flag("escalator_motor_found", false)):
+		_repair_escalator()
+		return
+	# First visit: flag it so repeat visits just show a reminder
+	var already_told := bool(GameState.get_world_flag("escalator_quest_given", false))
+	GameState.set_world_flag("escalator_quest_given", true)
+	if already_told:
+		hud.show_dialogue("Ladderboy", "Still waiting on that motor coupling. Yellow-tagged crate — it is near the north hatch, right here in the atrium.")
+	else:
+		hud.show_dialogue("Ladderboy", "Escalator motor coupling is fried on both units. There is a yellow-tagged crate near the north hatch — maintenance leftovers. Bring it back and I will have both running inside two hours.")
+		hud.push_log("quest started: escalator repair")
+		hud.set_objective("Find the yellow-tagged crate near the north hatch. Return the motor coupling to the escalator console.")
+
+
+func _repair_escalator() -> void:
+	GameState.set_world_flag("escalator_repaired", true)
+	for node in get_tree().get_nodes_in_group("hub_npc_escalator"):
+		node.remove_from_group("hub_npc_escalator")
+		node.queue_free()
+	if focused_npc != null and str(focused_npc.npc_name) == "Escalator Console":
+		focused_npc = null
+		_update_prompt()
+	# Remove barrier panel
+	var barrier := get_node_or_null("EscBarrier") as StaticBody3D
+	if barrier: barrier.queue_free()
+	# Add running lights above ramps
+	_add_hub_light(Vector3(+12.5, 5.0, 0.0), Color(0.10, 0.78, 1.0), 2.2, 7.0)
+	_add_hub_light(Vector3(-12.5, 5.0, 0.0), Color(0.10, 0.78, 1.0), 2.2, 7.0)
+	hud.show_dialogue("Ladderboy", "Both escalators running. Upper level is open. The mall just got taller.")
+	hud.push_log("escalators repaired: upper level accessible")
+	hud.set_objective("Upper level unlocked. Explore the mezzanine.")
+
+
 func _handle_velvet_coil() -> void:
-	if GameState.get_world_flag("store_4_claimed", false):
-		hud.show_dialogue("Velvet Coil", "Store 4 is mine now. The acoustics are acceptable. The corporate data I wiped from the terminal was less interesting than expected.")
+	# Velvet Coil runs the upper-floor surgical suite once she's accepted the hub invitation.
+	# Service: open the cybernetics menu for any implant the player hasn't installed yet.
+	var upgrades: Array[Dictionary] = []
+	for key in CyberneticSurgeryUI.UPGRADE_DB.keys():
+		if not GameState.has_cybernetic(str(key)):
+			upgrades.append({"id": str(key)})
+	if upgrades.is_empty():
+		hud.show_dialogue("Velvet Coil", "You are fully kitted. There is nothing left on my shelf you have not already bolted to yourself. Come back when science invents new regrets.")
 		return
-	if GameState.is_quest_started("hub_store_4"):
-		hud.show_dialogue("Velvet Coil", "The terminal still has squatter data on it. Wipe it. Then I can finish cleaning the shelving.")
-		return
-	GameState.start_quest("hub_store_4")
-	hud.show_dialogue("Velvet Coil", "Store 4 has old corporate squatter data on the terminal and physical debris from whoever used it last. Clear both and I will make it something worth having in the hub.")
-	hud.push_log("quest started: store 4 claim")
-	hud.set_objective(GameState.get_quest_objective_text("hub_store_4"))
+	hud.show_dialogue("Velvet Coil", "Suite's open. Pick a slot, pick an implant. I learned this from a VHS tape, two broken androids, and one lawsuit that technically never found me.")
+	hud.open_cybernetics(upgrades)

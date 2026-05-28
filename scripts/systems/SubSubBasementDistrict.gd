@@ -346,6 +346,23 @@ func _handle_lan_den() -> void:
 
 
 func _handle_velvet_coil() -> void:
+	# Hub invitation flow — only active once phase 2 sets coil_invitation_available
+	if bool(GameState.get_world_flag("coil_invitation_available", false)):
+		if not bool(GameState.get_world_flag("coil_invitation_accepted", false)):
+			if not bool(GameState.get_world_flag("coil_met_in_tunnels", false)):
+				# First meeting: extend the offer
+				GameState.set_world_flag("coil_met_in_tunnels", true)
+				hud.show_dialogue("Velvet Coil", "I heard the atrium is stabilising. I want a room up there for the surgical suite — conditional terms, mutual benefit, no lease. Come back and tell me yes.")
+				hud.push_log("velvet coil: hub invitation offered")
+				return
+			else:
+				# Second meeting: accept — fall through to cybernetics after confirming
+				GameState.set_world_flag("coil_invitation_accepted", true)
+				hud.show_dialogue("Velvet Coil", "Good. Fourth store slot, upper floor. You will find me there once things settle. In the meantime — you are already here, might as well use the table.")
+				hud.push_log("velvet coil: hub invitation accepted")
+				# fall through to open cybernetics on this same press
+
+	# Normal cybernetics interaction
 	var upgrades: Array[Dictionary] = []
 	for key in CyberneticSurgeryUI.UPGRADE_DB.keys():
 		if not GameState.has_cybernetic(str(key)):
@@ -1080,56 +1097,71 @@ func _get_objective_text() -> String:
 func _get_travel_routes() -> Array:
 	var active_job := GameState.get_active_job_data()
 	var active_destination := str(active_job.get("destination_id", ""))
-	return [
+
+	# Job destinations: only listed when the active job points there OR the
+	# player has already been (visited_ flag set on first successful travel).
+	# No locked state — if it appears in the list, it's open.
+	var job_destinations := [
 		{
 			"id": "pipe_utility_tunnels",
 			"title": "Pipe Utility Tunnels",
-			"description": "Wet maintenance arteries below Leak Street. Cooters jobs point there when the bar wants proof with pipe smell on it.",
+			"description": "Wet maintenance arteries below Leak Street.",
 			"target_scene": PIPE_TUNNELS_SCENE,
-			"locked": active_destination != "pipe_utility_tunnels",
-			"locked_reason": "Accept a Cooters job that points to the Pipe Utility Tunnels first.",
 		},
 		{
 			"id": "dead_food_court_bloom",
 			"title": "Dead Food Court Bloom",
 			"description": "An old second-floor food court overgrown by bio-mall flora and still-lit menu boards.",
 			"target_scene": DEAD_FOOD_COURT_SCENE,
-			"locked": active_destination != "dead_food_court_bloom",
-			"locked_reason": "Accept the Food Court Filter job first.",
 		},
 		{
 			"id": "water_reclamation_cistern",
 			"title": "Water Reclamation Cistern",
 			"description": "A flooded reclamation room with live conduits, pump controls, and Torai-shaped ownership claims.",
 			"target_scene": WATER_CISTERN_SCENE,
-			"locked": active_destination != "water_reclamation_cistern",
-			"locked_reason": "Accept the Pump Heart Lease job first.",
 		},
 		{
 			"id": "collapsed_service_atrium",
 			"title": "Collapsed Service Atrium",
 			"description": "A partially submerged mall atrium where only the upper service level still crosses the sludge.",
 			"target_scene": COLLAPSED_ATRIUM_SCENE,
-			"locked": active_destination != "collapsed_service_atrium",
-			"locked_reason": "Accept the Atrium Relay Echo job first.",
-		},
-		{
-			"id": "faded_atrium",
-			"title": "Faded Atrium",
-			"description": "Return to the exposed second floor of the old submerged mall beside Leak Street.",
-			"target_scene": FADED_ATRIUM_SCENE,
-			"locked": false,
-			"locked_reason": "",
-		},
-		{
-			"id": "wake_up_call",
-			"title": "Wake-Up Call",
-			"description": "Re-enter the authored mission cell. Very official, very dramatic, bring your best bad decisions.",
-			"target_scene": WAKE_UP_CALL_SCENE,
-			"locked": GameState.is_dreaming_generator_failing(),
-			"locked_reason": "Feed the Dreaming Generator at Pipe Chapel before using this route.",
 		},
 	]
+
+	var routes: Array = []
+	for entry in job_destinations:
+		var rid := str(entry.get("id", ""))
+		var active := rid == active_destination
+		var visited := bool(GameState.get_world_flag("visited_" + rid, false))
+		if active or visited:
+			routes.append({
+				"id": rid,
+				"title": entry.get("title", rid),
+				"description": entry.get("description", ""),
+				"target_scene": entry.get("target_scene", ""),
+				"locked": false,
+				"locked_reason": "",
+			})
+
+	# These two are always listed. Wake-Up Call can still be locked by
+	# generator state — that is a gameplay gate, not a mission-visibility gate.
+	routes.append({
+		"id": "faded_atrium",
+		"title": "Faded Atrium",
+		"description": "Return to the exposed second floor of the old submerged mall beside Leak Street.",
+		"target_scene": FADED_ATRIUM_SCENE,
+		"locked": false,
+		"locked_reason": "",
+	})
+	routes.append({
+		"id": "wake_up_call",
+		"title": "Wake-Up Call",
+		"description": "Re-enter the authored mission cell. Very official, very dramatic, bring your best bad decisions.",
+		"target_scene": WAKE_UP_CALL_SCENE,
+		"locked": GameState.is_dreaming_generator_failing(),
+		"locked_reason": "Feed the Dreaming Generator at Pipe Chapel before using this route.",
+	})
+	return routes
 
 
 func _on_travel_route_selected(route_id: String) -> void:
@@ -1162,6 +1194,7 @@ func _on_travel_route_selected(route_id: String) -> void:
 	var card_title := str(card.get("title", "Clear Run"))
 	GameState.last_mission_result = "Travel to %s: %s" % [route_title, card_title]
 	hud.push_log("travel event: %s" % card_title.to_lower())
+	GameState.set_world_flag("visited_" + route_id, true)
 	get_tree().change_scene_to_file(str(selected.get("target_scene", "")))
 
 

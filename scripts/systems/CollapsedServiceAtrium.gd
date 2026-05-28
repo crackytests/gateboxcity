@@ -459,7 +459,13 @@ func _add_splice(world_position: Vector3) -> void:
 	splice.name = "Splice"
 	splice.position = world_position
 	splice.add_to_group("splice")
+	splice.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice)
+
+
+func _on_splice_item_dropped(item_name: String) -> void:
+	hud.push_log("splice dropped: %s" % item_name.replace("_", " "))
+	hud.show_system_message("FOUND " + item_name.to_upper().replace("_", " "))
 
 
 func _add_lights() -> void:

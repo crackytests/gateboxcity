@@ -1,0 +1,3393 @@
+--- PAGE 155
+
+10
+D EVOURER  (PAGE 178)
+1 5 3
+Threats Against the Ark
+ZONE-GHOULS ATTACK
+They attack before dawn, without warning or mercy. 
+They come from the deeps of the Zone, and enter 
+the Ark while the People are sleeping. Then, the 
+massacre begins. The Zone-Ghouls kill, burn and 
+plunder with a feverish frenzy. Can the People stop 
+them – or is this the end?
+ K One PC witnesses how an NPC he has a 
+relationship to is surrounded by frenzied 
+Zone-Ghouls.
+ K The Zone-Ghouls set fire to part of the Ark. 
+The flames spread quickly.
+ K An NPC or a Boss tells a PC to flee with him. 
+The Ark is lost and staying is suicide, he says.
+Comment: Read more about the Zone-Ghouls on 
+page 176. Use the rules for attacks against the Ark 
+(page 114) to determine the flow of the battle. The 
+attackers have Battle Level 2, or higher.
+THE ZONE MONSTER
+The People have had enough. There is a wild beast 
+about that has torn mutants to pieces out in the 
+Zone, and even started attacking people collecting 
+scrap right outside the Ark’s walls. A Boss wants 
+to lead a hunting expedition into the Zone to deal 
+this threat once and for all.
+ K The expedition leaves to hunt the beast. PCs 
+are asked to join.
+ K The beast can be a razorback (page 180), a 
+devourer (page 178), or some other ferocious 
+monster in Chapter 13. The hunting party 
+finds the beast’s lair, riddled with remains of 
+Zone-Ghouls and mutants.
+ K The hunting team confronts the beast in a 
+fight to the death. An expedition from an-
+other Ark, or a group of Zone-Ghouls, can 
+help or hinder.
+THE ZONE SHAKES
+It starts as a deep rumble from the very 
+ground itself. Then the earth shakes, soon 
+violently. Anyone not holding on to something 
+is thrown to the ground. Then, as suddenly as it 
+started, it’s over. For now.
+ K The quakes return, even stronger. The Ark is 
+damaged by the tremors, perhaps destroying 
+a project.
+ K A Boss (preferably a Cultist, page 100) pro-
+claims that the quakes are a bad omen, a sign 
+of the Ancients’ dissatisfaction with the Peo-
+ple and a call for repentance.
+ K The PCs and other mutants might search for 
+the cause of the tremors. It is detonations in 
+a bunker deep underground, a war between 
+rival secu
+
+--- PAGE 156
+
+
+
+
+
+--- PAGE 157
+
+11
+1 5 5
+Creating the Zone
+11
+Creating the Zone
+The Zone is your playground, your fighting ring 
+where you create deadly challenges for the PCs to 
+overcome – or succumb to. Chapter 8 explains the 
+basics of Zone travel from the PCs’ perspective. 
+There, players can read about what kind of gear to 
+bring, how long it takes to explore a sector (map 
+grid square), and more. In this chapter, we take a 
+closer look at how you as the GM can create the 
+geography and inhabitants of the Zone, sector by 
+sector. When the PCs enter a sector you can deter-
+mine its contents, with the help of dice rolls if you 
+like, in a few simple steps.
+SPECIAL ZONE SECTORS
+The tables in this chapter help you to quickly popu-
+late sectors on the Zone map. But nothing stops you 
+from describing certain sectors in greater detail. 
+You can place them in specific locations on the map, 
+but it is usually preferable to write them in such 
+a way that they can be placed in almost any grid 
+square on the map. Otherwise, you run the risk of 
+the PCs simply not visiting your carefully crafted 
+adventure locations.
+Five ready-made such “Special Zone Sectors”, 
+complete with maps and illustrations, can be found 
+in Chapter 15. They work in most Zones and can be 
+used as they are written or as inspiration to your 
+own creations. More Special Zone Sectors will be 
+published in the future.
+EXPLORED SECTORS
+Sectors that have been explored by the PCs are 
+normally safe ground, emptied of both threats and 
+artifacts. The Zone travelers can pass without risk 
+– maybe. Nothing stops you from breaking the gen-
+eral rule every now and then, it’s an effective tool 
+to keep your players on their toes. Roll up or just 
+choose a new threat. If you want to be nice to your 
+players, you can have the PCs find artifacts that they 
+missed on their first pass too. The Threat Level and 
+Rot Level don’t change, however.
+CREATING A SECTOR
+The rest of this chapter describes how you create 
+a sector in the Zone. Choose freely from the tables 
+A GM ZONE MAP
+The Zone is explored on the players’ Zone 
+map, sector by sector. If you like, you can 
+have your own version of the map, where 
+you note down things you want to keep 
+s
+
+--- PAGE 158
+
+11
+1 5 6
+GAmemaster’s Section
+below or roll dice. Never be a slave to the dice – take 
+the general area of the Zone into account, and reroll 
+accordingly or simply pick whatever suits you. Fol-
+low these simple steps:
+1.	Determine the general terrain.
+2.	Decide on a dominant ruin.
+3.	Set the Rot Level.
+4.	Set the Threat Level and roll the Threat Roll.
+5.	If there is a threat in the sector, determine 
+what it is.
+6.	If there is an artifact, determine what it is.
+7.	If there is a Stalker in the group, let him roll 
+for Find the Path.
+8.	If you like, roll or choose a sector mood 
+element.
+The Season: When you create a new sector, don’t 
+forget to consider the current time of year in the 
+campaign. If you roll up threats that don’t fit with 
+the season, reroll or pick something else.
+1. SECTOR ENVIRONMENT
+Start by determining the general environment in 
+the sector. Roll D66 or choose:
+D66 e nv iron M en t r ui n t hr eat a rt ifact
+11–12 Thick Woods No Yes No
+13–15 Scrublands No Yes No
+16–21 Marshlands No Yes No
+22–24 Dead Woods No Yes No
+25–26 Ash Desert No Yes No
+31 Huge Crater No Yes No
+32 Glasified Field No Yes No
+33–35 Overgrown Ruins Yes Yes Yes
+36–42 Crumbling Ruins Yes Yes Yes
+43–51 Decayed Ruins Yes Yes Yes
+52–56 Unscathed Ruins Yes Yes Yes
+61–64 Derelict Industries Yes Yes Yes
+65–66 Settlement* — — —
+The columns Ruin, Threat and Artifact tell you 
+if there typically  is an explorable ruin in the 
+sector, if there is a presence of threats, and 
+if there is chance to find artifacts. Remember, 
+these are just guidelines, not rules – you are 
+free to place ruins, threats and artifacts in any 
+sectors you like.
+SETTLEMENT
+Settlements in the Zone are uncommon and unique 
+locations. There can be ruins, threats and artifacts 
+in a settlement, but don’t roll them up the normal 
+way. Instead, describe the sector in greater detail. 
+Use the Special Zone Sectors in Chapter 15 if you 
+like – all of them are settlements of different sorts.
+2. RUINS
+If the sector environment (above) has a “Yes” in the 
+Ruins column, you should determine a ruin that domi-
+nates the sector. Of course, there are generally many 
+ruined buildings in any sector, but this is the one that 
+catc
+
+--- PAGE 159
+
+11
+1 5 7
+Creating the Zone
+RUINS, NORMAL
+D66 e nv iron M en t
+11 Airplane Wreck
+12 Amusement Park
+13 Battlefield
+14 Bus Station
+15 Car Park
+16 Church
+21 Cinema
+22 Crater
+23 Dilapidated Mansion
+24 Fast Food Joint
+25 Gas Station
+26 Highway
+31 Hospital
+32 Hunting Store
+33 Mall
+34 Marina
+35 Museum
+36 Office Building
+41 Overgrown Park
+42 Playground
+43 Police Station
+44 Radio Station
+45 Residential Blocks
+46 Road Tunnel
+51 Ruined Bridge
+52 School
+53 Shelter
+54 Skyscraper
+55 Sports Center
+56 Suburbia
+61 Subway Station
+62 Supermarket
+63 Swimming Hall
+64 Tank
+65 Theater
+66 Train Station
+RUINS, I NDUSTRY
+D66 e nv iron M en t
+11–13 Factory
+14–16 Military Base
+21–23 Oil Cistern
+24–26 Pipeline
+31–33 Purification Plant
+PLAYING ZONE TRAVEL
+Zone travel is an important and fun part 
+of the game – don’t be surprised if the 
+first thing the players want to do in the 
+first session of the game is to rush out 
+into the Zone. Here is some advice on 
+how to make the Zone expedition a re-
+warding experience:
+Follow the Players.  Let the players ex-
+plore what they want. Do they feel like 
+digging around in a ruined building 
+that you just mentioned in passing? Let 
+them! Consider expanding this location 
+and place a Zone event (Chapter 9) there. 
+Add an extra threat or artifact, or at least 
+some fun scrap.
+Don’t Get Stuck.  Despite the above para-
+graph – every sector can’t contain threats 
+and treasures. When you think the play-
+ers have looked around enough and there 
+is nothing more to be found in the sector 
+– tell them. Avoid getting stuck for a long 
+time in every sector. Some sectors are 
+just empty wasteland and can be passed 
+quickly.
+Give Them Scrap.  Don’t forget the scrap 
+table in the back of the book. Giving the 
+PCs scrap often creates fun situations 
+and helps to set the mood of the game, 
+without making them more powerful. You 
+don’t need to worry about giving them 
+too much!
+
+
+
+--- PAGE 160
+
+11
+1 5 8
+GAmemaster’s Section
+D66 e nv iron M en t
+34–36 Power Line
+41–43 Radio Mast
+44–46 Refinery
+51–53 Rubbish Dump
+54–56 Shipwreck
+61–63 Shooting Range
+64–66 Windmill
+3. ROT LEVEL
+Choose or roll the Rot Level in the sector, a 
+number from 0 to 3. Level 1 is by far the most 
+common. No sector has Rot Level 3 in its entirety, 
+only in specific locations in sector – so called Rot 
+hotspots . You can read more about Rot Level and 
+how it works in Chapter 8. If you have a secret GM 
+Zone map (above) you can determine Rot Levels 
+in advance.
+D66 r ot  l ev el De S cr i P ti on
+11–12 0 r ot  o as is.  The PCs are safe from the 
+Rot here.
+13–55 1 w ea
+k r ot
+.  The PCs suffer one Rot Point 
+per day spent in such sectors.
+56–66 2 r ot
+- h ea
+vy a re
+a.  The PCs suffer one Rot 
+Point per hour.
+4. THREAT LEVEL
+The next step is to determine the Threat Level, a 
+number from zero and up. You set the Threat Level 
+yourself, with the below table as a guideline. A high 
+Threat Level means a more dangerous sector, but 
+with a greater chance of finding untouched artifacts.
+t hreat l evel De S cr i P ti on
+1–4 Fringe Zone Sectors
+t hreat l evel De S cr i P ti on
+5–8 Central Zone Sectors
+9+ Unusually Dangerous Areas
+When the PCs walk into the sector, roll a 
+number of Base Dice equal to the Threat 
+Level. If the sector environment (above) has 
+a “Yes” in the artifacts column, every / you 
+roll means there is one artifact in the sector. 
+If you roll at least one =, there is a threat in 
+the sector, and the more = you roll, the more 
+dangerous the threat is – see point 5 below.
+n ig
+httime:  After dark, it’s even more risky to 
+travel in the Zone. As a rule of thumb, in-
+crease the Threat Level by three at night.
+5. THREATS IN THE ZONE
+Threats in the Zone come in three types: humanoids, 
+monsters and phenomena. Read more about them 
+in Chapter 13. Roll D6 or choose:
+D6 t hreat t y P e
+1–2 Humanoid
+3–5 Monster
+6 Phenomenon
+h umanoids  are individuals or groups of intel-
+ligent beings, often connected to one factions 
+of the Zone (page 170). Roll D66 or choose:
+D66 h u M an oi D  t hr eat
+11 Amnesiac
+12–13 Beast Mutants
+14–16 Cannibals
+21–22 Doom Cultists
+23–25 Exiled Mutants
+26–32
+
+--- PAGE 161
+
+11
+1 5 9
+Creating the Zone
+D66 h u M an oi D  t hr eat
+43–44 Nova Cultists
+45–46 Patrol from the Ark
+51–52 Scrap Oracle
+53–54 Wanderers
+55–56 Water Trader
+61–62 Wreckers
+63–66 Zone-Ghouls
+Monsters  are mindless beasts, roaming the 
+wastelands. Some are mutated versions of 
+common animals, others are different beings 
+entirely. Roll D66 or choose:
+D66 Mon S te r t hr eat
+11–12 Acid Grass
+13 Air Jellies
+14 Automaton
+15–16 Bitterbeasts
+21–22 Deathworm
+23–24 Devourer
+25–26 Grazers
+31 Gutfish (infected water)
+32 Killer Tree
+D66 Mon S te r t hr eat
+33 Mind Mosquitoes
+34 Nightmare Flowers
+35 Parasite Fungus
+36 Razorback
+41–42 Rot Ants
+43 Rotfish
+44–45 Scrap Crows
+46 Trash Hawk
+51 Worm Swarm
+52–54 Zone Dogs
+55–56 Zone Leeches
+61–63 Zone Rats
+64–65 Zone Spider
+65–66 Zone Wasps
+Phenomena  are threats of a non-living nature. 
+Roll D66 or choose:
+D66 Pheno M en on t hr eat
+11–13 Acid Rain
+14–15 Ash Storm
+16–21 Dust Tornado
+22–23 Electric Storm
+24 Ghost Lights
+25 Inertia Field
+26–31 Magnetic Field
+32 Mirage
+33–34 Mud Puddles
+35–36 Night Lights
+41 Obelisk
+42–43 Pillars of Light
+44–46 Rot Hotspot
+51–52 Rot Wind
+53–54 Sinkhole
+55–56 Temperature Drop / Heat Wave
+61–62 Unexploded Ordnance
+63 Vacuum
+64–66 Zone Smog
+HANDLING THE THREAT ROLL
+You can handle the threat roll in several 
+different ways, depending on the prefer-
+ences in your gaming group:
+ K Reveal the Threat Level and roll the 
+dice openly. This way, the players 
+will know if there are artifacts and 
+threats in the sector, but not what 
+or where they are.
+ K Roll the dice without showing the 
+players the result.
+ K Don’t roll dice at all, instead decide 
+for yourself if there are artifacts 
+and threats in the sector. In this 
+case, you don’t even need to set a 
+Threat Level at all.
+
+
+
+--- PAGE 162
+
+11
+1 6 0
+GAmemaster’s Section
+THE STALKER & THREATS
+A Stalker who successfully Finds the Path when en-
+tering a new sector will spot the threat in time to 
+avoid it. To move ahead, the PCs will often need to 
+deal with the threat anyway – but they can engage 
+it prepared and from some distance. If the Stalker 
+fails his roll – or if there is no Stalker in the group 
+– the PCs will walk right into the threat. If the threat 
+is a living being, it will likely try to ambush them 
+(page 81).
+Comment: It’s important that even a group with a 
+skilled Stalker doesn’t feel safe in the Zone. If the 
+Stalker is too confident, let him spot the first threat 
+in time, but then throw in another one when he least 
+expects it. The Find the Path skill should be very 
+useful, but not protect the group from all dangers.
+6. ARTIFACTS
+If the threat roll (step 4 above) determines that 
+there are artifacts to be found in the sector – or if 
+you decide that it is the case – it’s now time to de-
+termine what they are. Draw random Artifact Cards 
+or choose artifacts that you think are appropriate 
+for the location or that would be interesting for the 
+PCs to have. Don’t forget to slip them clues to Eden 
+every now and then (Chapter 16).
+Read more about artifacts in Chapter 14. There 
+you can also find a random table to use if you don’t 
+have access to the Artifact Cards.
+THE STALKER & ARTIFACTS
+If a Stalker Finds the Path and spends a stunt on 
+finding artifacts, he will find one if it’s there to be 
+found. He might not spot it immediately, but will 
+have a pretty good idea of where to look.
+Make them Fight for It: You are perfectly within 
+your rights to put some obstacles in front of the 
+artifact. Most likely it won’t just lie on the ground 
+to be picked up. If there is a humanoid threat in 
+the sector it is likely that this threat possesses the 
+artifact, and the PCs will need to fight for it.
+No Artifact Stunt? If the Stalker doesn’t spend a 
+stunt on finding artifacts, or if there is no Stalker in 
+the party, it doesn’t mean no artifacts will be found. 
+You can still have the PCs find an artifact if you like, 
+but you should have them work even harder for it! 
+Which PC who spots th
+
+--- PAGE 163
+
+11
+1 6 1
+Creating the Zone
+D66 P eo P le
+14 v ictim.  A corpse, hanged or bound to a pole. Who did this, and why?
+15 Message.  Someone has written something on a wall. What does it say, and how recent is it?
+16 t ra
+cks.  They lead deeper into the Zone. Who walked here and where did they go?
+nature
+21 b oulder.  A huge piece of rock. Protection from the Zone winds or a good lookout point?
+22 t re
+e.  A lonely tree still grows in the desolate wasteland. Does it hide some secret?
+23 c re
+ek.  A narrow stream flows through the landscape. Is it a source of life or of death by the Rot?
+24 Zone f lo
+wers.  Out of place in the pale zonelands, a field of strange flowers with striking colors grow.
+25 t hi
+stles.  A thick undergrowth covers the sector. Boots and gear gets stuck in it. Do the bushes hide some secret?
+26 v in
+es.  Lots of thick vines cover the ruins here. Are they dead and shriveled or still alive?
+weather
+31 t orrential r ai n.  A sudden downpour or heavy snowfall hits the PCs. They’d better seek cover.
+32 f og
+.  A thick haze blankets the area. Visibility is reduced to a few yards, and sounds muffled. What lurks in the fog?
+33 b la
+zing Sun.  Scorching sunlight bakes the PCs. Their skin burns and their clothes are soon wet from sweat.
+34 b lu
+e Sky.  The ever-present dirty Zone haze suddenly evaporates, revealing a stark blue sky. It is both beautiful and 
+frightening.
+35 Dark c lo
+uds.  The sky darkens and the wind picks up. Dust whirls around across the broken old pavement. A storm is 
+brewing.
+36 t hu
+nder.  The deep sound distant thunder rolls over the Zone. Sudden lightning flashes across the ruins.
+re M ain S
+41 r oad Sign.  A metal sign stands alone, left from the Old Age. Does it show the way to something, or warn of some danger?
+42 w re
+ck.  The remains of some old vehicle, rusted beyond repair. Its metal husk is still intact. Has someone sought shelter there?
+43 Movie Poster.  A torn and worn old poster from the Old Age shows a strange scene. What do the PCs make of it?
+44 t he
+ Dead.  D6 withering skeletons from the Old Age. What story could these old bones tell?
+45 c he
+ckpoint.  A roadblock from the final dying days of the Old Age. Could the
+
+--- PAGE 164
+
+
+
+
+
+--- PAGE 165
+
+12
+1 6 3
+RUINS IN THE ZONE
+12
+Ruins in the Zone
+Ruins, the remains of the buildings from the Old 
+Age, are something the mutants will see a lot of 
+when they leave the Ark. All of the example ruins 
+included in the tables in Chapter 11 are described 
+in greater detail here. Use these texts as inspiration 
+when describing what the PCs see in the Zone. You 
+should amend these descriptions to account for the 
+general terrain of the sector (page 156).
+NORMAL RUINS
+KK AIRPLANE WRECK
+A huge metal tube lies broken and crushed on 
+the ground. It is scorched by fire and inside there 
+are rows of ancient seats, all blackened by flames. 
+Stretching away from the tube, the ground is 
+scorched and all houses destroyed, as if the tube 
+had come crashing from the sky at incredible 
+speed.
+KK AMUSEMENT PARK
+A bizarre huddle of rusting machines and decrepit 
+large tents, in colors that once were stark. The 
+remains of the tent cloth flaps in the wind. On a 
+picture, a man with a white face and a large red 
+nose smiles at you. One machine is a large wooden 
+disc with plastic horses mounted on it. The disc is 
+placed on a motor and seems to have been able 
+to rotate.
+KK BATTLEFIELD
+This area is completely devastated. Rusty rebars 
+protrude from broken blocks of concrete that once 
+were the walls of homes. The ruins are scorched 
+by explosions and riddled with bullet holes. Small 
+craters pockmark the ground.
+KK BUS STATION
+Among flaking road signs with illegible numbers 
+and letters, several big old motor vehicles stand 
+rusting away. Some have two decks, others have an 
+accordion-like contraption in the middle and can 
+bend. The Ancients’ machines are truly mysterious.
+KK CAR PARK
+The concrete pillars have given in and the entire, 
+circular building has collapsed like an accordion 
+pressed together. In the debris, lots of motor vehi-
+cles from the Old Age are buried. Maybe some of 
+them could be repaired?
+KK CHURCH
+The ancient spire on the stone building reaches far 
+into the sky, its sharp point lost in the Zone haze. 
+Inside, there are rows of rotten wooden benches, 
+all turned toward the figure of a man hanging on 
+a cross. The Ancients used to come here to talk to 
+their Bos
+
+--- PAGE 166
+
+12
+1 6 4
+GAmemaster’s Section
+Comment: This ruin can of course be replaced by 
+a temple or a mosque, if that fits better with your 
+campaign environment.
+KK CINEMA
+Next to a large entrance leading into the dark inte-
+rior of this building, a number of yellowing posters 
+hang in huge frames. Each of the posters depict 
+dramatic motifs from the Old Age. In this cavern-
+ous building, the Ancients watched moving images 
+on a screen.
+KK CRATER
+A gigantic hole appears in the ground, at least 50 
+yards across. Some ancient weapon of annihila-
+tion must have struck here, destroying everything 
+nearby. In the bottom of the crater, there is a small 
+lake of greenish rotwater.
+KK DILAPIDATED MANSION
+This dark and decrepit house was old even before 
+the Fall. It’s built of wood and stone and has some-
+how managed to withstand the decades of neglect. 
+What could be hidden inside its dark halls?
+KK FAST FOOD JOINT
+A large M in the shape of two dirty yellow arcs 
+adorn the facade of this ruined building. There are 
+many facilities like this in the Zone. What used to 
+be in them no one knows any longer, but Stalk-
+ers tend to avoid them because of the strong Rot 
+inside.
+KK GAS STATION
+Underneath an open roof next to a low house, a 
+number of car wrecks are left to rust. Next to them 
+there are machines with hoses and faucets. Anyone 
+who knows his way around the Zone knows that this 
+is a place where the Ancients repaired their vehicles 
+and filled them up with fuel.
+KK HIGHWAY
+The concrete is cracked and the markings on the 
+road surface are all but worn away. Before the Fall, 
+the Ancients would whizz by here at incredible 
+speeds in their shiny motor carriages. Now, the old 
+cars stand by the roadside, burnt out and rusted 
+beyond repair.
+KK HOSPITAL
+When the Apocalypse came, the Ancients flooded 
+this concrete hulk of a building, desperately hoping 
+to be saved. Now, this is a crumbling ruin. Decayed 
+corpses lie everywhere in rooms and hallways, on 
+beds and on the floors.
+KK HUNTING STORE
+Among the decrepit shelves in this place you can 
+find fishing poles, hooks and lines. A skilled Stalker 
+can use these items to find edible fish in the Zone 
+waters (page 56). On the 
+
+--- PAGE 167
+
+12
+1 6 5
+RUINS IN THE ZONE
+Now, the Zone dust blows in through the broken 
+windows.
+KK OVERGROWN PARK
+Tall trees and thick bushes grow wild here and have 
+completely overgrown the area. Benches, walking 
+paths and fountains are hidden by thick weeds and 
+the lawns are turned into marshlands. There are 
+many rumors about the creatures that roam the old 
+parks in the Zone.
+KK PLAYGROUND
+Car tires hang in rusty chains from a metal frame. 
+A wooden sandbox has turned into a stinking pool 
+of mud. Acid rains have gnawed holes in the metal 
+slides long ago. Here, the Ancients played with their 
+children. A few cracked plastic toys have survived 
+the decades of wear and still lie abandoned in the 
+sand.
+KK POLICE STATION
+Outside of this large building, wrecks of identical 
+blue and white cars are rusting away. The tires and 
+long since gone, but the blue plastic lamps on their 
+roofs are still there. In the basement of the build-
+ing, there are rooms that cannot be opened from 
+the inside.
+KK RADIO STATION
+A forest of rusty antennae and metal discs protrude 
+from the roof of this massive building. A sign on 
+the facade shows an antenna with rings around it.
+KK RESIDENTIAL BLOCKS
+Several identical tall buildings, made of concrete 
+that is now cracked and crumbling. On the ground 
+between these monoliths, there are rotted benches 
+and tall weeds. Car wrecks are everywhere, most 
+rusted beyond repair. Each of the buildings has 
+a large number of identical apartments. Inside, 
+you can find decrepit furniture, clothes and other 
+items.
+KK ROAD TUNNEL
+The entrance to this broad tunnel looks like the 
+maw of an enormous beast. Outside, an innumer-
+able amount of cars, trucks and buses stand tightly 
+packed together, slowly rusting into nothing. What-
+ever horror the occupants of these vehicles were 
+fleeing from, it is obvious few survived.
+KK RUINED BRIDGE
+The remains of a majestic bridge rise tall in the 
+Zone haze. It has collapsed in both directions and 
+only two thick pillars remain, but if you can climb 
+up onto the remaining roadway you’ll have a great 
+lookout position.
+KK SCHOOL
+On the crumbling brick facade of this building 
+hangs a clock that stopped long ago. Bel
+
+--- PAGE 168
+
+12
+1 6 6
+GAmemaster’s Section
+KK SUBURBIA
+A street with identical small houses in even rows 
+on each side. The grass and bushes have withered 
+away long ago, everything is covered in ashes. In-
+side the houses, decomposing clothes and other 
+personal items remain. The inhabitants must have 
+left in a hurry. Car wrecks, and other remains from 
+the Ancients who used to live here, abound. Much 
+has decayed over time and some of the houses have 
+completely collapsed.
+KK SUBWAY STATION
+By a stairway leading down into the underground 
+a large sign with flaking paint hangs. All Stalkers 
+know what this sign means. This is an entrance to 
+the tunnels under the Zone. In the deeps, terrible 
+dangers await – but perhaps also many untouched 
+artifacts.
+KK SUPERMARKET
+A grand building rises among the ruins. Its large 
+windows were broken many decades ago, and the 
+Zone dust drifts in unhindered. Before the Fall, this 
+building housed an unimaginable amount of food, 
+drink, kitchen utensils and other things that the 
+Ancients consumed at a dizzying rate. Now, most 
+of it is looted, burnt or decayed.
+KK SWIMMING HALL
+Inside this large ruin, there are big pools filled with 
+mud and slimy algae. Noxious and toxic fumes meet 
+anyone who enters. It’s hard to imagine that the 
+Ancients went here voluntarily to bathe in the pools.
+KK TANK
+A massive and awe-inspiring metal vehicle blocks 
+the path. Its enormous tracks have rusted stuck 
+long ago and no death or destruction has spewed 
+out from its cannon for many decades, but coming 
+close to this metal beast still strikes fear into the 
+heart of almost any Zone wanderer.
+KK THEATER
+Inside of this dark ruin is a great hall, filled with 
+rows of seats facing a large stage with a grand red 
+curtain. The Ancients came here to see singing, 
+dancing and stage plays.
+KK TRAIN STATION
+Ancient railway cars stand rusting on overgrown 
+tracks. In these, the Ancients used to travel quickly 
+
+
+
+--- PAGE 169
+
+12
+1 6 7
+RUINS IN THE ZONE
+and effectively all across the Zone and beyond. Now, 
+the only passengers are decaying corpses.
+INDUSTRIAL RUINS
+KK FACTORY
+The metal roof of this large, flat building has caved 
+in long ago. Inside, there are machines and strange 
+vehicles with huge forks in the front. Everything in 
+here is ravaged by decades of rain and wind. Some 
+rusty old barrels have fallen over and a greenish 
+sludge has leaked out onto the floor.
+KK FIRING RANGE
+Empty shell casings litter this large open area. In 
+one end, there is a large earthwork with lots of 
+pockmarks from bullets. In a shed close by there 
+are targets in the shape of humans and animals. In 
+the Old Age, they could afford to spend bullets on 
+shooting at paper figures.
+KK MILITARY BASE
+A large square courtyard with brick buildings on 
+each side. In the buildings, there are a great number 
+of identical rooms with metal bunk beds. Beyond 
+these buildings there is a large garage with several 
+burnt out vehicles inside.
+KK OIL TANK
+This large cylinder-shaped metal building has a 
+narrow stairway winding its way around the out-
+side wall, all the way to the top. Up there, you could 
+spot any threats from a safe distance. The building 
+contains a huge tank filled by a sticky, black liquid. 
+A Gearhead could use this as fuel. The problem is 
+just getting it out…
+KK PIPELINE
+A thick rusty metal pipe runs through this part of 
+the Zone. It’s wide enough for a mutant to crawl 
+through. The gas and oil has stopped flowing 
+through these pipes long ago. Now, they can only 
+serve as scrap.
+KK POWER LINE
+A tall tower made of rusty metal beams rises into 
+the Zone sky. It has collapsed halfway up, and the 
+sharp spire has folded down toward the ground. 
+Thick cables, that once supplied electricity to the 
+entire Zone, now lie draped across the ground.
+KK PURIFICATION PLANT
+The stench intensifies for each and every step closer 
+to this building. But Stalkers know that the smell of 
+decay can hide an invaluable treasure. These large 
+pools, tanks and machines purified the Ancients’ 
+drinking water. Could there still be clean water in 
+any of the tanks?
+KK RADIO MAST
+A tall metal mast rises high above the
+
+--- PAGE 170
+
+
+
+
+
+--- PAGE 171
+
+13
+1 6 9
+Threats in the Zone
+13
+THREATS 
+IN THE ZONE
+The Zone might seem empty and lifeless, but hid-
+den amongst the ruins there is life. Strange and 
+alien creatures, but life all the same. For the mutants 
+of the People, isolated in the Ark for decades, meet-
+ing these alien creatures is a frightening experience. 
+This chapter describes the humanoid beings and 
+monsters that live in the Zone, as well as other phe-
+nomena that the PCs can encounter. Collectively, 
+these are called Zone threats.
+THREATS AND EVENTS
+When you want to spring a typical event (Chapter 
+9) on the PCs in the Zone, you can go to this chap-
+ter to choose what specific threat the PCs encounter. 
+You can also let a random dice roll make the choice 
+for you – see Chapter 11. Regardless of whether you 
+choose threats or roll them up – always try to use 
+them in ways that are interesting and challenging 
+for the PCs and the players themselves. This is what 
+the typical events in Chapter 9 are for.
+In the Ark:  The PCs generally encounter the 
+threats described in this chapter when traveling in 
+the Zone. But they can meet, or at least hear about, 
+the Zone threats in the Ark too. Some of them ap-
+pear on the Threat Cards (see Chapter 10 for more 
+information).
+MAKE EVERY THREAT UNIQUE
+The threats of the Zone should feel al-
+ien and frightening for the PCs – and for 
+the players. As a rule, don’t let the PCs 
+encounter the same threat several times 
+– at least not in the same way. Make every 
+encounter with a threat unique, a new ex-
+perience for the players. Also, don’t use 
+the name of a threat unless the PCs know 
+it (like Zone-Ghouls, who are fairly well 
+known to the People). Let the description 
+of the threat speak for itself. If the play-
+ers make up their own names for crea-
+tures they meet, let them.
+
+
+
+--- PAGE 172
+
+13
+1 7 0
+GAmemaster’s Section
+COLD & DARK
+Whatever threat you let the PCs encounter, you can 
+use cold and darkness to make the situation even 
+more challenging. See Chapter 6 for rules on this.
+HUMANOIDS
+For a long while, the mutants in the Ark thought 
+they were all that remained of human civilization 
+in this fallen world. They were wrong. Among the 
+ruins several other groups live, big and small tribes 
+of mutants and other beings. They can become the 
+People’s allies – or enemies. These humanoids come 
+in two forms – mutants and humans.
+Mutants:  The PCs’ Ark is not the only one in the 
+Zone (the boxed text below). Technically, other 
+mutants function just like NPCs from the PCs’ Ark 
+(Chapter 9). Mutants in other Arks can have roles 
+and specialist skills just like PCs, while mutants not 
+living in an Ark generally don’t have roles or skills.
+Humans:  There are other people out there, who 
+are not mutants. They are humans, who somehow 
+have survived the Apocalypse. Non-mutants gener-
+ally don’t have roles or specialist skills. Naturally, 
+they don’t have mutations or use Mutation Points. 
+Humans will be described further in a coming ex-
+pansion to the game.
+Languages:  Most groups in the Zone share the 
+same original language, but having lived separated 
+from each other for years or decades, distinctly dif-
+ferent dialects have evolved. Usually, the PCs can 
+communicate with people they meet in the Zone on 
+a basic level. However, to manage a more complex 
+dialogue with another group, have the PCs make a 
+Comprehend roll. A failed roll means there is some 
+kind of misunderstanding.
+Stats:  All attribute scores and skill levels indicated 
+for the humanoids below should only be seen as 
+typical ratings. Feel free to change them for indi-
+vidual NPCs whenever you like.
+OTHER ARKS
+The PCs’ Ark is not the only one in the Zone. 
+As they will learn during play, there are other 
+Arks, with other mutants. This insight will have 
+monumental consequences for the PCs, and 
+for all of the People.
+The different Arks have evolved into 
+unique societies different from the People – 
+very different, in some cases. Some Arks have 
+been lost altogether – their former inhabit
+
+--- PAGE 173
+
+13
+1 7 1
+Threats in the Zone
+the ones that still survive, live as savages, 
+roaming the Zone.
+For a detailed example of another Ark, 
+see Chapter 15. When the PCs visit another 
+Ark, use this one or make your own based on 
+the guidelines in Chapter 7.
+AMNESIAC
+A human woman staggers through the Zone. Her 
+eyes are glazed over and seem to focus on some 
+imagined horror. She mumbles alien words, barely 
+audible. She wears dirty and torn coveralls with 
+strange markings. She doesn’t respond to the PCs 
+and collapses on the ground if they try to stop her. 
+Unless Healed, she dies in a couple of hours. If she 
+survives the PCs can talk to her, but her dialect is 
+foreign and she seems to have lost all memory of 
+who she is and where she came from. She might 
+have a clue to the location of Eden (Chapter 16).
+If you have played the Threat Card called The 
+Man on the Beach (page 148), the PCs can recog-
+nize both the clothing and the dialect – the woman 
+has the same. She also reacts in a similar way if 
+brought to the Ark. Just like the man on the beach, 
+the woman is one of the cryo-frozen lab assistants 
+from Project Eden – see Chapter 16.
+a ttributes:  Strength 2 (currently 1), Agility 2 (currently 1), 
+Wits 4, Empathy 2.
+Skills:  Comprehend 2, Heal 1.
+Mutations:  None.
+w ea
+pons:  None.
+−2
+BEAST MUTANTS
+Out in the Zone, there is a tribe of beings that are 
+different from all others. They are not human mu-
+tants and they are not wild beasts – they are both. 
+They are animals, but they walk upright on their 
+hind legs, use tools and have a spoken language – 
+primitive and coarse, but a language nonetheless. 
+They are newcomers to the Zone, on their guard or 
+even hostile to strangers. Despite their few numbers 
+the beast mutants seem to belong to several differ-
+ent species – some look like ragged dogs or wolves, 
+others are short and rodent-like, and a third variety 
+are monkey-like climbers.
+The truth is that the beast mutants – like the 
+People themselves – can trace their origin to the 
+genetics labs of the Ancients, bred to be able to 
+−1
+KNOW THE ZONE
+When PCs meet a threat in the Zone, they 
+can roll for the Know the Zone skill to 
+know something about it (pa
+
+--- PAGE 174
+
+13
+1 7 2
+GAmemaster’s Section
+survive the harsh world after the Apocalypse. They 
+are animals given parts of the human intellect and 
+fine motor skills. The small tribe that recently ar-
+rived in the Zone has fled from an old research fa-
+cility located in a distant mountain range, where 
+many of their kin still are being held captive by the 
+mysterious Watchers. The escapees have journeyed 
+to the area of the Zone to find a new home.
+The beast mutants and their origin will be ex-
+plored in a future expansion to Mutant: Year Zero.
+Dog:  Strength 4, Agility 5, Wits 3, Empathy 2, Fight 1, Move 1.
+b ea
+r:  Strength 5, Agility 4, Wits 2, Empathy 3, Fight 2.
+r od
+ent:  Strength 2, Agility 5, Wits 5, Empathy 2, Sneak 2.
+Monkey:  Strength 3, Agility 5, Wits 4, Empathy 2, Move 2.
+Mutations:  These beasts are mutants, but of a different kind 
+than the People. They don’t have mutations and they don’t 
+use Mutation Points.
+w ea
+pons:  Scrap spear, slingshot, fangs (weapon damage 2, 
+no Gear Bonus).
+CANNIBALS
+A group of wiry mutants wearing rags and white 
+face paint. These mutants come from an Ark 
+where the scientists died early on (see Chapter 
+16), and the abandoned children developed a very 
+brutal society. They are sly and bloodthirsty, and 
+they hunger for fresh mutant meat. They can’t 
+easily be reasoned with (modification -3 to any 
+Manipulation attempt, and even a successful roll 
+will only buy the PCs time until the cannibals get 
+hungry again). Only a very clear show of force 
+will deter the cannibals. Any fallen mutants in 
+their own ranks will soon become grub for the 
+survivors.
+a ttributes:  Strength 5, Agility 4, Wits 3, Empathy 2.
+Skills:  Fight 2, Move 1.
+Mutations:  One random mutation.
+w ea
+pons:  Scrap spear or slingshot.
+DOOM CULTISTS
+A small band of mutants, expelled from their Ark 
+years ago, who worship a particular ruin or artifact 
+in the Zone. They have lost all common sense and 
+live only to worship the object, which they think 
+will bring the Ancients back to Earth. The cultists 
+may try to recruit PCs and NPCs, or capture them 
+to sacrifice them to their deity. The cult may be in 
+possession of a clue to Eden (Chapter 16).
+a ttributes:  Stre
+
+--- PAGE 175
+
+13
+1 7 3
+Threats in the Zone
+from another Ark, but have been exiled for some 
+reason. They beg the PCs for help, but they also 
+take the first chance they get to attack and steal 
+the PCs grub – or worse. If the PCs are friendly, 
+the exiles can tell them about their Ark – and they 
+might even have a clue about the location of Eden 
+(Chapter 16).
+a ttributes:  Strength 2, Agility 2, Wits 2, Empathy 2.
+Skills:  Move 1, Fight 1.
+Mutations:  One random mutation.
+w ea
+pons:  Blunt instrument or slingshot.
+Special:  Physical contact with one of the exiles counts as a 
+Rot attack (page 126).
+EXPEDITION  
+FROM ANOTHER ARK
+An expedition, not unlike the PCs’ own, but from 
+another Ark. The strangers are about as many as 
+the PCs. If they haven’t met mutants from another 
+Ark before (through the Threat Card called “The 
+Other People”, see page 150), this meeting can be 
+a turning point in the history of both peoples. The 
+expedition may have an artifact with a clue leading 
+to the location of Eden (Chapter 16).
+a ttributes:  Depends on role (page 139). At least one of the 
+patrol members is a Stalker.
+Skills:  Depends on role.
+Mutations:  One random mutation.
+w ea
+pons:  Spiked bat or scrap rifle.
+HELLDRIVERS
+Thunder as from an approaching storm rolls 
+across the zonelands. Soon, a horde of bizarre ve-
+hicles comes rolling. Cars, buses, motorcycles and 
+trucks – all adorned with sharp spikes, skulls and 
+scrap. The feared Helldrivers are mutants who left 
+their Ark long ago and were lucky enough to come 
+across a big garage with operational vehicles from 
+the Old Age.
++1
+±0
+a ttributes:  Strength 4, Agility 5, Wits 2, Empathy 3.
+Skills:  Shoot 3, Fight 2, Jury-Rig 1.
+Mutations:  One random mutation.
+w ea
+pons:  Bicycle chain, scrap rifle, scrap armor (Armor 
+Rating 3).
+v eh
+icles:  The Helldrivers have a number of vehicles (see page 
+94 for rules and page 199 for stats), often fitted with flameth-
+rowers or even scrap cannons.
+MORLOCKS
+Some degenerate wild mutants from lost Arks have 
+taken refuge underground, in tunnels and shelters. 
+These are called morlocks. During the years, the 
+morlocks have lost what little civilization they 
+started with. Now, they are little mo
+
+--- PAGE 176
+
+13
+1 7 4
+GAmemaster’s Section
+careful, they can track the cultists back to their lair 
+(page 212).
+a ttributes:  Strength 2, Agility 3, Wits 5, Empathy 4.
+Skills:  Move 2, Heal 1.
+Mutations:  One random mutation, but mental ones (Mind 
+Terror, Puppeteer, Pathokinesis, Pyrokinesis, Telepathy). The 
+Nova Cultists are powerful and normally start out with 6 MP 
+instead of 3.
+w ea
+pons:  —
+PATROL FROM THE ARK
+This patrol from the PCs’ own Ark has found a 
+valuable artifact, or they say they know where to 
+find one. The leader either wants help to bring the 
+artifact back to the Ark, or help to retrieve it. One 
+of the members of the patrol can very well be an 
+NPC that a PC has a relationship to.
+a ttributes:  Depends on role (page 139). At least one of the 
+patrol members is a Stalker.
+Skills:  Depends on role.
+Mutations:  One random mutation each.
+w ea
+pons:  Spiked bat, scrap knife, scrap rifle.
+—
+SCRAP ORACLE
+A short and stocky mutant, dressed in a bizarre out-
+fit made of scrap of all shapes and sizes. He’s an 
+oddball character with powerful mental mutations, 
+a telepath that can see visions of the PCs’ possible 
+future. His powers can help the PCs interpret a clue 
+to Eden or guide them in some other way. You can 
+use the scrap oracle to nudge the PCs in some di-
+rection that you’d like the campaign to go.
+a ttributes:  Strength 2, Agility 3, Wits 4, Empathy 3.
+Skills:  Manipulate 2.
+Mutations:  Telepathy, Pathokinesis, Rot-Eater. 6 MP .
+w ea
+pons:  —
+WANDERERS
+A scrawny and grim-faced band of humans in tat-
+tered clothes with a strange look come walking 
+through the zonelands. They are on their guard 
+but not hostile. If the PCs show that they mean no 
+harm, the wanderers can tell – in a strange and for-
+eign dialect – that they have walked for years from 
+a mountain range far away. They ask for grub and 
+water. They want to know where the PCs’ settlement 
+is, and may get hostile if they refuse to answer.
+−1
+−1
+N OVA  C ULTISTS
+
+
+
+--- PAGE 177
+
+13
+1 7 5
+Threats in the Zone
+See the Ark threat called “The Wanderers” 
+(page 152) for more information on what might hap-
+pen if the wanderers come to the Ark. If you have 
+already used this Ark threat, this can be a splinter 
+group that has left the main community after some 
+internal strife. Finally, the wanderers might have a 
+clue to Eden (Chapter 16).
+a ttributes:  Strength 4, Agility 3, Wits 4, Empathy 3.
+Skills:  Shoot 3, Fight 2, Comprehend 1.
+Mutations:  None.
+w ea
+pons:  Scrap knifes, scrap axes, one or more artifacts.
+WATER TRADER
+A lonesome traveler who defies the dangers of the 
+zonelands to trade with clean water. He’s a tall mu-
+tant pulling a simple cart, followed by two scrawny 
+mutts. On the cart there are old plastic bottles, big 
+jerrycans and a strange contraption built of pipes 
+and bottles (a Jury-Rigged purification set). The 
+water trader is friendly sort and always ready to do 
+business – and quite ready to defend himself if he 
+needs to. He knows much about the Zone and can 
+tell the PCs where other settlements are located. He 
+may also have a clue to Eden, which he could trade 
+for. He will ask where the PCs live and will try to 
+get to the Ark to do business.
+a ttributes:  Strength 2, Agility 3, Wits 4, Empathy 5.
+Skills:  Manipulate 2, Shoot 1, Jury-Rig 1.
+Mutations:  One random mutation.
+w ea
+pons:  Scrap pistol (5 bullets)
+Special:  The water trader can sell Rot-free water. It may 
+contain spawn of Gutfish however (page 179). The price – as 
+always – is a matter of demand. The more desperate for 
+water the PCs are, the more the trader will charge for it.
+WRECKERS
+A surprisingly intact big old vehicle wreck sits in a 
+clearing in the Zone. Its windows are dirty and its 
+hatches locked. The wreck is a trap. A band of sav-
+age mutants or Zone-Ghouls uses it as bait for un-
+witting Zone travelers. Their typical plan is simple: 
+±0
+±0
+They charge out and try attack their victims before 
+they see what’s coming. They will steal everything 
+and take any survivors as slaves in their tribe. The 
+wreckers haven’t been able to open the armored car 
+themselves. If the PCs manage to get in, they will find 
+an artifact. The car engine is decay
+
+--- PAGE 178
+
+13
+1 7 6
+GAmemaster’s Section
+ZONE-GHOULS
+When Stalkers tell harrowing stories by the trash-
+can fires in the Ark, they are most often about the 
+Zone-Ghouls. These aggressive people live like 
+nomads in the Zone, moving in the shadows and 
+attacking other travelers without warning. They are 
+most active at night. There are many rumors about 
+the Zone-Ghouls – it is said that they flay and eat 
+mutants taken captive.
+Zone-Ghouls are generally shorter than mu-
+tants, and they move in large groups. They hide 
+their faces in hoods or masks made of scrap from 
+the Old Age, and often wear scavenged plastic 
+cloaks to protect them against sunlight and acid 
+rains. Their hands and feet are wrapped in plastic 
+or cloth.
+a ttributes:  Strength 3, Agility 4, Wits 3, Empathy 2.
+Skills:  Move 3, Shoot 2, Fight 1.
+Mutations:  None.
+w ea
+pons:  Bicycle chain, slingshot.
+Special:  In direct sunlight, the Zone-Ghouls take one point of 
+damage per hour, despite their protective clothing.
+MONSTERS
+The variety of mutated beasts out in the Zone are 
+collectively known as monsters . They lack the ad-
+vanced intelligence and intricate social skills of 
+mutants and humans, and therefore don’t have the 
+attributes Wits and Empathy. They cannot suffer 
+confusion or doubt, and they cannot be Manipu-
+lated or Intimidated. Some monsters even lack Agil-
+ity – they can’t suffer fatigue.
+Skills:  Some monsters lack skills – that means they 
+only roll Base Dice when performing an action. If 
+they lack an attribute that a skill is based on, they 
+cannot roll for that skill at all. Monsters cannot push 
+dice rolls and they generally don’t use Mutation 
+Points.
+Maneuvers:  Just like humanoids, monsters can per-
+form one action and one maneuver, or two maneu-
+±0 vers, in each turn (page 80). The only maneuver 
+that monsters generally use is movement.
+Weapons:  Monsters often have natural weapons 
+like claws or fangs. These weapons have a weapon 
+damage, but don’t provide a Gear Bonus.
+Swarms: A special type of monster is the swarm, 
+that is actually a great number of small creatures 
+that rules-wise count as one being. Swarms function 
+like other monsters, with two differences:
+ K A swarm can div
+
+--- PAGE 179
+
+13
+1 7 7
+Threats in the Zone
+AIR JELLIES
+Air Jellies are strange creatures, translucent fleshy 
+bubbles the size of an open palm. Thin, long feelers 
+hang down from the main body. They are lighter 
+than air and hover, blowing wherever the wind takes 
+them. Anything that the feelers come into contact 
+with is covered by a sticky, acidic liquid – not harm-
+ful to human skin, but corrosive to metal.
+e ffect:  Air Jellies don’t attack mutants themselves, but rather 
+their gear. Roll to attack against using six Base Dice (the 
+Strength score of the swarm). Every / decreases the Gear 
+Bonus of the target item by one step. The attacks continue 
+until the Air Jellies are destroyed or the victims manage to 
+escape.
+Swarm:  Air Jellies can only be hurt by fire or 
+explosions.
+±0 AUTOMATON
+In the dark depths of the enclaves (Chapter 16), the 
+Titan Powers built machines of metal, plastic and 
+circuits, so advanced that they could compete with 
+their own creators in intelligence, adaptability and 
+creativity. Some researchers even experimented in 
+melting together man and machine, in the hope of 
+creating a being more adapted to surviving in the 
+postapocalyptic world.
+Robots and biomechatronic beings, in many 
+shapes and sizes, will be explored in a future ex-
+pansion to Mutant: Year Zero . But already in the 
+base game, PCs can run into a rare automaton that 
+for some reason has found its way to the Zone. For 
+the People, such a being will be seen as a horrible 
+abomination, a walking or hovering metal being 
+with weapons mounted in its very body.
+−2
+A UTOMATON
+
+
+
+--- PAGE 180
+
+13
+1 7 8
+GAmemaster’s Section
+a ttributes:  Strength 8, Agility 6.
+Skills:  Fight 4, Shoot 4.
+a rm
+or:  10
+w ea
+pons:  Chainsaw (weapon damage 2), laser weapon 
+(weapon damage 2, Long range). The weapons are 
+built-in, cannot be used by others and don’t give a Gear 
+Bonus.
+Special:  The Automaton cannot suffer fatigue at 
+all. Its Agility score never decreases.
+BITTERBEAST
+Dangerous creatures that Stalkers call Bitterbeasts 
+often prowl the Zone close to lakes and swamps. 
+These are giant lizards, twice the size of a normal 
+mutant. Bitterbeasts are fairly intelligent and it is 
+even said they can be tamed and used as mounts. 
+That’s not without risk however. The Bitterbeasts 
+are known for their foul temper and the ability that 
+has given them their name – they spit acid with 
+alarming accuracy.
+a ttributes:  Strength 5, Agility 4 (lower in cold weather).
+Skills:  Endure 3, Fight 2, Shoot 3.
+a rm
+or:  2
+w ea
+pons:  Bite (weapon damage 2), acid spit (Short range, 
+weapon damage 1).
+DEATHWORM
+A mutated abomination that hunts by burrowing 
+through the ground and waiting for an unwitting 
+victim to pass by. The Deathworm is twice the 
+length of a mutant and thick as a leg. It’s covered 
+in scales, has innumerable small legs and a big gap-
+ing maw with several rings of small but very sharp 
+teeth. The beast is very tenacious and will keep 
+attacking until its victim or it is dead. It lacks the 
+intelligence to flee.
+a ttributes:  Strength 8, Agility 3.
+Skills:  Fight 3, Sneak 5 (underground), Move 5 
+(underground).
++1
+±0
+a rmor:  —
+w ea
+pons:  Maw (weapon damage 2). On a hit, the Death-
+worm attaches itself to the victim and tries to drag it un-
+derground. The victim must make a Force roll (one action) 
+to break free. In the meantime, the Deathworm can keep 
+attacking the victim with its inner rings of teeth, and gets a +3 
+modification.
+DEVOURER
+A large and savage predator, taller than a mutant 
+when it stands on its hind legs. It has grey fur and 
+looks a little like a bear, but the similarities end 
+there. The Devourer has an insatiable hunger for 
+flesh, can move with extreme silence, and has ab-
+normally huge jaws. It sneaks up on its prey, who 
+often doesn’t 
+
+--- PAGE 181
+
+13
+1 7 9
+Threats in the Zone
+GUTFISH
+The Gutfish is a feared parasite that spreads 
+through drinking water. Even Rot-free water can 
+be infected – the only way to be safe is to boil the 
+water. The Gutfish spawn grow inside the stom-
+ach of the host, feeding off whatever the host eats. 
+When the Gutfish, which looks more like an eel 
+than a fish, is fully grown (approximately six feet 
+long) it bites its way out and slithers away to the 
+nearest lake or creek.
+e ffect:  After the infection, the host gets incredibly hungry and 
+must eat at least two rations of grub per day not to become 
+starving (page 92). After 2D6 days, the Gutfish is fully grown 
+and tries to gnaw its way out. This will automatically break 
+the host (Strength drops to zero) and suffers the Bleeding Gut 
+critical injury (entry 52 on the table on page 91).
+KILLER TREE
+An overgrown area that is unnervingly still and 
+quiet. This is the home of one of the most feared 
+and bizarre beings in the entire Zone – the Killer 
+Tree. Its thick, dark trunk ends in a gaping maw, 
+that is surrounded by slithering tentacles. Among 
+the tree’s thick and gnarled roots lie bones, skulls 
+and rusty gear – remains of the Killer Tree’s many 
+victims.
+The most astonishing parts of this semi-sentient 
+plant are its humanoid seed pods. They can mimic 
+human (or mutant) appearance and even speech, 
+but lack actual intelligence. The seed pods prowl 
+the area, hunting for victims to feed their ever hun-
+gry mother tree.
+a ttributes:  Strength 10, Agility 6.
+Skills:  Fight 3.
+a rm
+or:  6
+w ea
+pons:  Tentacles (Near range, the Base Dice and Skill 
+Dice can be distributed across several victims, weapon dam-
+age 1, upon a hit the victim is snared and must make a Force 
+to get free), maw (weapon damage 3, can only be used on a 
+snared victim).
+Mind Control: The Killer Tree can lure its victims 
+close with powerful telepathic pulses. Anyone 
+within Short range must roll to Move – a failed roll 
+±0
+−1
+means the victim suffers one point of confusion 
+and must move closer to the tree.
+Seed Pods: Victims who manage to withstand the 
+tree’s mind powers are usually attacked by its hu-
+manoid seed pods. In their natural state, the p
+
+--- PAGE 182
+
+13
+1 8 0
+GAmemaster’s Section
+Remains of previous victims litter the ground, but 
+can be hard to spot beneath the greenery. There 
+might even be an artifact here.
+e ffect:  A PC who Scouts the area successfully will notice 
+the bones of previous victims. Anyone who walks into the 
+greenery must make a Move roll or be incapacitated by the 
+powerful spores. Lying on the ground, the victim suffers one 
+point of damage per turn until he is broken or until someone 
+pulls him out (a Force roll). The Nightmare Flowers can only 
+be destroyed by fire. Count the flowers’ combined Strength 
+as 10. When it reaches zero, the flowers are dead and the 
+area can be passed without risk.
+PARASITE FUNGUS
+This deadly fungoid life form infects its victims 
+through mycelium at close contact with an infected 
+body. The Parasite Fungus grows inside the host’s 
+body and brain, with horrible pain as a result. The 
+victim’s behavior is also affected.
+±0
+e ffect:  After the time of infection, the victim suffers one point 
+of damage per day. This damage can be healed by rest and 
+grub, but this will mean the victim needs to eat more to keep 
+from being broken. If broken, the victim suffers a critical 
+injury from non-typical damage (page 92).
+At irregular intervals (whenever you want) the Parasite 
+Fungus affects the victim’s brain in order to make it come 
+close to another host, to keep spreading the infection. The 
+victim needs to make a Wits roll (no skill can be used) to 
+resist the impulse. The only way to be cured is to be broken 
+by damage and then Healed.
+RAZORBACK
+A huge monster of a boar, standing taller than a 
+mutant and angrier than a dozen. Despite its rather 
+small legs, this beast can achieve an astonishing 
+speed, and its rugged tusks can tear a car wreck 
+apart. Anything seems to set the Razorback off on 
+a killing frenzy, and stopping it is nigh impossible. 
+The beast is not a predator and generally does not 
+hunt to feed – instead in feeds on anything from 
+corpses to Zone plants.
+a ttributes:  Strength 10, Agility 6.
+Skills:  Fight 4
+a rm
+or:  8
+w ea
+pons:  Charge (weapon damage 2 – this is a combined 
+move/attack that must start at Short range and ends up at 
+Arm’s Le
+
+--- PAGE 183
+
+13
+1 8 1
+Threats in the Zone
+Rot: Any attack from Rot Ants, whether successful 
+or not, inflicts one point for Rot on the victim.
+Swarm:  The Rot Ants’ swarm is huge. It simply 
+cannot be decimated by any weapons the PCs could 
+conceivably get their hands on. The only way to 
+survive is to run.
+ROTFISH
+In the murky waters of Zone lakes and rivers, the 
+Rotfish lurk. This monster varies greatly in shape, 
+from scaly flatfish to eel-like beasts with sharp fins. 
+The Rotfish can attack swimmers or careless Zone 
+travelers walking close to the waterline, and often 
+pulls its prey down under water to drown it.
+a ttributes:  Strength 7, Agility 5.
+Skills:  Fight 3, Move 4 (underwater).
+a rm
+or:  5
+w ea
+pons:  Bite (weapon damage 2).
+Drowning: In the turn after a successful Fight at-
+tack, the Rotfish can pull its prey down under water 
+to drown it. The victim will suffer one point of dam-
+age per turn (unless Amphibian) and must make a 
+Force roll to break free.
+SCRAP CROWS
+Big, ash-feathered birds that live in flocks in the 
+Zone. They can attack Zone travelers careless 
+enough to walk out in the open, hacking at the 
+eyes with their sharp beaks. These Rot-ridden birds 
+are called Scrap Crows by the People because they 
+are attracted by anything shiny especially valuable 
+scrap from the Old Age.
+a ttributes:  Strength 7, Agility 6
+a rm
+or:  —
+w ea
+pons:  Beak and claws (weapon damage 1).
+Swarm: Can only be harmed by fire or explosions.
+±0
++1
+TRASH HAWK
+Perched on the roofs of tall ruins, the Trash Hawk 
+watches the Zone for prey. Yellow and brown feath-
+ers make it blend in well in the wasteland. This 
+predatory bird has claws long and sharp as knives, 
+and attack by quickly swooping down at its target 
+and simply ripping off a large piece of flesh. If big 
+enough, it even grabs its prey and flies off with it. 
+Stalkers claim to have seen Trash Hawks with a 
+wingspan of 25 feet.
+a ttributes:  Strength 6, Agility 8.
+Skills:  Fight 3, Sneak 4, Move 4, Force 2.
+a rm
+or:  1
+w ea
+pons:  Claws (weapon damage 2).
+Swooping Attack: A Trash Hawk can swoop down 
+from Long distance and Fight its target immedi-
+ately. The bird takes one point of damage itself in 
+the attack.
+Lif
+
+--- PAGE 184
+
+13
+1 8 2
+GAmemaster’s Section
+ZONE DOGS
+Packs of ever hungry mutated mutts are common 
+in the Zone. They are scrawny, wiry and often 
+lack fur.
+a ttributes:  Strength 4, Agility 6.
+Skills:  Fight 2, Move 3.
+a rm
+or:  —
+w ea
+pons:  Bite (weapon damage 2).
+ZONE RATS
+These scrawny but unnervingly large rats live in 
+hordes in the Zone. The Rot just seems to make 
+them bigger and meaner. They are long as a 
+mutant’s arm and will chew into any meat they 
+come across, alive or dead, with their long, yellow  
+teeth.
++1
++1
+a ttributes:  Strength 8, Agility 5.
+a rm
+or:  —
+w ea
+pons:  Teeth (weapon damage 1).
+Swarm:  Can only be damaged by fire or explosions.
+Rot:  Every attack from a Zone Rat, whether success-
+ful or not, inflicts a Rot Point on the target.
+ZONE SPIDER
+In dark tunnels and ruins, mutated spiders grown 
+to absurd sizes dwell. Careless Zone travelers who 
+step right through old decayed tunnel roofs or who 
+explore ancient ruins can end up right in the mid-
+dle of a nest. The Zone Spiders feed on anything 
+from corpses and refuse to living prey that they first 
+paralyze with their poisonous bite.
+±0
+Z ONE  R ATS
+
+
+
+--- PAGE 185
+
+13
+1 8 3
+Threats in the Zone
+a ttributes:  Strength 5.
+Skills:  Fight 2, Move 2.
+a rm
+or:  3
+w ea
+pons:  Bite (weapon damage 1 and poison).
+Poison:  If the spider’s bite inflicts damage, the 
+poison enters the victim’s body and causes one 
+point of fatigue per turn until the victim is broken. 
+A successful Heal roll (modification −2 if attempt-
+ing it on oneself) to suck the poison out will stop 
+the process.
+ZONE WASPS
+The first thing the victims hear is the buzzing 
+sound, unnaturally deep and repulsive. The Zone 
+Wasps are black and yellow like their ancestors in 
+the Old Age, but big as fists and just as hard. Their 
+sting injects a potent hallucinogenic poison that 
+confuses the prey and makes it easier for the in-
+sects to tear it apart. As if that was not bad enough, 
+in combat the Zone Wasps emit pheromones that 
+alert other Zone Wasps nearby, quickly swelling 
+their numbers.
+a ttributes:  Strength 5.
+a rm
+or:  2
+w ea
+pons:  Bite (weapon damage 1).
+Hallucinogenic Poison:  All attacks that give the 
+victim one or more points of damage also inflicts 
+one point of confusion.
+Pheromones:  The Strength of the swarm increases 
+one step every turn until the victims are either dead 
+or have escaped.
+Swarm: The Zone Wasps can only be damaged by 
+fire or explosions.
+ZONE LEECHES
+Fist-sized critters that dwell in thick undergrowth 
+or in dark ruins, sensing the heat of passing prey 
+±0
+±0
+and falling onto it. These slimy beasts have nei-
+ther legs nor eyes, only a maw ringed by small and 
+sharp teeth. If a leech lands on a living being, it 
+immediately bites into the flesh and starts sucking 
+blood out at an alarming rate. A dozen leeches can 
+completely drain a grown mutant.
+a ttributes:  Strength 6.
+a rm
+or:  —
+w ea
+pons:  Bite (weapon damage 1). If the initial attack is 
+successful, the leeches attach to their victim, which will suffer 
+one more point of damage every turn until the leeches are 
+removed. To pull or cut off the leeches from someone requires 
+a successful Fight roll. Doing it on yourself is possible, but 
+gives a −2 modification.
+Swarm: Zone Leeches can only be hurt by fire or 
+explosions.
+Z ONE  L EECHES
+
+
+
+--- PAGE 186
+
+13
+1 8 4
+GAmemaster’s Section
+PHENOMENA
+The very foundations of the world have been shaken 
+by the great Apocalypse. Weapons of mass destruc-
+tion and extreme scientific experimentation have 
+had a profound impact on nature as we know it. 
+Phenomena  is the umbrella term for strange, bizarre 
+and positively lethal non-living threats that Zone 
+travelers can encounter.
+ACID RAIN
+Heavy raindrops start to fall from the Zone sky. But 
+this is no ordinary rain. The strongly acidic drops 
+burn whatever they land on, and the PCs need to seek 
+cover. When the Acid Rain is over (after D6 hours), 
+everything in the area is pockmarked by the acid 
+drops, and puddles of burning acid cover the ground.
+e ffect:  Anyone caught in the Acid Rain suffers an attack with 
+a number of Base Dice determined by the intensity of the rain 
+– 6 is normal, but anything from 4 to 10 is possible. Every / 
+rolled inflicts one point of damage. Armor works normally. 
+The victims suffer one attack like this per turn until they man-
+age to find a shelter that protects them from the rain – this 
+normally requires a Move roll.
+ASH STORM
+A strong gale sweeps across the Zone, whipping up 
+the ashes that lie in droves among the ruins. The 
+ash cloud reduces visibility to a few feet, stings the 
+eyes and makes it hard to breathe. After a few hours, 
+when the air finally clears, everything is covered in 
+a fine layer of ash.
+e ffect:  Zone travelers who want to push on in the Ash Storm 
+need to make an Endure roll. A failed roll means the travelers 
+must stop and find shelter. The storm lasts D6 hours.
+DUST TORNADO
+The wind suddenly picks up and the air is filled 
+by sand and ashes. Around the PCs, black twirl-
+ing funnels of tornados appear. Suddenly, and old 
+house is pulled apart by a black twister, moving 
+right toward the PCs.
++1
++1
+−1
+e ffect:  Anyone in the path of the Dust Tornado needs to make 
+a Move roll to get away in time. Failure results in an attack 
+with 12 Base Dice (weapon damage 1). Cover and armor 
+have their normal effect.
+GHOST LIGHTS
+A pale green shimmering light moves among the 
+ruins or trees in the area. If anyone tries to get close 
+to the light, it moves away, as if aware if
+
+--- PAGE 187
+
+13
+1 8 5
+Threats in the Zone
+Comment: Use this phenomenon only in summer. 
+In the wintertime, use Temperature Drop instead.
+INERTIA FIELD
+Some distance away, the PCs spot a monster or a 
+humanoid who seems completely frozen in the mid-
+dle of a motion. If anyone moves closer, others see 
+how this person seems to move in slow motion. In 
+this area, there is a strange force field that makes 
+time itself slow down. To anyone moving into the 
+field, the outside world seems to move more quickly. 
+The effect increases further into the field. It is pos-
+sible to talk to someone inside of the field, but to 
+him the voices will speak very quickly and be very 
+shrill. His own voice will be slow to persons outside 
+of the field.
+e ffect:  Being at the outer rim of the field is not dangerous, 
+but anyone moving toward its center risks being caught in 
+it forever. Let a PC who moves into the field (or who seems 
+someone else caught in it) roll to Know the Zone. If successful, 
+the PC realizes the risk.
+MAGNETIC FIELD
+The remains of some sort of ancient underground 
+power plant creates a strong magnetic field in this 
+area. The PCs hear a low humming sound and get 
+goosebumps on their skin. If they linger in the area, 
+they will feel metal objects being pulled toward a 
+particular point.
+e ffect:  The PCs must either drop all metal objects that they 
+are carrying, or make a Force roll to get out of the Mag-
+netic Field with their metal gear. Anyone wearing scrap 
+armor must make a Force roll, it’s not possible to get out 
+of the armor fast enough. Anyone who fails the roll can 
+try again in the next turn, but with a −1 modification. The 
+modification grows to −2 in the third turn, etc. Suddenly 
+and inexplicably (whenever you decide), the Magnetic Field 
+dissipates.
+MIRAGE
+The terrain close to the PCs suddenly blurs and 
+deforms. It changes appearance completely and 
+−1
+−1
+−1
+
+
+
+--- PAGE 188
+
+13
+1 8 6
+GAmemaster’s Section
+now looks like it did in the Old Age – no decay, 
+no debris, everything clean and orderly. The PCs 
+have walked into a hologram, the remains of ancient 
+defensive perimeter.
+e ffect:  The PCs risk bumping into things that they cannot see, 
+and therefore must act as if in total darkness (page 93). The 
+hologram is approximately 50 feet across.
+MUD PUDDLES
+This foggy area is covered by large puddles of 
+thick, warm mud. There is solid ground under-
+neath the mud, but it will reach to the knees of 
+anyone who walks through the puddles. In addi-
+tion, there are hidden wells of steaming hot water 
+in some places. Walking through the area risks 
+triggering geysers of hot water, scalding everyone 
+nearby.
+e ffect:  A PC who successfully Scouts the area will notice 
+bubbles and steam coming out of the mud at certain loca-
+tions. Wading through the area requires a Know the Zone 
+roll – failure means triggering a steam geyser. Roll six Base 
+Dice to attack everyone within Near distance. Every / rolled 
+inflicts one point of damage. Armor has the normal effect. 
+Anyone who suffers one or more points of damage also gets 
+one Rot Point. Staying in this area has one useful effect – the 
+hot steam keeps the area warm, and thus protects against 
+severe cold (page 93).
+NIGHT LIGHTS
+Huge, billowing lights in sickly colors fill the night 
+sky. Artifacts and other gear that run on electricity 
+start to work erratically, or not at all. Some see a 
+bad omen in these lights, others the sign of a new 
+dawn for the world. Some just find the lights pretty. 
+The lights last until morning.
+e ffect:  All electric artifacts (such as the Flashlight, Cassette 
+Player, and Video Camera) won’t work properly as long as 
+the Night Lights linger.
+Comment: If you roll up this phenomenon in the 
+daytime, have the Night Lights appear the follow-
+ing evening.
+±0
+−1
+OBELISK
+In the middle of wasteland, the tall black Obelisk 
+stands. It seems to be made of some kind of very 
+durable metal. The PCs cannot find any visible 
+hatches or slits in the metal, and the Obelisk seems 
+to be completely untouched by the passage of time. 
+The Obelisk seems alien to the PCs, and it can e
+
+--- PAGE 189
+
+13
+1 8 7
+Threats in the Zone
+e ffect:  Give the players a chance to notice that something 
+is amiss, such as a number of cadavers on the ground or a 
+pipe leaking green sludge. Anyone who proceeds despite the 
+warning signs suffers one Rot Point per minute in the area.
+ROT WIND
+A wind carrying foul Rot-ridden fumes sweep across 
+the sector. The air is filled by dust and a sickening 
+stench.
+e ffect:  The Rot Wind immediately inflicts one Rot Points on 
+every person caught in it. In addition, any water or grub car-
+ried by the PCs will be contaminated by Rot, inflicting one Rot 
+Point per ration consumed. The Rot Wind lasts D6 hours.
+SINKHOLE
+The ground suddenly gives in, and a huge hole into 
+the ground or into some ancient underground facil-
+ity opens up.
+e ffect:  Anyone close to the collapse must make a Move roll to 
+avoid falling into the Sinkhole. Doing so inflicts one point of 
+damage in itself – and can expose the victim to any number 
+of underground threats, such as monsters or Rot. Climbing up 
+can also be difficult, usually requiring a Move roll.
+TEMPERATURE DROP
+Suddenly, the wind picks up, the temperature drops 
+and a heavy snowfall starts. Then, the wind and 
+the snowing stops. A wall of white clouds forms 
+a tall cylinder right above the PCs. A crystal blue 
+sky can be seen above. The serenity comes with a 
+cost – the temperature drops dramatically. Exposure 
+can be lethal.
+e ffect:  Any Zone travelers caught out in the open must imme-
+diately roll to Endure severe cold (page 93). One roll every 
+15 minutes is required, until the cold spot passes (after D6 
+hours) or the PCs move out of the sector. Lighting a fire can 
+keep the cold at bay, but it requires firewood and an Agility 
+roll (no skill used).
+Comment:  Use this phenomenon only in winter. In 
+the summertime, use Heat Wave instead.
+±0
+±0
+±0
+UNEXPLODED ORDNANCE
+This entire area is scarred by gunshots and explo-
+sions. In the ground, mines and/ or unexploded gre-
+nades and bombs are hidden. Walking through this 
+area is very dangerous.
+e ffect:  Anyone who walks through the area must make a 
+Move roll. Failure means triggering a Blast Power 6 explo-
+sion at Arm’s Length (page 94).
+VACUUM
+The
+
+--- PAGE 190
+
+
+
+
+
+--- PAGE 191
+
+14
+1 8 9
+ARTIFACTS
+14
+ARTIFACTS
+Artifacts are the most valuable things the PCs can 
+find. These rare functional items from the Old Age 
+can give them power over other mutants, bring 
+knowledge to the People, and even show the way 
+to Eden.
+The text on all of the Artifact Cards in the Mu-
+tant: Year Zero Card Deck  is repeated here, and 
+some of the more intricate artifacts are described 
+in more detail.
+How PCs can find and understand how to use 
+artifacts is explained in Chapter 8.
+HANDLING ARTIFACTS
+You as GM decide when and where a PC may find 
+an artifact. When the PCs explore a new sector in 
+the Zone a Stalker can use the Find the Path skill to 
+find artifacts, but remember that you are not bound 
+by this roll. You can also let the PCs find artifacts in 
+other places, like in a settlement or carried by an NPC.
+Use artifacts as a reward for exploration, but 
+also to create drama and tension within and around 
+the group of PCs. Artifacts are powerful and valu-
+able things – whoever finds an artifact will gain 
+influence over others, but also risks becoming a 
+target for NPCs or other PCs.
+THE ARTIFACT CARDS
+Normally, you let the player who finds an artifact 
+draw an Artifact Card or roll on the artifact table 
+below. If you want to root the artifact more firmly 
+in the environment, you can draw the card without 
+showing it and describe the surroundings, before 
+handing the card over. A third option is that you 
+simply choose which artifact a PC finds.
+The title on the Artifact Card (or the entry on 
+the table) tells you what the artifact is, while the rest 
+of the text describes the item without mentioning 
+its name. When a PC gets an Artifact Card, have the 
+player first read the description without revealing 
+the headline. It’s fun for the other players to guess 
+what the artifact is before it is revealed. That the 
+players realize what an artifact is doesn’t mean that 
+the PCs do.
+THE ARTIFACT TABLE
+If you don’t have access to the Mutant: Year 
+Zero Card Deck , you can roll D666 on this 
+table instead of drawing a card to randomly 
+determine what artifact a PC finds.
+D666 a rt ifact
+111–114 Air Mattress
+115–122 Antidepressants
+123–126 Assault Rifle
+131–1
+
+--- PAGE 192
+
+14
+1 9 0
+GAmemaster’s Section
+D666 a rt ifact
+135–142 Battery
+143–146 Bicycle
+151–154 Binoculars
+155–162 Bow & Arrow
+163–166 Canoe
+211–214 Cassette Player (Metaplot)
+215–222 Chainsaw
+223–226 Comic Book
+231–234 Compass
+235–242 Crossbow
+243–246 Diary
+251–254 Diving Gear
+255–262 Dress
+263–266 Energy Pills
+311–314 Flashlight
+315–322 Flare Gun
+323–326 Gas Mask
+331–334 Generator
+335–342 Guitar
+343–346 Hand Grenade
+351–354 Hockey Helmet
+355–362 Hunting Rifle
+363–366 ID Card (Metaplot)
+411–414 Jerrycan
+415–422 Katana
+423–426 Kevlar Vest
+431–434 Lifestyle Magazine
+435–442 Map of the Zone
+443–446 Motor Boat
+451–454 Painkillers
+455–462 Painting
+463–466 Perfume Bottle
+511–514 Protective Suit
+515–522 REGEN
+523–526 Revolver
+531–534 Scooter
+535–542 Semi-Automatic Pistol
+543–546 Shotgun
+551–554 Smoke Grenade
+D666 a rt ifact
+555–562 Soda Can
+563–566 Stimulants
+611–614 Sunglasses
+615–622 Tuxedo
+623–626 Umbrella
+631–634 Video Camera (Metaplot)
+635–642 Wrench
+643–666 Re-Roll
+THE DAWN VAULT
+Any mutant who finds an artifact is supposed to 
+hand it over to the Dawn Vault, for the good of the 
+People (page 113). These days, far from all mutants 
+follow that rule, but the general principle is still 
+there and helps the development of the Ark – each 
+artifact handed in gives a bonus to the Ark’s DEV 
+level. Use this to place PCs in moral dilemmas – 
+should they help themselves or act for the common 
+good?
+KK AIR MATTRESS
+This inflatable old bed offers unbeatable sleeping 
+comfort! It’s dirty and worn, and hard to inflate if 
+you don’t know how to do it.
+Effect: Sleeping on the air mattress is very effec-
+tive. A single hour is enough to recover all of 
+your lost Wits (page 90).
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+KK ANTIDEPRESSANTS
+When life in the Zone feels dark and hopeless, these 
+little pills in a plastic bottle can give you chemical 
+relief.
+Effect: When eating these pills, you immediately 
+heal all doubt that you have suffered. Unfor-
+tunately, there are only enough pills left for 
+D6 doses. When you have consumed them all, 
+you must discard this artifact. Tiny item.
+DEV Requirement: Technology 20  
+DEV 
+Bonus: —
+
+
+
+--- PAGE 193
+
+14
+1 9 1
+ARTIFACTS
+KK ASSAULT RIFLE
+A rusty but awe-inspiring weapon, capable of un-
+leashing a hail of bullets at your enemies. Bullets 
+are usually far too valuable to waste in this way, 
+but the weapon itself will give you respect among 
+the People.
+Effect: Gear Bonus +3 to Shoot. Weapon dam-
+age 2, Long range. Has a clip, which means 
+that you don’t need to reload after every shot. 
+Capable of full automatic fire (page 86).
+DEV Requirement: Technology 20 
+DEV Bonus: Technology +D6, Warfare +D6
+KK AUTOMOBILE
+This motor-driven carriage is s rust-ridden wreck, 
+but it can be repaired. With a successful Jury-Rig 
+roll, a Gearhead can get it running again. The en-
+gine can run on gasoline or on booze (one dose per 
+Zone sector traveled).
+Effect: The car can carry five mutants, increases 
+the movement rate in combat and cuts the 
+time it takes to explore a sector in the Zone 
+by half. It can also be used to escape from 
+threats or to ram enemies. How vehicles work 
+is fully explained on page 94. Gear Bonus: +3. 
+Armor Rating: 3. Resilience: 1.
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6
+KK BATTERY
+A heavy lump of metal that the Old Ones used to 
+connect to machines to make them work. There still 
+seems to be some power in it…
+Effect: Used to power other artifacts that require 
+electrical power. Can be recharged with a 
+Generator (the artifact or the project).
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+KK BICYCLE
+This rust-infested old vehicle from the Old Age is 
+simple yet ingenious in its design. It has two thin 
+wheels, a handlebar and pedals. The rubber tires 
+are thick and rugged – perfect for navigating the 
+Zone terrain.
+Effect: The bicycle can carry one mutant, in-
+creases the movement rate in combat and 
+cuts the time it takes to explore a sector in 
+the Zone by half. It can also be used to es-
+cape from threats. How vehicles work is fully 
+explained on page 94. Gear Bonus: +2. Resil-
+ience: 1.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK BINOCULARS
+A strange metal object made of two connected tubes 
+with pieces of glass inside each. If you look through 
+the tubes, everything around you looks much big-
+ger. Us
+
+--- PAGE 194
+
+14
+1 9 2
+GAmemaster’s Section
+Effect: Gear Bonus +3 to the Scout and Find the 
+Path skills. Light item.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK BOW & ARROW
+The People can create bows, but not like this one. 
+It is constructed in some type of ancient material, 
+and packs a massive punch.
+Effect: Gear Bonus +2 to the Shoot skill. Weapon 
+damage 1, Long range. Needs arrows.
+DEV Requirement: —
+DEV Bonus: Technology +1, Warfare +1
+KK CANOE
+A strange, oblong vehicle made of dented metal. It 
+has two seats and two plastic paddles tucked away 
+underneath.
+Effect: The canoe can carry up to four mutants 
+over water and can be used to explore coastal 
+sectors of the Zone. It can be used to escape 
+from threats on water, and gives a +2 Gear 
+Bonus to the Move skill in such situations. 
+Resilience: 1.
+DEV Requirement: —
+ 
+ 
+DEV 
+Bonus: Technology +1
+KK CASSETTE PLAYER (METAPLOT)
+A cracked and yellowed plastic contraption with 
+buttons and knobs and a lid along one side. Inside, 
+there is a piece of plastic with two holes in it. On 
+top of the device a thin metal rod is mounted.
+Effect: Requires a Battery or Generator (the arti-
+fact or the project) to work. Can play music 
+from the Old Age and receive radio signals, if 
+anyone is still transmitting…
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6, Culture +D6
+Comment: This artifact can help the PCs find 
+Eden. Read more in Chapter 16.
+KK CHAINSAW
+This rattling monster of a contraption can be 
+wielded as a melee weapon to horrible effect. But 
+starting the engine takes a full turn and requires a 
+dose of gasoline or booze.
+Effect: Wielded as a weapon, the chainsaw gives 
+you a +2 Gear Bonus and has weapon damage 
+3. Heavy item.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK COMIC BOOK
+A booklet made of brittle old paper from the Old 
+Age. You can hardly turn the yellowed pages with-
+out tearing them apart. They show images of mus-
+cular men and women in tights, fighting each other. 
+The fashion sense during the Old Age was clearly 
+very odd.
+Effect: None. Tiny item.
+DEV Requirement: —
+DEV Bonus: Culture +D6
+KK COMPASS
+A piece of plastic with a dial on it. A needle spins 
+and points i
+
+--- PAGE 195
+
+14
+1 9 3
+ARTIFACTS
+Effect: The compass gives you Gear Bonus +2 to 
+the Find the Path skill.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK CROSSBOW
+A silent and deadly ancient weapon, made of a 
+light-weight metal. Easier to aim and fire than a 
+normal bow.
+Effect: Gear Bonus +3 to the Shoot skill. Weapon 
+damage 1, Long range. Uses arrows, not 
+bullets.
+DEV Requirement: Technology 5
+DEV Bonus: Technology +1, Warfare +1
+KK DIARY
+A worn notebook with hand-written text on the 
+waterlogged pages. If you can read the Old Ones’ 
+script, you can make out what it says.
+Effect: This artifact connects to the game’s meta-
+plot. Read more about it in Chapter 16.
+DEV Requirement: Culture 20  
+DEV 
+Bonus: Culture +D6
+KK DIVING GEAR
+A full-body suit in a rubbery material from the Old 
+Age. The strange suit comes with shoes like the 
+feet of a frog, a plastic facemask and a rusted metal 
+cylinder with tubes and gauges.
+Effect: Heavy item. It gives you Gear Bonus +3 
+to using the Move skill underwater. It also 
+HOW MANY ARTIFACTS?
+Don’t let the PCs find too many artifacts 
+too soon. Artifacts should be rare and val-
+uable. As a general rule, don’t let the PCs 
+find more than one or two artifacts per 
+session, in total. You can let some NPCs 
+have artifacts, but that should also be a 
+rare occurrence – NPCs’ artifacts have a 
+tendency to end up in the hands of the 
+PCs. And if the PCs still would come a 
+across a large amount of artifacts – re-
+member that others will try to get their 
+hands on them…
+protects you against gases and gives you 
+Protection Rating 3 against the Rot.
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6
+KK DRESS
+A large and wide piece of clothing in thin, ancient 
+cloth that still glitters despite decades of dirt and 
+dust. The cloth hardly covers your upper body at 
+all, but hangs around your legs and makes it hard 
+to walk. Very impractical – but pretty.
+Effect: Gear Bonus +2 to Manipulate. Does not 
+count as an item when you wear it.
+DEV Requirement: Culture 10
+DEV Bonus: Culture +D6
+KK ENERGY PILLS
+The pills in this bottle will quickly give you your 
+energy back when you’re exhausted.
+Effect: When eating these pills, you immediate
+
+--- PAGE 196
+
+14
+1 9 4
+GAmemaster’s Section
+KK GAS MASK
+This crusty old black rubber mask covers your en-
+tire face and has a big filter in front of your mouth. 
+The mask is worn and scratched, but still works.
+Effect: Light item. Protects you against gases and 
+gives you Protection rating 3 against the Rot.
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+KK GENERATOR
+A heavy, rusty old machine that seems completely 
+worthless at first glance. But a Gearhead knows that 
+this contraption is worth its weight in gold. If you 
+fill it up with fuel it can generate electrical power.
+Effect: Heavy item. Requires one dose of booze 
+per day. Can power other artifacts or projects.
+DEV Requirement: Technology 20
+DEV Bonus: Technology +D6
+KK GUITAR
+A strange and brittle wooden contraption with 
+strings stretched across a hole in the middle. 
+Against all odds it has survived the Apocalypse 
+with hardly a scratch, and if you pull on the strings, 
+beautiful sounds are heard.
+Effect: If you learn to play the guitar, you’ll be 
+popular around the campfire. Provides +3 
+Gear Bonus to Manipulate, but only in situa-
+tions where you get a chance to play.
+DEV Requirement: Culture 20  
+DEV 
+Bonus: Culture +D6
+KK HAND GRENADE
+A rusty metal lump that explodes with a deafening 
+bang if you pull the pin out. Handle with caution!
+Effect: Light item. You throw the grenade using 
+the Shoot skill. It has no Gear Bonus and the 
+range is Short. If the attack succeeds, the gre-
+nade lands within Near range of the target, if 
+not it lands within Short range. The explosion 
+has Blast Power 9 and weapon damage 2.
+DEV Requirement: Technology 20 
+DEV Bonus: Technology +D6, Warfare +D6
+KK HOCKEY HELMET
+An ancient piece of headgear made of blue plastic. 
+It’s a little cracked and worn, but still provides solid 
+protection for your head.
+Effect: Protection Rating 3 against damage.
+DEV Requirement: —
+ 
+DEV 
+Bonus: Technology +1
+KK HUNTING RIFLE
+This long firearm is worn and scratched, but its 
+great firepower and range will make sure you are 
+feared in the Zone.
+Effect: Gear Bonus +2 to Shoot. Weapon damage 
+2, Long range. Has a clip, which means that 
+you don’t need to reload after every shot.
+DEV Requir
+
+--- PAGE 197
+
+14
+1 9 5
+ARTIFACTS
+Comment: This artifact can help the PCs into 
+Eden. Read more in Chapter 16.
+KK JERRYCAN
+A rusted but intact metal jerrycan filled with fuel, 
+which stinks and is very flammable. The fuel can 
+power up ancient vehicles again – or be used as a 
+firebomb.
+Effect: The fuel can be used to fill up the tanks 
+of old vehicles (page 94). If used as a weapon, 
+you light a fuse stuffed into the nozzle and 
+then throw the can with the Force skill. No 
+Gear Bonus, Short range. If the attack suc-
+ceeds, the can lands within Near range of 
+the target, if not it lands at Short range. The 
+explosion has Blast Power 6.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +1
+KK KATANA
+In a crumbling sheath lies a long, thin sword. It 
+feels good in your hand and the blade is still sharp 
+– very sharp.
+Effect: Gear Bonus +3 to the Fight skill. Weapon 
+damage 2.
+DEV Requirement: —
+DEV Bonus: Culture +D6
+KK KEVLAR VEST
+This heavy vest already has some holes in it, but 
+still gives you great protection from bullets and 
+others attacks.
+Effect: Armor Rating 6 against damage from 
+external attacks.
+DEV Requirement: Technology 10  
+DEV 
+Bonus: Technology +D6
+
+
+
+--- PAGE 198
+
+14
+1 9 6
+GAmemaster’s Section
+KK LIFESTYLE MAGAZINE
+A thick bundle of waterlogged paper that once was 
+glossy. On the front cover and everywhere inside 
+the magazine, there are pictures of the Old Ones. 
+They all smile and look healthy and happy. Their 
+homes are bright and beautiful, their motor car-
+riages shine in the sunlight. Between the pictures, 
+texts describe what life was like in the Old Age. It 
+must have been heaven.
+Effect: None. Tiny item.
+DEV Requirement: —  
+DEV 
+Bonus: Culture +D6
+KK MAP OF THE ZONE
+This brittle and torn map shows what the Zone 
+looked like in the Old Age. It is very valuable to a 
+Stalker to navigate among the ruins, but can also 
+bring valuable knowledge to the People.
+Effect: Gear Bonus +3 to Find the Path. Tiny item.
+DEV Requirement: Culture 10
+ 
+DEV 
+Bonus: Culture +D6
+KK MOTOR BOAT
+A dinghy in cracked and dirty plastic. It still seems 
+to float. It has an outboard motor, but to make it 
+run again a Gearhead needs to make a Jury-Rig 
+roll. The motor can run on gasoline or booze (one 
+dose per sector traveled in the Zone).
+Effect: The boat can carry up to seven mutants, 
+increases the movement speed in combat 
+and cuts the time it takes to explore a coastal 
+Zone sector by half. It can also be used to 
+escape from threats or to ram enemies at sea. 
+How vehicles work is fully explained on page 
+94. Gear Bonus: +3. Resilience: 2.
+DEV Requirement: Technology 20  
+DEV 
+Bonus: Technology +D6
+KK PAINKILLERS
+These little pills quickly numb the pain from your 
+wounds and bruises.
+Effect: On eating these pills, you immediately 
+heal all damage points that you have suffered. 
+They have no effect against critical injuries. 
+There are only enough pills left for D6 doses. 
+When you have consumed them all, you must 
+discard this artifact. Tiny item.
+DEV Requirement: Technology 20 
+ 
+DEV 
+Bonus: —
+KK PAINTING
+A large piece of art in a wooden frame. The image 
+shows a skinny man on a bridge, holding his hands 
+to his face and screaming. The Old Ones were truly 
+a strange lot. This artifact is of no obvious use, but 
+you can always use it to adorn the walls in your 
+den – or hand it in to the Dawn Vault.
+Effect: None.
+DEV Requirement: —
+DEV
+
+--- PAGE 199
+
+14
+1 9 7
+ARTIFACTS
+KK REVOLVER
+A gun made of heavy steel, resting comfortably in 
+your hand. The weapon is a little rusty, but still in 
+surprisingly good condition. It’s easy to use too.
+Effect: Gear Bonus +3 to the Shoot skill. Weapon 
+damage 2, Short range. Has a drum that can 
+be loaded with several bullets, so you don’t 
+need to reload after every bullet fired.
+DEV Requirement: Technology 10 
+DEV Bonus: Technology +D6, Warfare +1
+KK SCOOTER
+Two wheels, an engine and a rusted handle – the 
+perfect Zone vehicle. To make the scooter opera-
+tional a Gearhead must first make a roll for the 
+Jury-Rig skill. The engine can run on gasoline or 
+on booze (one dose per two Zone sectors traveled).
+Effect: The scooter can carry two mutants, in-
+creases the movement speed in combat and 
+cuts the time it takes to explore a sector in 
+the Zone by half. It can also be used to es-
+cape from threats or to ram enemies. How 
+vehicles work is fully explained on page 94. 
+Gear Bonus: +2. Resilience: 1.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK SEMI-AUTOMATIC PISTOL
+A light-weight and easily concealable handgun, 
+small enough to hide in your sleeve. Very handy 
+in a tight spot.
+Effect: Light item. Gear Bonus +2 to the Shoot 
+skill. Weapon damage 2, Short range. Has a 
+clip, meaning you don’t need to reload after 
+every shot.
+DEV Requirement: Technology 10 
+DEV Bonus: Technology +D6, Warfare +1
+KK SHOTGUN
+A sawed-off firearm with two heavy barrels. At close 
+range it is a fearsome weapon that inspires awe in 
+every mutant in the Ark.
+Effect: Light item. Gear Bonus +3 to the Shoot 
+skill. Weapon damage 3, Short range. Can be 
+fired twice before it needs to be reloaded.
+DEV Requirement: Technology 10 
+DEV Bonus: Technology +D6, Warfare +1
+KK SMOKE GRENADE
+With a hissing noise, this old metal tube spews 
+out black smoke that blocks vision. You can use 
+this effect to escape from a fight that is going 
+against you.
+Effect: You can use the smoke grenade to escape 
+from conflict (page 81) instead of using the 
+Move skill. You can even roll first and use the 
+grenade if the roll fails.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +1, Warfare +1
+KK SODA CAN
+A red
+
+--- PAGE 200
+
+14
+1 9 8
+GAmemaster’s Section
+KK STIMULANTS
+These tiny white pills look unimposing, but if you 
+eat them they will immediately sharpen your senses 
+and make you very alert. You might not sleep for 
+a few days though.
+Effect: When eating these pills, you immediately 
+heal all confusion points that you have suf-
+fered. There are only enough pills left for D6 
+doses. When you have consumed them all, 
+you must discard this artifact. Tiny item.
+DEV Requirement: Technology 20
+DEV Bonus: —
+KK SUNGLASSES
+A pair of glasses with darkened lenses. The glass is 
+scratched but intact and covers your eyes – a useful 
+edge in tough negotiations.
+Effect: Gear Bonus to the Manipulate and Intimi-
+date skills. Tiny item.
+DEV Requirement: —
+DEV Bonus: Culture + 1
+KK TUXEDO
+A set of clothes with a black jacket, pants and a shirt. 
+On the front of the shirt, a wrinkled strip of cloth 
+hangs. These ancient clothes will impress everyone 
+around you.
+Effect: Gear Bonus +2 to Manipulate. Does not 
+count as an item when you wear it.
+DEV Requirement: Culture 10
+DEV Bonus: Culture +D6
+KK UMBRELLA
+With a simple motion you can unfold this contrap-
+tion to create a protective dome of cloth and metal 
+– useful against the Rot and the acid rain in the Zone.
+Effect: Protection Rating 3 against the Rot (page 
+126).
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+KK VIDEO CAMERA (METAPLOT)
+A fist-sized device with a tube at one end. Along the 
+side, there are several buttons and a small screen 
+that can be folded out. This contraption needs a 
+Generator or a Battery to work (artifact or project).
+Effect: This device can record moving images 
+and sound. Perhaps something is already 
+recorded on it?
+DEV Requirement: Technology 30  
+DEV 
+Bonus: Technology +D6
+Comment: This artifact can help the PCs find the 
+way to Eden. Read more in Chapter 16.
+KK WRENCH
+A heavy metal tool from the Old Age, rusted but 
+worth its weight in gold for Gearheads. Useful for 
+bludgeoning other mutants too.
+
+
+
+--- PAGE 201
+
+14
+1 9 9
+ARTIFACTS
+w ea P on b on u S Da M ag e r an ge c o MM en t
+Assault Rifle +3 2 Long Clip, Full-Auto.
+Chainsaw +2 3 Arm’s Length Heavy item.
+Compound Bow +2 1 Long
+Crossbow +3 1 Long
+Flare Gun +2 2 Short
+Hunting Rifle +2 2 Long Clip.
+Katana +3 2 Arm’s Length
+Revolver +3 2 Short Clip.
+Semi-Auto Pistol +2 2 Short Clip, light item.
+Shotgun +2 3 Short Two barrels.
+v ehicle b on u S a r M or r e S il ience o cc u P an t S
+Bicycle  +2 * —  1  1
+Sc
+ooter +2 —  1  2
+Mo
+torcycle +3 —  1  2
+Bu
+ggy +2 2  2  3
+Au
+tomobile +3 3  2  5
+Bu
+s +2 3  5 40
+T
+ruck +2 6  5  4
+St
+eam Car (page 111) +1 3  3 10
+C
+anoe  +2
+* —  1  4
+Mo
+torboat +3 1  2  7
+Sc
+rap Ship (page 109)  +1
+* 6 20 50
+Steam Train (page 112)  +1
+* 3 15 50
+Effect: Gear Bonus +3 to the Jury-Rig skill and +2 
+to the Fight skill. Weapon damage 1.
+DEV Requirement: Technology 10
+DEV Bonus: Technology +D6
+OTHER ARTIFACTS
+There are 50 artifacts in this book. Considering that 
+the PCs shouldn’t find more than one or two arti-
+facts per session, these 50 should suffice for quite a 
+number of sessions. More artifacts will be published 
+in future expansions, and you are of course free to 
+make up more yourself – just be careful not to make 
+them too powerful.
+WEAPONS & VEHICLES
+Weapons and vehicles are two types of artifacts that 
+are especially sought after in the dawnworld. Some 
+are included in the Artifact Cards. These and others 
+can be found in the tables below.
+Bonus:  The number of Gear Dice that a weapon 
+gives to the Shoot or Fight skill, and a vehicle gives 
+to the Move or the Fight skill (when ramming an 
+enemy, see page 95). Some vehicles cannot be used 
+to ram – these are marked with an asterisk (*).
+Resilience: The number of points of damage that 
+needs to be inflicted on a vehicle before its Gear 
+Bonus is reduced one step.
+Armor:  The Armor Rating that the vehicle provides 
+to all passengers in the vehicle.
+Occupants:  The number of people who can fit into 
+or onto the vehicle, including the driver.
+
+
+
+--- PAGE 202
+
+
+
+
+
+--- PAGE 203
+
+15
+2 0 1
+Special Zone Sectors
+15
+Special 
+Zone Sectors
+This chapter describes five Special Zone Sectors 
+that you can place anywhere in the Zone. They 
+are complete scenario locations and contain 
+NPCs, conflicts and the events that PCs can get 
+involved in.
+Each Special Zone Sector stands on its own, 
+but you can link them together to create longer 
+scenarios if you like. Several of them are also con-
+nected to Threat Cards (Chapter 10), and some of 
+them have suggestions about where clues to Eden 
+can be placed for the PCs to find. Each Special 
+Zone Sector has a map overview, shown in two 
+versions:
+ K The GM map has small inset pictures show-
+ing the important locations in the sector.
+ K The player map lacks these inset pictures, 
+and can therefore be shown to the players 
+openly when the PCs arrive to the sector. The 
+player maps sit at the end of the chapter, and 
+can also be downloaded from the Modiphius 
+website.
+FOR A MOUTHFUL OF WATER
+The lack of grub and Rot-free water is an ever 
+present threat in Mutant: Year Zero . This Special 
+Zone Sector is focused on the second of these two 
+vital resources. Somewhere out in the Zone there 
+is a rich source of clean water, worth more than its 
+weight in gold to the People – and to other groups 
+in the Zone.
+This sector can be used early in your campaign, 
+as it introduces several central elements of the 
+game: the shortage of resources, the Zone-Ghouls 
+and the search for Eden. This Special Zone Sector 
+can even be used as the starting point for the entire 
+game (see the boxed text).
+INTRODUCTORY SCENARIO
+For a Mouthful of Water works well as an 
+introduction to Mutant: Year Zero . The game 
+then doesn’t start in the Ark, but rather with 
+the PCs already on a Zone expedition. Pick 
+
+
+
+--- PAGE 204
+
+15
+2 0 2
+GAmemaster's Section
+a sector on the Zone map 5–6 squares away 
+from the Ark – that’s where the PCs are when 
+the game starts. Add one or two NPCs to the 
+expedition too. If none of the PCs are a Dog 
+Handler and none have the Tracker mutation, 
+an NPC should have that role or mutation. To 
+kick the game off, read or paraphrase this 
+text to your players:
+“The most precious resource of all in the Ark 
+is something that we take for granted – clean 
+water. Some time ago, the Ark’s water supply 
+started to dry up. The People were getting 
+scared and edgy. Two weeks ago, the Boss 
+NN [insert the name of a Boss that the players 
+have established during the character gen-
+eration] decided to send an expedition into 
+the Zone. The mission was meant to explore 
+an ancient ruin that the Stalkers claim has an 
+endless supply of clean water. They called it 
+the Pure Plant. The problem was that the area 
+was crawling with Zone-Ghouls. Several days 
+passed, but the expedition did not return as 
+planned. Two days ago, NN sent out another 
+group of volunteers to search for the first expe-
+dition. You are these volunteers. For the past 
+two days, you have trekked through the Zone. 
+You have survived acid rain, been attacked 
+by Zone Rats and hidden from Zone-Ghouls. 
+Now, on the morning of the third day, you are 
+approaching the Pure Plant…”
+OVERVIEW
+In the distance, huge tanks and thick rusty pipes 
+rise from the wasteland. In the middle is a tall, con-
+crete tower, still standing after decades of decay. 
+When the PCs come closer, they realize the Pure 
+Plant is located on a small island in a mist-covered 
+lake (or bay, depending on where in the Zone you 
+have placed the sector). The island is about 100 
+yards from the shoreline. Apart from the tanks, 
+pipes and pools, several low ruined buildings can be 
+seen on the island, which is overgrown with weeds.
+In the Old Age, this installation was a water pu-
+rification plant. The entire island is penetrated by 
+tunnels and underground reservoirs with water of dif-
+ferent Rot levels. Thanks to maintenance work done 
+by the Zone-Ghouls (below) the plant actually still 
+works, and still pumps out clean water into the lake.
+
+
+--- PAGE 205
+
+15
+2 0 3
+Special Zone Sectors
+Tunnels:  Service tunnels penetrate the entire island. 
+Having lived here for years, the Zone-Ghouls know 
+these passages very well. There is a tunnel leading 
+from the control room building to the reservoirs, 
+but the water expedition members have not dared 
+go down there. In this tunnel, there is a solid metal 
+door that can be closed and locked with a success-
+ful Force roll.
+THE SITUATION
+When the Apocalypse came, the purification plant 
+stayed operational, thanks to an internal emergency 
+power plant and a group of workers who chose to 
+stay. Thanks to the clean water they survived, but 
+they could not completely escape the Rot. During 
+the generations that followed, they turned into what 
+the People now call Zone-Ghouls. They are very ter-
+ritorial and their leader Lutrell views any visitors 
+to the island as threats.
+The first water expedition from the Ark got into 
+trouble the instant they set foot on the island. Their 
+leader, the Stalker Vorhan, was attacked by the 
+Trash Hawk and carried off to the nest at the top of 
+the smokestack. The noise alerted the Zone-Ghouls, 
+who attacked the intruders. After a brief but bloody 
+battle the visitors sought refuge in the control room, 
+where they have now barricaded themselves and 
+don’t dare go out. The Zone-Ghouls are planning 
+a final attack.
+INHABITANTS
+Today approximately 50 Zone-Ghouls live on the 
+island, half adults and half children. Most of them 
+have typical stats (page 176), only their leader 
+Lutrell is described in more detail below. The water 
+FAMILIAR NPCs?
+If you like, you can replace the three 
+NPCs from the first water expedition with 
+NPCs that the PCs have relationships to. 
+This will make the interaction more inter-
+esting. If this is the first time these NPCs 
+appear in the game, you can just change 
+their names and use the stats as written.
+expedition from the Ark has been decimated since 
+it arrived to the island – the leader Vorhan was taken 
+by the Trash Hawk, and two others were killed by 
+the Zone-Ghouls. The three that remain – Nelma, 
+Grit and Lambda – are scared and very hostile to 
+the Zone-Ghouls.
+Nelma: After Vorhan’s death, the Enforcer Nelma 
+
+
+--- PAGE 206
+
+15
+T HE  R ESERVOIRS
+2 0 4
+GAmemaster's Section
+The Pure Plant
+Lutrell  is the leader of the Zone-Ghouls on the 
+island, who call themselves the “Pure Ones”. 
+Lutrell is a man who lives and dies by upholding 
+the ancient traditions: the daily water measure-
+ments with litmus paper, the bathing in Tank 3A 
+every evening, the cleaning of the water filters. 
+Traditions have kept the Pure Ones alive and will 
+continue to do so, Lutrell believes. Intruders on 
+the island are not welcome. However, Lutrell is no 
+fanatic. If the PCs try to negotiate with him, he 
+might make a deal. He can even consider giving 
+the People access to the clean water – if given 
+something substantial in return, of course. The 
+Pure Ones all wear worn plastic coveralls, and 
+most of them use protective face masks whenever 
+they leave the reservoirs.
+a ttributes:  Strength 3, Agility 3, Wits 5, Empathy 3.
+Skills:  Fight 2, Shoot 3, Move 2, Manipulate 2.
+g ea
+r:  Scrap knife, bow (seven arrows), old litmus papers, 
+torn wetsuit.
+The Trash Hawk  has its nest at the top of the 
+smokestack, but it’s often out hunting. Normal stats 
+(page 181).
+The Worm Swarm in the pool hall is a huge speci-
+men with a starting Strength score of 10. Otherwise 
+it has typical stats (page 181). The Zone-Ghouls 
+worship this beast, which they call the “Deep One”. 
+Every week they sacrifice animals to it.
+The Woman in the Tower: In the nest of the Trash 
+Hawk, bones and other remains of the bird’s prey of 
+are scattered, including the fresh corpse of Vorhan. 
+One of the old skeletons is fairly intact, and still 
+dressed in old and hacked up coveralls with strange 
+markings. A PC who examines the skeleton and 
+makes a Know the Zone roll, will realize that this 
+is a skeleton of a non-mutated human woman. In 
+her pocket, a waterlogged and yellowed diary can 
+be found – it is still legible. This diary is an artifact 
+that provides information about Eden. You can read 
+more about it in Chapter 16.
+
+
+
+--- PAGE 207
+
+15
+T HE  S MOKESTACK
+T HE  C ON
+TROL  RO
+OM
+2 0 5
+Special Zone Sectors
+
+
+
+
+--- PAGE 208
+
+15
+2 0 6
+GAmemaster's Section
+GEAR & ARTIFACTS
+ K The members of the first water expedition 
+have no grub or water at all, and are getting 
+desperate.
+ K Among the gory remains of the Stalker 
+Vorhan’s body in the Trash Hawk’s nest, the 
+PCs may find a scrap rifle (twin barrels, Gear 
+Bonus +2), six bullets, three rations of canned 
+food, five rations of clean water in plastic bot-
+tles and one random artifact.
+ K The dead woman in the nest on the smoke-
+stack has the Diary artifact.
+ K The Zone-Ghouls have dozens grub rations, 
+but are not likely to share them with the PCs. 
+Much of this grub is contaminated by Rot. 
+The Zone-Ghouls have 1–2 random artifacts 
+in their possession.
+ K In the reservoirs there is a practically endless 
+supply of clean water – the PCs just need to 
+make sure they drink from the right vats…
+EVENTS
+ K The PCs are attacked by Zone-Ghouls soon 
+after they set foot on the island. The Zone-
+Ghouls are as many as the PCs, and try to 
+ambush them (page 82). As soon as one of 
+them suffers damage, they will retreat. They 
+are not trying to kill the PCs (yet), just warn-
+ing them and testing their mettle. If the fight 
+goes very badly for the PCs, Nelma and her 
+crew may come to the rescue.
+ K The PCs find the remains of the first water 
+expedition: Nelma, Grit and Lambda. They 
+demand grub and water. They say that there 
+are Zone-Ghouls on the island and want the 
+PCs’ help to kill them or chase them off. First, 
+Nelma wants someone to climb the smoke-
+stack to see if their leader Vorhan is still alive. 
+Nelma says that a “flying monster” grabbed 
+him and flew off. Vorhan had grub and valu-
+able artifacts that must be retrieved.
+ K In the nest at the top of the smokestack 
+the PCs will find Vorhan very much dead – 
+hacked to pieces by the Trash Hawk. Among 
+the remains, the PCs may find plenty of 
+useful gear (above). Make sure the PCs also 
+find the Diary on the dead woman. Nelma 
+
+
+
+--- PAGE 209
+
+15
+2 0 7
+Special Zone Sectors
+demands that the PCs hand over everything 
+they found in the nest, including the Diary. 
+She will pass everything on to the Boss NN, 
+she says.
+ K The Trash Hawk attacks. The bird can strike 
+when the PCs are up in the nest, on their way 
+down, or at some other dramatically appropri-
+ate time. The Trash Hawk can also attack the 
+Zone-Ghouls. The bird will generally fly off 
+when wounded and return later.
+ K Nelma wants to attack the Zone-Ghouls head 
+on, and secure the clean water in the pool 
+halls. She demands that the PCs take part in 
+the attack. Without the water in the pools the 
+People are doomed, she says.
+ K Lutrell leads a delegation to talk to the intrud-
+ers. He is wary of the mutants’ powers and 
+makes sure he stays at Short range. If the PCs 
+can understand him (a Comprehend roll), he 
+will make it clear that he offers them safe pas-
+sage off the island with as much clean water 
+as they can carry. In return, he wants their 
+firearms and a vow that the People will never 
+come back to this place. Nelma will never ac-
+cept the deal, and the situation could escalate 
+into violence.
+ K The Zone-Ghouls attack in full force. This will 
+only happen when Lutrell feels truly threat-
+ened. The Zone-Ghouls greatly outnumber 
+the intruders, who would do wisely to flee or 
+negotiate – unless the PCs have very power-
+ful artifacts or lots of Mutation Points.
+ K Any violence in the pool halls wakes the 
+Worm Swarm, which attacks everyone nearby. 
+The Zone-Ghouls run for their lives from the 
+Deep One. If the PCs have the right muta-
+tions or powerful weapons they might be able 
+to defeat the monster. The Zone-Ghouls have 
+long feared the monster, and this event will 
+make them very grateful to the PCs.
+THE OTHER ARK
+Sooner or later the People will realize that they are 
+not the only mutants in the Zone – there are other 
+Arks. All Arks share the same origin (Chapter 16), 
+but have developed in very different directions over 
+the years. Some have simply collapsed. This Special 
+Zone Sector is an Ark that has survived – in its 
+very own way.
+The PCs can find their way here by chance or 
+be led here as the result of a Threat Card or an 
+
+--- PAGE 210
+
+15
+THE CHAIRMAN’S SUITE
+THE ARTIFACT STOREROOM
+2 0 8
+GAmemaster's Section
+The other Ark
+
+
+
+--- PAGE 211
+
+15
+HAND-CRANKED ELEVATOR
+PUSHWHEEL CONNECTED TO GENERATOR
+SLAUGHTERHOUSE
+CAGES FOR THE “GIVERS”
+2 0 9
+Special Zone Sectors
+themselves. The second thing that the PCs will 
+soon notice is that it is the women who call the 
+shots around here – the men are underlings and 
+slaves.
+After having been gawked at by the children 
+and guardedly greeted by the adults, the guests will 
+be stripped of their clothes and scrubbed with hot 
+water – a rather heavy-handed Rot decontamination 
+(page 126). They are then offered grub, as much as 
+they want, of some kind of dried meat. Any ques-
+tions – about the meat or anything else – are met 
+by silence or answers “not to worry about it”. The 
+PCs hear about the “Chairman”, who seems to be 
+the ruler of this Ark and is mentioned with deep 
+reverence and respect. Some call him “the source 
+of all life”.
+The PCs are free to move around inside the set-
+tlement, except for the basement and the Chair-
+man’s penthouse (below), but are constantly being 
+watched. Inside the building there is even working 
+electric light, but the lamps flicker and sometimes 
+go out completely.
+THE SITUATION
+The Chairman rules this Ark as a dictator. The 
+source of his power is that he – and only he – can 
+father children with the women of the Ark. All other 
+men and women here are barren to each other, just 
+like the People in the PCs’ own Ark. The explana-
+tion behind this is that the Chairman is no mutant. 
+He is a Zone-Ghoul who was adopted by Eden sci-
+entists in this Ark at a young age – so long ago that 
+none of the inhabitants remember it (or do they?). 
+As a consequence of this, all other men in the Ark 
+are treated like slaves (or worse, see below).
+In this Ark, starvation set in much earlier than 
+in the PCs’ Ark. To survive, the inhabitants went 
+out into the Zone and started to hunt – and eat – 
+Zone-Ghouls, who are numerous in this area. The 
+hunting raids triggered violent counterattacks. A 
+low-intensity war has now been raging for years 
+between the Zone-Ghouls and the Chairman’s Ark.
+When the Zone-Ghouls no longer were enough 
+to feed the inhabitants – and the increasing number 
+of children – the Chairman decreed that the men 
+of the settl
+
+--- PAGE 212
+
+15
+2 1 0
+GAmemaster's Section
+on. Many of the men are now dubbed “Givers” and 
+work hard as slaves until they are butchered and 
+eaten. But the number of Givers is running low, and 
+discontent is simmering. When the Chairman hears 
+about the PCs and their Ark he sees a new source 
+of food for his ever-growing flock of children…
+INHABITANTS
+In this Ark, there are NPCs with the same roles as 
+in the PCs own Ark – create stats for typical inhabit-
+ants just like you would in the Ark (page 139). Stats 
+for a few important NPCs follow below.
+The Chairman  is consumed by his desire for power 
+and control. He views himself as a divine being. He 
+is skinny and pale, and wears a black robe and a 
+hood to protect his translucent skin against the sun 
+– which hurts him just like it does all Zone-Ghouls 
+(page 176). The Chairman’s goal is to find a new 
+source of grub for his children.
+a ttributes:  Strength 3, Agility 4, Wits 5, Empathy 5. 
+Skills:  Fight 2, Move 3, Shoot 4, Manipulate 5. 
+g ea
+r:  Revolver (artifact, 5 bullets).
+Rebeth:  An Enforcer who is blindly loyal to the 
+Chairman. She is tall, wears her black hair in a long 
+ponytail and has no other goal than to prove herself 
+to the Chairman.
+a ttributes:  Strength 5, Agility 4, Wits 2, Empathy 3.
+Skills:  Fight 4, Move 2, Shoot 3.
+Mutations:  Four-Armed, Extreme Reflexes, 6 MP .
+g ea
+r:  scrap rifle (three-barreled, 6 bullets), spiked bat.
+
+
+
+--- PAGE 213
+
+15
+2 1 1
+Special Zone Sectors
+Krin: A Stalker who secretly doubts the rule of the 
+Chairman. She has not dared to tell anyone else – 
+but she could try to use the PCs as a catalyst for 
+a revolt.
+a ttributes:  Strength 3, Agility 5, Wits 4, Empathy 2.
+Skills:  Move 2, Shoot 4, Heal 2, Find the Path 2. 
+Mutations:  Flame Breath, 3 MP .
+g ea
+r:  scrap rifle (weapon damage 3, 4 bullets), scrap knife.
+Dink:  Krin’s slave and companion on her Zone trav-
+els. He suspects that Krin doubts the Chairman, and 
+considers ratting on her in order to gain favor with 
+the Chairman and be spared the fate of a Giver.
+a ttributes:  Strength 5, Agility 3, Wits 2, Empathy 2.
+Skills:  Fight 2, Move 2, Endure 4. 
+Mutations:  Rot-Eater, 1 MP .
+g ea
+r:  Scrap spear, road sign (artifact).
+Naphta:  A Gearhead who prefers to spend her time 
+alone, delving into the mysteries of the Old Age. 
+Tries to stay away from trouble, but could be re-
+cruited to either side in case of a revolt.
+a ttributes:  Strength 2, Agility 3, Wits 5, Empathy 3.
+Skills:  Fight 1, Shoot 3, Jury-Rig 3.
+Mutations:  Pathokinesis, 3 MP .
+g ea
+r:  Bicycle chain, scrap pistol (twin-barreled, 4 bullets).
+ARTIFACTS
+This Ark has a sizeable collection of scrap and arti-
+facts in the tower’s basement. In a dark garage there 
+are lots of broken items from the Old Age, as well as 
+4–5 functional artifacts. One of the artifacts leading 
+the way to Eden (Chapter 16) may be located here.
+In addition, in the garage there are three ancient 
+buses that have been repaired and fitted with ar-
+mor plating, flamethrowers and scrap cannons by 
+Naphta. These rolling fortresses are sometimes 
+used for larger raids against the Zone-Ghouls, and 
+could be used against the PCs’ Ark.
+GRUB, WATER & BULLETS
+In this Ark there is enough dried meat (below) to 
+feed all inhabitants for a week. Most of it is stored 
+in the basement, where there is also a broken old 
+water pipe that still carries enough Rot-free water 
+for everyone to drink. The female inhabitants usu-
+ally carry D6 bullets each, but there is no central 
+stockpile. The men (except the Chairman) have no 
+guns and no bullets.
+EVENTS
+ K The PCs are led to meet the Chairman in 
+person. Th
+
+--- PAGE 214
+
+15
+2 1 2
+GAmemaster's Section
+horizontal wheel pushed around by 5–6 Givers, 
+hour after hour until they collapse. In another 
+cold basement room, the darkest secret of this 
+Ark is hidden – a slaughterhouse where Givers 
+who are too exhausted to work are butchered 
+for food. The entrance to the basement is 
+guarded by two Enforcers with scrap pistols. 
+The escape attempt can be the spark that trig-
+gers a revolt against the Chairman, and the 
+PCs might get caught in the middle of it.
+ K If the PCs reveal where their Ark is located, or 
+if the Chairman finds out some other way (by 
+having the PCs followed, for example), he will 
+lead a raiding party there. The three armored 
+buses (above) will roll through Zone to the 
+PCs Ark. If it is wintertime, then they can 
+drive across frozen rivers or lakes. The raid 
+has Battle Level 3 (page 114), but the Chair-
+man doesn’t attack head on – instead he be-
+sieges the Ark. He demands that ten mutants 
+be handed over to him as slaves. If the People 
+give in to this demand the Chairman will 
+leave, but come back at some later time and 
+demand even more “slaves”. Any slaves given 
+to the Chairman will be turned into Givers (if 
+they are men) or impregnated by the Chair-
+man (if they are women). Sooner or later the 
+People will need to confront the Chairman 
+and deal with him once and for all.
+THE NOVA CULT
+In the world after the Fall, many strange cults have 
+appeared. The psionic sect that calls itself “Nova” 
+is one of the strangest – and most dangerous of 
+them all.
+OVERVIEW
+In a flat scrubland in the Zone, there is a large cir-
+cular metal slab, ten yards across, on the ground. 
+Nearby, there are a few simple wooden sheds with 
+corrugated metal roofs. From inside the sheds, ani-
+mals can be heard grunting and squealing. Moving 
+closer, the PCs smell animal manure. A hunchback 
+mutant with reptilian features walks between the 
+sheds (this is Ohm, see below). Inside the sheds 
+about 30 pigs are kept, all mutated and surly.
+On occasion (i.e. at a moment of your choosing) 
+the large metal slab will slide away with a loud scrap-
+ing noise. A deep rumble rises from the underground 
+silo that is revealed, and a plume of steam a
+
+--- PAGE 215
+
+15
+2 1 3
+Special Zone Sectors
+born, but none of them have been luminescent so 
+far. The fanatical Plutonia has forced the mothers 
+to leave the infants to die in the Zone. Now, the 
+young priestess Abbetina (below) is pregnant, and 
+has decided that she will never let Plutonia take her 
+child from her.
+Plutonia believes that Abbetina bears the lumi-
+nescent child and that the Doomsday will come soon. 
+She has managed to start up the missile launch sys-
+tem, and is now considering an appropriate target for 
+this weapon of mass destruction. In the meantime, 
+several cult members are starting to question Pluto-
+nia’s leadership. She has responded by handing out 
+“holy pills” (sedatives), to make the cult members 
+more docile. But this state of affairs cannot last…
+INHABITANTS
+The first creatures the PCs meet in this Zone sector 
+are probably Ohm and his surly mutant hogs, that 
+he keeps for the cult. The Nova Cult itself has 20 
+members. Mostly, they stay down in their under-
+ground “temple” where they meditate and study 
+artifacts from the Old Age. Sometimes, they go on 
+patrols in the Zone, to leave infants to die (above 
+and page 173) or to search for artifacts.
+All Nova Cult members have shaved heads and 
+wear long robes. Some adorn themselves with glit-
+tering items they have found in the Zone. A few 
+wield simple scrap weapons like spears and knives, 
+but most are unarmed. All cult members are power-
+ful psionic mutants. For stats, see page 174.
+Ohm, Pig Farmer. A large, reptilian hunchbacked 
+mutant with a cloven tongue. He moves jerkily, 
+speaks with a lisp and is dressed in blue coveralls. 
+He has followed Plutonia from the start, but he is 
+not accepted as a full member of the cult as he does 
+not have any psionic mutations. He is sick of being 
+treated like a second-rate mutant, and might take 
+the chance to get back at the cultists, given the 
+chance. Deep inside, he still loves Plutonia however. 
+And his hogs.
+a ttributes:  Strength 5, Agility 3, Wits 3, Empathy 2.
+Skills:  Fight 3, Move 2.
+Mutations:  Reptilian, 3 MP .
+g ea
+r:  Scrap knife, gas mask (artifact).
+Plutonia , Cult Leader. Tall and anemic woman with a 
+shaved head. Walks with regal stride
+
+--- PAGE 216
+
+15
+O HM ’ S  P IG S TY
+C UL
+T  H EA
+D q UA
+RTERS
+2 1 4
+GAmemaster's Section
+The Nova Cult
+scattered throughout the bunker. Let the players 
+draw random Artifact Cards, or choose something 
+appropriate from Chapter 14. It might even be one 
+of the artifacts leading the way to Eden (Chapter 16).
+The missile in the silo is of course also an arti-
+fact. However, it is set up within the silo and next 
+to impossible to remove. It is launched by a launch 
+key (carried by Plutonia at all times) and a simple 
+six-digit code (which only Plutonia knows). The de-
+structive power of the missile warhead is horren-
+dous. In the sector where it strikes, and in all eight 
+surrounding sectors, all buildings are leveled and 
+all life wiped out. Anyone within ten sectors of the 
+detonation suffer a Rot attack – the number of Rot 
+Points immediately suffered is equal to 10 minus 
+the distance to the detonation sector. This entire 
+area is then contaminated and all sectors within it 
+suffer from Rot Level 2 (Chapter 8).
+GRUB & WATER
+In locked cabinets, there is grub enough to feed 
+the cult for a week. There is meat from the pigs, 
+some grub grown by Ohm, and some canned food 
+from the Old Age. Only Plutonia has the key to 
+the cabinets. Clean water, enough to last a week, is 
+stored in plastic jerrycans and bottles scattered in 
+the underground complex.
+EVENTS
+Present the Nova cultists as aloof and mysterious. 
+They can show up in many places and be enemies 
+as well as allies to the People. See the Threat Card 
+The Zone Cult (Chapter 10) and the Zone threat 
+Nova Cultists (Chapter 13) for examples of how the 
+PCs can come into contact with the cult. They can 
+also hear about the cult from NPCs that they meet 
+when traveling in the Zone. When the PCs have 
+found their way to the cult’s headquarters, many 
+things might happen:
+ K A PC with the Luminescence mutation would 
+be seen as a holy creature by the cultists. 
+They all kneel in reverence, handing the PC 
+scrap and artifacts as gifts. It is up to the PCs 
+how they wish to handle the situation. Pluto-
+nia will feel threatened by the newcomers and 
+might resort to drastic action.
+
+
+
+--- PAGE 217
+
+15
+M ISSILE  S ILO
+2 1 5
+Special Zone Sectors
+
+
+
+
+--- PAGE 218
+
+15
+2 1 6
+GAmemaster's Section
+ K If the PCs come into conflict with Nova, Plu-
+tonia wants them captured and questioned 
+to find out if they have seen any unmutated 
+humans anywhere. After the interrogation – 
+whatever answers the PCs give – they will be 
+chained in the missile silo to be incinerated 
+when the missile is launched.
+ K Abbetina turns to the PCs for help to get rid 
+of Plutonia – and kill her if necessary. Abbet-
+ina may free the PCs if they have been cap-
+tured. She may even take this initiative if she 
+meets the PCs somewhere else, for example 
+in the Ark. In this case she might offer some 
+reward in the return for their help, such as a 
+clue to the location of Eden.
+ K Plutonia suddenly decrees that the Dooms-
+day will take place in just a few days. The 
+cult assembles in the temple and chants 
+incessantly. The PCs show up at the bunker, 
+or are already there. Do they try to stop her? 
+If pressed, Plutonia may very well launch the 
+missile even if Abbetina hasn’t given birth 
+yet. You decide what target Plutonia chooses, 
+if the missile lands somewhere in the Zone or 
+far away – perhaps hitting someone who will 
+retaliate?
+
+
+
+--- PAGE 219
+
+15
+2 1 7
+Special Zone Sectors
+THE HELLDRIVERS
+The Helldrivers are a gasoline-guzzling mutant clan 
+that the PCs can meet by the Ark (see the Threat 
+Card described in Chapter 10) or out in the Zone 
+(page 173). This Special Zone Sector describes the 
+Helldrivers’ main base of operations.
+OVERVIEW
+Even at a distance, the silhouette of a large, cubi-
+cal building can be seen against the horizon. The 
+building consists of eight open floors, with rows of 
+vehicles and wrecks seen on every floor.
+In the rubble around the main building, there 
+are a number of sheds, motorhomes, tents and ve-
+hicle wrecks turned into living quarters. There is 
+also a large metal cage with crude spectator stands 
+on either side. Several dozens of people – most with 
+colorful mohawk haircuts and black leather out-
+fits – mill about the area. Some are busy tinkering 
+with their vehicles, some lift weights and others 
+sit by a fire, eating. The rumble of engines is heard 
+constantly.
+The entire compound is encircled by a barbed-
+wire fence. At some points on the fence, red STOP-
+signs are mounted. Here and there, decomposing 
+remains of humanoids and animals lie on the 
+ground. The stench of death is pungent.
+THE SITUATION
+This settlement is the home of the Helldrivers, and 
+band of rough and tumble mutants who have been 
+exiled from their Arks (or left voluntarily). They 
+are led by Ilona the Corpse-Eater who first found 
+this old car park, packed with working vehicles. 
+Using these, the Helldrivers have raided other 
+settlements in the Zone, increasing their number 
+and improving their weaponry over the years. The 
+basement levels of the car park are filled with loot 
+from these raids. The Helldrivers have also taken 
+slaves, who now toil as chain-gang servants to the 
+Helldrivers.
+Ilona the Corpse-Eater is a large mutant who 
+has killed every rival who has tried to challenge her 
+leadership. She rules her horde with an iron fist – 
+the only way to control such an unruly bunch. Most 
+Helldrivers are violent and impulsive types, driven 
+by hatred and bitterness. Violent internal rivalry is 
+common. Lately, the supply of food and slaves has 
+been running low, and the Helldrivers are getti
+
+--- PAGE 220
+
+15
+ILONA’S ARMOR-PLATED TRAILER
+HELLDRIVER CARS
+GUARD ON THE ROOF
+2 1 8
+GAmemaster's Section
+The Helldrivers
+
+

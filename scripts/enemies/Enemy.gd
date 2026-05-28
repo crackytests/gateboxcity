@@ -4,7 +4,9 @@ class_name Enemy
 signal body_part_destroyed(part_name: String)
 signal attacked_player(message: String)
 signal defeated
+signal item_dropped(item_name: String)
 
+@export var drop_item: String = ""
 @export var move_speed := 2.0
 @export var attack_range := 2.2
 @export var ranged_range := 8.0
@@ -193,6 +195,9 @@ func _defeat() -> void:
 			part.monitoring = false
 	if billboard != null and billboard.has_method("show_defeated"):
 		billboard.show_defeated()
+	if not drop_item.is_empty():
+		GameState.add_item(drop_item)
+		item_dropped.emit(drop_item)
 	defeated.emit()
 
 
