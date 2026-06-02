@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://gatebox_hud"]
+[gd_scene load_steps=13 format=3 uid="uid://gatebox_hud"]
 
 [ext_resource type="Script" path="res://scripts/ui/HUDController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/ui/TargetingReticle.gd" id="2"]
@@ -7,6 +7,12 @@
 [ext_resource type="Script" path="res://scripts/ui/HackMinigameUI.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/ui/JobBoardUI.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/ui/TravelGateUI.gd" id="7"]
+[ext_resource type="Script" path="res://scripts/ui/GhostTermUI.gd" id="8"]
+[ext_resource type="Script" path="res://scripts/ui/ShopUI.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/ui/DialogueUI.gd" id="10"]
+[ext_resource type="Script" path="res://scripts/ui/EventCardUI.gd" id="13"]
+[ext_resource type="Script" path="res://scripts/ui/CyberEyeOverlay.gd" id="11"]
+[ext_resource type="Script" path="res://scripts/ui/EnemyScaleDebug.gd" id="12"]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
@@ -42,6 +48,17 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2")
 
+[node name="CyberEyeOverlay" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11")
+
 [node name="CenterChanceLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -61,6 +78,28 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 22
 text = "--%"
+horizontal_alignment = 1
+
+[node name="StealthLabel" type="Label" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -64.0
+offset_right = 90.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 18
+text = "● HIDDEN"
 horizontal_alignment = 1
 
 [node name="DamageLabel" type="Label" parent="Root"]
@@ -341,3 +380,110 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("7")
+
+[node name="GhostTermUI" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8")
+
+[node name="ShopUI" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9")
+
+[node name="DialogueUI" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10")
+
+[node name="EventCardUI" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("13")
+
+[node name="EnemyScaleDebug" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("12")
+
+[node name="DeathScreen" type="ColorRect" parent="Root"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.03, 0, 0.01, 0.85)
+
+[node name="DiedLabel" type="Label" parent="Root/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -70.0
+offset_right = 300.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.12, 0.18, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 54
+text = "BODY INTEGRITY LOST"
+horizontal_alignment = 1
+
+[node name="RespawnLabel" type="Label" parent="Root/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = 20.0
+offset_right = 300.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "press any key to respawn at last checkpoint"
+horizontal_alignment = 1

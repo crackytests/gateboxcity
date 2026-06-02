@@ -9,3 +9,11 @@ max_hp = 22.0
 targeting_penalty = 18.0
 lock_difficulty_multiplier = 1.35
 armor_value = 3.0
+part_role = "head"
+on_destroy_effect = "stun"
+effect_strength = 2.0
+hackable = true
+effect_payload = {
+"hack_difficulty": 2,
+"hack_stun": 6.0
+}

@@ -103,7 +103,7 @@ func _inspect_pod(interactable) -> void:
 
 func _use_ward_console() -> void:
 	if console_resolved or GameState.is_quest_completed("dream_audit"):
-		hud.show_dialogue("Face", "You already pulled the Ward thread. Come home before it pulls back and starts using your government name.")
+		hud.show_dialogue("System X", "You already pulled the Ward thread. Come home before it pulls back and starts using your government name.")
 		return
 
 	if inspected_pods.size() < 3:

@@ -177,6 +177,7 @@ surface_material_override/0 = SubResource("PinkMat")
 [node name="Sunday" type="Area3D" parent="." groups=["npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 0.0, -2.65)
 script = ExtResource("4")
+npc_id = "sunday"
 npc_name = "Sunday"
 dialogue_text = "Suitors sells calm by the glass. System X buys silence by the second. I only sing where the cameras cannot keep rhythm, which is rare and usually expensive."
 prompt_text = "Press E: talk to Sunday"

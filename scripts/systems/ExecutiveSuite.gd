@@ -107,16 +107,16 @@ func _use_admin_desk() -> void:
 
 func _use_override_console() -> void:
 	if suite_resolved:
-		hud.show_dialogue("Face", "Override shard is already in your pocket. It is probably judging us, and I resent how fair that is.")
+		hud.show_dialogue("System X", "Override shard is already in your pocket. It is probably judging us, and I resent how fair that is.")
 		return
 
 	if not auditor_broken:
-		hud.show_dialogue("Face", "Break the auditor first. Head or torso. The console needs silence, and the auditor is one long complaint with legs.")
+		hud.show_dialogue("System X", "Break the auditor first. Head or torso. The console needs silence, and the auditor is one long complaint with legs.")
 		hud.show_system_message("BREAK AUDITOR FIRST")
 		return
 
 	if not GameState.spend_item("Executive Elevator Trace"):
-		hud.show_dialogue("Face", "We need the elevator trace from the lobby before this console will cough up anything useful. Right now it is just expensive furniture with opinions.")
+		hud.show_dialogue("System X", "We need the elevator trace from the lobby before this console will cough up anything useful. Right now it is just expensive furniture with opinions.")
 		hud.show_system_message("NEED EXECUTIVE ELEVATOR TRACE")
 		return
 
@@ -131,13 +131,13 @@ func _use_override_console() -> void:
 func _on_auditor_defeated() -> void:
 	auditor_broken = true
 	hud.push_log("compliance auditor broken")
-	hud.show_dialogue("Face", "Auditor is down. Pull the override before Linda reassigns the room and makes us thank it.")
+	hud.show_dialogue("System X", "Auditor is down. Pull the override before Linda reassigns the room and makes us thank it.")
 	hud.set_objective(_get_objective_text())
 
 
 func _on_security_node_defeated() -> void:
 	hud.push_log("executive security node offline")
-	hud.show_dialogue("Face", "That node was auditing your pulse. Rude machine, dead machine, beautiful paperwork-free ending.")
+	hud.show_dialogue("System X", "That node was auditing your pulse. Rude machine, dead machine, beautiful paperwork-free ending.")
 
 
 func _on_auditor_body_part_destroyed(part_name: String) -> void:
@@ -149,7 +149,7 @@ func _on_auditor_body_part_destroyed(part_name: String) -> void:
 	auditor_broken = true
 	_retire_auditor()
 	hud.push_log("auditor " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That broke the audit loop. Console is yours, which is not the same as safe, but look at us growing.")
+	hud.show_dialogue("System X", "That broke the audit loop. Console is yours, which is not the same as safe, but look at us growing.")
 	hud.show_system_message("AUDITOR BROKEN")
 	hud.set_objective(_get_objective_text())
 

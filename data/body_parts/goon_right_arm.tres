@@ -9,3 +9,6 @@ max_hp = 22.0
 targeting_penalty = 8.0
 lock_difficulty_multiplier = 1.15
 armor_value = 0.0
+on_destroy_effect = "disable_ranged"
+telegraph_ability = "ranged_shot"
+windup_lock_bonus = 0.5

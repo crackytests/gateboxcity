@@ -85,12 +85,12 @@ script = ExtResource("1")
 environment = SubResource("Environment_1")
 
 [node name="Player" parent="." instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 6.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 8.0)
 
 [node name="HUD" parent="." instance=ExtResource("3")]
 
 [node name="LobbySecurityNode" parent="." instance=ExtResource("6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.2)
 attack_range = 9.5
 
 [node name="Geometry" type="Node3D" parent="."]

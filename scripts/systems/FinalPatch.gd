@@ -115,16 +115,16 @@ func _use_mandate_terminal() -> void:
 
 func _use_rupture_terminal() -> void:
 	if finale_resolved:
-		hud.show_dialogue("Face", "The patch is already broken open. The city is making new noises, which is either birth or plumbing. Maybe both.")
+		hud.show_dialogue("System X", "The patch is already broken open. The city is making new noises, which is either birth or plumbing. Maybe both.")
 		return
 
 	if not warden_broken:
-		hud.show_dialogue("Face", "Drop the Final Patch Warden first. Head or torso, same old miracle, still somehow not on the brochure.")
+		hud.show_dialogue("System X", "Drop the Final Patch Warden first. Head or torso, same old miracle, still somehow not on the brochure.")
 		hud.show_system_message("BREAK FINAL PATCH WARDEN")
 		return
 
 	if not GameState.spend_item("Linda Rupture Seed"):
-		hud.show_dialogue("Face", "We need the rupture seed from Linda Spire. No seed, no ending, just us standing here like unpaid extras.")
+		hud.show_dialogue("System X", "We need the rupture seed from Linda Spire. No seed, no ending, just us standing here like unpaid extras.")
 		hud.show_system_message("NEED LINDA RUPTURE SEED")
 		return
 
@@ -138,7 +138,7 @@ func _use_rupture_terminal() -> void:
 
 func _use_city_heart() -> void:
 	if finale_resolved:
-		hud.show_dialogue("Face", "That is the city after a decision. Ugly, alive, and no longer theoretical, which is more than most plans manage.")
+		hud.show_dialogue("System X", "That is the city after a decision. Ugly, alive, and no longer theoretical, which is more than most plans manage.")
 	else:
 		hud.show_dialogue("Linda", "This is the place where care becomes law. Please notice how clean the cruelty is when it is organized.")
 
@@ -146,7 +146,7 @@ func _use_city_heart() -> void:
 func _on_warden_defeated() -> void:
 	warden_broken = true
 	hud.push_log("final patch warden broken")
-	hud.show_dialogue("Face", "Warden down. Rupture terminal is exposed and the room is pretending that was always allowed.")
+	hud.show_dialogue("System X", "Warden down. Rupture terminal is exposed and the room is pretending that was always allowed.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -159,7 +159,7 @@ func _on_warden_body_part_destroyed(part_name: String) -> void:
 	warden_broken = true
 	_retire_warden()
 	hud.push_log("final patch warden " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That cracked the final patch. Finish it before the wound learns management speak.")
+	hud.show_dialogue("System X", "That cracked the final patch. Finish it before the wound learns management speak.")
 	hud.show_system_message("FINAL PATCH WARDEN BROKEN")
 	hud.set_objective(_get_objective_text())
 

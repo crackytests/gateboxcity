@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPartData" load_steps=2 format=3 uid="uid://fellar_spine"]
+
+[ext_resource type="Script" path="res://scripts/data/BodyPartData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Amplifier Spine"
+max_hp = 35.0
+targeting_penalty = 15.0
+lock_difficulty_multiplier = 1.8
+armor_value = 3.0

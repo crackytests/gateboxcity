@@ -80,7 +80,7 @@ func _update_prompt() -> void:
 
 func _use_terminal() -> void:
 	if terminal_resolved or GameState.is_quest_completed("transit_breach"):
-		hud.show_dialogue("Face", "The transit pass is already printed. The elevator is starting to believe in you, which is how buildings develop bad taste.")
+		hud.show_dialogue("System X", "The transit pass is already printed. The elevator is starting to believe in you, which is how buildings develop bad taste.")
 		return
 
 	if not guard_neutralized:
@@ -102,7 +102,7 @@ func _use_terminal() -> void:
 		GameState.last_mission_result = "Accepted a compliant Gatebox transit badge"
 		hud.show_dialogue("Linda", "Your visitor badge has been approved. Please remain grateful in marked areas for tracking accuracy.")
 	else:
-		hud.show_dialogue("Face", "The rail wants either a Dream Access Key or a Corporate Voucher. Bureaucracy with teeth, gums, and a tiny stamp pad.")
+		hud.show_dialogue("System X", "The rail wants either a Dream Access Key or a Corporate Voucher. Bureaucracy with teeth, gums, and a tiny stamp pad.")
 		hud.show_system_message("NEED ROUTE CREDENTIAL")
 		return
 
@@ -117,7 +117,7 @@ func _use_terminal() -> void:
 func _on_guard_defeated() -> void:
 	guard_neutralized = true
 	hud.push_log("transit guard offline")
-	hud.show_dialogue("Face", "Good. The rail console hates witnesses. Same, honestly, but I make it charming.")
+	hud.show_dialogue("System X", "Good. The rail console hates witnesses. Same, honestly, but I make it charming.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -130,7 +130,7 @@ func _on_guard_body_part_destroyed(part_name: String) -> void:
 	guard_neutralized = true
 	_retire_guard()
 	hud.push_log("transit guard weapon arm disabled")
-	hud.show_dialogue("Face", "That did it. Right arm down, security loop broken. Hit the console before it files a feelings report.")
+	hud.show_dialogue("System X", "That did it. Right arm down, security loop broken. Hit the console before it files a feelings report.")
 	hud.show_system_message("GUARD DISABLED")
 	hud.set_objective(_get_objective_text())
 

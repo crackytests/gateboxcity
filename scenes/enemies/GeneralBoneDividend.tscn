@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://general_bone_dividend"]
+
+[ext_resource type="Script" path="res://scripts/enemies/GeneralBoneDividend.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="3"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.5
+height = 2.1
+
+[sub_resource type="CapsuleMesh" id="BodyMesh"]
+radius = 0.5
+height = 2.1
+
+[sub_resource type="StandardMaterial3D" id="BodyMat"]
+albedo_color = Color(0.22, 0.16, 0.1, 1)
+emission_enabled = true
+emission = Color(1, 0.4, 0.08, 1)
+emission_energy_multiplier = 0.35
+
+[sub_resource type="BoxShape3D" id="TorsoShape"]
+size = Vector3(0.66, 0.84, 0.42)
+
+[sub_resource type="SphereShape3D" id="HeadShape"]
+radius = 0.3
+
+[sub_resource type="BoxShape3D" id="RackShape"]
+size = Vector3(0.4, 0.7, 0.34)
+
+[sub_resource type="BoxShape3D" id="LimbShape"]
+size = Vector3(0.3, 0.6, 0.3)
+
+[node name="GeneralBoneDividend" type="CharacterBody3D"]
+script = ExtResource("1")
+move_speed = 1.9
+ranged_range = 11.0
+ranged_damage = 11.0
+melee_damage = 14.0
+attack_cooldown = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+shape = SubResource("Body")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+mesh = SubResource("BodyMesh")
+surface_material_override/0 = SubResource("BodyMat")
+
+[node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shaded = false
+double_sided = true
+script = ExtResource("3")
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="ReckoningCore" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+script = ExtResource("2")
+display_name = "RECKONING CORE"
+max_hp = 95.0
+armor_value = 0.7
+part_role = "core"
+on_destroy_effect = "defeat"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/ReckoningCore"]
+shape = SubResource("TorsoShape")
+
+[node name="AccountantVisor" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
+script = ExtResource("2")
+display_name = "ACCOUNTANT'S VISOR"
+max_hp = 26.0
+targeting_penalty = 18.0
+lock_difficulty_multiplier = 1.35
+part_role = "head"
+on_destroy_effect = "reduce_detection"
+effect_strength = 0.4
+effect_payload = {
+"message": "the General's visor cracks — its reckoning gaze gutters out"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/AccountantVisor"]
+shape = SubResource("HeadShape")
+
+[node name="SoulBatteryRack" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.1, 0)
+script = ExtResource("2")
+display_name = "SOUL BATTERY RACK"
+max_hp = 34.0
+targeting_penalty = 8.0
+lock_difficulty_multiplier = 1.2
+volatile = true
+on_destroy_effect = "free_soul"
+effect_radius = 2.5
+effect_payload = {
+"soul_rot": 14,
+"message": "the Soul Battery Rack bursts — a quarter of a ledger's worth of trapped souls tear loose at once"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SoulBatteryRack"]
+shape = SubResource("RackShape")
+
+[node name="CommandCrozier" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.35, 0)
+script = ExtResource("2")
+display_name = "COMMAND CROZIER"
+max_hp = 30.0
+targeting_penalty = 10.0
+lock_difficulty_multiplier = 1.2
+on_destroy_effect = "drop_command"
+effect_payload = {
+"message": "the Command Crozier snaps — his ledger-grafts stop answering to him"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/CommandCrozier"]
+shape = SubResource("LimbShape")
+
+[node name="LedgerSpine" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.3)
+script = ExtResource("2")
+display_name = "LEDGER SPINE"
+max_hp = 32.0
+targeting_penalty = 14.0
+lock_difficulty_multiplier = 1.3
+on_destroy_effect = "grant_loot"
+effect_payload = {
+"item": "Bone Dividend Ledger",
+"flag": "bone_dividend_ledger_taken",
+"message": "the Ledger Spine splits — the full soul-accounting spills into your deck"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/LedgerSpine"]
+shape = SubResource("RackShape")
+
+[node name="SidearmMount" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.65, 0)
+script = ExtResource("2")
+display_name = "SIDEARM MOUNT — HIP"
+max_hp = 22.0
+targeting_penalty = 8.0
+on_destroy_effect = "disable_ranged"
+telegraph_ability = "ranged_shot"
+windup_lock_bonus = 0.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SidearmMount"]
+shape = SubResource("LimbShape")

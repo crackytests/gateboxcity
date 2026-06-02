@@ -14,7 +14,12 @@ var base_y := 0.0
 var flash_timer := 0.0
 var break_flash_timer := 0.0
 var defeated := false
+var windup_active := false
 var broken_parts: Array[String] = []
+
+
+func set_windup(active: bool) -> void:
+	windup_active = active
 
 
 func _ready() -> void:
@@ -29,7 +34,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	flash_timer = maxf(flash_timer - _delta, 0.0)
 	break_flash_timer = maxf(break_flash_timer - _delta, 0.0)
-	if break_flash_timer > 0.0:
+	if windup_active and not defeated:
+		# Telegraph: pulse a hot amber/white so the wind-up reads without the cybereye.
+		var wp := 0.5 + absf(sin(Time.get_ticks_msec() * 0.018)) * 0.5
+		modulate = Color(1.0, 0.55 + wp * 0.45, 0.2 + wp * 0.3, 1.0)
+	elif break_flash_timer > 0.0:
 		var pulse := 0.55 + absf(sin(Time.get_ticks_msec() * 0.035)) * 0.45
 		modulate = Color(1.0, 0.08 + pulse * 0.35, 0.08, 1.0)
 	elif not broken_parts.is_empty():

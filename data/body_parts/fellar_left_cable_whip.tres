@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="BodyPartData" load_steps=2 format=3 uid="uid://fellar_lwhip"]
+
+[ext_resource type="Script" path="res://scripts/data/BodyPartData.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Left Cable Whip"
+max_hp = 45.0
+targeting_penalty = 6.0
+lock_difficulty_multiplier = 1.1
+armor_value = 1.0

@@ -9,6 +9,7 @@ const WATER_CISTERN_SCENE := "res://scenes/levels/WaterReclamationCistern.tscn"
 const COLLAPSED_ATRIUM_SCENE := "res://scenes/levels/CollapsedServiceAtrium.tscn"
 const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
 const WAKE_UP_CALL_SCENE := "res://scenes/levels/Test_SubSubBasement.tscn"
+const ROCKER_FELLAR_KEEP_SCENE := "res://scenes/levels/RockerFellarKeep.tscn"
 
 @onready var hud: HUDController = $HUD
 @onready var player_health: PlayerHealth = $Player/PlayerHealth
@@ -96,6 +97,15 @@ func _ready() -> void:
 		hack_minigame.hack_completed.connect(_on_hack_completed)
 	if hud.travel_gate_ui != null and not hud.travel_gate_ui.route_selected.is_connected(_on_travel_route_selected):
 		hud.travel_gate_ui.route_selected.connect(_on_travel_route_selected)
+	# After selling junk to Gideon the generator may have risen — re-sync lighting/objective.
+	if hud.shop_ui != null and not hud.shop_ui.closed.is_connected(_on_shop_closed):
+		hud.shop_ui.closed.connect(_on_shop_closed)
+	# Topic-conversation hand-offs (same characters as the hub, so they share profiles).
+	if hud.dialogue_ui != null:
+		if not hud.dialogue_ui.service_requested.is_connected(_on_district_dialogue_service):
+			hud.dialogue_ui.service_requested.connect(_on_district_dialogue_service)
+		if not hud.dialogue_ui.closed.is_connected(_on_district_dialogue_closed):
+			hud.dialogue_ui.closed.connect(_on_district_dialogue_closed)
 
 	_restore_cooters_encounter()
 	_refresh_hud()
@@ -209,21 +219,29 @@ func _handle_interact() -> void:
 		return
 
 	if focused_district_npc != null:
-		if focused_district_npc.npc_id == "velvet_coil":
-			_handle_velvet_coil()
+		# Same characters as the hub — route to their shared topic profile if one exists.
+		var did := str(focused_district_npc.npc_id)
+		if not did.is_empty() and DialogueDB.has_profile(did):
+			focused_district_npc.face_player_now()
+			hud.open_dialogue(did)
 			return
+		# Unprofiled residents keep their world-reactive bark, shown in the dialogue frame.
 		var line: Dictionary = focused_district_npc.interact()
-		hud.show_dialogue(str(line["name"]), str(line["text"]))
-		hud.push_log(str(line["text"]).to_lower())
+		hud.open_statement(str(line["name"]), str(line["text"]))
 		return
 
 	if focused_npc != null:
+		var nid := str(focused_npc.npc_id)
+		if not nid.is_empty() and DialogueDB.has_profile(nid):
+			focused_npc.face_player_now()
+			hud.open_dialogue(nid)
+			return
 		var line: Dictionary = focused_npc.interact()
 		var speaker := str(line["name"])
 		var text := str(line["text"])
 		if speaker == "System X":
 			text += "\n" + "\n".join(WorldDirector.get_event_status_lines())
-		hud.show_dialogue(speaker, text)
+		hud.open_statement(speaker, text)
 		_refresh_hud()
 		return
 
@@ -238,14 +256,8 @@ func _handle_interact() -> void:
 func _handle_district_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
 		"torai_office":
-			if GameState.get_world_flag("torai_obligation"):
-				_handle_torai_followup()
-			else:
-				GameState.set_world_flag("torai_obligation", true)
-				GameState.add_item("Cheap Poncho")
-				GameState.add_reputation("Wan Moa Torai", 1)
-				GameState.last_mission_result = "Accepted one more try"
-				hud.show_dialogue("Wan Moa Torai", "Because everyone deserves one more try. Here is a poncho. The debt remembers you fondly, which is worse than hate.")
+			hud.open_dialogue("wan_moa_torai")
+			return
 		"cooters":
 			if GameState.is_quest_completed("cooters_rain_mutant_contained"):
 				get_tree().change_scene_to_file(COOTERS_INTERIOR_SCENE)
@@ -275,7 +287,7 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 			_handle_lan_den()
 		"rain_terminal":
 			if WorldDirector.is_power_unstable() and not WorldDirector.is_toxic_rain_active():
-				hud.show_dialogue("Rain Cycle Terminal", "Brownout mode. The sky controls are currently a suggestion box with electricity. Feed the Dreaming Generator at Pipe Chapel first.")
+				hud.show_dialogue("Rain Cycle Terminal", "Brownout mode. The sky controls are currently a suggestion box with electricity. Sell wasted potential to Pipe Father Gideon first.")
 				_refresh_hud()
 				return
 			if WorldDirector.is_toxic_rain_active():
@@ -284,8 +296,6 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 			else:
 				WorldDirector.trigger_event(WorldDirector.EVENT_TOXIC_RAIN)
 				hud.show_dialogue("System X", "Rain cycle forced. Pipe shelters are now survival infrastructure, which is a nice phrase for 'stand under the thing or melt.'")
-		"dreaming_generator_reliquary":
-			_handle_pipe_chapel_generator()
 		"town_exit_gate":
 			hud.open_travel_gate(_get_travel_routes())
 		_:
@@ -294,39 +304,40 @@ func _handle_district_interactable(interactable: WardInteractable) -> void:
 	_apply_world_lighting()
 
 
-func _handle_pipe_chapel_generator() -> void:
-	var sale := GameState.sell_highest_wasted_potential_to_gideon()
-	if sale.is_empty():
-		var current := GameState.get_dreaming_generator_potential()
-		hud.show_dialogue(
-			"Pipe Father Gideon",
-			"The Dreaming Generator is inside the chapel now, chewing on all the lives that almost became something. Bring mission loot, failed miracles, broken proofs. I can turn wasted potential into Wan Notes and keep the lights from learning despair.\nPotential: %d/%d." % [current, GameState.DREAMING_GENERATOR_THRESHOLD]
-		)
-		return
-
-	var item_name := str(sale.get("item_name", "loot"))
-	var wan_notes := int(sale.get("wan_notes", 0))
-	var potential := int(sale.get("potential", 0))
-	var new_total := int(sale.get("new_generator_potential", 0))
-	var label := str(sale.get("label", "wasted potential"))
-	GameState.mark_quest_completed("dreaming_generator_fed")
-	if new_total >= GameState.DREAMING_GENERATOR_THRESHOLD:
-		GameState.mark_quest_completed("patch_dreaming_generator")
-		GameState.set_world_flag("patch_dreaming_generator", true)
-		GameState.mark_quest_completed("dreaming_generator_sustained")
+func _on_shop_closed() -> void:
 	_sync_dreaming_generator_state()
-	hud.show_dialogue(
-		"Pipe Father Gideon",
-		"Gideon feeds %s into the chapel core: %s. The generator rises by %d wasted potential. Wan Moa Torai honors the sale with %d Wan Notes; System X honors the mistake by tracking every note.\nStored potential: %d/%d." % [
-			item_name,
-			label,
-			potential,
-			wan_notes,
-			new_total,
-			GameState.DREAMING_GENERATOR_THRESHOLD,
-		]
-	)
-	hud.push_log("sold %s for %d wan notes" % [item_name.to_lower(), wan_notes])
+	_refresh_hud()
+	hud.set_objective(_get_objective_text())
+
+
+# Services chosen inside a topic conversation (same characters/services as the hub).
+func _on_district_dialogue_service(_npc_id: String, service_id: String) -> void:
+	match service_id:
+		"sell":
+			hud.open_sell_shop("Pipe Father Gideon — Wasted Potential")
+		"pharmacy":
+			hud.open_shop("Brickmouth Ronnie — Pharmacy", _ronnie_offers())
+		"cybernetics":
+			hud.open_cybernetics()   # Coil installs implants you're carrying, paid in Wan Notes
+
+
+func _on_district_dialogue_closed() -> void:
+	# A Work topic may have started a quest / claimed an item mid-conversation.
+	_refresh_hud()
+	hud.set_objective(_get_objective_text())
+
+
+func _ronnie_offers() -> Array:
+	return [
+		{"item": "Jolt", "label": "Jolt", "desc": GameState.CONSUMABLES["Jolt"]["desc"],
+			"price_item": "Wan Note", "price_count": 5},
+		{"item": "Glass", "label": "Glass", "desc": GameState.CONSUMABLES["Glass"]["desc"],
+			"price_item": "Wan Note", "price_count": 5},
+		{"item": "Redline", "label": "Redline", "desc": GameState.CONSUMABLES["Redline"]["desc"],
+			"price_item": "Wan Note", "price_count": 7},
+		{"item": "Patch", "label": "Patch (heal)", "desc": GameState.CONSUMABLES["Patch"]["desc"],
+			"price_item": "Wan Note", "price_count": 12},
+	]
 
 
 func _handle_lan_den() -> void:
@@ -343,32 +354,6 @@ func _handle_lan_den() -> void:
 		GameState.add_reputation("System X", 1)
 		GameState.mark_quest_completed("lan_party_brownout_protected")
 		hud.show_dialogue("Ladderboy", "LAN party protected. Every camera in two blocks just forgot how eyes work. That is infrastructure, not crime, please clap quietly.")
-
-
-func _handle_velvet_coil() -> void:
-	# Hub invitation flow — only active once phase 2 sets coil_invitation_available
-	if bool(GameState.get_world_flag("coil_invitation_available", false)):
-		if not bool(GameState.get_world_flag("coil_invitation_accepted", false)):
-			if not bool(GameState.get_world_flag("coil_met_in_tunnels", false)):
-				# First meeting: extend the offer
-				GameState.set_world_flag("coil_met_in_tunnels", true)
-				hud.show_dialogue("Velvet Coil", "I heard the atrium is stabilising. I want a room up there for the surgical suite — conditional terms, mutual benefit, no lease. Come back and tell me yes.")
-				hud.push_log("velvet coil: hub invitation offered")
-				return
-			else:
-				# Second meeting: accept — fall through to cybernetics after confirming
-				GameState.set_world_flag("coil_invitation_accepted", true)
-				hud.show_dialogue("Velvet Coil", "Good. Fourth store slot, upper floor. You will find me there once things settle. In the meantime — you are already here, might as well use the table.")
-				hud.push_log("velvet coil: hub invitation accepted")
-				# fall through to open cybernetics on this same press
-
-	# Normal cybernetics interaction
-	var upgrades: Array[Dictionary] = []
-	for key in CyberneticSurgeryUI.UPGRADE_DB.keys():
-		if not GameState.has_cybernetic(str(key)):
-			upgrades.append({"id": str(key)})
-	hud.show_dialogue("Velvet Coil", "Surgical suite is ready. Pick a slot, pick an implant. I learned this from a VHS tape, two broken androids, and one lawsuit that technically never found me.")
-	hud.open_cybernetics(upgrades)
 
 
 func _handle_cooters_followup() -> void:
@@ -437,23 +422,6 @@ func _handle_suitors_followup() -> void:
 	if tree == null:
 		return
 	tree.change_scene_to_file(SUITORS_INTERIOR_SCENE)
-
-
-func _handle_torai_followup() -> void:
-	if GameState.is_quest_completed("cooters_rain_sample") and not GameState.is_quest_completed("torai_salvage_contract"):
-		GameState.mark_quest_completed("torai_salvage_contract")
-		GameState.add_item("Torai Salvage Contract")
-		GameState.add_reputation("Wan Moa Torai", 1)
-		GameState.last_mission_result = "Torai salvage contract issued"
-		hud.show_dialogue("Wan Moa Torai", "Cooters confirms the rain is billable damage. Here is a salvage contract. Congratulations: your survival now has a form number and a tiny legal shadow.")
-		return
-
-	if GameState.is_quest_completed("torai_salvage_contract") and not GameState.is_quest_completed("district_side_jobs_intro_done"):
-		GameState.mark_quest_completed("district_side_jobs_intro_done")
-		hud.show_dialogue("Wan Moa Torai", "You now possess a poncho, a contract, and an obligation. This is the closest our office gets to affection without opening a second ledger.")
-		return
-
-	hud.show_dialogue("Wan Moa Torai", "Your one more try is already accruing meaning. Interest too, obviously. Meaning is never free down here.")
 
 
 func _start_cooters_rain_mutant() -> void:
@@ -1077,8 +1045,8 @@ func _get_objective_text() -> String:
 		return "Cooters emergency: rupture the mutant's key parts, drag it onto the magenta pad, then press E at Cooters."
 	if GameState.is_dreaming_generator_failing():
 		if GameState.get_sellable_wasted_potential_items().is_empty():
-			return "District: take jobs, salvage wasted potential, then feed Gideon's Dreaming Generator."
-		return "District: sell mission loot to Gideon at Pipe Chapel to feed the Dreaming Generator."
+			return "District: take jobs, salvage wasted potential, then sell it to Pipe Father Gideon."
+		return "District: sell wasted-potential loot to Pipe Father Gideon to feed the Dreaming Generator."
 	if not GameState.get_world_flag("torai_obligation"):
 		return "District: visit Wan Moa Torai for weather gear, then choose a route."
 	if not GameState.get_world_flag("cooters_neutralizer_claimed") or not GameState.get_world_flag("suitors_mask_claimed"):
@@ -1159,8 +1127,41 @@ func _get_travel_routes() -> Array:
 		"description": "Re-enter the authored mission cell. Very official, very dramatic, bring your best bad decisions.",
 		"target_scene": WAKE_UP_CALL_SCENE,
 		"locked": GameState.is_dreaming_generator_failing(),
-		"locked_reason": "Feed the Dreaming Generator at Pipe Chapel before using this route.",
+		"locked_reason": "Sell wasted-potential loot to Pipe Father Gideon to feed the Dreaming Generator first.",
 	})
+	# Comfort Annexe (Ward 7) — always reachable; the route into the next
+	# district passes close. No quest gate; the player investigates or doesn't.
+	routes.append({
+		"id": "comfort_annexe",
+		"title": "Comfort Annexe (Ward 7)",
+		"description": "A Gatebox Pacification Ward up the line. People in the Basement say something wrong-shaped came out of it, wearing pod-issue clothing.",
+		"target_scene": "res://scenes/levels/ComfortAnnexe_Reception.tscn",
+		"locked": false,
+		"locked_reason": "",
+	})
+	# Bone Dividend Vault — Big Gates soul-accounting vault; appears once the
+	# informant marks it (after you take the lead with the Ward 7 evidence).
+	if GameState.get_world_flag("bone_dividend_location_known", false):
+		routes.append({
+			"id": "bone_dividend_vault",
+			"title": "Bone Dividend Vault",
+			"description": "An off-map Big Gates vault where the soul-accounting balances. General Bone Dividend keeps the books here in person.",
+			"target_scene": "res://scenes/levels/BoneDividendVault.tscn",
+			"locked": false,
+			"locked_reason": "",
+		})
+	# Rocker Fellar Keep — deep service lift, quest-gated
+	var rocker_quest_active: bool = GameState.get_world_flag("quest_rocker_fellar_active", false)
+	var rocker_defeated: bool = GameState.get_world_flag("rocker_fellar_defeated", false)
+	if rocker_quest_active or rocker_defeated:
+		routes.append({
+			"id": "rocker_fellar_keep",
+			"title": "Rocker Fellar Keep",
+			"description": "A Big Gates Foundation concert fortress deep below even Leak Street. Soul-harvesting venue, death-metal cathedral, and one very theatrical general.",
+			"target_scene": ROCKER_FELLAR_KEEP_SCENE,
+			"locked": not rocker_quest_active,
+			"locked_reason": "Accept the Rocker Fellar quest from System X or Kiki Baja before descending.",
+		})
 	return routes
 
 

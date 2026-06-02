@@ -9,3 +9,11 @@ max_hp = 20.0
 targeting_penalty = 12.0
 lock_difficulty_multiplier = 1.2
 armor_value = 1.0
+on_destroy_effect = "enrage"
+effect_strength = 1.8
+effect_payload = {
+"duration": 3.5,
+"trigger_message": "splice lost the arm — frame running hot now"
+}
+telegraph_ability = "lunge"
+windup_lock_bonus = 0.5

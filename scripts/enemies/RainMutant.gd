@@ -26,25 +26,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_part_destroyed(part: BodyPart) -> void:
-	part.monitorable = false
-	part.visible = false
-	body_part_destroyed.emit(part.display_name)
-	_show_part_break_effect(part)
-	if billboard != null and billboard.has_method("show_part_broken"):
-		billboard.show_part_broken(part.display_name)
+	# Base Enemy applies the data-driven destruction effect (reduce melee, slow,
+	# stun, etc.). RainMutant only layers on the containment tracking flags.
+	super._on_part_destroyed(part)
 
 	match part.display_name:
 		"Rain Sac":
 			rain_sac_destroyed = true
-			melee_damage *= 0.55
-			ranged_damage = 0.0
 		"Mobility Frame":
 			mobility_frame_destroyed = true
-			move_speed = maxf(base_move_speed * 0.25, 0.25)
-		"Left Claw", "Right Claw":
-			melee_damage = maxf(melee_damage - 2.5, 2.0)
-		"Anchor Spine":
-			stun_timer = maxf(stun_timer, 1.2)
 
 	_check_containment()
 

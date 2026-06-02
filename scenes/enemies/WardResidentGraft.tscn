@@ -1,0 +1,121 @@
+[gd_scene load_steps=10 format=3 uid="uid://ward_resident_graft"]
+
+[ext_resource type="Script" path="res://scripts/enemies/WardResidentGraft.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="3"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.4
+height = 1.75
+
+[sub_resource type="CapsuleMesh" id="BodyMesh"]
+radius = 0.4
+height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="BodyMat"]
+albedo_color = Color(0.72, 0.62, 0.58, 1)
+emission_enabled = true
+emission = Color(0.85, 0.8, 0.78, 1)
+emission_energy_multiplier = 0.18
+
+[sub_resource type="SphereShape3D" id="HeadShape"]
+radius = 0.27
+
+[sub_resource type="BoxShape3D" id="TorsoShape"]
+size = Vector3(0.56, 0.7, 0.36)
+
+[sub_resource type="BoxShape3D" id="ArmShape"]
+size = Vector3(0.26, 0.64, 0.3)
+
+[node name="WardResidentGraft" type="CharacterBody3D"]
+script = ExtResource("1")
+move_speed = 1.3
+ranged_range = 9.0
+ranged_damage = 6.0
+melee_damage = 9.0
+attack_cooldown = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
+shape = SubResource("Body")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 0)
+mesh = SubResource("BodyMesh")
+surface_material_override/0 = SubResource("BodyMat")
+
+[node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shaded = false
+double_sided = true
+script = ExtResource("3")
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="GraftWeaponArm" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48, 0.95, 0)
+script = ExtResource("2")
+display_name = "GRAFT — RIGHT ARM"
+max_hp = 24.0
+targeting_penalty = 8.0
+armor_value = 0.2
+on_destroy_effect = "behavior_shift"
+telegraph_ability = "ranged_shot"
+windup_lock_bonus = 0.4
+effect_payload = {
+"mode": "grab",
+"speed_mult": 1.15,
+"message": "the graft arm dies — it lunges for a grip now"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/GraftWeaponArm"]
+shape = SubResource("ArmShape")
+
+[node name="OriginalLeftArm" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48, 0.95, 0)
+script = ExtResource("2")
+display_name = "LEFT ARM"
+max_hp = 14.0
+targeting_penalty = 6.0
+armor_value = 0.0
+on_destroy_effect = "stun"
+effect_strength = 1.5
+effect_payload = {
+"message": "(the human arm goes limp — that sound should not be in a fight)"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/OriginalLeftArm"]
+shape = SubResource("ArmShape")
+
+[node name="ConversionRigTorso" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94, 0)
+script = ExtResource("2")
+display_name = "CONVERSION RIG — TORSO"
+max_hp = 40.0
+targeting_penalty = 2.0
+armor_value = 0.6
+on_destroy_effect = "behavior_shift"
+effect_payload = {
+"mode": "erratic",
+"speed_mult": 1.3,
+"message": "the conversion rig shatters — it moves wrong now, faster and without sense"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/ConversionRigTorso"]
+shape = SubResource("TorsoShape")
+
+[node name="OriginalHead" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+script = ExtResource("2")
+display_name = "HEAD"
+max_hp = 22.0
+targeting_penalty = 18.0
+lock_difficulty_multiplier = 1.4
+part_role = "head"
+on_destroy_effect = "defeat"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/OriginalHead"]
+shape = SubResource("HeadShape")

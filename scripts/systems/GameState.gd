@@ -3,8 +3,14 @@ extends Node
 signal cybernetics_changed
 signal inventory_changed(summary: String)
 signal reputation_changed(summary: String)
+signal effects_changed
+signal effect_notice(text: String)
+signal player_heal_requested(amount: float)
+signal player_damage_requested(amount: float)
+signal player_died
 
 var items: Dictionary = {}
+var wan_notes: int = 0   # the sole currency (virtualized through the "Wan Note" item API)
 var reputation: Dictionary = {
 	"System X": 0,
 	"Gatebox Corporation": 0,
@@ -27,6 +33,171 @@ var last_mission_result := ""
 var world_flags: Dictionary = {}
 var quest_states: Dictionary = {}
 var cybernetics: Dictionary = {}
+
+# ── Dialogue system (Daggerfall-style topics) ───────────────────────
+var known_topics: Dictionary = {}      # topic_id -> true (the keyword codex)
+var npc_disposition: Dictionary = {}   # npc_id -> int 0..100 (seeded from faction on first read)
+var conversation_tone := "normal"      # "polite" | "normal" | "blunt", remembered between talks
+
+# ── Phase 2: attributes & drift ─────────────────────────────────────
+# IZ2-derived attribute matrix. Soft flavour for now; wired into rolls later.
+var attributes: Dictionary = {
+	"STR": 2, "AGL": 3, "CON": 2,   # MEAT
+	"INT": 4, "PER": 3, "WIL": 2,   # MIND
+	"EMP": 1, "LUCK": 2,            # SOUL
+}
+# Drift: estrangement from unmodified humanity. Rises on cybernetic installs.
+var drift: int = 0
+# Soul-rot: corruption of the soul anchor. Rises from freeing trapped souls,
+# soul-tech, and Preservation compliance (full system is Phase 6). 0..100.
+var soul_rot: int = 0
+const SOUL_ROT_MAX := 100
+# Gatebox attention: how much corporate notice the player has drawn by
+# trespassing in Gatebox installations (Comfort Annexe etc.). One-way-ish ratchet.
+var gatebox_attention_level: int = 0
+
+# ── Save location & death ───────────────────────────────────────────
+# Where the player was when they last saved, so a load drops them back in the
+# right scene at the right spot rather than at the level's default entrance.
+var saved_scene_path := ""
+var _save_px := 0.0
+var _save_py := 0.0
+var _save_pz := 0.0
+var _save_pyaw := 0.0
+var _save_php := 100.0
+var _has_saved_location := false
+var _is_dead := false
+var _force_reload_pending := false
+
+const DRIFT_MAX := 100
+const DRIFT_FLAG_NOTICED := "drift_noticed"   # 21+: Gatebox grows attentive
+const DRIFT_FLAG_UNCANNY := "drift_uncanny"   # 41+: citizens uneasy
+const DRIFT_FLAG_SCANNED := "drift_scanned"   # 61+: Preservation scans climb
+const DRIFT_FLAG_HIGH := "high_drift"         # 81+: unique NPC reactions
+
+# ── Loot: enemy cyberware drops + scrap (refactor §2) ───────────────
+# Enemies drop the implant tied to a body part you left INTACT (break the part → forfeit it).
+# Keyed by loot_id (Enemy resolves this from its faction by default). `parts` maps a part's
+# display_name → the implant it yields while that part is unbroken. Drops are deliberately rare.
+var ENEMY_LOOT: Dictionary = {
+	"splice": {
+		"drop_chance": 0.28,
+		"parts": {
+			"Wire Skull": "whisper_filter",
+			"Graft Shell": "soul_baffle",
+			"Splice Arm": "black_market_armature",
+			"Drag Frame": "sprint_pistons",
+		},
+		"scrap": ["Bent Actuator", "Fried Cortex Chip"],
+		"scrap_chance": 0.45,
+		"special": [{"item": "neural_splice", "chance": 0.5}],   # bunny/Vessel quest
+	},
+	"gatebox": {
+		"drop_chance": 0.24,
+		"parts": {
+			"Head": "gatebox_eye_mk1",
+			"Torso": "soul_baffle",
+			"Right Arm": "targeting_coprocessor",
+			"Left Arm": "trauma_dampener",
+			"Right Leg": "pipewalker_legs",
+			"Left Leg": "sprint_pistons",
+		},
+		"scrap": ["Cracked Optic", "Bent Actuator"],
+		"scrap_chance": 0.4,
+		"special": [],
+	},
+	"big_gates": {
+		# Big Gates rank-and-file (Foundation Enforcer / Tithe Servitor) are goon-framed, so the
+		# loot keys to goon part display-names. Higher-band faction → richer implants.
+		"drop_chance": 0.22,
+		"parts": {
+			"Head": "mag_retina",
+			"Torso": "bioreactor_mesh",
+			"Right Arm": "endoskeletal_brace",
+			"Left Arm": "spine_relay",
+			"Right Leg": "pipewalker_legs",
+			"Left Leg": "sprint_pistons",
+		},
+		"scrap": ["Leaking Cell", "Fried Cortex Chip"],
+		"scrap_chance": 0.4,
+		"special": [],
+	},
+}
+
+# Ruined implant parts: sell-only scrap (Wan Note value). May be crafting inputs later.
+const SCRAP_VALUES := {
+	"Cracked Optic": 3,
+	"Bent Actuator": 3,
+	"Fried Cortex Chip": 4,
+	"Leaking Cell": 5,
+}
+
+# Implant rarity → drop weight (rarer = lower weight) and later install price / scrap value.
+const IMPLANT_TIERS := {
+	"black_market_armature": "uncommon", "left_arm_graft": "uncommon",
+	"trauma_dampener": "uncommon", "mag_retina": "uncommon",
+	"endoskeletal_brace": "uncommon", "neural_jack": "uncommon", "spine_relay": "uncommon",
+	"bioreactor_mesh": "rare", "drift_syphon": "rare",
+	"soul_anchor_tap": "rare", "preservation_blocker": "rare",
+	# everything else defaults to "common"
+}
+
+# ── Consumables / Drugs ─────────────────────────────────────────────
+# Brickmouth Ronnie's pharmacy. Each drug grants an "active" buff for a
+# duration, then drops into a "comedown" penalty before clearing. Modifier
+# keys: speed_mult / reload_mult / damage_mult / damage_taken_mult are
+# multiplicative (default 1.0); hit_chance_bonus / hack_bonus are additive.
+# "heal" is applied instantly on use.
+const CONSUMABLES := {
+	"Jolt": {
+		"label": "Jolt",
+		"desc": "Sub-Sub-Basement street stim. The floor speeds up to meet you. Then your hands forget how to hold still.",
+		"use_log": "Jolt hits — everything quickens.",
+		"comedown_log": "Jolt comedown — the shakes set in, aim's gone loose.",
+		"active_duration": 24.0,
+		"active_mods": {"speed_mult": 1.30, "reload_mult": 0.65},
+		"comedown_duration": 16.0,
+		"comedown_mods": {"hit_chance_bonus": -18.0},
+	},
+	"Glass": {
+		"label": "Glass",
+		"desc": "A clarity drug cut for runners and hackers. The world snaps into focus and terminals stop arguing. You get heavy when it leaves.",
+		"use_log": "Glass settles — the world goes sharp and quiet.",
+		"comedown_log": "Glass comedown — limbs full of wet sand.",
+		"active_duration": 24.0,
+		"active_mods": {"hit_chance_bonus": 16.0, "hack_bonus": 2.0},
+		"comedown_duration": 14.0,
+		"comedown_mods": {"speed_mult": 0.80},
+	},
+	"Redline": {
+		"label": "Redline",
+		"desc": "Combat juice. Every hit lands harder. So does every hit you take, once it sours.",
+		"use_log": "Redline floods in — you hit like a falling ceiling.",
+		"comedown_log": "Redline comedown — skin like wet paper.",
+		"active_duration": 18.0,
+		"active_mods": {"damage_mult": 1.55},
+		"comedown_duration": 18.0,
+		"comedown_mods": {"damage_taken_mult": 1.30},
+	},
+	"Patch": {
+		"label": "Patch",
+		"desc": "Wan Moa Torai field medicine. Seals you up fast. Tastes like mint and apology, leaves you a little soft behind the eyes.",
+		"use_log": "Patch seals you up.",
+		"comedown_log": "Patch fog — everything's a half-second slow.",
+		"heal": 45.0,
+		"active_duration": 0.0,
+		"active_mods": {},
+		"comedown_duration": 8.0,
+		"comedown_mods": {"speed_mult": 0.90},
+	},
+}
+
+# Active timed effects from consumed drugs. Each entry:
+#   {id, label, phase: "active"|"comedown", time_left, active_mods,
+#    comedown_mods, comedown_duration, comedown_log}
+# Untyped Array so Array.filter() results assign back cleanly.
+var active_effects: Array = []
+
 const SAVE_PATH := "user://gatebox_save.json"
 const WAN_NOTE_ITEM := "Wan Note"
 const DREAMING_GENERATOR_POTENTIAL_FLAG := "dreaming_generator_potential"
@@ -154,6 +325,119 @@ const COOTERS_JOBS := {
 	},
 }
 
+# ── Dynamic Cooters jobs (refactor §4) ──────────────────────────────
+# Authored, faction-sourced templates. Each visit to Cooters shuffles the pool and instances a
+# few (build_job_board). An instance rolls its location (from `locations`), enemy threat band +
+# contesting faction, and a Wan Note reward; items are an occasional bonus. Instances carry the
+# same fields the destinations + JobBoardUI already read (objective_interactable/objective_item/
+# destination), so no destination code changes.
+#
+# objective_type: "find" (recover an item at a location's objective node — reuses existing nodes),
+# "kill_loot" (defeat the garrison until target_loot drops), "deliver" (carry deliver_item to a
+# location's drop-off node). giver = faction/NPC the job comes from (flavor + event linkage).
+# Each `locations` entry: {id, node, item, title} for that destination's objective node.
+var COOTERS_JOB_TEMPLATES: Dictionary = {
+	"marbles_pipe_sample": {
+		"giver": "Marbles", "faction": "System X", "objective_type": "find",
+		"short_desc": "Bring Marbles a living drip from the utility pipes before it argues with the glass.",
+		"threat_band": 1, "rival_faction": "Splice", "reward_wan_notes": [10, 16],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Cooters Bar Credit", "Bent Actuator"],
+		"faction_rep": {"System X": 1},
+		"event_cards_on_accept": ["pipe_blood_sample_exit", "pipe_blood_sample_travel"],
+		"event_cards_on_complete": ["pipe_blood_sample_return"],
+		"locations": [
+			{"id": "pipe_utility_tunnels", "node": "pipe_blood_sample_node", "item": "Pipe Blood Sample", "title": "Pipe Blood Sample"},
+		],
+	},
+	"gideon_saint_ratchet": {
+		"giver": "Pipe Father Gideon", "faction": "System X", "objective_type": "find",
+		"short_desc": "Recover a pipe-cult relic before Torai invoices the miracle.",
+		"threat_band": 2, "rival_faction": "Splice", "reward_wan_notes": [14, 20],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Chemical Neutralizer"],
+		"faction_rep": {"System X": 1},
+		"event_cards_on_accept": ["ratchet_saint_exit", "ratchet_saint_travel"],
+		"event_cards_on_complete": ["ratchet_saint_return"],
+		"locations": [
+			{"id": "pipe_utility_tunnels", "node": "saint_ratchet_node", "item": "Saint Ratchet", "title": "Saint Ratchet"},
+		],
+	},
+	"vera_water_filter": {
+		"giver": "Vera", "faction": "System X", "objective_type": "find",
+		"short_desc": "Pull a clean water filter from the plant-choked food court.",
+		"threat_band": 2, "rival_faction": "Gatebox", "reward_wan_notes": [14, 22],
+		"reward_item_chance": 0.35, "reward_item_pool": ["Chemical Neutralizer", "Cracked Optic"],
+		"faction_rep": {"System X": 1},
+		"event_cards_on_accept": ["food_court_exit", "food_court_travel"],
+		"event_cards_on_complete": ["food_court_return"],
+		"locations": [
+			{"id": "dead_food_court_bloom", "node": "pure_water_filter_node", "item": "Pure Water Filter", "title": "Pure Water Filter"},
+		],
+	},
+	"torai_cistern_core": {
+		"giver": "Wan Moa Torai", "faction": "Wan Moa Torai", "objective_type": "find",
+		"short_desc": "Borrow a pump core from a flooded reclamation room. Unpaid inventory, technically.",
+		"threat_band": 2, "rival_faction": "Gatebox", "reward_wan_notes": [16, 24],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Chemical Neutralizer", "Leaking Cell"],
+		"faction_rep": {"Wan Moa Torai": 1},
+		"event_cards_on_accept": ["cistern_exit", "cistern_travel"],
+		"event_cards_on_complete": ["cistern_return"],
+		"locations": [
+			{"id": "water_reclamation_cistern", "node": "cistern_filter_core_node", "item": "Cistern Filter Core", "title": "Pump Heart Lease"},
+		],
+	},
+	"systemx_atrium_relay": {
+		"giver": "System X", "faction": "System X", "objective_type": "find",
+		"short_desc": "Record a relay pulse from the collapsed mall atrium.",
+		"threat_band": 2, "rival_faction": "Big Gates", "reward_wan_notes": [16, 24],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Cooters Rumor Token"],
+		"faction_rep": {"System X": 1},
+		"event_cards_on_accept": ["atrium_relay_exit", "atrium_relay_travel"],
+		"event_cards_on_complete": ["atrium_relay_return"],
+		"locations": [
+			{"id": "collapsed_service_atrium", "node": "atrium_relay_node", "item": "Atrium Relay Packet", "title": "Atrium Relay Echo"},
+		],
+	},
+	"kiki_salvage_haul": {
+		"giver": "Kiki Baja", "faction": "Wan Moa Torai", "objective_type": "kill_loot",
+		"short_desc": "Torai wants salvaged actuators. Strip them off whatever is guarding the cistern.",
+		"threat_band": 2, "rival_faction": "Gatebox", "reward_wan_notes": [18, 26],
+		"reward_item_chance": 0.25, "reward_item_pool": ["Cooters Bar Credit"],
+		"faction_rep": {"Wan Moa Torai": 1},
+		"target_loot": "Bent Actuator", "target_loot_label": "a salvaged actuator",
+		"locations": [
+			{"id": "water_reclamation_cistern", "title": "Actuator Salvage"},
+			{"id": "pipe_utility_tunnels", "title": "Actuator Salvage"},
+		],
+	},
+	"ronnie_optics_run": {
+		"giver": "Brickmouth Ronnie", "faction": "System X", "objective_type": "kill_loot",
+		"short_desc": "Ronnie needs cracked optics for a batch he will not describe. Pull them off the guards.",
+		"threat_band": 2, "rival_faction": "Gatebox", "reward_wan_notes": [16, 24],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Jolt", "Glass"],
+		"faction_rep": {},
+		"target_loot": "Cracked Optic", "target_loot_label": "a cracked optic",
+		"locations": [
+			{"id": "dead_food_court_bloom", "title": "Optics Run"},
+			{"id": "collapsed_service_atrium", "title": "Optics Run"},
+		],
+	},
+	"gideon_relic_delivery": {
+		"giver": "Pipe Father Gideon", "faction": "System X", "objective_type": "deliver",
+		"short_desc": "Carry a blessed pipe-cult relic down to the chapel shrine without losing it to the dark.",
+		"threat_band": 1, "rival_faction": "Splice", "reward_wan_notes": [12, 18],
+		"reward_item_chance": 0.2, "reward_item_pool": ["Chemical Neutralizer"],
+		"faction_rep": {"System X": 1},
+		"deliver_item": "Blessed Ratchet Relic",
+		"locations": [
+			{"id": "pipe_utility_tunnels", "node": "saint_ratchet_node", "title": "Relic Delivery"},
+		],
+	},
+}
+
+# The shuffled board (rolled instances) and the active job instance.
+var board_instances: Array = []
+var active_job_instance: Dictionary = {}
+
 var QUEST_DEFS: Dictionary = {
 	"wake_up_call": {
 		"title": "Wake-Up Call",
@@ -224,15 +508,39 @@ var QUEST_DEFS: Dictionary = {
 		"objective_text_active": "Hub: wipe the terminal and clear the debris in Store 4.",
 		"objective_text_done": "Store 4 claimed.",
 	},
+	"quest_rocker_fellar": {
+		"title": "Rocker Fellar Keep",
+		"type": "campaign",
+		"giver": "System X",
+		"active_flag": "quest_rocker_fellar_active",
+		"done_flag": "rocker_fellar_defeated",
+		"objectives": [
+			{"id": "rocker_fellar_defeated", "text": "Defeat Rocker Fellar in his concert fortress", "required": true, "done_flag": "rocker_fellar_defeated"},
+		],
+		"objective_text_active": "Descend to Rocker Fellar Keep. Destroy his body parts, shut down the soul batteries, end the concert.",
+		"objective_text_done": "Rocker Fellar defeated. The first General has fallen.",
+	},
 }
 
 
 func add_item(item_name: String, count := 1) -> void:
+	# Wan Notes are the sole currency — virtualized into a dedicated int so they read
+	# as a wallet, not a stacked item, while every existing shop/cost path keeps working.
+	if item_name == WAN_NOTE_ITEM:
+		wan_notes = maxi(wan_notes + count, 0)
+		inventory_changed.emit(get_inventory_summary())
+		return
 	items[item_name] = int(items.get(item_name, 0)) + count
 	inventory_changed.emit(get_inventory_summary())
 
 
 func spend_item(item_name: String, count := 1) -> bool:
+	if item_name == WAN_NOTE_ITEM:
+		if wan_notes < count:
+			return false
+		wan_notes -= count
+		inventory_changed.emit(get_inventory_summary())
+		return true
 	if int(items.get(item_name, 0)) < count:
 		return false
 
@@ -244,7 +552,177 @@ func spend_item(item_name: String, count := 1) -> bool:
 
 
 func has_item(item_name: String, count := 1) -> bool:
+	if item_name == WAN_NOTE_ITEM:
+		return wan_notes >= count
 	return int(items.get(item_name, 0)) >= count
+
+
+# ── Wan Note wallet (the sole currency) ─────────────────────────────
+
+func get_wan_notes() -> int:
+	return wan_notes
+
+
+func add_wan_notes(amount: int) -> void:
+	add_item(WAN_NOTE_ITEM, amount)
+
+
+func spend_wan_notes(amount: int) -> bool:
+	return spend_item(WAN_NOTE_ITEM, amount)
+
+
+# Wan Note price to have an implant installed at Velvet Coil, by rarity tier.
+const IMPLANT_PRICES := {"common": 8, "uncommon": 16, "rare": 28}
+
+func implant_install_price(implant_id: String) -> int:
+	return int(IMPLANT_PRICES.get(str(IMPLANT_TIERS.get(implant_id, "common")), 8))
+
+
+# Wan Note value Gideon pays to scrap an implant (less than install cost) or a ruined part.
+func scrap_value(item_name: String) -> int:
+	if SCRAP_VALUES.has(item_name):
+		return int(SCRAP_VALUES[item_name])
+	if is_implant_item(item_name):
+		match str(IMPLANT_TIERS.get(item_name, "common")):
+			"rare": return 14
+			"uncommon": return 8
+			_: return 4
+	return 0
+
+
+# ── Consumables / status effects ────────────────────────────────────
+
+func is_consumable(item_name: String) -> bool:
+	return CONSUMABLES.has(item_name)
+
+
+# Spend one of item_name and apply its effect. Returns a result dict
+# {ok, label, log} on success, or {} if the item isn't usable / not held.
+func use_consumable(item_name: String) -> Dictionary:
+	if not CONSUMABLES.has(item_name) or not has_item(item_name):
+		return {}
+	var c: Dictionary = CONSUMABLES[item_name]
+	spend_item(item_name, 1)
+
+	var heal := float(c.get("heal", 0.0))
+	if heal > 0.0:
+		player_heal_requested.emit(heal)
+
+	var active_dur := float(c.get("active_duration", 0.0))
+	var comedown_dur := float(c.get("comedown_duration", 0.0))
+	if active_dur > 0.0 or comedown_dur > 0.0:
+		_add_effect(item_name, c)
+
+	effects_changed.emit()
+	var log_line := str(c.get("use_log", "used %s" % item_name))
+	effect_notice.emit(log_line)
+	return {"ok": true, "label": str(c.get("label", item_name)), "log": log_line}
+
+
+# Public hook so enemies/environment can apply a timed debuff to the player
+# (e.g. a Pacification Warden's sedative). Uses the same effect pipeline as drugs.
+#   config: {label, active_duration, active_mods, comedown_duration, comedown_mods, log}
+func apply_timed_effect(id: String, config: Dictionary) -> void:
+	_add_effect(id, config)
+	effects_changed.emit()
+	var log_line := str(config.get("log", ""))
+	if not log_line.is_empty():
+		effect_notice.emit(log_line)
+
+
+func _add_effect(id: String, c: Dictionary) -> void:
+	# Re-using the same drug refreshes its timer rather than stacking.
+	active_effects = active_effects.filter(func(e): return str(e.get("id", "")) != id)
+	var entry := {
+		"id": id,
+		"label": str(c.get("label", id)),
+		"active_mods": (c.get("active_mods", {}) as Dictionary).duplicate(),
+		"comedown_mods": (c.get("comedown_mods", {}) as Dictionary).duplicate(),
+		"comedown_duration": float(c.get("comedown_duration", 0.0)),
+		"comedown_log": str(c.get("comedown_log", "")),
+	}
+	var active_dur := float(c.get("active_duration", 0.0))
+	if active_dur > 0.0:
+		entry["phase"] = "active"
+		entry["time_left"] = active_dur
+	else:
+		entry["phase"] = "comedown"
+		entry["time_left"] = entry["comedown_duration"]
+	active_effects.append(entry)
+
+
+func _process(delta: float) -> void:
+	if active_effects.is_empty():
+		return
+	var changed := false
+	var survivors: Array = []
+	for e in active_effects:
+		e["time_left"] = float(e["time_left"]) - delta
+		if float(e["time_left"]) > 0.0:
+			survivors.append(e)
+			continue
+		# Phase elapsed: active -> comedown, or comedown -> expire.
+		if str(e["phase"]) == "active" and float(e["comedown_duration"]) > 0.0:
+			e["phase"] = "comedown"
+			e["time_left"] = float(e["comedown_duration"])
+			survivors.append(e)
+			var cl := str(e.get("comedown_log", ""))
+			if not cl.is_empty():
+				effect_notice.emit(cl)
+		changed = true
+	active_effects = survivors
+	if changed:
+		effects_changed.emit()
+
+
+func get_active_effects() -> Array:
+	return active_effects
+
+
+func _effect_mods_for(e: Dictionary) -> Dictionary:
+	return e["active_mods"] if str(e.get("phase", "")) == "active" else e["comedown_mods"]
+
+
+func _effect_product(key: String) -> float:
+	var v := 1.0
+	for e in active_effects:
+		var mods: Dictionary = _effect_mods_for(e)
+		if mods.has(key):
+			v *= float(mods[key])
+	return v
+
+
+func _effect_sum(key: String) -> float:
+	var v := 0.0
+	for e in active_effects:
+		var mods: Dictionary = _effect_mods_for(e)
+		if mods.has(key):
+			v += float(mods[key])
+	return v
+
+
+func get_speed_multiplier() -> float:
+	return _effect_product("speed_mult")
+
+
+func get_reload_multiplier() -> float:
+	return _effect_product("reload_mult")
+
+
+func get_damage_multiplier() -> float:
+	return _effect_product("damage_mult")
+
+
+func get_damage_taken_multiplier() -> float:
+	return _effect_product("damage_taken_mult")
+
+
+func get_hit_chance_bonus() -> float:
+	return _effect_sum("hit_chance_bonus")
+
+
+func get_hack_bonus() -> int:
+	return int(round(_effect_sum("hack_bonus")))
 
 
 func get_wasted_potential_value(item_name: String) -> Dictionary:
@@ -254,14 +732,27 @@ func get_wasted_potential_value(item_name: String) -> Dictionary:
 func get_sellable_wasted_potential_items() -> Array:
 	var sellable := []
 	for item_name in items.keys():
+		var id := str(item_name)
 		if int(items.get(item_name, 0)) <= 0:
 			continue
-		if WASTED_POTENTIAL_VALUES.has(str(item_name)):
-			var data: Dictionary = get_wasted_potential_value(str(item_name))
-			data["item_name"] = str(item_name)
+		if WASTED_POTENTIAL_VALUES.has(id):
+			var data: Dictionary = get_wasted_potential_value(id)
+			data["item_name"] = id
 			data["count"] = int(items[item_name])
 			sellable.append(data)
-	sellable.sort_custom(func(a, b): return int(a.get("potential", 0)) > int(b.get("potential", 0)))
+		elif is_implant_item(id):
+			# Unwanted dropped implants scrap to Gideon for Wan Notes (less than install cost).
+			sellable.append({
+				"item_name": id, "count": int(items[item_name]),
+				"label": "salvaged %s" % _item_display_name(id),
+				"wan_notes": scrap_value(id), "potential": 0,
+			})
+		elif is_scrap_item(id):
+			sellable.append({
+				"item_name": id, "count": int(items[item_name]),
+				"label": "ruined %s" % id, "wan_notes": scrap_value(id), "potential": 0,
+			})
+	sellable.sort_custom(func(a, b): return int(a.get("wan_notes", 0)) > int(b.get("wan_notes", 0)))
 	return sellable
 
 
@@ -269,21 +760,48 @@ func sell_highest_wasted_potential_to_gideon() -> Dictionary:
 	var sellable := get_sellable_wasted_potential_items()
 	if sellable.is_empty():
 		return {}
+	return sell_wasted_potential_item(str(sellable[0].get("item_name", "")))
 
-	var sale: Dictionary = sellable[0]
-	var item_name := str(sale.get("item_name", ""))
-	if item_name.is_empty() or not spend_item(item_name):
+
+# Sell one unit of a specific wasted-potential item to Gideon: pays Wan Notes,
+# feeds the Dreaming Generator, and advances the generator quest flags.
+func sell_wasted_potential_item(item_name: String) -> Dictionary:
+	if item_name.is_empty():
+		return {}
+	# Scrap path: implants and ruined parts sell for flat Wan Notes (no generator feed).
+	if not WASTED_POTENTIAL_VALUES.has(item_name) and (is_implant_item(item_name) or is_scrap_item(item_name)):
+		if not spend_item(item_name):
+			return {}
+		var value := scrap_value(item_name)
+		add_wan_notes(value)
+		last_mission_result = "Scrapped %s to Gideon for %d Wan Notes" % [_item_display_name(item_name), value]
+		inventory_changed.emit(get_inventory_summary())
+		return {"item_name": item_name, "label": "scrap", "wan_notes": value, "potential": 0}
+	if not WASTED_POTENTIAL_VALUES.has(item_name):
+		return {}
+	if not spend_item(item_name):
 		return {}
 
-	var wan_notes := int(sale.get("wan_notes", 0))
-	var potential := int(sale.get("potential", 0))
-	add_item(WAN_NOTE_ITEM, wan_notes)
+	var data := get_wasted_potential_value(item_name)
+	var payout := int(data.get("wan_notes", 0))
+	var potential := int(data.get("potential", 0))
+	add_wan_notes(payout)
 	add_dreaming_generator_potential(potential)
-	sale["wan_notes"] = wan_notes
-	sale["potential"] = potential
-	sale["new_generator_potential"] = get_dreaming_generator_potential()
-	last_mission_result = "Sold %s to Gideon for %d Wan Notes" % [item_name, wan_notes]
-	return sale
+	mark_quest_completed("dreaming_generator_fed")
+	var new_total := get_dreaming_generator_potential()
+	if new_total >= DREAMING_GENERATOR_THRESHOLD:
+		mark_quest_completed("patch_dreaming_generator")
+		set_world_flag("patch_dreaming_generator", true)
+		mark_quest_completed("dreaming_generator_sustained")
+	last_mission_result = "Sold %s to Gideon for %d Wan Notes" % [item_name, payout]
+	inventory_changed.emit(get_inventory_summary())
+	return {
+		"item_name": item_name,
+		"label": str(data.get("label", "wasted potential")),
+		"wan_notes": payout,
+		"potential": potential,
+		"new_generator_potential": new_total,
+	}
 
 
 func add_dreaming_generator_potential(amount: int) -> int:
@@ -321,45 +839,186 @@ func is_quest_completed(quest_id: String) -> bool:
 	return bool(completed_quests.get(quest_id, false))
 
 
+const JOB_BOARD_SIZE := 4
+
+# Reshuffle the Cooters board (called on entering Cooters). The active job stays off the board.
+func build_job_board() -> Array:
+	board_instances = []
+	var keys: Array = COOTERS_JOB_TEMPLATES.keys()
+	keys.shuffle()
+	for tid in keys:
+		if board_instances.size() >= JOB_BOARD_SIZE:
+			break
+		if str(tid) == active_job_id:
+			continue
+		var inst := instance_job(str(tid))
+		if not inst.is_empty():
+			board_instances.append(inst)
+	return board_instances
+
+
+# Roll a concrete job from a template: pick a location, threat band, contesting faction, and a
+# Wan Note reward (items are an occasional bonus). The instance carries the fields destinations
+# and the board UI already read.
+func instance_job(template_id: String) -> Dictionary:
+	var t: Dictionary = COOTERS_JOB_TEMPLATES.get(template_id, {})
+	if t.is_empty():
+		return {}
+	var locs: Array = t.get("locations", [])
+	if locs.is_empty():
+		return {}
+	var loc: Dictionary = locs[randi() % locs.size()]
+	var wan_range: Array = t.get("reward_wan_notes", [10, 16])
+	var wan := randi_range(int(wan_range[0]), int(wan_range[1]))
+	var item := ""
+	var pool: Array = t.get("reward_item_pool", [])
+	if randf() < float(t.get("reward_item_chance", 0.0)) and not pool.is_empty():
+		item = str(pool[randi() % pool.size()])
+	var otype := str(t.get("objective_type", "find"))
+	var dest_id := str(loc.get("id", ""))
+	var inst := {
+		"id": template_id,
+		"giver": str(t.get("giver", "Marbles")),
+		"faction": str(t.get("faction", "")),
+		"objective_type": otype,
+		"title": str(loc.get("title", t.get("giver", "Job"))),
+		"short_desc": str(t.get("short_desc", "")),
+		"destination": _location_title(dest_id),
+		"destination_id": dest_id,
+		"threat_band": int(t.get("threat_band", 2)),
+		"rival_faction": str(t.get("rival_faction", "")),
+		"reward_wan_notes": wan,
+		"reward_item": item,
+		"faction_rep": t.get("faction_rep", {}),
+		"event_cards_on_accept": t.get("event_cards_on_accept", []),
+		"event_cards_on_complete": t.get("event_cards_on_complete", []),
+	}
+	match otype:
+		"find":
+			inst["objective_interactable"] = str(loc.get("node", ""))
+			inst["objective_item"] = str(loc.get("item", "the marked item"))
+			inst["objective"] = "Recover %s in %s." % [inst["objective_item"], inst["destination"]]
+		"kill_loot":
+			inst["target_loot"] = str(t.get("target_loot", ""))
+			inst["objective"] = "Recover %s from whatever contests %s." % [str(t.get("target_loot_label", "the loot")), inst["destination"]]
+		"deliver":
+			inst["objective_interactable"] = str(loc.get("node", ""))
+			inst["deliver_item"] = str(t.get("deliver_item", ""))
+			inst["objective_item"] = str(t.get("deliver_item", ""))   # drop-off node message
+			inst["objective"] = "Carry %s to the drop-off in %s." % [inst["deliver_item"], inst["destination"]]
+	inst["reward_text"] = "%d Wan Notes%s" % [wan, ("  +  " + item) if not item.is_empty() else ""]
+	return inst
+
+
+func _location_title(id: String) -> String:
+	match id:
+		"pipe_utility_tunnels": return "Pipe Utility Tunnels"
+		"dead_food_court_bloom": return "Dead Food Court Bloom"
+		"water_reclamation_cistern": return "Water Reclamation Cistern"
+		"collapsed_service_atrium": return "Collapsed Service Atrium"
+	return id.capitalize()
+
+
 func get_job_data(job_id: String) -> Dictionary:
-	var job: Dictionary = COOTERS_JOBS.get(job_id, {}).duplicate(true)
-	if not job.is_empty():
-		job["id"] = job_id
-		job["status"] = get_job_status(job_id)
-	return job
+	if job_id == active_job_id and not active_job_instance.is_empty():
+		var j := active_job_instance.duplicate(true)
+		j["status"] = get_job_status(job_id)
+		return j
+	for b: Dictionary in board_instances:
+		if str(b.get("id", "")) == job_id:
+			var jb := b.duplicate(true)
+			jb["status"] = get_job_status(job_id)
+			return jb
+	return {}
 
 
 func get_available_jobs() -> Array:
-	var jobs := []
-	for job_id in available_jobs:
-		var job := get_job_data(str(job_id))
-		if not job.is_empty():
-			jobs.append(job)
+	if board_instances.is_empty():
+		build_job_board()
+	var jobs: Array = []
+	for inst: Dictionary in board_instances:
+		var j: Dictionary = inst.duplicate(true)
+		j["status"] = get_job_status(str(inst.get("id", "")))
+		jobs.append(j)
 	return jobs
 
 
-func accept_job(job_id: String) -> bool:
+func accept_job(template_id: String) -> bool:
 	if not active_job_id.is_empty():
 		return false
-	if not available_jobs.has(job_id):
+	var inst: Dictionary = {}
+	for b: Dictionary in board_instances:
+		if str(b.get("id", "")) == template_id:
+			inst = b.duplicate(true)
+			break
+	if inst.is_empty():
+		inst = instance_job(template_id)
+	if inst.is_empty():
 		return false
-	if is_job_completed(job_id):
-		return false
-	if not COOTERS_JOBS.has(job_id):
-		return false
-
-	active_job_id = job_id
-	job_flags.erase(_objective_flag(job_id))
-	for card_id: String in COOTERS_JOBS[job_id].get("event_cards_on_accept", []):
-		var card := WorldDirector.get_named_card(card_id)
+	active_job_id = template_id
+	active_job_instance = inst
+	job_flags.erase(_objective_flag(template_id))
+	# Drive the contested-location enemy spawns (EnemyLayouts reads these).
+	set_world_flag("_active_threat_band", int(inst.get("threat_band", 2)))
+	set_world_flag("_active_rival_faction", str(inst.get("rival_faction", "")))
+	# Deliver jobs hand you the parcel up front.
+	if str(inst.get("objective_type", "")) == "deliver":
+		var di := str(inst.get("deliver_item", ""))
+		if not di.is_empty():
+			add_item(di)
+	for card_id: String in inst.get("event_cards_on_accept", []):
+		var card := WorldDirector.get_named_card(str(card_id))
 		if not card.is_empty():
 			EventDeckSystem.add_card(card)
-	last_mission_result = "Accepted Cooters job: %s" % str(COOTERS_JOBS[job_id].get("title", job_id))
+	# Auto-link faction event chains: the giver may demand a cut on the way out, the contesting
+	# (rival) faction may ambush en route. (Cards expire after one fire.)
+	_seed_event_card(_faction_demand_card(str(inst.get("faction", ""))))
+	_seed_event_card(_faction_ambush_card(str(inst.get("rival_faction", ""))))
+	last_mission_result = "Accepted job from %s: %s" % [str(inst.get("giver", "Marbles")), str(inst.get("title", template_id))]
 	return true
+
+
+func _seed_event_card(card_id: String) -> void:
+	if card_id.is_empty():
+		return
+	var card := WorldDirector.get_named_card(card_id)
+	if not card.is_empty():
+		EventDeckSystem.add_card(card)
+
+
+# The contesting faction's intercept on the way out (a demand from the giver's people).
+func _faction_demand_card(faction: String) -> String:
+	match faction:
+		"Wan Moa Torai": return "torai_demand_core"
+		"Gatebox", "Gatebox Corporation": return "gatebox_checkpoint"
+		_: return ""
+
+
+# The rival faction's en-route ambush.
+func _faction_ambush_card(faction: String) -> String:
+	match faction:
+		"Splice": return "splice_ambush"
+		"Gatebox", "Gatebox Corporation": return "gatebox_enforcers"
+		"Big Gates", "Big Gates Foundation": return "biggates_harvesters"
+		"Wan Moa Torai": return "torai_ambush"
+		_: return ""
+
+
+# A grateful follow-up from the giver, seen back at the Atrium after the job.
+func _faction_gift_card(faction: String) -> String:
+	match faction:
+		"System X": return "systemx_tipoff"
+		"Wan Moa Torai": return "torai_gift"
+		"Gatebox", "Gatebox Corporation": return "gatebox_commendation"
+		"Big Gates", "Big Gates Foundation": return "biggates_recruiter"
+		_: return "grateful_resident_gift"
 
 
 func clear_active_job() -> void:
 	active_job_id = ""
+	active_job_instance = {}
+	set_world_flag("_active_threat_band", 2)
+	set_world_flag("_active_rival_faction", "")
 
 
 func get_active_job_data() -> Dictionary:
@@ -369,8 +1028,6 @@ func get_active_job_data() -> Dictionary:
 
 
 func get_job_status(job_id: String) -> String:
-	if is_job_completed(job_id):
-		return "paid"
 	if active_job_id == job_id:
 		return "ready for payout" if is_job_objective_done(job_id) else "active"
 	if not active_job_id.is_empty():
@@ -378,52 +1035,71 @@ func get_job_status(job_id: String) -> String:
 	return "available"
 
 
-func is_job_completed(job_id: String) -> bool:
-	return bool(completed_jobs.get(job_id, false))
+func is_job_completed(_job_id: String) -> bool:
+	return false   # templates are repeatable; no permanent completion
 
 
 func mark_job_objective_done(job_id: String) -> void:
-	if job_id.is_empty() or not COOTERS_JOBS.has(job_id):
+	if job_id.is_empty() or job_id != active_job_id:
 		return
 	job_flags[_objective_flag(job_id)] = true
-	completed_quests["cooters_job_objective_%s" % job_id] = true
 
 
 func is_job_objective_done(job_id: String) -> bool:
+	if job_id != active_job_id or active_job_instance.is_empty():
+		return false
+	if str(active_job_instance.get("objective_type", "find")) == "kill_loot":
+		return has_item(str(active_job_instance.get("target_loot", "")))
 	return bool(job_flags.get(_objective_flag(job_id), false))
 
 
 func complete_active_job() -> Dictionary:
-	var job_id := active_job_id
-	if job_id.is_empty() or not COOTERS_JOBS.has(job_id):
+	if active_job_id.is_empty() or active_job_instance.is_empty():
 		return {}
-	if not is_job_objective_done(job_id):
+	if not is_job_objective_done(active_job_id):
 		return {}
-
-	var job: Dictionary = COOTERS_JOBS[job_id]
-	add_item(str(job.get("reward_item", "")), int(job.get("reward_count", 1)))
-	add_reputation(str(job.get("reward_faction", "System X")), int(job.get("reward_rep", 0)))
-	completed_jobs[job_id] = true
-	completed_quests["cooters_job_%s" % job_id] = true
-	EventDeckSystem.remove_cards_by_tag(job_id + "_active")
-	for card_id: String in job.get("event_cards_on_complete", []):
-		var card := WorldDirector.get_named_card(card_id)
+	var inst := active_job_instance.duplicate(true)
+	var otype := str(inst.get("objective_type", "find"))
+	# Hand over the proof of the work.
+	if otype == "kill_loot":
+		spend_item(str(inst.get("target_loot", "")))
+	elif otype == "deliver":
+		var di := str(inst.get("deliver_item", ""))
+		if not has_item(di):
+			return {}   # lost the parcel — no payout
+		spend_item(di, int(items.get(di, 0)))   # hand over every copy you're carrying
+	# Pay out: Wan Notes primary, an occasional item, plus faction rep.
+	add_wan_notes(int(inst.get("reward_wan_notes", 0)))
+	var item := str(inst.get("reward_item", ""))
+	if not item.is_empty():
+		add_item(item)
+	var rep: Dictionary = inst.get("faction_rep", {})
+	for fac in rep.keys():
+		add_reputation(str(fac), int(rep[fac]))
+	EventDeckSystem.remove_cards_by_tag(active_job_id + "_active")
+	for card_id: String in inst.get("event_cards_on_complete", []):
+		var card := WorldDirector.get_named_card(str(card_id))
 		if not card.is_empty():
 			EventDeckSystem.add_card(card)
-	last_mission_result = "Completed Cooters job: %s" % str(job.get("title", job_id))
-	active_job_id = ""
-	return get_job_data(job_id)
+	# A grateful follow-up from the giver faction will surface next time you reach the Atrium.
+	_seed_event_card(_faction_gift_card(str(inst.get("faction", ""))))
+	last_mission_result = "Completed job: %s (+%d Wan)" % [str(inst.get("title", "job")), int(inst.get("reward_wan_notes", 0))]
+	# Drift Syphon bleeds accumulated strangeness into the generator on each closed job.
+	if has_cybernetic("drift_syphon") and drift > 0:
+		var bled := mini(drift, 8)
+		reduce_drift(bled)
+		add_dreaming_generator_potential(bled)
+		effect_notice.emit("Drift Syphon vented %d drift into the Dreaming Generator." % bled)
+	clear_active_job()
+	return inst
 
 
 func get_active_job_objective_text() -> String:
-	if active_job_id.is_empty():
-		return ""
-	var job := get_job_data(active_job_id)
-	if job.is_empty():
+	if active_job_id.is_empty() or active_job_instance.is_empty():
 		return ""
 	if is_job_objective_done(active_job_id):
-		return "Return to Marbles for payment: %s." % str(job.get("title", active_job_id))
-	return str(job.get("objective", "Complete the active Cooters job."))
+		return "Return to Marbles for payment: %s." % str(active_job_instance.get("title", "job"))
+	return str(active_job_instance.get("objective", "Complete the active job."))
 
 
 func set_world_flag(flag_name: String, value = true) -> void:
@@ -434,8 +1110,129 @@ func get_world_flag(flag_name: String, default_value = false):
 	return world_flags.get(flag_name, default_value)
 
 
-func add_cybernetic(upgrade_id: String) -> void:
+# ── Dialogue system helpers ─────────────────────────────────────────
+
+# ── Loot rolls (refactor §2) ────────────────────────────────────────
+
+# Rolls an enemy's drops given which part display_names are still intact at death.
+# Returns a list of item ids to spawn. Implant is weighted toward intact parts and is rare;
+# scrap is more common; specials (e.g. neural_splice) roll independently.
+func roll_loot(loot_id: String, intact_parts: Array) -> Array:
+	var drops: Array = []
+	var prof: Dictionary = ENEMY_LOOT.get(loot_id, {})
+	if prof.is_empty():
+		return drops
+	# Implant drop — only from parts left unbroken.
+	var part_map: Dictionary = prof.get("parts", {})
+	var candidates: Array = []
+	for part_name in part_map.keys():
+		if intact_parts.has(part_name):
+			candidates.append(str(part_map[part_name]))
+	if not candidates.is_empty() and randf() < float(prof.get("drop_chance", 0.25)):
+		var pick := _weighted_implant(candidates)
+		if not pick.is_empty():
+			drops.append(pick)
+	# Scrap — more common.
+	var scrap: Array = prof.get("scrap", [])
+	if not scrap.is_empty() and randf() < float(prof.get("scrap_chance", 0.4)):
+		drops.append(str(scrap[randi() % scrap.size()]))
+	# Specials — independent rolls.
+	for sp in prof.get("special", []):
+		if typeof(sp) == TYPE_DICTIONARY and randf() < float((sp as Dictionary).get("chance", 0.0)):
+			var item := str((sp as Dictionary).get("item", ""))
+			if not item.is_empty():
+				drops.append(item)
+	return drops
+
+
+func _weighted_implant(ids: Array) -> String:
+	var total := 0
+	var weights: Array = []
+	for id in ids:
+		var w := _tier_weight(str(id))
+		weights.append(w)
+		total += w
+	if total <= 0:
+		return str(ids[0]) if not ids.is_empty() else ""
+	var r := randi_range(1, total)
+	var cursor := 0
+	for i in ids.size():
+		cursor += int(weights[i])
+		if r <= cursor:
+			return str(ids[i])
+	return str(ids[0])
+
+
+func _tier_weight(implant_id: String) -> int:
+	match str(IMPLANT_TIERS.get(implant_id, "common")):
+		"rare": return 1
+		"uncommon": return 2
+		_: return 4
+
+
+# Threat band + contesting faction for the location being entered. Set by the active job (P5);
+# defaults give a moderate, varied "contested location" feel before quests drive them.
+func get_active_threat_band() -> int:
+	return int(get_world_flag("_active_threat_band", 2))
+
+
+func get_active_rival_faction() -> String:
+	return str(get_world_flag("_active_rival_faction", ""))
+
+
+func is_implant_item(item_name: String) -> bool:
+	return CyberneticSurgeryUI.UPGRADE_DB.has(item_name)
+
+
+func is_scrap_item(item_name: String) -> bool:
+	return SCRAP_VALUES.has(item_name)
+
+
+func learn_topic(topic_id: String) -> void:
+	if topic_id.is_empty():
+		return
+	known_topics[topic_id] = true
+
+
+func has_topic(topic_id: String) -> bool:
+	return bool(known_topics.get(topic_id, false))
+
+
+# Disposition 0..100, seeded from the NPC's faction standing on first contact, then stored.
+func get_disposition(npc_id: String, faction := "") -> int:
+	if not npc_disposition.has(npc_id):
+		npc_disposition[npc_id] = _seed_disposition(faction)
+	return int(npc_disposition[npc_id])
+
+
+func adjust_disposition(npc_id: String, delta: int, faction := "") -> int:
+	var current := get_disposition(npc_id, faction)
+	current = clampi(current + delta, 0, 100)
+	npc_disposition[npc_id] = current
+	return current
+
+
+func _seed_disposition(faction: String) -> int:
+	# Neutral 50, shifted by your standing with the NPC's faction (capped +/-30).
+	if faction.is_empty():
+		return 50
+	var rep := int(reputation.get(faction, 0))
+	return clampi(50 + clampi(rep * 5, -30, 30), 0, 100)
+
+
+# Maps a 0..100 disposition to the three authoring tiers used by NPC profiles.
+func disposition_tier(value: int) -> String:
+	if value >= 70:
+		return "warm"
+	if value >= 35:
+		return "neutral"
+	return "cold"
+
+
+func add_cybernetic(upgrade_id: String, drift_amount: int = 0) -> void:
 	cybernetics[upgrade_id] = true
+	if drift_amount != 0:
+		add_drift(drift_amount)
 	cybernetics_changed.emit()
 
 
@@ -443,14 +1240,80 @@ func has_cybernetic(upgrade_id: String) -> bool:
 	return bool(cybernetics.get(upgrade_id, false))
 
 
+# ── Drift ───────────────────────────────────────────────────────────
+
+func add_drift(amount: int) -> int:
+	var effective := amount
+	# Spine Relay routes the cybernetics through one bus, halving new drift gain.
+	if amount > 0 and has_cybernetic("spine_relay"):
+		effective = int(ceil(float(amount) * 0.5))
+	drift = clampi(drift + effective, 0, DRIFT_MAX)
+	_apply_drift_thresholds()
+	cybernetics_changed.emit()
+	return drift
+
+
+func reduce_drift(amount: int) -> int:
+	drift = clampi(drift - amount, 0, DRIFT_MAX)
+	_apply_drift_thresholds()
+	cybernetics_changed.emit()
+	return drift
+
+
+func get_drift() -> int:
+	return drift
+
+
+func add_soul_rot(amount: int) -> int:
+	soul_rot = clampi(soul_rot + amount, 0, SOUL_ROT_MAX)
+	cybernetics_changed.emit()  # STAT tab / soul anchor status refresh
+	return soul_rot
+
+
+func get_soul_rot() -> int:
+	return soul_rot
+
+
+func add_gatebox_attention(amount: int) -> int:
+	gatebox_attention_level = maxi(gatebox_attention_level + amount, 0)
+	return gatebox_attention_level
+
+
+func get_drift_descriptor() -> String:
+	if drift >= 81:
+		return "uncanny"
+	if drift >= 61:
+		return "flagged"
+	if drift >= 41:
+		return "unsettling"
+	if drift >= 21:
+		return "noticed"
+	return "human enough"
+
+
+func _apply_drift_thresholds() -> void:
+	set_world_flag(DRIFT_FLAG_NOTICED, drift >= 21)
+	set_world_flag(DRIFT_FLAG_UNCANNY, drift >= 41)
+	set_world_flag(DRIFT_FLAG_SCANNED, drift >= 61)
+	set_world_flag(DRIFT_FLAG_HIGH, drift >= 81)
+
+
 func get_inventory_summary() -> String:
+	var wallet := "WAN %d" % wan_notes
 	if items.is_empty():
-		return "INVENTORY  empty"
+		return wallet + "   ·   INVENTORY  empty"
 
 	var parts: Array[String] = []
 	for item_name in items.keys():
-		parts.append("%s x%d" % [item_name, items[item_name]])
-	return "INVENTORY  " + ", ".join(parts)
+		parts.append("%s x%d" % [_item_display_name(str(item_name)), items[item_name]])
+	return wallet + "   ·   INVENTORY  " + ", ".join(parts)
+
+
+# Implants are stored under their machine id; show the readable name in the inventory line.
+func _item_display_name(item_name: String) -> String:
+	if CyberneticSurgeryUI.UPGRADE_DB.has(item_name):
+		return str((CyberneticSurgeryUI.UPGRADE_DB[item_name] as Dictionary).get("name", item_name))
+	return item_name
 
 
 func get_faction_summary() -> String:
@@ -473,17 +1336,33 @@ func get_cybernetic_summary() -> String:
 
 
 func save_game() -> bool:
+	_capture_location()
 	var data := {
+		"location": {
+			"scene": saved_scene_path,
+			"x": _save_px, "y": _save_py, "z": _save_pz,
+			"yaw": _save_pyaw, "hp": _save_php,
+		},
 		"items": items,
+		"wan_notes": wan_notes,
 		"reputation": reputation,
 		"completed_quests": completed_quests,
 		"active_job_id": active_job_id,
+		"active_job_instance": active_job_instance,
+		"board_instances": board_instances,
 		"available_jobs": available_jobs,
 		"completed_jobs": completed_jobs,
 		"job_flags": job_flags,
 		"world_flags": world_flags,
 		"quest_states": quest_states,
 		"cybernetics": cybernetics,
+		"known_topics": known_topics,
+		"npc_disposition": npc_disposition,
+		"conversation_tone": conversation_tone,
+		"attributes": attributes,
+		"drift": drift,
+		"soul_rot": soul_rot,
+		"gatebox_attention_level": gatebox_attention_level,
 		"last_mission_result": last_mission_result,
 		"event_deck": EventDeckSystem.get_deck_for_save(),
 	}
@@ -507,10 +1386,17 @@ func load_game() -> bool:
 		return false
 
 	items = parsed.get("items", {})
+	wan_notes = int(parsed.get("wan_notes", 0))
+	# Migrate any legacy Wan Notes that were stored as an inventory item into the wallet int.
+	if items.has(WAN_NOTE_ITEM):
+		wan_notes += int(items.get(WAN_NOTE_ITEM, 0))
+		items.erase(WAN_NOTE_ITEM)
 	reputation = parsed.get("reputation", reputation)
 	_migrate_reputation_keys()
 	completed_quests = parsed.get("completed_quests", {})
 	active_job_id = str(parsed.get("active_job_id", ""))
+	active_job_instance = parsed.get("active_job_instance", {})
+	board_instances = parsed.get("board_instances", [])
 	available_jobs = parsed.get("available_jobs", COOTERS_JOBS.keys())
 	for job_id in COOTERS_JOBS.keys():
 		if not available_jobs.has(job_id):
@@ -520,8 +1406,122 @@ func load_game() -> bool:
 	world_flags = parsed.get("world_flags", {})
 	quest_states = parsed.get("quest_states", {})
 	cybernetics = parsed.get("cybernetics", {})
+	known_topics = parsed.get("known_topics", {})
+	npc_disposition = parsed.get("npc_disposition", {})
+	conversation_tone = str(parsed.get("conversation_tone", "normal"))
+	attributes = parsed.get("attributes", attributes)
+	drift = int(parsed.get("drift", 0))
+	soul_rot = int(parsed.get("soul_rot", 0))
+	gatebox_attention_level = int(parsed.get("gatebox_attention_level", 0))
+	_apply_drift_thresholds()
 	last_mission_result = str(parsed.get("last_mission_result", ""))
 	EventDeckSystem.restore_from_save(parsed.get("event_deck", []))
+
+	var loc: Dictionary = parsed.get("location", {}) if typeof(parsed.get("location")) == TYPE_DICTIONARY else {}
+	saved_scene_path = str(loc.get("scene", ""))
+	_save_px = float(loc.get("x", 0.0))
+	_save_py = float(loc.get("y", 0.0))
+	_save_pz = float(loc.get("z", 0.0))
+	_save_pyaw = float(loc.get("yaw", 0.0))
+	_save_php = float(loc.get("hp", 100.0))
+	_has_saved_location = not saved_scene_path.is_empty()
+	_is_dead = false
+	# Drop the player back where they saved once the current frame settles. For a
+	# same-scene load this just teleports; for a different scene it travels there.
+	call_deferred("_apply_loaded_location")
+	return true
+
+
+# ── Save location ───────────────────────────────────────────────────
+
+func _capture_location() -> void:
+	var scene := get_tree().current_scene
+	if scene != null and not scene.scene_file_path.is_empty():
+		saved_scene_path = scene.scene_file_path
+	var p := get_tree().get_first_node_in_group("player") as Node3D
+	if p != null:
+		_save_px = p.global_position.x
+		_save_py = p.global_position.y
+		_save_pz = p.global_position.z
+		_save_pyaw = p.rotation.y
+		var ph := p.find_child("PlayerHealth", true, false)
+		if ph != null and "current_hp" in ph:
+			_save_php = float(ph.current_hp)
+
+
+func _apply_loaded_location() -> void:
+	var force := _force_reload_pending
+	_force_reload_pending = false
+	# Legacy saves without a stored spot: leave the player where they are.
+	if not _has_saved_location and not force:
+		return
+	var cur := ""
+	if get_tree().current_scene != null:
+		cur = get_tree().current_scene.scene_file_path
+	var target := saved_scene_path
+	if target.is_empty():
+		target = cur
+	if force or (not target.is_empty() and target != cur):
+		_begin_travel(target)
+	else:
+		_teleport_player_to_save()
+
+
+func _begin_travel(target: String) -> void:
+	get_tree().change_scene_to_file(target)
+	_apply_spawn_when_ready(target)
+
+
+# Coroutine: wait for the destination scene to finish loading, then place the player.
+func _apply_spawn_when_ready(target: String) -> void:
+	for _i in 16:
+		await get_tree().process_frame
+		var scene := get_tree().current_scene
+		if scene != null and scene.scene_file_path == target:
+			await get_tree().process_frame  # let the level's _ready spawn the player
+			_teleport_player_to_save()
+			return
+
+
+func _teleport_player_to_save() -> void:
+	var p := get_tree().get_first_node_in_group("player") as Node3D
+	if p == null:
+		return
+	# Only override position when we actually have a stored spot (legacy saves don't).
+	if _has_saved_location:
+		p.global_position = Vector3(_save_px, _save_py, _save_pz)
+		p.rotation.y = _save_pyaw
+		if p is CharacterBody3D:
+			(p as CharacterBody3D).velocity = Vector3.ZERO
+	var ph := p.find_child("PlayerHealth", true, false)
+	if ph != null and "current_hp" in ph:
+		# Never restore into a dead body; a checkpoint always leaves you standing.
+		var max_hp := float(ph.max_hp)
+		ph.current_hp = clampf(_save_php, 1.0, max_hp)
+		ph.health_changed.emit(ph.current_hp, max_hp)
+
+
+# ── Death & respawn ─────────────────────────────────────────────────
+
+func notify_player_died() -> void:
+	if _is_dead:
+		return
+	_is_dead = true
+	player_died.emit()
+
+
+func clear_death() -> void:
+	_is_dead = false
+
+
+# Reload the last save and force the destination scene to rebuild (so enemies,
+# hazards, and pickups reset). Returns false when there's no save to fall back on.
+func respawn_from_save() -> bool:
+	if not FileAccess.file_exists(SAVE_PATH):
+		return false
+	if not load_game():
+		return false
+	_force_reload_pending = true
 	return true
 
 

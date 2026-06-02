@@ -1,12 +1,15 @@
 extends Area3D
 class_name UpgradeStation
 
+# Public cyberware terminal in the hub. Interacting opens the Velvet Coil install flow
+# (implants you're carrying, paid in Wan Notes). upgrade_id/upgrade_name/required_item are
+# legacy exports from the old item-cost self-install and are no longer read.
 signal focus_changed(station: UpgradeStation, has_focus: bool)
 
 @export var upgrade_id := "targeting_coprocessor"
 @export var upgrade_name := "Targeting Co-Processor"
 @export var required_item := "Mall Arcade Token"
-@export var prompt_text := "Press E: install Targeting Co-Processor"
+@export var prompt_text := "Press E: cyberware terminal (install carried implants)"
 
 
 func _ready() -> void:

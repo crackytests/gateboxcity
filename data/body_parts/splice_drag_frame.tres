@@ -9,3 +9,7 @@ max_hp = 18.0
 targeting_penalty = 8.0
 lock_difficulty_multiplier = 0.9
 armor_value = 0.0
+on_destroy_effect = "detonate"
+effect_strength = 18.0
+effect_radius = 3.5
+volatile = true

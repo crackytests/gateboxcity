@@ -27,6 +27,7 @@ script = ExtResource("1")
 weapon_data = ExtResource("2")
 view_texture = ExtResource("5")
 fire_texture = ExtResource("6")
+fire_effect_duration = 0.42
 recoil_texture = ExtResource("7")
 reload_texture = ExtResource("8")
 reload_finish_texture = ExtResource("9")
@@ -37,18 +38,18 @@ visible = false
 mesh = SubResource("BoxMesh_1")
 
 [node name="ViewSprite" type="Sprite3D" parent="."]
-transform = Transform3D(1.12, 0, 0, 0, 1.12, 0, 0, 0, 1.12, 0.31, -0.18, -0.74)
+transform = Transform3D(1.12, 0, 0, 0, 1.12, 0, 0, 0, 1.12, 0.62, -0.18, -0.74)
 offset = Vector2(0, -43)
-pixel_size = 0.00245
+pixel_size = 0.00115
 
 [node name="MuzzleFlash" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0.08, -0.06, -0.98)
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0.78, -0.01, -1.03)
 visible = false
 mesh = SubResource("MuzzleFlashMesh")
 surface_material_override/0 = SubResource("FlashMat")
 
 [node name="MuzzleLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, -0.06, -0.95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.78, -0.01, -1.03)
 visible = false
 light_color = Color(1, 0.38, 0.08, 1)
 light_energy = 3.0

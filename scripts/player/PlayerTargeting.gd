@@ -17,6 +17,7 @@ var hit_chance := 0.0
 var base_hit_chance_unmodified := 0.0
 var lock_gain_unmodified := 0.0
 var crosshair_pick_radius_unmodified := 0.0
+var lock_decay_unmodified := 0.0
 
 
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _ready() -> void:
 	base_hit_chance_unmodified = base_hit_chance
 	lock_gain_unmodified = lock_gain_per_second
 	crosshair_pick_radius_unmodified = crosshair_pick_radius
+	lock_decay_unmodified = lock_decay_per_second
 	if not GameState.cybernetics_changed.is_connected(_apply_cybernetic_mods):
 		GameState.cybernetics_changed.connect(_apply_cybernetic_mods)
 	_apply_cybernetic_mods()
@@ -34,10 +36,18 @@ func _apply_cybernetic_mods() -> void:
 	base_hit_chance = base_hit_chance_unmodified
 	lock_gain_per_second = lock_gain_unmodified
 	crosshair_pick_radius = crosshair_pick_radius_unmodified
+	lock_decay_per_second = lock_decay_unmodified
 	if GameState.has_cybernetic("targeting_coprocessor"):
 		base_hit_chance += 10.0
 		lock_gain_per_second += 0.35
 		crosshair_pick_radius += 18.0
+	# Mag-Retina surfaces weak points: a flat accuracy edge plus easier pickup.
+	if GameState.has_cybernetic("mag_retina"):
+		base_hit_chance += 6.0
+		crosshair_pick_radius += 10.0
+	# Trauma Dampener keeps the lock steady — target lock decays more slowly.
+	if GameState.has_cybernetic("trauma_dampener"):
+		lock_decay_per_second *= 0.6
 
 
 func _process(delta: float) -> void:
@@ -78,8 +88,10 @@ func _calculate_hit_chance() -> float:
 		return 0.0
 
 	var surveillance_bonus := 5.0 if GameState.get_world_flag("suitors_surveillance_jammed") else 0.0
+	# Drug effects: Glass sharpens aim, the Jolt comedown ruins it.
+	var drug_bonus := GameState.get_hit_chance_bonus()
 	var part_max := max_hit_chance - current_part.targeting_penalty
-	return clampf(lerpf(base_hit_chance + surveillance_bonus, part_max, lock_ratio), 1.0, 99.0)
+	return clampf(lerpf(base_hit_chance + surveillance_bonus + drug_bonus, part_max, lock_ratio), 1.0, 99.0)
 
 
 func _raycast_body_part() -> BodyPart:

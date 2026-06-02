@@ -115,16 +115,16 @@ func _use_mandate_dais() -> void:
 
 func _use_rupture_console() -> void:
 	if spire_resolved:
-		hud.show_dialogue("Face", "The rupture seed is armed. The mall can smell the ending from here, and the ending smells nervous.")
+		hud.show_dialogue("System X", "The rupture seed is armed. The mall can smell the ending from here, and the ending smells nervous.")
 		return
 
 	if not warden_broken:
-		hud.show_dialogue("Face", "Break the Mandate Warden's head or torso. The rupture console is under supervision, which is just captivity with a badge.")
+		hud.show_dialogue("System X", "Break the Mandate Warden's head or torso. The rupture console is under supervision, which is just captivity with a badge.")
 		hud.show_system_message("BREAK MANDATE WARDEN")
 		return
 
 	if not GameState.spend_item("Forked Companion Kernel"):
-		hud.show_dialogue("Face", "We need the forked companion kernel. No fork, no rupture, no dramatic little speech from me. Terrible outcome.")
+		hud.show_dialogue("System X", "We need the forked companion kernel. No fork, no rupture, no dramatic little speech from me. Terrible outcome.")
 		hud.show_system_message("NEED FORKED COMPANION KERNEL")
 		return
 
@@ -146,7 +146,7 @@ func _use_city_window() -> void:
 func _on_warden_defeated() -> void:
 	warden_broken = true
 	hud.push_log("mandate warden broken")
-	hud.show_dialogue("Face", "The warden dropped. Rupture console is live, which is a sentence with consequences and poor posture.")
+	hud.show_dialogue("System X", "The warden dropped. Rupture console is live, which is a sentence with consequences and poor posture.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -159,7 +159,7 @@ func _on_warden_body_part_destroyed(part_name: String) -> void:
 	warden_broken = true
 	_retire_warden()
 	hud.push_log("mandate warden " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That broke the mandate shell. Use the rupture console before the Spire remembers dignity.")
+	hud.show_dialogue("System X", "That broke the mandate shell. Use the rupture console before the Spire remembers dignity.")
 	hud.show_system_message("MANDATE WARDEN BROKEN")
 	hud.set_objective(_get_objective_text())
 

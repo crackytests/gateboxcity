@@ -1,13 +1,19 @@
 extends Node3D
 
-# Collapsed Service Atrium — vertical mall atrium collapsed into maintenance decks.
+# Collapsed Service Atrium — dead mall vertical collapse and relay deck.
 # Job: atrium_relay_echo  Objective: atrium_relay_node
 #
-# Three routes to the relay (north catwalk):
-#   Route 1 — Combat:       south ramp to catwalk, fight security node, north along catwalk to relay
-#   Route 2 — East hatch:   east ground passage (no sludge), NE ramp to catwalk, approach relay from north
-#   Route 3 — Hardlight:    use gate panel on west side, spawns bridge across sludge gap,
-#                           NW ramp to catwalk, bypasses security node position
+# Layout:
+#   1. South Vestibule (spawn) — shelter, rain leak, entry corridor
+#   2. Atrium Void (center) — sludge gap, hanging escalators, elevator shaft, broad south ramp
+#   3. East Service Corridor (east wing) — back-of-house storage and ground flank
+#   4. Relay Platform (north elevated) — old mall broadcast deck, Store 4, debris piles
+#   5. West Maintenance Crawl (west wing) — low stealth shortcut to relay platform
+#
+# Three routes to the relay:
+#   Route 1 — Combat:       vestibule → atrium void → broad south ramp to deck, fight security node, north to relay
+#   Route 2 — East hatch:   vestibule → east corridor (ground, no sludge) → loop back to relay approach
+#   Route 3 — West crawl:   vestibule → atrium void → west crawl corridor → emerges relay platform west (stealth)
 
 const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
@@ -23,15 +29,18 @@ const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
 var focused_interactable: WardInteractable
 var focused_exit: MissionExit
 var _security_node: Node3D
-var _bridge_body: StaticBody3D
 var _in_sludge: bool = false
 var _mat_floor: StandardMaterial3D
 var _mat_wall: StandardMaterial3D
 var _mat_catwalk: StandardMaterial3D
 var _mat_sludge: StandardMaterial3D
-var _mat_hardlight: StandardMaterial3D
 var _mat_neon: StandardMaterial3D
 var _mat_rain: StandardMaterial3D
+var _mat_metal: StandardMaterial3D
+var _mat_pipe: StandardMaterial3D
+var _mat_banner: StandardMaterial3D
+var _mat_storefront: StandardMaterial3D
+var _mat_void: StandardMaterial3D
 
 
 func _ready() -> void:
@@ -41,6 +50,7 @@ func _ready() -> void:
 	_refresh_hud()
 	var last_event := str(GameState.get_world_flag("last_travel_event_title", "Clear Run"))
 	hud.show_dialogue("Collapsed Service Atrium", "Travel event: %s. The old banners are still up. They say nothing useful about what the floor became." % last_event)
+	hud.present_event.call_deferred("travel", true)
 	hud.push_log("collapsed service atrium reached")
 	EventDeckSystem.add_card("splice_atrium_return")
 
@@ -88,11 +98,6 @@ func _wire_runtime() -> void:
 		splice.player_path = NodePath("../Player")
 		splice.attacked_player.connect(hud.push_log)
 		splice.defeated.connect(func(): hud.push_log("splice neutralized"))
-	if GameState.get_world_flag("atrium_gate_opened", false):
-		_spawn_hardlight_bridge()
-		if _security_node != null and is_instance_valid(_security_node):
-			_security_node.queue_free()
-			_security_node = null
 
 
 func _handle_interact() -> void:
@@ -105,32 +110,12 @@ func _handle_interact() -> void:
 
 func _dispatch_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
-		"hardlight_gate_panel":
-			_use_hardlight_gate()
 		"hub_debris_pile_1", "hub_debris_pile_2", "hub_debris_pile_3", "store_4_terminal":
 			_handle_hub_node(interactable)
+		"atrium_loot_crate":
+			_open_loot_crate(interactable)
 		_:
 			_handle_job_node(interactable)
-
-
-func _use_hardlight_gate() -> void:
-	if GameState.get_world_flag("atrium_gate_opened", false):
-		hud.show_dialogue("Hardlight Gate Panel", "Already active. The bridge is holding. Do not ask the floor pretending to be floor how it feels about this.")
-		return
-	GameState.set_world_flag("atrium_gate_opened", true)
-	_spawn_hardlight_bridge()
-	if _security_node != null and is_instance_valid(_security_node):
-		_security_node.queue_free()
-		_security_node = null
-	hud.show_dialogue("Hardlight Gate Panel", "A strip of hardlight extrudes across the gap with the confidence of a system that has not been told the floor is gone. The security node loses its position advantage and stops being relevant.")
-	hud.push_log("hardlight bridge extended — security node offline")
-	_refresh_hud()
-
-
-func _spawn_hardlight_bridge() -> void:
-	if _bridge_body != null and is_instance_valid(_bridge_body):
-		return
-	_bridge_body = _add_box("HardlightBridge", Vector3(9, 0.25, 2.2), Vector3(-0.5, 1.35, -5.0), _mat_hardlight)
 
 
 func _handle_hub_node(interactable: WardInteractable) -> void:
@@ -187,6 +172,20 @@ func _clear_debris_pile(interactable: WardInteractable, pile_flag: String) -> vo
 	_refresh_hud()
 
 
+func _open_loot_crate(interactable: WardInteractable) -> void:
+	if GameState.has_item("Atrium Salvage Cache"):
+		hud.show_dialogue("Loot Crate", "Already opened. Some crates are just memories of crates.")
+		return
+	GameState.add_item("Atrium Salvage Cache")
+	GameState.add_item("Ammo Cache")
+	interactable.queue_free()
+	focused_interactable = null
+	_update_prompt()
+	hud.show_dialogue("Loot Crate", "Inside: cable spools, a cracked relay housing, and a handful of rounds that survived the collapse. The spools might be useful to someone who fixes things.")
+	hud.push_log("atrium loot crate opened")
+	_refresh_hud()
+
+
 func _handle_job_node(interactable: WardInteractable) -> void:
 	var active_job := GameState.get_active_job_data()
 	if active_job.is_empty():
@@ -201,7 +200,13 @@ func _handle_job_node(interactable: WardInteractable) -> void:
 		hud.show_dialogue(interactable.display_name, "Wrong node. Current job: %s" % str(active_job.get("objective", "")))
 		return
 	var item_name := str(active_job.get("objective_item", "Atrium Recording"))
-	GameState.add_item(item_name)
+	if str(active_job.get("objective_type", "find")) == "deliver":
+		# Drop-off: hand over the carried parcel (payout consumes it); no duplicate minted.
+		if not GameState.has_item(item_name):
+			hud.show_dialogue(interactable.display_name, "You're meant to be carrying %s. Come back when it's actually on you." % item_name)
+			return
+	else:
+		GameState.add_item(item_name)   # find: recover the marked item here
 	GameState.mark_job_objective_done(job_id)
 	GameState.last_mission_result = "Completed objective: %s" % str(active_job.get("title", job_id))
 	hud.show_dialogue(interactable.display_name, "%s captured. The relay was still broadcasting the old welcome message. It sounded like it meant it." % item_name)
@@ -248,11 +253,14 @@ func _build_materials() -> void:
 	_mat_catwalk = _make_mat(Color(0.50, 0.48, 0.52), Color(0.03, 0.03, 0.05), 0.12, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(6, 6, 1))
 	_mat_sludge = _make_mat(Color(0.06, 0.10, 0.06, 0.85), Color(0.04, 0.14, 0.04), 0.6, "res://assets/textures/atrium/sludge_surface.png", Vector3(3, 3, 1))
 	_mat_sludge.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_mat_hardlight = _make_mat(Color(0.05, 0.3, 0.9, 0.82), Color(0.1, 0.5, 1.0), 2.0, "", Vector3.ONE)
-	_mat_hardlight.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_mat_neon = _make_mat(Color(0.08, 0.04, 0.18), Color(0.4, 0.1, 1.0), 1.5, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_mat_metal = _make_mat(Color(0.40, 0.42, 0.44), Color(0.02, 0.04, 0.06), 0.08, "", Vector3.ONE)
+	_mat_pipe = _make_mat(Color(0.42, 0.36, 0.30), Color(0.04, 0.02, 0.01), 0.06, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(3, 3, 1))
+	_mat_banner = _make_mat(Color(0.62, 0.10, 0.38), Color(0.8, 0.05, 0.45), 0.7, "", Vector3.ONE)
+	_mat_storefront = _make_mat(Color(0.12, 0.08, 0.16), Color(0.45, 0.18, 0.75), 1.0, "", Vector3.ONE)
+	_mat_void = _make_mat(Color(0.005, 0.003, 0.008), Color(0.0, 0.0, 0.0), 0.0, "", Vector3.ONE)
 
 
 func _build_geometry() -> void:
@@ -269,70 +277,173 @@ func _build_geometry() -> void:
 	env_node.environment = env
 	add_child(env_node)
 
-	# Outer shell — 20 wide × 24 long
-	_add_box("Floor", Vector3(20, 0.35, 24), Vector3(0, -0.2, 0), _mat_floor)
-	_add_box("Ceiling", Vector3(20, 0.25, 24), Vector3(0, 5.0, 0), _mat_wall)
-	_add_box("NorthWall", Vector3(20, 5.3, 0.35), Vector3(0, 2.3, -12), _mat_wall)
-	_add_box("SouthWall", Vector3(20, 5.3, 0.35), Vector3(0, 2.3, 12), _mat_wall)
-	_add_box("WestWall", Vector3(0.35, 5.3, 24), Vector3(-10, 2.3, 0), _mat_wall)
-	_add_box("EastWall", Vector3(0.35, 5.3, 24), Vector3(10, 2.3, 0), _mat_wall)
+	_build_south_vestibule()
+	_build_atrium_void()
+	_build_east_service_corridor()
+	_build_relay_platform()
+	_build_west_maintenance_crawl()
+	_build_interactables()
+	_build_enemies()
+	_build_exits()
+	_add_lights()
+	_add_toxic_rain_controller()
 
-	# Sludge gap visual — dark organic surface in center area (x -4..4, z -9..1)
+
+func _build_south_vestibule() -> void:
+	_add_box("VestibuleFloor", Vector3(10, 0.35, 8), Vector3(0, -0.2, 12), _mat_floor)
+	_add_box("VestibuleCeiling", Vector3(10, 0.25, 8), Vector3(0, 4.0, 12), _mat_wall)
+	_add_box("VestibuleSouthWall", Vector3(10, 4.3, 0.35), Vector3(0, 1.9, 16), _mat_wall)
+	_add_box("VestibuleWestWall", Vector3(0.35, 4.3, 8), Vector3(-5, 1.9, 12), _mat_wall)
+	_add_box("VestibuleEastWall", Vector3(0.35, 4.3, 8), Vector3(5, 1.9, 12), _mat_wall)
+	_add_box("VestibuleNorthWallW", Vector3(3, 4.3, 0.35), Vector3(-3.5, 1.9, 8), _mat_wall)
+	_add_box("VestibuleNorthWallE", Vector3(3, 4.3, 0.35), Vector3(3.5, 1.9, 8), _mat_wall)
+	_add_shelter(Vector3(-3, 0.9, 14))
+	_add_rain_leak(Vector3(3.5, 1.4, 13))
+
+
+func _build_atrium_void() -> void:
+	_add_box("AtriumFloor", Vector3(20, 0.35, 18), Vector3(0, -0.2, 1), _mat_floor)
+	_add_box("AtriumCeiling", Vector3(20, 0.25, 18), Vector3(0, 5.0, 1), _mat_wall)
+	_add_box("AtriumSouthWallW", Vector3(3, 5.3, 0.35), Vector3(-3.5, 2.4, 8), _mat_wall)
+	_add_box("AtriumSouthWallE", Vector3(3, 5.3, 0.35), Vector3(3.5, 2.4, 8), _mat_wall)
+	_add_box("AtriumNorthWallW", Vector3(5, 5.3, 0.35), Vector3(-7.5, 2.4, -8), _mat_wall)
+	_add_box("AtriumNorthWallE", Vector3(5, 5.3, 0.35), Vector3(7.5, 2.4, -8), _mat_wall)
+	_add_box("AtriumWestWallS", Vector3(0.35, 5.3, 5), Vector3(-10, 2.4, 5.5), _mat_wall)
+	_add_box("AtriumWestWallN", Vector3(0.35, 5.3, 6), Vector3(-10, 2.4, -5), _mat_wall)
+	_add_box("AtriumEastWallS", Vector3(0.35, 5.3, 5), Vector3(10, 2.4, 5.5), _mat_wall)
+	_add_box("AtriumEastWallN", Vector3(0.35, 5.3, 6), Vector3(10, 2.4, -5), _mat_wall)
+
 	var sludge_visual := MeshInstance3D.new()
 	sludge_visual.name = "SludgeGapSurface"
 	var sludge_mesh := BoxMesh.new()
 	sludge_mesh.size = Vector3(8, 0.05, 10)
 	sludge_visual.mesh = sludge_mesh
-	sludge_visual.position = Vector3(0, 0.02, -4)
+	sludge_visual.position = Vector3(0, 0.02, 1)
 	sludge_visual.set_surface_override_material(0, _mat_sludge)
 	add_child(sludge_visual)
 
-	# Sludge hazard Area3D — 4 hp/s when player.y < 1.2
-	# Sludge gap covers center x -4..4, z -9..1. Catwalk and bridge lifts player above threshold.
-	_add_damage_zone("SludgeGapHazard", Vector3(8, 3, 10), Vector3(0, 0, -4))
+	_add_damage_zone("SludgeGapHazard", Vector3(8, 3, 10), Vector3(0, 0, 1))
 
-	# Main catwalk — elevated deck spanning full width at z -5..-12 (surface y = 2.0)
-	# Route 1 and Route 3 end here. Security node blocks south approach at catwalk center.
-	_add_box("MainCatwalk", Vector3(20, 0.28, 7), Vector3(0, 1.86, -8.5), _mat_catwalk)
+	_add_box("MainCatwalk", Vector3(18, 0.28, 7), Vector3(0, 1.86, -2.5), _mat_catwalk)
+	_add_box("SouthRampBottomLanding", Vector3(5.5, 0.18, 2.0), Vector3(0, 0.04, 8.1), _mat_catwalk)
+	_add_z_ramp("SouthRamp", 5.5, Vector3(0, 0.0, 7.2), Vector3(0, 2.0, 1.4))
+	_add_box("SouthRampTopLanding", Vector3(5.5, 0.18, 2.2), Vector3(0, 1.92, 0.6), _mat_catwalk)
 
-	# South ramp — Route 1 entry. Rises from ground at z ≈ 4 to catwalk at z ≈ -3 (span 7, rise 2.0m).
-	# atan(2.0/7) ≈ 0.278 rad. Center at (0, 1.0, 0.5).
-	_add_box("SouthRamp", Vector3(4, 0.3, 7.3), Vector3(0, 1.0, 0.5), _mat_catwalk, Vector3(0.278, 0, 0))
+	# Dead-mall reads: visible retail frontage, a dead elevator void, and
+	# escalators hanging as collapsed scenery instead of usable ramps.
+	_add_box("ElevatorShaftVoid", Vector3(3.0, 4.2, 3.2), Vector3(-8.2, 2.1, -1.8), _mat_void)
+	_add_box("SecurityKiosk", Vector3(2.2, 1.7, 1.8), Vector3(7.1, 0.85, 4.4), _mat_storefront)
+	_add_box("KioskCounter", Vector3(2.4, 0.28, 0.5), Vector3(7.1, 1.45, 3.6), _mat_metal)
+	for data: Array in [
+		[Vector3(-9.75, 2.3, 3.2), Vector3(0.12, 2.6, 3.2)],
+		[Vector3(-9.75, 2.3, -3.8), Vector3(0.12, 2.6, 2.8)],
+		[Vector3(9.75, 2.3, 3.0), Vector3(0.12, 2.6, 3.4)],
+		[Vector3(9.75, 2.3, -3.4), Vector3(0.12, 2.6, 3.0)],
+	]:
+		_add_box("DeadStorefrontGlow", data[1] as Vector3, data[0] as Vector3, _mat_storefront)
+	for data: Array in [
+		[Vector3(-5.5, 3.2, 4.2), Vector3(1.2, 3.2, 0.12), 0.18],
+		[Vector3(5.0, 3.1, -0.6), Vector3(1.0, 3.0, 0.12), -0.12],
+		[Vector3(1.0, 3.5, -5.4), Vector3(1.4, 2.8, 0.12), 0.08],
+	]:
+		_add_box("LuxuryBanner", data[1] as Vector3, data[0] as Vector3, _mat_banner, Vector3(0, float(data[2]), 0))
+	_add_box("HangingEscalatorA", Vector3(2.2, 0.22, 7.5), Vector3(-5.0, 3.1, 1.5), _mat_metal, Vector3(0.34, 0.20, 0.0))
+	_add_box("HangingEscalatorB", Vector3(2.0, 0.22, 6.5), Vector3(5.6, 3.0, -3.3), _mat_metal, Vector3(-0.28, -0.18, 0.0))
+	_add_box("EscalatorTeethA", Vector3(2.0, 0.08, 0.8), Vector3(-5.5, 2.55, 4.7), _mat_catwalk, Vector3(0.34, 0.20, 0.0))
+	_add_box("EscalatorTeethB", Vector3(1.8, 0.08, 0.8), Vector3(6.0, 2.45, -6.0), _mat_catwalk, Vector3(-0.28, -0.18, 0.0))
 
-	# NE ramp — Route 2 (east hatch passage). From east ground (z ≈ -2) up to catwalk (z ≈ -5, span 3).
-	# atan(2.0/3) ≈ 0.588 rad. Center at (7, 1.0, -3.5).
-	_add_box("NERamp", Vector3(4, 0.3, 3.6), Vector3(7, 1.0, -3.5), _mat_catwalk, Vector3(0.588, 0, 0))
+	for pos: Vector3 in [Vector3(-9.5, 3.2, 2), Vector3(9.5, 2.8, 2)]:
+		var pipe := MeshInstance3D.new()
+		pipe.name = "AtriumPipe"
+		var pipe_mesh := CylinderMesh.new()
+		pipe_mesh.top_radius = 0.18
+		pipe_mesh.bottom_radius = 0.18
+		pipe_mesh.height = 18
+		pipe.mesh = pipe_mesh
+		pipe.position = Vector3(pos.x, pos.y, 1)
+		pipe.rotation = Vector3(0, 0, PI / 2)
+		pipe.set_surface_override_material(0, _mat_pipe)
+		add_child(pipe)
 
-	# NW ramp — Route 3 (hardlight bridge approach). Mirror of NE ramp on west side.
-	_add_box("NWRamp", Vector3(4, 0.3, 3.6), Vector3(-7, 1.0, -3.5), _mat_catwalk, Vector3(0.588, 0, 0))
 
-	# Interior east wall — defines east hatch passage (Route 2 lane). Runs from south to gap.
-	_add_box("EastHatchWall", Vector3(0.35, 5.3, 14), Vector3(4.5, 2.3, 0.5), _mat_wall)
+func _build_east_service_corridor() -> void:
+	_add_box("CorridorFloor", Vector3(8, 0.35, 12), Vector3(14, -0.2, 0), _mat_floor)
+	_add_box("CorridorCeiling", Vector3(8, 0.25, 12), Vector3(14, 4.0, 0), _mat_wall)
+	_add_box("CorridorEastWall", Vector3(0.35, 4.3, 12), Vector3(18, 1.9, 0), _mat_wall)
+	_add_box("CorridorNorthWall", Vector3(8, 4.3, 0.35), Vector3(14, 1.9, -6), _mat_wall)
+	_add_box("CorridorSouthWall", Vector3(8, 4.3, 0.35), Vector3(14, 1.9, 6), _mat_wall)
+	_add_box("CorridorWestWallN", Vector3(0.35, 4.3, 2), Vector3(10, 1.9, -5), _mat_wall)
+	_add_box("CorridorWestWallS", Vector3(0.35, 4.3, 2), Vector3(10, 1.9, 5), _mat_wall)
 
-	# Hardlight gate panel — Route 3 environmental. West ground, accessible before crossing sludge.
-	_add_interactable("hardlight_gate_panel", "Hardlight Gate Panel", "Press E: extend hardlight bridge", Vector3(-8.5, 0.95, -2.0), Color(0.2, 0.4, 1.0))
+	_add_box("StorageAlcove", Vector3(3, 2.0, 2), Vector3(16, 1.0, -3), _mat_metal)
+	for x_off: float in [11.5, 16.5]:
+		var rack := MeshInstance3D.new()
+		rack.name = "CorridorPipeRack"
+		var rack_mesh := BoxMesh.new()
+		rack_mesh.size = Vector3(0.3, 2.5, 9)
+		rack.mesh = rack_mesh
+		rack.position = Vector3(x_off, 1.25, 0)
+		rack.set_surface_override_material(0, _mat_pipe)
+		add_child(rack)
 
-	# Hub quest nodes — debris piles and Store 4 terminal. Only spawn if not yet cleared.
+
+func _build_relay_platform() -> void:
+	_add_box("RelayFloor", Vector3(20, 0.35, 10), Vector3(0, -0.2, -13), _mat_floor)
+	_add_box("RelayCeiling", Vector3(20, 0.25, 10), Vector3(0, 5.0, -13), _mat_wall)
+	_add_box("RelayNorthWall", Vector3(20, 5.3, 0.35), Vector3(0, 2.4, -18), _mat_wall)
+	_add_box("RelaySouthWallW", Vector3(5, 5.3, 0.35), Vector3(-7.5, 2.4, -8), _mat_wall)
+	_add_box("RelaySouthWallE", Vector3(5, 5.3, 0.35), Vector3(7.5, 2.4, -8), _mat_wall)
+	_add_box("RelayEastWall", Vector3(0.35, 5.3, 10), Vector3(10, 2.4, -13), _mat_wall)
+	_add_box("RelayWestWallN", Vector3(0.35, 5.3, 5), Vector3(-10, 2.4, -15.5), _mat_wall)
+	_add_box("RelayWestWallS", Vector3(0.35, 5.3, 2), Vector3(-10, 2.4, -7), _mat_wall)
+
+	_add_box("RelayPlatform", Vector3(16, 0.28, 6), Vector3(0, 1.86, -14), _mat_catwalk)
+	_add_z_ramp("PlatformRamp", 5.0, Vector3(0, 0.0, -8.2), Vector3(0, 2.0, -11.0))
+	_add_box("PlatformRampTopLanding", Vector3(5.0, 0.18, 2.0), Vector3(0, 1.92, -12.0), _mat_catwalk)
+
+	for x_pos: float in [-6, -2, 2, 6]:
+		_add_box("RelayRailing", Vector3(0.12, 1.0, 0.12), Vector3(x_pos, 2.96, -17), _mat_metal)
+
+	_add_box("RelayHousing", Vector3(2, 2.0, 1.5), Vector3(-4, 1.0, -15), _mat_metal)
+	_add_box("RelayAntennaBase", Vector3(0.6, 1.8, 0.6), Vector3(-2, 0.9, -15.5), _mat_metal)
+
+
+func _build_west_maintenance_crawl() -> void:
+	_add_box("CrawlFloor", Vector3(8, 0.35, 18), Vector3(-14, -0.2, -2), _mat_floor)
+	_add_box("CrawlCeiling", Vector3(8, 0.25, 18), Vector3(-14, 3.0, -2), _mat_wall)
+	_add_box("CrawlWestWall", Vector3(0.35, 3.3, 18), Vector3(-18, 1.4, -2), _mat_wall)
+	_add_box("CrawlNorthWall", Vector3(4, 3.3, 0.35), Vector3(-16, 1.4, -11), _mat_wall)
+	_add_box("CrawlSouthWall", Vector3(8, 3.3, 0.35), Vector3(-14, 1.4, 7), _mat_wall)
+	_add_box("CrawlEastWallS", Vector3(0.35, 3.3, 3), Vector3(-10, 1.4, 5.5), _mat_wall)
+	_add_box("CrawlEastWallN", Vector3(0.35, 3.3, 4), Vector3(-10, 1.4, -3), _mat_wall)
+
+	_add_box("CrawlMidWall", Vector3(0.35, 2.5, 3), Vector3(-15, 1.0, 2), _mat_wall)
+	_add_box("CrawlDuctwork", Vector3(0.8, 0.8, 12), Vector3(-16.5, 2.2, -2), _mat_pipe)
+
+
+func _build_interactables() -> void:
 	if not GameState.get_world_flag("hub_atrium_debris_pile_1_cleared"):
-		_add_interactable("hub_debris_pile_1", "Debris Pile", "Press E: clear debris (1/3)", Vector3(7.5, 0.95, 5.0), Color(0.65, 0.52, 0.32))
+		_add_interactable("hub_debris_pile_1", "Debris Pile", "Press E: clear debris (1/3)", Vector3(5, 2.15, -14.0), Color(0.65, 0.52, 0.32))
 	if not GameState.get_world_flag("hub_atrium_debris_pile_2_cleared"):
-		_add_interactable("hub_debris_pile_2", "Debris Pile", "Press E: clear debris (2/3)", Vector3(-7.0, 0.95, 4.0), Color(0.65, 0.52, 0.32))
+		_add_interactable("hub_debris_pile_2", "Debris Pile", "Press E: clear debris (2/3)", Vector3(-5, 2.15, -13.5), Color(0.65, 0.52, 0.32))
 	if not GameState.get_world_flag("hub_atrium_debris_pile_3_cleared"):
-		_add_interactable("hub_debris_pile_3", "Debris Pile", "Press E: clear debris (3/3)", Vector3(0.0, 0.95, 8.5), Color(0.65, 0.52, 0.32))
+		_add_interactable("hub_debris_pile_3", "Debris Pile", "Press E: clear debris (3/3)", Vector3(0, 0.95, 7.0), Color(0.65, 0.52, 0.32))
 	if not GameState.get_world_flag("store_4_claimed"):
-		_add_interactable("store_4_terminal", "Store 4 Terminal", "Press E: wipe terminal data", Vector3(8.5, 0.95, -0.5), Color(0.1, 0.6, 0.8))
+		_add_interactable("store_4_terminal", "Store 4 Terminal", "Press E: wipe terminal data", Vector3(6, 2.15, -14.5), Color(0.1, 0.6, 0.8))
 
-	# Relay node — north end of catwalk. The hardlight bridge and NW ramp give a clean approach from west.
-	_add_interactable("atrium_relay_node", "Atrium Relay", "Press E: record relay pulse", Vector3(-2, 2.15, -10.5), Color(0.6, 0.2, 1.0))
+	_add_interactable("atrium_relay_node", "Atrium Relay", "Press E: record relay pulse", Vector3(-2, 2.15, -15.5), Color(0.6, 0.2, 1.0))
+	_add_interactable("atrium_loot_crate", "Loot Crate", "Press E: open", Vector3(15, 0.95, 2.0), Color(0.9, 0.7, 0.2))
 
-	_add_shelter(Vector3(7, 0.9, 7.0))
-	_add_rain_leak(Vector3(-7.5, 1.4, 3.0))
-	_add_exit("ExitToCooters", "Press E: return to Cooters", COOTERS_INTERIOR_SCENE, Vector3(0.0, 1.0, 11.1), Color(1.0, 0.08, 0.62))
-	_add_exit("ExitToLeakStreet", "Press E: return to Leak Street", DISTRICT_SCENE, Vector3(0.0, 1.0, -11.1), Color(0.08, 1.0, 0.45))
-	_add_security_node(Vector3(0.0, 2.0, -5.5))
-	_add_splice(Vector3(-3.0, 1.05, 5.0))
-	_add_lights()
-	_add_toxic_rain_controller()
+
+func _build_enemies() -> void:
+	# Contested location: faction-themed, threat-scaled enemy profile (refactor §5).
+	EnemyLayouts.spawn_profile(self, "collapsed_service_atrium",
+		GameState.get_active_threat_band(), GameState.get_active_rival_faction())
+
+
+func _build_exits() -> void:
+	_add_exit("ExitToCooters", "Press E: return to Cooters", COOTERS_INTERIOR_SCENE, Vector3(0.0, 1.0, 15.1), Color(1.0, 0.08, 0.62))
+	_add_exit("ExitToLeakStreet", "Press E: return to Leak Street", DISTRICT_SCENE, Vector3(0.0, 1.0, -17.1), Color(0.08, 1.0, 0.45))
 
 
 func _add_damage_zone(zone_name: String, size: Vector3, world_pos: Vector3) -> void:
@@ -373,6 +484,16 @@ func _add_box(node_name: String, size: Vector3, world_position: Vector3, materia
 	visual.set_surface_override_material(0, material)
 	body.add_child(visual)
 	return body
+
+
+func _add_z_ramp(node_name: String, width: float, bottom_point: Vector3, top_point: Vector3) -> void:
+	var run := absf(top_point.z - bottom_point.z)
+	var rise := top_point.y - bottom_point.y
+	var length := sqrt(run * run + rise * rise)
+	var angle := -atan2(rise, run) * signf(top_point.z - bottom_point.z)
+	var center := (bottom_point + top_point) * 0.5
+	center.y = (bottom_point.y + top_point.y) * 0.5
+	_add_box(node_name, Vector3(width, 0.26, length), center, _mat_catwalk, Vector3(angle, 0, 0))
 
 
 func _add_interactable(id: String, display_name: String, prompt: String, world_position: Vector3, color: Color) -> WardInteractable:
@@ -470,11 +591,18 @@ func _on_splice_item_dropped(item_name: String) -> void:
 
 func _add_lights() -> void:
 	for data: Array in [
-		[Vector3(-2, 3.2, -10.5), Color(0.6, 0.2, 1.0), 2.0],
-		[Vector3(-8.5, 2.5, -2.0), Color(0.2, 0.4, 1.0), 1.4],
-		[Vector3(7, 2.5, -3.5), Color(0.5, 0.4, 0.8), 1.2],
-		[Vector3(0, 3.2, -8.5), Color(0.4, 0.3, 0.7), 1.6],
-		[Vector3(7, 2.5, 7.0), Color(0.5, 0.4, 0.6), 1.0],
+		[Vector3(0, 2.5, 12), Color(0.5, 0.4, 0.6), 1.0],
+		[Vector3(-3, 2.5, 14), Color(0.5, 0.4, 0.6), 0.8],
+		[Vector3(-2, 3.2, -1), Color(0.4, 0.3, 0.7), 1.6],
+		[Vector3(-8.5, 2.5, 4.0), Color(0.2, 0.4, 1.0), 1.4],
+		[Vector3(7, 2.5, 1.0), Color(0.5, 0.4, 0.8), 1.2],
+		[Vector3(0, 3.2, -9.5), Color(0.6, 0.2, 1.0), 2.0],
+		[Vector3(-4, 3.2, -10.5), Color(0.5, 0.15, 0.8), 1.4],
+		[Vector3(6, 3.2, -9.5), Color(0.4, 0.2, 0.7), 1.2],
+		[Vector3(14, 2.5, 2), Color(0.5, 0.4, 0.8), 1.0],
+		[Vector3(14, 2.5, 0), Color(0.4, 0.3, 0.7), 0.8],
+		[Vector3(-14, 1.5, 2), Color(0.3, 0.2, 0.5), 0.6],
+		[Vector3(-14, 1.5, -1), Color(0.3, 0.2, 0.5), 0.6],
 	]:
 		var light := OmniLight3D.new()
 		light.position = data[0] as Vector3

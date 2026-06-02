@@ -9,3 +9,5 @@ max_hp = 18.0
 targeting_penalty = 18.0
 lock_difficulty_multiplier = 1.35
 armor_value = 1.0
+part_role = "head"
+on_destroy_effect = "defeat"

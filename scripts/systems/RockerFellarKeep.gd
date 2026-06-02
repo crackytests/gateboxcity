@@ -22,6 +22,7 @@ extends Node3D
 const MALLHUB_SCENE := "res://scenes/levels/MallHub.tscn"
 const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
 const GOON_SCENE := preload("res://scenes/enemies/GoonMaterial.tscn")
+const BOSS_SCENE := preload("res://scenes/enemies/RockerFellar.tscn")
 const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
 
 @onready var hud: HUDController = $HUD
@@ -55,6 +56,7 @@ var _bass_debris_active := true
 var _corridor_enemies: Array[Node3D] = []
 var _concert_enemies: Array[Node3D] = []
 var _backstage_enemies: Array[Node3D] = []
+var _vip_enemies: Array[Node3D] = []
 var _vault_enemy: Node3D
 
 var _mat_asphalt: StandardMaterial3D
@@ -126,6 +128,7 @@ func _wire_runtime() -> void:
 	_wire_enemy_group("keep_goon", _corridor_enemies)
 	_wire_enemy_group("keep_concert_enemy", _concert_enemies)
 	_wire_enemy_group("keep_backstage_enemy", _backstage_enemies)
+	_wire_enemy_group("keep_vip_enemy", _vip_enemies)
 	for vault_enemy in get_tree().get_nodes_in_group("keep_vault_enemy"):
 		_vault_enemy = vault_enemy
 		vault_enemy.player_path = NodePath("../Player")
@@ -182,8 +185,10 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
 		"quest_gate":
 			_use_quest_gate()
+		"entrance_loot_crate":
+			_use_loot_crate(interactable)
 		"bass_debris_warning":
-			hud.show_dialogue("Warning Graffiti", "Spray-painted across a collapsed storefront: THE BUILDING REMEMBERS WHAT THE BASS TELLS IT. HEAD DOWN WHEN THE WALLS SING. Below that, someone else wrote: this is not a metaphor.")
+			hud.open_statement("Warning Graffiti", "Spray-painted across a collapsed storefront: THE BUILDING REMEMBERS WHAT THE BASS TELLS IT. HEAD DOWN WHEN THE WALLS SING. Below that, someone else wrote: this is not a metaphor.")
 		"vip_health_cache":
 			_use_health_cache(interactable)
 		"vip_lore_contract":
@@ -194,6 +199,11 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 			_use_backstage_hatch()
 		"soul_battery_1", "soul_battery_2", "soul_battery_3", "soul_battery_4":
 			_destroy_soul_battery(interactable)
+		"pyro_charge_1", "pyro_charge_2", "pyro_charge_3":
+			_detonate_pyro_charge(interactable)
+		"amp_stack_1", "amp_stack_2", "amp_stack_3", "amp_stack_4", \
+		"amp_stack_5", "amp_stack_6", "amp_stack_7", "amp_stack_8":
+			_destroy_amp_stack(interactable)
 		"extraction_lift":
 			_use_extraction_lift()
 		_:
@@ -214,6 +224,22 @@ func _use_quest_gate() -> void:
 	hud.push_log("boulevard gate opened")
 
 
+func _use_loot_crate(interactable: WardInteractable) -> void:
+	if GameState.get_world_flag("fellar_entrance_loot_used", false):
+		hud.show_dialogue(interactable.display_name, "Already picked clean. The crate had a good run. Now it is just geometry with ambitions.")
+		return
+	GameState.set_world_flag("fellar_entrance_loot_used", true)
+	weapon.current_ammo = mini(weapon.current_ammo + 6, weapon.magazine_size)
+	weapon.reserve_ammo += 12
+	weapon.ammo_changed.emit(weapon.current_ammo, weapon.reserve_ammo)
+	player_health.heal(15.0)
+	interactable.visible = false
+	interactable.set_deferred("monitoring", false)
+	hud.show_dialogue("Loot Crate", "A supply crate wedged behind a collapsed pillar. Six rounds for the pistol, twelve in reserve, and a single med patch. Someone stocked this for a siege that ended before it started.")
+	hud.push_log("entrance loot recovered — ammo +18, health +15")
+	_refresh_hud()
+
+
 func _use_health_cache(interactable: WardInteractable) -> void:
 	if GameState.get_world_flag("fellar_health_cache_used", false):
 		hud.show_dialogue(interactable.display_name, "Already taken. The overturned bar has nothing left to give except stains and a view of the crater.")
@@ -231,7 +257,7 @@ func _use_lore_contract(interactable: WardInteractable) -> void:
 		return
 	GameState.set_world_flag("fellar_contract_recovered", true)
 	GameState.add_item("Fellar's Contract Ledger")
-	hud.show_dialogue("Contract Ledger", "A procurement ledger inside a cracked executive desk. It links Big Gates Foundation soul harvesting to Gatebox Corporation logistics and Wan Moa Torai debt collection. Names, dates, tonnage. This is not a small thing. This is the first crack in the foundation.")
+	hud.open_statement("Contract Ledger", "A procurement ledger inside a cracked executive desk. It links Big Gates Foundation soul harvesting to Gatebox Corporation logistics and Wan Moa Torai debt collection. Names, dates, tonnage. This is not a small thing. This is the first crack in the foundation.")
 	hud.push_log("contract ledger recovered")
 	_refresh_hud()
 
@@ -241,7 +267,7 @@ func _use_cage_evidence(interactable: WardInteractable) -> void:
 		hud.show_dialogue(interactable.display_name, "You already read the cage tags. The names have not improved.")
 		return
 	GameState.set_world_flag("fellar_cage_evidence_found", true)
-	hud.show_dialogue("Cage Evidence", "Iron cages bolted to the subway platform. Torai shipping tags on each one. Every tag has a name, a debt amount, and a harvest date. The most recent one was three days ago. The cage is still warm.")
+	hud.open_statement("Cage Evidence", "Iron cages bolted to the subway platform. Torai shipping tags on each one. Every tag has a name, a debt amount, and a harvest date. The most recent one was three days ago. The cage is still warm.")
 	hud.push_log("cage evidence catalogued")
 
 
@@ -290,7 +316,61 @@ func _check_soul_batteries() -> void:
 			all_destroyed = false
 			break
 	if all_destroyed:
+		_boss_regen_active = false
+		_boss_regen_rate = 0.0
+		hud.push_log("all soul batteries destroyed — boss regeneration fully disabled")
+
+
+func _detonate_pyro_charge(interactable: WardInteractable) -> void:
+	var flag_name := "fellar_" + interactable.interactable_id + "_used"
+	if GameState.get_world_flag(flag_name, false):
+		hud.show_dialogue(interactable.display_name, "Already detonated. Scorch marks and twisted metal. The stage does not need more fire.")
+		return
+	GameState.set_world_flag(flag_name, true)
+	interactable.visible = false
+	interactable.set_deferred("monitoring", false)
+	# 15 damage in 3-unit radius
+	var charge_pos := interactable.global_position
+	if player != null:
+		var dist := charge_pos.distance_to(player.global_position)
+		if dist <= 3.0:
+			player_health.apply_damage(15.0)
+			hud.push_log("pyrotechnic detonation — 15 damage")
+		else:
+			hud.push_log("pyrotechnic detonation — you were clear of the blast")
+	# Also damage boss if in range
+	if _boss != null and is_instance_valid(_boss) and not _boss.is_defeated:
+		var boss_dist := charge_pos.distance_to(_boss.global_position)
+		if boss_dist <= 3.0:
+			if _boss.has_method("get_node") and _boss.has_node("%BodyParts"):
+				for child in _boss.get_node("%BodyParts").get_children():
+					var part := child as BodyPart
+					if part != null and not part.is_destroyed:
+						part.apply_damage(20.0)
+						break
+			hud.push_log("pyrotechnic hit boss — 20 damage")
+	hud.show_dialogue(interactable.display_name, "The charge erupts. Fire and smoke. The stage rail buckles. If anything was standing too close, it isn't standing as well now.")
+
+
+func _destroy_amp_stack(interactable: WardInteractable) -> void:
+	var id := interactable.interactable_id
+	var flag_name := "fellar_" + id + "_destroyed"
+	if GameState.get_world_flag(flag_name, false):
+		hud.show_dialogue(interactable.display_name, "Already destroyed. A sparking crater in the wall where a speaker cabinet used to be.")
+		return
+	GameState.set_world_flag(flag_name, true)
+	interactable.visible = false
+	interactable.set_deferred("monitoring", false)
+	var amp_alive := 8
+	for i in range(1, 9):
+		if GameState.get_world_flag("fellar_amp_stack_%d_destroyed" % i, false):
+			amp_alive -= 1
+	hud.push_log("amp stack destroyed — %d of 8 remaining" % amp_alive)
+	hud.show_dialogue(interactable.display_name, "The amp stack sparks, buckles, and collapses. One less speaker feeding Fellar's shockwaves. The bass gets a little less certain.")
+	if amp_alive == 0 and not GameState.get_world_flag("fellar_amp_stacks_destroyed", false):
 		GameState.set_world_flag("fellar_amp_stacks_destroyed", true)
+		hud.push_log("all amp stacks destroyed — boss sonic damage eliminated")
+	_refresh_hud()
 
 
 func _use_extraction_lift() -> void:
@@ -517,6 +597,7 @@ func _build_geometry() -> void:
 	for rd: Array in [[-4, 3], [5, 9], [-6, 7], [3, 5]]:
 		_add_box("PlazaRubble", Vector3(1.5, 0.8, 1.5), Vector3(rd[0], 0.4, rd[1]), _mat_rubble)
 	_add_interactable("quest_gate", "Collapsed Overpass", "Press E: force gate open", Vector3(0, 1.5, -0.5), Color(0.85, 0.55, 0.1))
+	_add_interactable("entrance_loot_crate", "Loot Crate", "Press E: search supply crate", Vector3(-5, 0.95, 8), Color(0.7, 0.55, 0.2))
 
 	# --- Zone 2: Bass Boulevard (z -20..0) ---
 	_add_box("BoulevardFloor", Vector3(16, 0.5, 20), Vector3(0, -0.25, -10), _mat_asphalt)
@@ -600,8 +681,17 @@ func _build_geometry() -> void:
 	for side: int in [-1, 1]:
 		for zp: float in [-45.0, -21.0]:
 			_add_box("CatPillar", Vector3(0.4, 5.5, 0.4), Vector3(side * 14, 2.75, zp), _mat_metal)
+	# Catwalk access ramps — NE/NW for north catwalk, SE/SW for south catwalk
+	_add_ramp("NorthCatRampE", Vector3(2.5, 0.2, 8), Vector3(13, 2.7, -41), _mat_metal, 0.55)
+	_add_ramp("NorthCatRampW", Vector3(2.5, 0.2, 8), Vector3(-13, 2.7, -41), _mat_metal, 0.55)
+	_add_ramp("SouthCatRampE", Vector3(2.5, 0.2, 8), Vector3(13, 2.7, -25), _mat_metal, -0.55)
+	_add_ramp("SouthCatRampW", Vector3(2.5, 0.2, 8), Vector3(-13, 2.7, -25), _mat_metal, -0.55)
 	_add_box("OvpRubble1", Vector3(3, 0.8, 1.5), Vector3(-8, 5.9, -45), _mat_rubble)
 	_add_box("OvpRubble2", Vector3(2, 0.6, 1.5), Vector3(6, 5.8, -21), _mat_rubble)
+	# Pyrotechnic charges on stage front rail (3 charges)
+	for i: int in range(3):
+		var px := -4.0 + i * 4.0
+		_add_interactable("pyro_charge_%d" % (i + 1), "Pyrotechnic Charge %d" % (i + 1), "Press E: detonate charge", Vector3(px, 2.15, -40), Color(1.0, 0.8, 0.0))
 	# Amp stacks (8 along east/west walls)
 	var amp_pos: Array[Vector3] = [
 		Vector3(14, 1.05, -24), Vector3(14, 1.05, -30),
@@ -646,12 +736,15 @@ func _build_geometry() -> void:
 
 func _spawn_enemies() -> void:
 	# Zone 1: plaza goons — patrol north-south along their side
-	_add_goon(Vector3(-3, 0, 4), "keep_goon", [Vector3(-3, 0, 2), Vector3(-3, 0, 9)])
-	_add_goon(Vector3(3, 0, 4), "keep_goon", [Vector3(3, 0, 2), Vector3(3, 0, 9)])
+	_add_goon(Vector3(-3, 0, -2), "keep_goon", [Vector3(-3, 0, -4), Vector3(-3, 0, 3)])
+	_add_goon(Vector3(3, 0, -2), "keep_goon", [Vector3(3, 0, -4), Vector3(3, 0, 3)])
 	# Zone 2: boulevard goons — patrol along the avenue
 	_add_goon(Vector3(-2, 0, -6), "keep_goon", [Vector3(-2, 0, -3), Vector3(-2, 0, -10)])
 	_add_goon(Vector3(2, 0, -12), "keep_goon", [Vector3(2, 0, -9), Vector3(2, 0, -16)])
 	_add_enemy_splice(Vector3(0, 0, -16), "keep_goon", [Vector3(0, 0, -16), Vector3(-2, 0, -18)])
+	# Zone 3: VIP Tower guards — patrol inside the ruins
+	_add_goon(Vector3(9, 0, -8), "keep_vip_enemy", [Vector3(9, 0, -8), Vector3(12, 0, -12)])
+	_add_goon(Vector3(12, 0, -11), "keep_vip_enemy", [Vector3(12, 0, -11), Vector3(8, 0, -9)])
 	# Zone 5: concert enemies (stationary amp operators)
 	for p: Vector3 in [Vector3(-12, 0, -26), Vector3(-12, 0, -30), Vector3(12, 0, -26), Vector3(12, 0, -30)]:
 		_add_security(p, "keep_concert_enemy")
@@ -661,12 +754,12 @@ func _spawn_enemies() -> void:
 	# Zone 6: soul warden — small vault patrol
 	_add_goon(Vector3(0, -1.55, -51), "keep_vault_enemy", [Vector3(-3, -1.55, -50), Vector3(3, -1.55, -52)])
 	# Boss on stage (no patrol)
-	var boss := GOON_SCENE.instantiate()
+	var boss := BOSS_SCENE.instantiate()
 	boss.name = "RockerFellar"
 	boss.position = Vector3(0, 1.8, -44)
 	boss.add_to_group("boss_rocker_fellar")
-	boss.alert()
 	add_child(boss)
+	boss.alert()
 
 
 func _add_box(node_name: String, size: Vector3, world_position: Vector3, material: Material, world_rotation := Vector3.ZERO) -> StaticBody3D:
@@ -754,25 +847,25 @@ func _add_exit(node_name: String, prompt: String, target_scene: String, world_po
 	exit.add_child(vis)
 
 
-func _add_goon(pos: Vector3, group: String, points: Array[Vector3] = []) -> void:
+func _add_goon(pos: Vector3, group: String, patrol_points: Array[Vector3] = []) -> void:
 	var goon := GOON_SCENE.instantiate()
 	goon.name = "Goon"
 	goon.position = pos
 	goon.add_to_group(group)
 	add_child(goon)
-	if not points.is_empty():
-		goon.set_patrol_points(points)
+	if not patrol_points.is_empty():
+		goon.set_patrol_points(patrol_points)
 
 
-func _add_enemy_splice(pos: Vector3, group: String, points: Array[Vector3] = []) -> void:
+func _add_enemy_splice(pos: Vector3, group: String, patrol_points: Array[Vector3] = []) -> void:
 	var sp := SPLICE_SCENE.instantiate()
 	sp.name = "Splice"
 	sp.position = pos
 	sp.add_to_group(group)
 	sp.item_dropped.connect(_on_splice_item_dropped)
 	add_child(sp)
-	if not points.is_empty():
-		sp.set_patrol_points(points)
+	if not patrol_points.is_empty():
+		sp.set_patrol_points(patrol_points)
 
 
 func _on_splice_item_dropped(item_name: String) -> void:

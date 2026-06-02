@@ -77,9 +77,14 @@ func _on_job_selected(index: int) -> void:
 	else:
 		lock_text = "\n\n[color=#20ff66]Ready to accept.[/color]"
 
-	_detail_label.text = "[color=#20ff66]%s[/color]\n[color=#aaa]Destination: %s  |  Reward: %s[/color]\n\n%s\n\n[color=#66ddff]%s[/color]%s" % [
+	var threat := int(job.get("threat_band", 2))
+	var threat_names: Array[String] = ["—", "Low", "Moderate", "High", "Severe"]
+	var threat_label: String = threat_names[clampi(threat, 0, 4)]
+	_detail_label.text = "[color=#20ff66]%s[/color]\n[color=#aaa]From: %s  |  Destination: %s  |  Threat: %s[/color]\n[color=#aaa]Reward: %s[/color]\n\n%s\n\n[color=#66ddff]%s[/color]%s" % [
 		str(job.get("title", "Untitled Job")),
+		str(job.get("giver", "Marbles")),
 		str(job.get("destination", "Unknown")),
+		threat_label,
 		str(job.get("reward_text", "")),
 		str(job.get("short_desc", "")),
 		str(job.get("objective", "")),

@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://scripts/enemies/RainMutant.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
 [ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="3"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back.png" id="4"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back_left.png" id="5"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_left.png" id="6"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_left.png" id="7"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front.png" id="8"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_front_right.png" id="9"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_right.png" id="10"]
-[ext_resource type="Texture2D" path="res://assets/sprites/greenline/greenline_back_right.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_back.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_back_left.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_left.png" id="6"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_front_left.png" id="7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_front.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_front_right.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_right.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/sprites/rain_mutant/rain_mutant_back_right.png" id="11"]
 
 [sub_resource type="CapsuleShape3D" id="BodyShape"]
 radius = 0.48
@@ -79,10 +79,11 @@ containment_center = Vector3(18, 0, -6)
 containment_radius = 4.25
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("BodyShape")
 
 [node name="Visuals" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="GroundShadow" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1.15, 0, 0, 0, 1, 0, 0, 0, 0.85, 0, 0.035, 0)
@@ -90,30 +91,34 @@ mesh = SubResource("ShadowDiscMesh")
 surface_material_override/0 = SubResource("ShadowMat")
 
 [node name="SacGlow" type="MeshInstance3D" parent="Visuals"]
+visible = false
 transform = Transform3D(1.1, 0, 0, 0, 0.95, 0, 0, 0, 0.9, 0, 1.1, 0.08)
 mesh = SubResource("SacMesh")
 surface_material_override/0 = SubResource("SacMat")
 
 [node name="FrameGlow" type="MeshInstance3D" parent="Visuals"]
+visible = false
 transform = Transform3D(1.0, 0, 0, 0, 1.05, 0, 0, 0, 1, 0, 0.58, -0.04)
 mesh = SubResource("FrameMesh")
 surface_material_override/0 = SubResource("BoneMat")
 
 [node name="LeftClawGlow" type="MeshInstance3D" parent="Visuals"]
+visible = false
 transform = Transform3D(0.75, 0, 0.25, 0, 1, 0, -0.25, 0, 0.75, -0.48, 0.78, 0)
 mesh = SubResource("ClawMesh")
 surface_material_override/0 = SubResource("ClawMat")
 
 [node name="RightClawGlow" type="MeshInstance3D" parent="Visuals"]
+visible = false
 transform = Transform3D(0.75, 0, -0.25, 0, 1, 0, 0.25, 0, 0.75, 0.48, 0.78, 0)
 mesh = SubResource("ClawMesh")
 surface_material_override/0 = SubResource("ClawMat")
 
 [node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0.82, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 texture = ExtResource("8")
-modulate = Color(0.55, 1, 0.68, 0.72)
-pixel_size = 0.00375
+modulate = Color(1, 1, 1, 1)
+pixel_size = 0.00415
 shaded = false
 double_sided = true
 alpha_cut = 0
@@ -123,60 +128,78 @@ frames = Array[Texture2D]([ExtResource("4"), ExtResource("5"), ExtResource("6"),
 
 [node name="BodyParts" type="Node3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9, 0)
+transform = Transform3D(0.74, 0, 0, 0, 1.12, 0, 0, 0, 0.74, 0, 0, 0)
 
 [node name="RainSac" type="Area3D" parent="BodyParts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14, 0.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0.08)
 script = ExtResource("2")
 display_name = "Rain Sac"
 max_hp = 26.0
 targeting_penalty = 6.0
 lock_difficulty_multiplier = 1.05
+on_destroy_effect = "rupture_cloud"
+effect_strength = 6.0
+effect_radius = 3.0
+effect_payload = {
+"duration": 6.0
+}
+volatile = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/RainSac"]
 shape = SubResource("SacShape")
 
 [node name="MobilityFrame" type="Area3D" parent="BodyParts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.52, -0.02)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.02)
 script = ExtResource("2")
 display_name = "Mobility Frame"
 max_hp = 30.0
 targeting_penalty = 3.0
 lock_difficulty_multiplier = 0.95
 armor_value = 1.0
+on_destroy_effect = "slow"
+effect_strength = 0.25
+effect_payload = {
+"floor_frac": 0.25
+}
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/MobilityFrame"]
 shape = SubResource("FrameShape")
 
 [node name="LeftClaw" type="Area3D" parent="BodyParts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46, 0.78, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46, 1.06, 0)
 script = ExtResource("2")
 display_name = "Left Claw"
 max_hp = 18.0
 targeting_penalty = 8.0
 lock_difficulty_multiplier = 1.15
+on_destroy_effect = "reduce_melee_flat"
+effect_strength = 2.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/LeftClaw"]
 shape = SubResource("ClawShape")
 
 [node name="RightClaw" type="Area3D" parent="BodyParts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46, 0.78, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46, 1.06, 0)
 script = ExtResource("2")
 display_name = "Right Claw"
 max_hp = 18.0
 targeting_penalty = 8.0
 lock_difficulty_multiplier = 1.15
+on_destroy_effect = "reduce_melee_flat"
+effect_strength = 2.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/RightClaw"]
 shape = SubResource("ClawShape")
 
 [node name="AnchorSpine" type="Area3D" parent="BodyParts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, -0.18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.18)
 script = ExtResource("2")
 display_name = "Anchor Spine"
 max_hp = 16.0
 targeting_penalty = 10.0
 lock_difficulty_multiplier = 1.25
+on_destroy_effect = "stun"
+effect_strength = 1.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/AnchorSpine"]
 shape = SubResource("SpineShape")

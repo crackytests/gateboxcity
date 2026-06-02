@@ -41,6 +41,10 @@ func open(difficulty: int) -> void:
 	_solved = false
 	_attempt_spent = false
 	_time_remaining = 27.0 - (_difficulty - 1) * 3.0
+	# Neural Jack ports straight into the terminal; the Glass drug sharpens focus.
+	if GameState.has_cybernetic("neural_jack"):
+		_time_remaining += 8.0
+	_time_remaining += GameState.get_hack_bonus() * 4.0
 	_grid_cols = 3 + _difficulty
 	_grid_rows = 2 + _difficulty
 	_generate_puzzle()

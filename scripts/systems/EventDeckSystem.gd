@@ -45,6 +45,47 @@ func get_candidates(context: String) -> Array:
 	return result
 
 
+# Weighted pick of an eligible card for a context WITHOUT applying or expiring it.
+# Used by interactive resolution (the player's choice decides the effects).
+func pick_candidate(context: String) -> Dictionary:
+	var candidates := get_candidates(context)
+	if candidates.is_empty():
+		return {}
+	var total := 0
+	for card: Dictionary in candidates:
+		total += int(card.get("weight", 1))
+	var roll := randi_range(1, maxi(total, 1))
+	var cursor := 0
+	for card: Dictionary in candidates:
+		cursor += int(card.get("weight", 1))
+		if roll <= cursor:
+			return card.duplicate(true)
+	return candidates[0].duplicate(true)
+
+
+# Public effect application (interactive event branches call this).
+func apply_effects(effects: Array) -> void:
+	_apply_effects(effects)
+
+
+# Expire a card by its id (the decrement/remove half of apply_and_expire, no effects).
+func expire_card(card: Dictionary) -> void:
+	var card_id := str(card.get("id", ""))
+	if card_id.is_empty():
+		return
+	var expires_after: int = int(card.get("expires_after", -1))
+	if expires_after == 0:
+		remove_cards_by_id(card_id)
+	elif expires_after > 0:
+		for i in range(_deck.size()):
+			if str(_deck[i].get("id", "")) == card_id:
+				_deck[i]["expires_after"] = expires_after - 1
+				if int(_deck[i].get("expires_after", 0)) <= 0:
+					_deck.remove_at(i)
+				break
+	card_triggered.emit(card)
+
+
 func apply_and_expire(card: Dictionary) -> void:
 	_apply_effects(card.get("effects", []))
 	var card_id := str(card.get("id", ""))
@@ -127,3 +168,39 @@ func _apply_effects(effects: Array) -> void:
 					add_card(new_card)
 			"remove_tag":
 				remove_cards_by_tag(str(effect.get("tag", "")))
+			"remove_item":
+				GameState.spend_item(str(effect.get("item", "")), int(effect.get("count", 1)))
+			"wan_notes":
+				GameState.add_wan_notes(int(effect.get("amount", 0)))   # negative = a cost
+			"damage":
+				GameState.player_damage_requested.emit(float(effect.get("amount", 0.0)))
+			"add_drift":
+				GameState.add_drift(int(effect.get("amount", 0)))
+			"spawn_enemies":
+				_spawn_ambush(effect)
+
+
+# Hostile event outcome: drop a small enemy group into the live scene near the player.
+# Only fires when the current scene is combat-capable (has a player node) — in safe hubs
+# like Cooters/Atrium the player has no PlayerHealth-bearing avatar to ambush, so we skip
+# and the card's abstract `damage` (if any) stands in for the scuffle.
+func _spawn_ambush(effect: Dictionary) -> void:
+	if EnemyLayouts == null or not EnemyLayouts.has_method("spawn_ambush"):
+		return
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var players := get_tree().get_nodes_in_group("player")
+	if players.is_empty():
+		return   # no avatar to ambush (safe hub) — let abstract damage cover it
+	var player := players[0] as Node3D
+	if player == null:
+		return
+	var enemies: Array = effect.get("enemies", [])
+	if enemies.is_empty():
+		return
+	# Place the group a short distance in front of the player so they read as an ambush,
+	# not a teleport-on-top. Falls back to the player's own spot if no basis is available.
+	var basis_z := player.global_transform.basis.z
+	var ahead := player.global_position - basis_z * 4.0
+	EnemyLayouts.spawn_ambush(scene, enemies, ahead)

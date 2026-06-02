@@ -82,12 +82,12 @@ script = ExtResource("1")
 environment = SubResource("Environment_1")
 
 [node name="Player" parent="." instance=ExtResource("2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 7.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 8.6)
 
 [node name="HUD" parent="." instance=ExtResource("3")]
 
 [node name="TransitGuard" parent="." instance=ExtResource("4")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95, -4.2)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.95, -6.4)
 move_speed = 1.55
 ranged_range = 9.5
 

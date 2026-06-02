@@ -11,6 +11,11 @@ var focused_station
 var focused_board
 var focused_archive
 
+var vessel_floor_contact_debug_enabled := false
+var vessel_floor_contact_step := 0.01
+var vessel_floor_contact_label: Label
+var vessel_floor_contact_sprite: Sprite3D
+
 var _mat_floor: StandardMaterial3D
 var _mat_wall: StandardMaterial3D
 var _mat_ceil: StandardMaterial3D
@@ -27,6 +32,20 @@ var _mat_esc_on: StandardMaterial3D
 # Store bay spans z(-9..-16); tenants stand at z=-12.5 behind their counters.
 const HUB_UPPER_Y := 7.45
 const HUB_UPPER_Z := -12.5
+const VESSEL_DAMAGED_TEXTURE := "res://assets/sprites/vessel/vessel_damaged.png"
+const VESSEL_DAMAGED_FLOOR_TEXTURE := "res://assets/sprites/vessel/vessel_damaged_floor_contact.png"
+const VESSEL_DAMAGED_PIXEL_SIZE := 0.0017425
+const VESSEL_REPAIRED_PIXEL_SIZE := 0.00272
+const VESSEL_FRAME_PATHS := [
+	"res://assets/sprites/vessel/vessel_back.png",
+	"res://assets/sprites/vessel/vessel_back_left.png",
+	"res://assets/sprites/vessel/vessel_right.png",
+	"res://assets/sprites/vessel/vessel_front_right.png",
+	"res://assets/sprites/vessel/vessel_front.png",
+	"res://assets/sprites/vessel/vessel_front_left.png",
+	"res://assets/sprites/vessel/vessel_left.png",
+	"res://assets/sprites/vessel/vessel_back_right.png",
+]
 
 
 func _ready() -> void:
@@ -47,6 +66,14 @@ func _ready() -> void:
 		board.focus_changed.connect(_on_board_focus_changed)
 	for archive in get_tree().get_nodes_in_group("status_archive"):
 		archive.focus_changed.connect(_on_archive_focus_changed)
+
+	# Topic-conversation hand-offs: this scene owns its NPCs' shop/surgery services,
+	# and refreshes the hub objective after a conversation (a Work topic may start a quest).
+	if hud.dialogue_ui != null:
+		if not hud.dialogue_ui.service_requested.is_connected(_on_hub_dialogue_service):
+			hud.dialogue_ui.service_requested.connect(_on_hub_dialogue_service)
+		if not hud.dialogue_ui.closed.is_connected(_on_dialogue_closed):
+			hud.dialogue_ui.closed.connect(_on_dialogue_closed)
 
 	_build_materials()
 	_build_geometry()
@@ -70,11 +97,59 @@ func _ready() -> void:
 	else:
 		hud.show_dialogue("System X", _get_system_x_line())
 	hud.push_log("faded atrium connection established")
+	_check_ward7_return()
+	# An interactive arrival event may be waiting (visitor, demand, gift). Lines still use the
+	# pending-text path above; this only fires cards with choices.
+	hud.present_event.call_deferred("hub_return", true)
+
+
+# Hub-return consequences for the Comfort Annexe (Ward 7). The emergent note is
+# logged once; rescued/hidden residents and Big Gates fallout surface here.
+func _check_ward7_return() -> void:
+	if not GameState.get_world_flag("ward7_quest_logged", false):
+		return
+	if not GameState.get_world_flag("ward7_return_acknowledged", false):
+		GameState.set_world_flag("ward7_return_acknowledged", true)
+		hud.push_log("quest logged: Something Wrong At Ward 7")
+		if GameState.get_world_flag("ward7_experiment_docs_found", false):
+			hud.show_dialogue("Mister Static", "Ward 7. I knew it was up there. I did not know what it was doing. I am not surprised. I am just quiet about it. The Big Gates Informant will want what you pulled.")
+		else:
+			hud.show_dialogue("Mister Static", "Ward 7. I knew it existed. Whatever you saw in there, keep it close. Corporate calls that building green.")
+	if GameState.get_world_flag("ward7_resident_rescued", false) and not GameState.get_world_flag("ward7_survivor_settled", false):
+		GameState.set_world_flag("ward7_survivor_settled", true)
+		hud.push_log("a Ward 7 survivor is in the squatters' unit now — they don't explain themselves")
+	if GameState.get_world_flag("ward7_big_gates_sweep_pending", false) and not GameState.get_world_flag("ward7_big_gates_sweep_armed", false):
+		GameState.set_world_flag("ward7_big_gates_sweep_armed", true)
+		EventDeckSystem.add_card("big_gates_sweep")
+	if GameState.get_world_flag("ward7_linda_wellness_pending", false) and not GameState.get_world_flag("ward7_linda_wellness_armed", false):
+		GameState.set_world_flag("ward7_linda_wellness_armed", true)
+		EventDeckSystem.add_card("linda_wellness_check")
+	# General Bone Dividend resolution — fires once after the vault.
+	if GameState.get_world_flag("bone_dividend_general_defeated", false) and not GameState.get_world_flag("bone_dividend_resolved", false):
+		GameState.set_world_flag("bone_dividend_resolved", true)
+		GameState.add_reputation("System X", 2)
+		GameState.add_reputation("Wan Moa Torai", -1)
+		if GameState.get_world_flag("bone_dividend_souls_freed", false):
+			hud.show_dialogue("Big Gates Informant", "You closed the General's account and emptied the racks. The lower city felt that — a lot of nothing where a lot of suffering used to be filed. It cost you; I can see it on you. It was still right.")
+		else:
+			hud.show_dialogue("Big Gates Informant", "The General is down and the ledger is ours. You left the racks intact — careful, maybe, or merciful in a way I don't understand yet. Either way, the program has a hole in it now.")
+		hud.push_log("General Bone Dividend: account closed")
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _is_f11_key(event):
+		_toggle_vessel_floor_contact_debug()
+		get_viewport().set_input_as_handled()
+		return
+	if vessel_floor_contact_debug_enabled and _handle_vessel_floor_contact_debug_input(event):
+		get_viewport().set_input_as_handled()
+		return
+	if hud.is_panel_open():
+		return
 	if event.is_action_pressed("interact") or _is_manual_interact_key(event):
 		_handle_interact()
+	elif event.is_action_pressed("toggle_inventory") or _is_tab_key(event):
+		hud.toggle_inventory()
 	elif event.is_action_pressed("save_game") or _is_save_key(event):
 		_save_game()
 	elif event.is_action_pressed("load_game") or _is_load_key(event):
@@ -108,25 +183,15 @@ func _on_archive_focus_changed(archive, has_focus: bool) -> void:
 
 func _handle_interact() -> void:
 	if focused_npc != null:
+		# Migrated NPCs (those with a DialogueDB profile) use the topic conversation window.
+		# Un-migrated NPCs fall through to the legacy scripted handlers below.
+		var nid := str(focused_npc.npc_id)
+		if not nid.is_empty() and DialogueDB.has_profile(nid):
+			focused_npc.face_player_now()
+			hud.open_dialogue(nid)
+			return
+		# Object/prop interactions (not conversations) keep their scripted handlers.
 		match str(focused_npc.npc_name):
-			"Mister Static":
-				_handle_mister_static()
-				return
-			"Pipe Father Gideon":
-				_handle_gideon()
-				return
-			"Vera":
-				_handle_vera()
-				return
-			"Ladderboy":
-				_handle_ladderboy()
-				return
-			"Kiki Baja":
-				_handle_kiki_baja()
-				return
-			"Vessel":
-				_handle_vessel()
-				return
 			"Damaged Android":
 				_handle_vessel_android()
 				return
@@ -135,9 +200,6 @@ func _handle_interact() -> void:
 				return
 			"Motor Crate":
 				_handle_motor_crate()
-				return
-			"Velvet Coil":
-				_handle_velvet_coil()
 				return
 			"Bar Door":
 				_handle_bar_door()
@@ -168,7 +230,9 @@ func _handle_interact() -> void:
 		return
 
 	if focused_station != null:
-		_try_install_upgrade(focused_station)
+		# Public cyberware terminal — routes to the Velvet Coil install flow (implants you're
+		# carrying, paid in Wan Notes). Unifies on the one economy; no more item-cost self-install.
+		hud.open_cybernetics()
 
 
 func _update_prompt() -> void:
@@ -202,7 +266,11 @@ func _get_hub_objective() -> String:
 	if GameState.is_quest_completed("dream_audit"):
 		return "Faded Atrium: Dream Audit complete. Corporate transit route unlocked. F5 save, F6 load."
 	if GameState.is_quest_completed("wake_up_call"):
-		return "Faded Atrium: Wake-Up Call complete. F5 save, F6 load."
+		if GameState.is_quest_completed("rocker_fellar"):
+			return "Faded Atrium: Rocker Fellar defeated. The first General has fallen. F5 save, F6 load."
+		if GameState.is_quest_started("quest_rocker_fellar"):
+			return "Descend to Rocker Fellar Keep. Destroy his body parts, shut down the soul batteries, end the concert. F5 save, F6 load."
+		return "Faded Atrium: Wake-Up Call complete. Talk to System X for the next assignment. F5 save, F6 load."
 	# Show the first active hub quest objective if any are running
 	var active_hub := GameState.get_active_hub_quests()
 	if not active_hub.is_empty():
@@ -241,8 +309,20 @@ func _get_system_x_line() -> String:
 		return "Linda smiled when you sealed that audit. I hate when systems smile; it means the knife has branding."
 	if GameState.get_world_flag("gatebox_node_stabilized"):
 		return "You fed the coolant into their node. Useful. Creepy, but useful."
+	if GameState.is_quest_completed("rocker_fellar"):
+		return "Rocker Fellar is offline. His soul batteries are empty and his contract ledger is a problem for three factions. The first crack in the Big Gates Foundation."
+	if GameState.get_world_flag("rocker_fellar_defeated"):
+		return "Fellar is down. Return to the Atrium and the world will catch up."
+	if GameState.is_quest_started("quest_rocker_fellar"):
+		return "Rocker Fellar's fortress waits beneath Leak Street. Destroy the soul batteries, dismantle his body parts, and end the concert. Use the deep lift in the district."
 	if GameState.is_quest_completed("wake_up_call"):
-		return "You came back carrying proof. The Atrium remembers you now, which is touching and probably a security problem."
+		# Auto-start the Rocker Fellar quest on first System X contact after Wake-Up Call
+		if not GameState.is_quest_started("quest_rocker_fellar"):
+			GameState.start_quest("quest_rocker_fellar")
+			if hud != null:
+				hud.push_log("Quest accepted: Rocker Fellar Keep")
+				hud.set_objective(_get_hub_objective())
+		return "Big Gates Foundation general spotted in the deep Sub-Sub-Basement. Rocker Fellar — death-metal cyborg, soul harvester, concert fortress. His bass frequency is cracking the pipes three levels up. Go down there and unplug him."
 	return "The real Mall may be myth, trap, or heaven. This copy is ours. Use the green gate when you are ready to wake something up on purpose."
 
 
@@ -250,22 +330,6 @@ func _get_system_x_speaker(fallback_name: String) -> String:
 	if fallback_name == "Face":
 		return "System X"
 	return fallback_name
-
-
-func _try_install_upgrade(station) -> void:
-	if GameState.has_cybernetic(station.upgrade_id):
-		hud.show_system_message("UPGRADE ALREADY INSTALLED")
-		return
-	if not GameState.spend_item(station.required_item):
-		hud.show_system_message("NEED " + station.required_item.to_upper())
-		return
-
-	GameState.add_cybernetic(station.upgrade_id)
-	GameState.last_mission_result = "Installed " + station.upgrade_name
-	hud.set_inventory_summary(GameState.get_inventory_summary())
-	hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
-	hud.show_system_message("INSTALLED " + station.upgrade_name.to_upper())
-	hud.show_dialogue("System X", "That co-processor should make the reticle bite faster. Try not to look proud; the implant can smell that.")
 
 
 func _show_mission_board() -> void:
@@ -308,6 +372,7 @@ func _get_mission_board_text() -> String:
 		WorldDirector.get_region_brief(),
 		_get_next_route_line(),
 		_get_route_status("Wake-Up Call", "wake_up_call"),
+		_get_route_status("Rocker Fellar Keep", "quest_rocker_fellar"),
 		_get_route_status("Dream Audit", "dream_audit"),
 		_get_route_status("Transit Breach", "transit_breach"),
 		_get_route_status("Spire Lobby", "spire_lobby"),
@@ -362,6 +427,8 @@ func _is_route_unlocked(quest_id: String) -> bool:
 	match quest_id:
 		"wake_up_call":
 			return true
+		"quest_rocker_fellar":
+			return GameState.is_quest_completed("wake_up_call")
 		"dream_audit":
 			return GameState.is_quest_completed("wake_up_call")
 		"transit_breach":
@@ -383,6 +450,8 @@ func _is_route_unlocked(quest_id: String) -> bool:
 func _get_next_route_line() -> String:
 	if not GameState.is_quest_completed("wake_up_call"):
 		return "NEXT  Sub-Sub-Basement District: patch generators, survive rain, find Wake-Up Call before it finds you."
+	if not GameState.is_quest_completed("quest_rocker_fellar"):
+		return "NEXT  Rocker Fellar Keep: descend to the Big Gates concert fortress. Destroy the General."
 	if not GameState.is_quest_completed("dream_audit"):
 		return "NEXT  Dream Audit: ascend to Pacification Ward."
 	if not GameState.is_quest_completed("transit_breach"):
@@ -465,6 +534,16 @@ func _is_manual_interact_key(event: InputEvent) -> bool:
 	return key_event != null and key_event.pressed and not key_event.echo and key_event.keycode == KEY_E
 
 
+func _is_tab_key(event: InputEvent) -> bool:
+	var key_event := event as InputEventKey
+	return key_event != null and key_event.pressed and not key_event.echo and key_event.keycode == KEY_TAB
+
+
+func _is_f11_key(event: InputEvent) -> bool:
+	var key_event := event as InputEventKey
+	return key_event != null and key_event.pressed and not key_event.echo and key_event.keycode == KEY_F11
+
+
 func _is_save_key(event: InputEvent) -> bool:
 	var key_event := event as InputEventKey
 	return key_event != null and key_event.pressed and not key_event.echo and key_event.keycode == KEY_F5
@@ -494,6 +573,7 @@ func _wire_runtime() -> void:
 		_spawn_vessel_prop()
 	_spawn_escalator_console()
 	_spawn_motor_crate()
+	_spawn_ward7_npcs()
 	_check_phase()
 	if GameState.get_world_flag("hub_phase_2", false):
 		_apply_phase_2()
@@ -510,6 +590,10 @@ func _wire_runtime() -> void:
 	EventDeckSystem.add_card("hub_pipe_valve_note")
 	EventDeckSystem.add_card("hub_spore_vent_note")
 	EventDeckSystem.add_card("hub_atrium_gate_note")
+	# Drift-reaction ambient cards (gated by drift threshold world-flags)
+	EventDeckSystem.add_card("drift_noticed_return")
+	EventDeckSystem.add_card("drift_uncanny_warning")
+	EventDeckSystem.add_card("high_drift_surveillance")
 	# Roll a hub_return card and queue it for display if no pending text exists
 	var pending := str(GameState.get_world_flag("_pending_arrival_text", ""))
 	if pending.is_empty():
@@ -601,9 +685,9 @@ func _build_materials() -> void:
 	_mat_upper     = _make_hub_mat(Color(0.63, 0.60, 0.66), Color(0.20, 0.06, 0.35), 0.08, "res://assets/hub_upper_floor.png",     Vector3(6, 6, 1))
 	_mat_railing   = _make_hub_mat(Color(0.64, 0.58, 0.68), Color(0.50, 0.10, 0.62), 0.22, "res://assets/hub_railing_metal.png",   Vector3(4, 2, 1))
 	# Offline escalator: cool neutral-gray albedo so it reads as material, not a glowing slab
-	_mat_esc_off   = _make_hub_mat(Color(0.52, 0.50, 0.46), Color(0.65, 0.22, 0.02), 0.16, "res://assets/hub_esc_on.png",          Vector3(1, 6, 1))
+	_mat_esc_off   = _make_hub_mat(Color(0.52, 0.50, 0.46), Color(0.65, 0.22, 0.02), 0.16, "res://assets/hub_esc_on.png",          Vector3(6, 1, 1))
 	# Active escalator: brighter cyan albedo carries the "on" read; low emission so the step texture stays visible.
-	_mat_esc_on    = _make_hub_mat(Color(0.55, 0.80, 0.90), Color(0.10, 0.80, 1.00), 0.35, "res://assets/hub_esc_on.png",          Vector3(1, 6, 1))
+	_mat_esc_on    = _make_hub_mat(Color(0.55, 0.80, 0.90), Color(0.10, 0.80, 1.00), 0.35, "res://assets/hub_esc_on.png",          Vector3(6, 1, 1))
 
 
 func _build_geometry() -> void:
@@ -879,6 +963,7 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 	if not get_tree().get_nodes_in_group(group_tag).is_empty():
 		return
 	var npc := NPCDialogue.new()
+	npc.npc_id = npc_id
 	npc.npc_name = npc_name
 	npc.dialogue_text = dialogue
 	npc.prompt_text = prompt
@@ -892,21 +977,40 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 	shape.radius = focus_radius
 	col.shape = shape
 	npc.add_child(col)
-	# Visual capsule so the NPC is actually visible in the world
-	var mesh_inst := MeshInstance3D.new()
-	var capsule := CapsuleMesh.new()
-	capsule.radius = 0.28
-	capsule.height = 1.5
-	mesh_inst.mesh = capsule
-	mesh_inst.position = Vector3(0.0, 0.75, 0.0)
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = _npc_color(npc_id)
-	mat.emission_enabled = true
-	mat.emission = _npc_color(npc_id)
-	mat.emission_energy_multiplier = 0.3
-	mesh_inst.set_surface_override_material(0, mat)
-	npc.add_child(mesh_inst)
+	if npc_id == "vessel":
+		_add_vessel_directional_sprite(npc)
+	else:
+		# Visual capsule so the NPC is actually visible in the world
+		var mesh_inst := MeshInstance3D.new()
+		var capsule := CapsuleMesh.new()
+		capsule.radius = 0.28
+		capsule.height = 1.5
+		mesh_inst.mesh = capsule
+		mesh_inst.position = Vector3(0.0, 0.75, 0.0)
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = _npc_color(npc_id)
+		mat.emission_enabled = true
+		mat.emission = _npc_color(npc_id)
+		mat.emission_energy_multiplier = 0.3
+		mesh_inst.set_surface_override_material(0, mat)
+		npc.add_child(mesh_inst)
 	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _add_vessel_directional_sprite(npc: NPCDialogue) -> void:
+	var billboard := DirectionalBillboard.new()
+	billboard.name = "Sprite3D"
+	billboard.frame_paths = PackedStringArray(VESSEL_FRAME_PATHS)
+	billboard.texture = load("res://assets/sprites/vessel/vessel_front.png")
+	billboard.pixel_size = VESSEL_REPAIRED_PIXEL_SIZE
+	billboard.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	billboard.shaded = false
+	billboard.double_sided = true
+	billboard.alpha_cut = SpriteBase3D.ALPHA_CUT_DISABLED
+	billboard.idle_bob_height = 0.025
+	npc.add_child(billboard)
+	billboard._load_frames_from_paths()
+	billboard.align_bottom_to_origin(0.02)
 
 
 func _npc_color(npc_id: String) -> Color:
@@ -918,7 +1022,25 @@ func _npc_color(npc_id: String) -> Color:
 		"kiki_baja":     return Color(1.0,  0.45, 0.75)  # pink
 		"ladderboy":     return Color(0.35, 0.7,  1.0)   # light blue
 		"velvet_coil":   return Color(0.9,  0.3,  0.45)  # rose
+		"brickmouth_ronnie": return Color(0.85, 0.75, 0.2)  # sickly yellow
+		"big_gates_informant": return Color(0.95, 0.45, 0.15)  # ember orange
+		"ward7_survivor": return Color(0.7, 0.7, 0.78)  # washed-out pale
 		_:               return Color(0.8,  0.8,  0.8)   # fallback grey
+
+
+# Ward 7 (Comfort Annexe) consequence NPCs. The informant appears once you've
+# been inside; the rescued resident settles in the bar if you brought them out.
+func _spawn_ward7_npcs() -> void:
+	if GameState.get_world_flag("ward7_entered", false):
+		_spawn_npc("big_gates_informant", "Big Gates Informant",
+			"You went to Ward 7. We should talk about what you saw — quietly.",
+			"Press E: talk to the Big Gates Informant",
+			Vector3(-7.5, 1.05, +6.0), 1.6)
+	if GameState.get_world_flag("ward7_survivor_settled", false):
+		_spawn_npc("ward7_survivor", "Ward 7 Survivor",
+			"...",
+			"Press E: the Ward 7 survivor",
+			Vector3(+5.5, 1.05, +10.5), 1.6)
 
 
 # ── Bar (Store 3) — phase-3 social beat, gated on hub water ──────────
@@ -1007,6 +1129,11 @@ func _open_bar_interior() -> void:
 		_add_box("BarStool3", Vector3(0.4, 0.7, 0.4), Vector3(+5.6, 0.35, +9.9), body)
 		_add_hub_light(Vector3(+4.0, 3.0, +12.5), Color(1.0, 0.45, 0.10), 1.8, 8.0)
 	# Vessel tends this bar — relocated here by _relocate_vessel_to_bar() / spawned at the bar on load.
+	# Brickmouth Ronnie works the end of the bar as the resident pharmacist.
+	_spawn_npc("brickmouth_ronnie", "Brickmouth Ronnie",
+		"End of the bar. I sell what gets you through the next hour, not the next year. Comedown's on you.",
+		"Press E: Brickmouth Ronnie (pharmacy)",
+		Vector3(+6.6, 1.05, +10.2), 2.4)
 
 
 # ── Hub structural changes ──────────────────────────────────────────
@@ -1028,96 +1155,36 @@ func _activate_hub_radio() -> void:
 
 
 # ── Hub NPC interaction handlers ────────────────────────────────────
+# Conversational NPCs (Static, Gideon, Vera, Ladderboy, Kiki, Vessel, Velvet Coil, Ronnie) are
+# data-driven now — see DialogueDB.NPC_PROFILES. Their shop/surgery services are routed by
+# _on_hub_dialogue_service below; only the object/prop handlers remain hardcoded here.
 
-func _handle_mister_static() -> void:
-	if GameState.get_world_flag("hub_power_restored", false):
-		hud.show_dialogue("Mister Static", "Generator is stable. I stopped apologising to it. We have reached an understanding.")
-		return
-	if GameState.is_quest_started("hub_power_restore"):
-		hud.show_dialogue("Mister Static", "Basement coupling. Tape is holding but tape is not a plan. Just a very optimistic adhesive.")
-		return
-	GameState.start_quest("hub_power_restore")
-	EventDeckSystem.add_card("hub_power_exit")
-	EventDeckSystem.add_card("hub_power_return")
-	hud.show_dialogue("Mister Static", "The generator coupling is in the basement. I have been holding it together with tape for six weeks. Go fix it properly before the tape starts having opinions.")
-	hud.push_log("quest started: hub power")
-	hud.set_objective(GameState.get_quest_objective_text("hub_power_restore"))
+func _on_hub_dialogue_service(npc_id: String, service_id: String) -> void:
+	match service_id:
+		"sell":
+			hud.open_sell_shop("Pipe Father Gideon — Wasted Potential")
+		"pharmacy":
+			hud.open_shop("Brickmouth Ronnie — Pharmacy", _ronnie_offers())
+		"cybernetics":
+			hud.open_cybernetics()   # Coil installs implants you're carrying, paid in Wan Notes
 
 
-func _handle_gideon() -> void:
-	if GameState.get_world_flag("saint_ratchet_returned", false):
-		hud.show_dialogue("Pipe Father Gideon", "Saint Ratchet is back. The pipes hum different. The congregation is behaving as if this was expected. Good theology.")
-		return
-	hud.show_dialogue("Pipe Father Gideon", "The Pipe Church holds. Whatever comes down from the upper levels, the pipes remember it. Come to us when the noise gets too loud.")
+func _on_dialogue_closed() -> void:
+	# A Work topic may have started a quest mid-conversation; refresh the hub objective.
+	hud.set_objective(_get_hub_objective())
 
 
-func _handle_vera() -> void:
-	# Service: Vera patches the player up to full whenever you stop by.
-	var before: float = float(player_health.current_hp)
-	player_health.heal(float(player_health.max_hp))
-	var restored: float = float(player_health.current_hp) - before
-	if restored > 0.0:
-		hud.push_log("Vera patched you up: +%d HP" % int(round(restored)))
-	if GameState.get_world_flag("hub_cistern_connected", false):
-		hud.show_dialogue("Vera", "Water is clean, clinic is running, and you are at full. I have fixed four things today that should not have needed fixing. Normal day.")
-		return
-	if GameState.is_quest_started("hub_cistern"):
-		hud.show_dialogue("Vera", "West walkway of the cistern. Conduit junction. Do not let Torai log you there.")
-		return
-	GameState.start_quest("hub_cistern")
-	EventDeckSystem.add_card("hub_cistern_exit")
-	EventDeckSystem.add_card("hub_cistern_return")
-	if GameState.get_world_flag("cistern_valve_used", false):
-		hud.show_dialogue("Vera", "The cistern valve is already bled — that simplifies the conduit run. West walkway junction. One connection and we have clean water.")
-		hud.push_log("pipe valve already bled — conduit run simplified")
-	else:
-		hud.show_dialogue("Vera", "I need clean water for the clinic. The cistern west walkway has a junction point. Install a conduit there and we are connected.")
-	hud.push_log("quest started: hub cistern")
-	hud.set_objective(GameState.get_quest_objective_text("hub_cistern"))
-
-
-func _handle_ladderboy() -> void:
-	if GameState.get_world_flag("atrium_cleared", false):
-		hud.show_dialogue("Ladderboy", "Atrium is clear. People are actually walking through it. I did not think we would get to the part where people walk through things.")
-		return
-	if GameState.is_quest_started("hub_clear_court"):
-		hud.show_dialogue("Ladderboy", "Three piles. They are in the atrium. They have been there long enough to have addresses.")
-		return
-	GameState.start_quest("hub_clear_court")
-	hud.show_dialogue("Ladderboy", "Three debris piles in the central atrium. They came down when the ceiling section failed. Move them and the whole hub opens up. I would do it myself but the vertical access workshop does not clear things — it reaches over them.")
-	hud.push_log("quest started: clear the court")
-	hud.set_objective(GameState.get_quest_objective_text("hub_clear_court"))
-
-
-func _handle_kiki_baja() -> void:
-	# Service: Torai liaison reads out your current standing with Wan Moa Torai.
-	var torai := int(GameState.reputation.get("Wan Moa Torai", 0))
-	var standing := "neutral — they have not decided what you are yet"
-	if torai > 0:
-		standing = "warming — they think you are useful, which is its own kind of danger"
-	elif torai < 0:
-		standing = "cooling — they think you are a problem, and problems get line items"
-	hud.show_dialogue("Kiki Baja", "Wan Moa Torai standing: %+d. %s. My job is to make sure that watching is all they do. If that changes, I will tell you before they do." % [torai, standing])
-	hud.push_log("Torai liaison: standing %+d" % torai)
-
-
-func _handle_vessel() -> void:
-	# Once the bar is open, Vessel is the hub bartender — give the social-hub beat.
-	if GameState.get_world_flag("bar_open", false):
-		hud.show_dialogue("Vessel", "Sit, breathe, let the lower city end without your supervision for five minutes. The stools are mostly real and the rain mutant does not visit this branch. People are drinking in a place they built instead of one they fled to. I will take it. So should you.")
-		return
-	if GameState.get_world_flag("hub_lan_restored", false):
-		hud.show_dialogue("Vessel", "Archive is live. System X has seventeen things to tell you. Sixteen are warnings. One is a joke. I have not identified which one.")
-		return
-	if GameState.is_quest_started("hub_lan_restore"):
-		hud.show_dialogue("Vessel", "Water Reclamation Cistern — east end of the upper walkway. The tap cable is cut. Splice kit and two minutes of your time.")
-		return
-	GameState.start_quest("hub_lan_restore")
-	EventDeckSystem.add_card("hub_lan_exit")
-	EventDeckSystem.add_card("hub_lan_return")
-	hud.show_dialogue("Vessel", "The LAN tap is severed. Water Reclamation Cistern — east end of the upper walkway. Bring a splice kit. When it is live, System X can see the whole lower city again. Some of what it sees will be your problem.")
-	hud.push_log("quest started: hub LAN")
-	hud.set_objective(GameState.get_quest_objective_text("hub_lan_restore"))
+func _ronnie_offers() -> Array:
+	return [
+		{"item": "Jolt", "label": "Jolt", "desc": GameState.CONSUMABLES["Jolt"]["desc"],
+			"price_item": "Wan Note", "price_count": 5},
+		{"item": "Glass", "label": "Glass", "desc": GameState.CONSUMABLES["Glass"]["desc"],
+			"price_item": "Wan Note", "price_count": 5},
+		{"item": "Redline", "label": "Redline", "desc": GameState.CONSUMABLES["Redline"]["desc"],
+			"price_item": "Wan Note", "price_count": 7},
+		{"item": "Patch", "label": "Patch (heal)", "desc": GameState.CONSUMABLES["Patch"]["desc"],
+			"price_item": "Wan Note", "price_count": 12},
+	]
 
 
 func _spawn_vessel_npc() -> void:
@@ -1127,12 +1194,12 @@ func _spawn_vessel_npc() -> void:
 		_spawn_npc("vessel", "Vessel",
 			"Hub tap's open. This is the Cooters mall branch — I keep this one.",
 			"Press E: talk to Vessel",
-			Vector3(+4.0, 1.05, +12.5), 2.6)
+			Vector3(+4.0, 0.0, +12.5), 2.6)
 	else:
 		_spawn_npc("vessel", "Vessel",
 			"The LAN tap is severed. When it is live, System X can see the whole lower city again.",
 			"Press E: talk to Vessel",
-			Vector3(+7.5, 1.05, +0.5))
+			Vector3(+7.5, 0.0, +0.5))
 
 
 func _relocate_vessel_to_bar() -> void:
@@ -1152,8 +1219,8 @@ func _spawn_vessel_prop() -> void:
 	npc.npc_name = "Damaged Android"
 	npc.dialogue_text = "Offline."
 	npc.prompt_text = "Press E: examine android"
-	# Placed in the central atrium near the mission board
-	npc.position = Vector3(+7.5, 0.0, +0.5)
+	# Slumped against the east atrium wall, beside the mission board cluster.
+	npc.position = Vector3(+15.92, 0.0, +0.5)
 	npc.add_to_group("npc")
 	npc.add_to_group(group_tag)
 	add_child(npc)
@@ -1162,22 +1229,144 @@ func _spawn_vessel_prop() -> void:
 	shape.radius = 1.0
 	col.shape = shape
 	npc.add_child(col)
-	# Lying-down bunny android: capsule rotated 90° on Z, close to the floor
-	var mesh_inst := MeshInstance3D.new()
-	var capsule := CapsuleMesh.new()
-	capsule.radius = 0.28
-	capsule.height = 1.5
-	mesh_inst.mesh = capsule
-	mesh_inst.position = Vector3(0.0, 0.28, 0.0)
-	mesh_inst.rotation_degrees = Vector3(0.0, 0.0, 90.0)
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.10, 0.09, 0.12)
-	mat.emission_enabled = true
-	mat.emission = Color(0.28, 0.08, 0.40)
-	mat.emission_energy_multiplier = 0.08
-	mesh_inst.set_surface_override_material(0, mat)
-	npc.add_child(mesh_inst)
+	_add_vessel_damaged_sprite(npc)
 	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _add_vessel_damaged_sprite(npc: NPCDialogue) -> void:
+	var sprite := Sprite3D.new()
+	sprite.name = "Sprite3D"
+	sprite.texture = load(VESSEL_DAMAGED_TEXTURE)
+	sprite.pixel_size = VESSEL_DAMAGED_PIXEL_SIZE
+	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	sprite.shaded = false
+	sprite.double_sided = true
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_OPAQUE_PREPASS
+	sprite.no_depth_test = false
+	sprite.position = Vector3(0.0, 0.612, 0.0)
+	sprite.rotation_degrees = Vector3(0.0, -90.0, 0.0)
+	npc.add_child(sprite)
+
+	var floor_contact := Sprite3D.new()
+	floor_contact.name = "FloorContactSprite3D"
+	floor_contact.texture = load(VESSEL_DAMAGED_FLOOR_TEXTURE)
+	floor_contact.pixel_size = VESSEL_DAMAGED_PIXEL_SIZE
+	floor_contact.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	floor_contact.shaded = false
+	floor_contact.double_sided = true
+	floor_contact.alpha_cut = SpriteBase3D.ALPHA_CUT_OPAQUE_PREPASS
+	floor_contact.no_depth_test = false
+	floor_contact.flip_h = true
+	floor_contact.position = Vector3(-0.357, 0.025, 0.017)
+	floor_contact.rotation_degrees = Vector3(90.0, -90.0, 180.0)
+	npc.add_child(floor_contact)
+	vessel_floor_contact_sprite = floor_contact
+
+
+func _toggle_vessel_floor_contact_debug() -> void:
+	vessel_floor_contact_debug_enabled = not vessel_floor_contact_debug_enabled
+	if vessel_floor_contact_debug_enabled:
+		vessel_floor_contact_sprite = _find_vessel_floor_contact_sprite()
+		_ensure_vessel_floor_contact_debug_label()
+		_update_vessel_floor_contact_debug_label()
+		print("[VesselFloorContact] debug enabled")
+	else:
+		if vessel_floor_contact_label != null:
+			vessel_floor_contact_label.visible = false
+		print("[VesselFloorContact] debug disabled")
+
+
+func _handle_vessel_floor_contact_debug_input(event: InputEvent) -> bool:
+	var key_event := event as InputEventKey
+	if key_event == null or not key_event.pressed or key_event.echo:
+		return false
+	if vessel_floor_contact_sprite == null:
+		vessel_floor_contact_sprite = _find_vessel_floor_contact_sprite()
+	if vessel_floor_contact_sprite == null:
+		print("[VesselFloorContact] no FloorContactSprite3D found")
+		return true
+
+	var delta := Vector3.ZERO
+	match key_event.keycode:
+		KEY_LEFT:
+			delta.x -= vessel_floor_contact_step
+		KEY_RIGHT:
+			delta.x += vessel_floor_contact_step
+		KEY_PAGEUP:
+			delta.y += vessel_floor_contact_step
+		KEY_PAGEDOWN:
+			delta.y -= vessel_floor_contact_step
+		KEY_UP:
+			delta.z -= vessel_floor_contact_step
+		KEY_DOWN:
+			delta.z += vessel_floor_contact_step
+		KEY_BRACKETLEFT:
+			vessel_floor_contact_step = maxf(0.001, vessel_floor_contact_step * 0.5)
+			_update_vessel_floor_contact_debug_label()
+			print("[VesselFloorContact] step = %.4f" % vessel_floor_contact_step)
+			return true
+		KEY_BRACKETRIGHT:
+			vessel_floor_contact_step = minf(0.25, vessel_floor_contact_step * 2.0)
+			_update_vessel_floor_contact_debug_label()
+			print("[VesselFloorContact] step = %.4f" % vessel_floor_contact_step)
+			return true
+		KEY_ENTER, KEY_KP_ENTER:
+			_print_vessel_floor_contact_position()
+			return true
+		_:
+			return false
+
+	vessel_floor_contact_sprite.position += delta
+	_update_vessel_floor_contact_debug_label()
+	_print_vessel_floor_contact_position()
+	return true
+
+
+func _find_vessel_floor_contact_sprite() -> Sprite3D:
+	for node in get_tree().get_nodes_in_group("hub_npc_vessel"):
+		if not is_instance_valid(node):
+			continue
+		var sprite := node.get_node_or_null("FloorContactSprite3D") as Sprite3D
+		if sprite != null:
+			return sprite
+	return null
+
+
+func _ensure_vessel_floor_contact_debug_label() -> void:
+	if vessel_floor_contact_label != null:
+		vessel_floor_contact_label.visible = true
+		return
+	var layer := CanvasLayer.new()
+	layer.name = "VesselFloorContactDebugLayer"
+	layer.layer = 100
+	add_child(layer)
+	vessel_floor_contact_label = Label.new()
+	vessel_floor_contact_label.name = "VesselFloorContactDebugLabel"
+	vessel_floor_contact_label.position = Vector2(24.0, 280.0)
+	vessel_floor_contact_label.add_theme_font_size_override("font_size", 16)
+	vessel_floor_contact_label.add_theme_color_override("font_color", Color(0.2, 1.0, 0.65))
+	layer.add_child(vessel_floor_contact_label)
+
+
+func _update_vessel_floor_contact_debug_label() -> void:
+	if vessel_floor_contact_label == null:
+		return
+	var pos := Vector3.ZERO
+	if vessel_floor_contact_sprite != null:
+		pos = vessel_floor_contact_sprite.position
+	vessel_floor_contact_label.text = "VESSEL FOOT DEBUG F11\nArrows X/Z  PgUp/PgDn Y  [/] step  Enter print\npos Vector3(%.3f, %.3f, %.3f)  step %.4f" % [
+		pos.x,
+		pos.y,
+		pos.z,
+		vessel_floor_contact_step,
+	]
+
+
+func _print_vessel_floor_contact_position() -> void:
+	if vessel_floor_contact_sprite == null:
+		return
+	var pos := vessel_floor_contact_sprite.position
+	print("[VesselFloorContact] position = Vector3(%.4f, %.4f, %.4f)" % [pos.x, pos.y, pos.z])
 
 
 func _spawn_escalator_console() -> void:
@@ -1336,17 +1525,3 @@ func _repair_escalator() -> void:
 	hud.show_dialogue("Ladderboy", "Both escalators running. Upper level is open. The mall just got taller.")
 	hud.push_log("escalators repaired: upper level accessible")
 	hud.set_objective("Upper level unlocked. Explore the mezzanine.")
-
-
-func _handle_velvet_coil() -> void:
-	# Velvet Coil runs the upper-floor surgical suite once she's accepted the hub invitation.
-	# Service: open the cybernetics menu for any implant the player hasn't installed yet.
-	var upgrades: Array[Dictionary] = []
-	for key in CyberneticSurgeryUI.UPGRADE_DB.keys():
-		if not GameState.has_cybernetic(str(key)):
-			upgrades.append({"id": str(key)})
-	if upgrades.is_empty():
-		hud.show_dialogue("Velvet Coil", "You are fully kitted. There is nothing left on my shelf you have not already bolted to yourself. Come back when science invents new regrets.")
-		return
-	hud.show_dialogue("Velvet Coil", "Suite's open. Pick a slot, pick an implant. I learned this from a VHS tape, two broken androids, and one lawsuit that technically never found me.")
-	hud.open_cybernetics(upgrades)

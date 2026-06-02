@@ -177,6 +177,7 @@ surface_material_override/0 = SubResource("NeonPink")
 [node name="Marbles" type="Area3D" parent="." groups=["npc"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -2.9)
 script = ExtResource("4")
+npc_id = "marbles"
 npc_name = "Marbles"
 dialogue_text = "The rain mutant is contained in the side room, which makes it our least destructive regular and somehow not the saddest. Job board is live. Breathe, reload, and do not drink anything glowing unless it signs a waiver."
 prompt_text = "Press E: talk to Marbles"

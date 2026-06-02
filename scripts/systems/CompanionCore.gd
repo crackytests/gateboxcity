@@ -115,16 +115,16 @@ func _use_audience_dais() -> void:
 
 func _use_core_console() -> void:
 	if core_resolved:
-		hud.show_dialogue("Face", "Core fork is already loose. It is humming in a way I do not love, like a refrigerator with a manifesto.")
+		hud.show_dialogue("System X", "Core fork is already loose. It is humming in a way I do not love, like a refrigerator with a manifesto.")
 		return
 
 	if not warden_broken:
-		hud.show_dialogue("Face", "Break the warden's head or torso first. The console is still watching you, and frankly it has judge energy.")
+		hud.show_dialogue("System X", "Break the warden's head or torso first. The console is still watching you, and frankly it has judge energy.")
 		hud.show_system_message("BREAK WARDEN FIRST")
 		return
 
 	if not GameState.spend_item("Executive Override Shard"):
-		hud.show_dialogue("Face", "The core needs that executive override shard. This is exactly what we stole it for, unless anyone asks, in which case we found it being lonely.")
+		hud.show_dialogue("System X", "The core needs that executive override shard. This is exactly what we stole it for, unless anyone asks, in which case we found it being lonely.")
 		hud.show_system_message("NEED EXECUTIVE OVERRIDE SHARD")
 		return
 
@@ -146,7 +146,7 @@ func _use_memory_well() -> void:
 func _on_warden_defeated() -> void:
 	warden_broken = true
 	hud.push_log("companion warden broken")
-	hud.show_dialogue("Face", "Warden down. Core console is exposed and trying very hard not to look exposed.")
+	hud.show_dialogue("System X", "Warden down. Core console is exposed and trying very hard not to look exposed.")
 	hud.set_objective(_get_objective_text())
 
 
@@ -159,7 +159,7 @@ func _on_warden_body_part_destroyed(part_name: String) -> void:
 	warden_broken = true
 	_retire_warden()
 	hud.push_log("warden " + part_name.to_lower() + " destroyed")
-	hud.show_dialogue("Face", "That cracked the companion shell. Console, now, before it remembers how to be a problem.")
+	hud.show_dialogue("System X", "That cracked the companion shell. Console, now, before it remembers how to be a problem.")
 	hud.show_system_message("WARDEN BROKEN")
 	hud.set_objective(_get_objective_text())
 

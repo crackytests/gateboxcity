@@ -27,6 +27,14 @@ func _ready() -> void:
 		interactable.focus_changed.connect(_on_interactable_focus_changed)
 	if hud.job_board_ui != null and not hud.job_board_ui.job_accepted.is_connected(_on_job_board_accepted):
 		hud.job_board_ui.job_accepted.connect(_on_job_board_accepted)
+	if hud.dialogue_ui != null:
+		if not hud.dialogue_ui.service_requested.is_connected(_on_cooters_dialogue_service):
+			hud.dialogue_ui.service_requested.connect(_on_cooters_dialogue_service)
+		if not hud.dialogue_ui.closed.is_connected(_on_cooters_dialogue_closed):
+			hud.dialogue_ui.closed.connect(_on_cooters_dialogue_closed)
+
+	# Entering Cooters reshuffles the job board (later: refresh on a day tick instead).
+	GameState.build_job_board()
 
 	_refresh_hud()
 	hud.show_dialogue("Marbles", "Welcome to Cooters. No fighting the contained rain mutant unless it starts a tab, and honestly it tips better than half the room.")
@@ -34,6 +42,8 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if hud.is_panel_open():
+		return   # don't act on interact while an event/menu panel is up
 	if event.is_action_pressed("interact") or _is_manual_interact_key(event):
 		_handle_interact()
 	elif event.is_action_pressed("save_game") or _is_save_key(event):
@@ -48,8 +58,12 @@ func _handle_interact() -> void:
 		return
 
 	if focused_npc != null:
-		if focused_npc.npc_name == "Marbles":
-			_handle_marbles()
+		# Migrated NPCs (with a DialogueDB profile) open the topic window; Marbles' job board
+		# and payout live there now (job_board service + collect_pay work topic).
+		var nid := str(focused_npc.npc_id)
+		if not nid.is_empty() and DialogueDB.has_profile(nid):
+			focused_npc.face_player_now()
+			hud.open_dialogue(nid)
 			return
 		var line: Dictionary = focused_npc.interact()
 		hud.show_dialogue(str(line["name"]), str(line["text"]))
@@ -57,7 +71,19 @@ func _handle_interact() -> void:
 		return
 
 	if focused_exit != null:
-		get_tree().change_scene_to_file(focused_exit.target_scene)
+		var target := focused_exit.target_scene
+		# A district_exit event may catch you on the way out — resolve it before leaving.
+		if hud.present_event("district_exit"):
+			await _await_event_close()
+		get_tree().change_scene_to_file(target)
+
+
+# Wait for whichever event panel present_event opened (interactive card or a statement line).
+func _await_event_close() -> void:
+	if hud.event_card_ui != null and hud.event_card_ui.is_open():
+		await hud.event_card_ui.closed
+	elif hud.dialogue_ui != null and hud.dialogue_ui.is_open():
+		await hud.dialogue_ui.closed
 
 
 func _refresh_hud() -> void:
@@ -79,24 +105,15 @@ func _handle_interactable(interactable: WardInteractable) -> void:
 			hud.show_dialogue(interactable.display_name, "Cooters has not found a use for that yet. Give us ten minutes and a worse idea.")
 
 
-func _handle_marbles() -> void:
-	var active_job := GameState.get_active_job_data()
-	if active_job.is_empty():
-		hud.show_dialogue("Marbles", "Board is on the wall. Take one job at a time; the building gets jealous if we call it logistics and starts leaking on purpose.")
-		_refresh_hud()
-		return
+# Marbles' "Services" → job board. (Job accept/payout flow is unchanged: the board UI emits
+# job_accepted; payout happens via the collect_pay work topic's complete_job effect.)
+func _on_cooters_dialogue_service(_npc_id: String, service_id: String) -> void:
+	if service_id == "job_board":
+		hud.open_job_board(GameState.get_available_jobs(), GameState.active_job_id)
 
-	if GameState.is_job_objective_done(GameState.active_job_id):
-		var paid_job := GameState.complete_active_job()
-		if paid_job.is_empty():
-			hud.show_dialogue("Marbles", "Something about your tab got weird. Try the board again before the register develops a moral position.")
-		else:
-			hud.show_dialogue("Marbles", "Good work. Payment: %s. Do not spend it all on liquids with opinions, unless they are funny opinions." % str(paid_job.get("reward_text", "bar credit")))
-			hud.push_log("cooters job paid: %s" % str(paid_job.get("title", "job")).to_lower())
-		_refresh_hud()
-		return
 
-	hud.show_dialogue("Marbles", str(active_job.get("details", active_job.get("objective", "Finish the job and come back breathing."))))
+# A collect_pay topic may have closed out a job mid-conversation; refresh the objective/HUD.
+func _on_cooters_dialogue_closed() -> void:
 	_refresh_hud()
 
 
@@ -105,9 +122,6 @@ func _on_job_board_accepted(job_id: String) -> void:
 		var job := GameState.get_job_data(job_id)
 		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Use the Leak Street gate, then come back when the job stops moving or starts making eye contact." % str(job.get("title", job_id)))
 		hud.push_log("cooters job accepted: %s" % str(job.get("title", job_id)).to_lower())
-		var exit_card := WorldDirector.roll_context_event("district_exit")
-		if not exit_card.is_empty() and not str(exit_card.get("text", "")).is_empty():
-			hud.show_dialogue(str(exit_card.get("speaker", "Marbles")), str(exit_card.get("text", "")))
 	else:
 		hud.show_dialogue("Marbles", "One job at a time. Cooters is a bar, not a personality disorder with neon.")
 	_refresh_hud()

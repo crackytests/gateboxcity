@@ -1,0 +1,131 @@
+[gd_scene load_steps=11 format=3 uid="uid://pacification_warden"]
+
+[ext_resource type="Script" path="res://scripts/enemies/PacificationWarden.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="3"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.42
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="BodyMesh"]
+radius = 0.42
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="BodyMat"]
+albedo_color = Color(0.86, 0.88, 0.92, 1)
+emission_enabled = true
+emission = Color(0.5, 0.62, 0.7, 1)
+emission_energy_multiplier = 0.25
+
+[sub_resource type="SphereShape3D" id="HeadShape"]
+radius = 0.28
+
+[sub_resource type="BoxShape3D" id="TorsoShape"]
+size = Vector3(0.56, 0.68, 0.36)
+
+[sub_resource type="BoxShape3D" id="ArmShape"]
+size = Vector3(0.24, 0.62, 0.3)
+
+[sub_resource type="BoxShape3D" id="PackShape"]
+size = Vector3(0.42, 0.6, 0.22)
+
+[node name="PacificationWarden" type="CharacterBody3D"]
+script = ExtResource("1")
+move_speed = 1.6
+ranged_range = 9.0
+ranged_damage = 8.0
+melee_damage = 8.0
+attack_cooldown = 1.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("Body")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("BodyMesh")
+surface_material_override/0 = SubResource("BodyMat")
+
+[node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shaded = false
+double_sided = true
+script = ExtResource("3")
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Chassis" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94, 0)
+script = ExtResource("2")
+display_name = "Chassis"
+max_hp = 45.0
+armor_value = 2.0
+part_role = "core"
+on_destroy_effect = "defeat"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/Chassis"]
+shape = SubResource("TorsoShape")
+
+[node name="SensorCrown" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42, 0)
+script = ExtResource("2")
+display_name = "Sensor Crown"
+max_hp = 20.0
+targeting_penalty = 18.0
+lock_difficulty_multiplier = 1.35
+part_role = "head"
+on_destroy_effect = "reduce_detection"
+effect_strength = 0.35
+effect_payload = {
+"message": "warden sensor crown down — it's half-blind and can't call an alarm"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SensorCrown"]
+shape = SubResource("HeadShape")
+
+[node name="SedativeSprayer" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48, 0.95, 0)
+script = ExtResource("2")
+display_name = "Sedative Sprayer"
+max_hp = 22.0
+targeting_penalty = 8.0
+lock_difficulty_multiplier = 1.15
+on_destroy_effect = "disable_ranged"
+telegraph_ability = "sedative"
+windup_lock_bonus = 0.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SedativeSprayer"]
+shape = SubResource("ArmShape")
+
+[node name="RestraintArm" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48, 0.95, 0)
+script = ExtResource("2")
+display_name = "Restraint Arm"
+max_hp = 22.0
+targeting_penalty = 8.0
+on_destroy_effect = "reduce_melee_mult"
+effect_strength = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/RestraintArm"]
+shape = SubResource("ArmShape")
+
+[node name="TankBackpack" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.28)
+script = ExtResource("2")
+display_name = "Sedative Tank"
+max_hp = 18.0
+targeting_penalty = 4.0
+on_destroy_effect = "rupture_cloud"
+effect_strength = 5.0
+effect_radius = 2.6
+volatile = true
+effect_payload = {
+"duration": 6.0
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/TankBackpack"]
+shape = SubResource("PackShape")

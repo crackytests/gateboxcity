@@ -1,0 +1,258 @@
+[gd_scene load_steps=42 format=3 uid="uid://rocker_fellar_boss"]
+
+[ext_resource type="Script" path="res://scripts/enemies/RockerFellar.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+[ext_resource type="Resource" path="res://data/body_parts/fellar_jaw_amplifier.tres" id="3"]
+[ext_resource type="Resource" path="res://data/body_parts/fellar_soul_resonator.tres" id="4"]
+[ext_resource type="Resource" path="res://data/body_parts/fellar_left_cable_whip.tres" id="5"]
+[ext_resource type="Resource" path="res://data/body_parts/fellar_right_cable_whip.tres" id="6"]
+[ext_resource type="Resource" path="res://data/body_parts/fellar_amplifier_spine.tres" id="7"]
+[ext_resource type="Resource" path="res://data/body_parts/fellar_stage_core.tres" id="8"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="9"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_back.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_back_left.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_left.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_front_left.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_front.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_front_right.png" id="15"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_right.png" id="16"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goon_material/goon_material_back_right.png" id="17"]
+[ext_resource type="Script" path="res://scripts/enemies/EnemyTalkZone.gd" id="18"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1"]
+radius = 0.48
+height = 2.3
+
+[sub_resource type="StandardMaterial3D" id="ChromeMat"]
+albedo_color = Color(0.82, 0.84, 0.88, 1)
+metallic = 0.95
+roughness = 0.1
+
+[sub_resource type="StandardMaterial3D" id="ResonatorMat"]
+albedo_color = Color(0.15, 0.04, 0.22, 1)
+emission_enabled = true
+emission = Color(0.85, 0.08, 1.0, 1)
+emission_energy_multiplier = 1.2
+
+[sub_resource type="StandardMaterial3D" id="CableMat"]
+albedo_color = Color(0.08, 0.06, 0.04, 1)
+metallic = 0.5
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="SpineMat"]
+albedo_color = Color(0.18, 0.18, 0.22, 1)
+emission_enabled = true
+emission = Color(0.3, 0.15, 0.55, 1)
+emission_energy_multiplier = 0.6
+metallic = 0.7
+roughness = 0.3
+
+[sub_resource type="StandardMaterial3D" id="CoreMat"]
+albedo_color = Color(0.3, 0.02, 0.18, 1)
+emission_enabled = true
+emission = Color(1.0, 0.15, 0.75, 1)
+emission_energy_multiplier = 1.8
+
+[sub_resource type="StandardMaterial3D" id="BodyMat"]
+albedo_color = Color(0.06, 0.04, 0.08, 1)
+emission_enabled = true
+emission = Color(0.35, 0.02, 0.55, 1)
+emission_energy_multiplier = 0.25
+
+[sub_resource type="StandardMaterial3D" id="ShadowMat"]
+albedo_color = Color(0, 0, 0, 0.52)
+transparency = 1
+
+[sub_resource type="StandardMaterial3D" id="BaseGlowMat"]
+albedo_color = Color(0.08, 0.02, 0.12, 0.72)
+transparency = 1
+emission_enabled = true
+emission = Color(0.75, 0.04, 1.0, 1)
+emission_energy_multiplier = 0.9
+
+[sub_resource type="CylinderMesh" id="ShadowDiscMesh"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.02
+
+[sub_resource type="CylinderMesh" id="GlowDiscMesh"]
+top_radius = 0.8
+bottom_radius = 0.8
+height = 0.025
+
+[sub_resource type="BoxMesh" id="TorsoMesh"]
+size = Vector3(0.9, 1.1, 0.4)
+
+[sub_resource type="BoxMesh" id="JawMesh"]
+size = Vector3(0.5, 0.3, 0.2)
+
+[sub_resource type="SphereMesh" id="ResonatorSphereMesh"]
+radius = 0.18
+height = 0.36
+
+[sub_resource type="CylinderMesh" id="WhipMesh"]
+top_radius = 0.06
+bottom_radius = 0.08
+height = 1.0
+
+[sub_resource type="BoxMesh" id="SpineMesh"]
+size = Vector3(0.15, 0.8, 0.12)
+
+[sub_resource type="SphereMesh" id="CoreSphereMesh"]
+radius = 0.16
+height = 0.32
+
+[sub_resource type="BoxShape3D" id="JawShape"]
+size = Vector3(0.55, 0.35, 0.25)
+
+[sub_resource type="BoxShape3D" id="ResonatorShape"]
+size = Vector3(0.5, 0.55, 0.35)
+
+[sub_resource type="BoxShape3D" id="WhipShape"]
+size = Vector3(0.22, 0.8, 0.22)
+
+[sub_resource type="BoxShape3D" id="SpineShape"]
+size = Vector3(0.2, 0.7, 0.18)
+
+[sub_resource type="SphereShape3D" id="CoreShape"]
+radius = 0.22
+
+[sub_resource type="SphereShape3D" id="TalkShape"]
+radius = 1.35
+
+[node name="RockerFellar" type="CharacterBody3D"]
+script = ExtResource("1")
+move_speed = 2.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1")
+
+[node name="Visuals" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+
+[node name="GroundShadow" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1.55, 0, 0, 0, 1, 0, 0, 0, 0.85, 0, 0.035, 0)
+mesh = SubResource("ShadowDiscMesh")
+surface_material_override/0 = SubResource("ShadowMat")
+
+[node name="BaseGlow" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.35, 0, 0, 0, 1, 0, 0, 0, 0.85, 0, 0.055, 0)
+mesh = SubResource("GlowDiscMesh")
+surface_material_override/0 = SubResource("BaseGlowMat")
+
+[node name="TorsoMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.0, 0, 0, 0, 1.1, 0, 0, 0, 0.9, 0, 1.0, 0)
+mesh = SubResource("TorsoMesh")
+surface_material_override/0 = SubResource("BodyMat")
+
+[node name="JawMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.2, 0, 0, 0, 0.85, 0, 0, 0, 1.0, 0, 1.72, -0.12)
+mesh = SubResource("JawMesh")
+surface_material_override/0 = SubResource("ChromeMat")
+
+[node name="ResonatorMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0, 0, 1.1, 0.14)
+mesh = SubResource("ResonatorSphereMesh")
+surface_material_override/0 = SubResource("ResonatorMat")
+
+[node name="LeftWhipMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(0.85, 0, 0.25, 0, 1.0, 0, -0.25, 0, 0.85, -0.6, 1.0, -0.04)
+mesh = SubResource("WhipMesh")
+surface_material_override/0 = SubResource("CableMat")
+
+[node name="RightWhipMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(0.85, 0, -0.25, 0, 1.0, 0, 0.25, 0, 0.85, 0.6, 1.0, -0.04)
+mesh = SubResource("WhipMesh")
+surface_material_override/0 = SubResource("CableMat")
+
+[node name="SpineMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0, 0, 1.05, -0.22)
+mesh = SubResource("SpineMesh")
+surface_material_override/0 = SubResource("SpineMat")
+
+[node name="CoreMesh" type="MeshInstance3D" parent="Visuals"]
+visible = false
+transform = Transform3D(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0, 0, 0.85, -0.32)
+mesh = SubResource("CoreSphereMesh")
+surface_material_override/0 = SubResource("CoreMat")
+
+[node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+texture = ExtResource("14")
+modulate = Color(1, 1, 1, 1)
+pixel_size = 0.003
+shaded = false
+double_sided = true
+alpha_cut = 0
+script = ExtResource("9")
+idle_bob_height = 0.01
+frames = Array[Texture2D]([ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15"), ExtResource("16"), ExtResource("17")])
+
+[node name="TalkZone" type="Area3D" parent="." groups=["enemy_talk_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("18")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TalkZone"]
+transform = Transform3D(1, 0, 0, 0, 0.55, 0, 0, 0, 1, 0, 0.95, 0)
+shape = SubResource("TalkShape")
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+
+[node name="JawAmplifier" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, -0.08)
+script = ExtResource("2")
+body_part_data = ExtResource("3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/JawAmplifier"]
+shape = SubResource("JawShape")
+
+[node name="SoulResonator" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0.1)
+script = ExtResource("2")
+body_part_data = ExtResource("4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SoulResonator"]
+shape = SubResource("ResonatorShape")
+
+[node name="LeftCableWhip" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.65, 0.95, 0)
+script = ExtResource("2")
+body_part_data = ExtResource("5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/LeftCableWhip"]
+shape = SubResource("WhipShape")
+
+[node name="RightCableWhip" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 0.95, 0)
+script = ExtResource("2")
+body_part_data = ExtResource("6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/RightCableWhip"]
+shape = SubResource("WhipShape")
+
+[node name="AmplifierSpine" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.2)
+script = ExtResource("2")
+body_part_data = ExtResource("7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/AmplifierSpine"]
+shape = SubResource("SpineShape")
+
+[node name="StageCore" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, -0.3)
+script = ExtResource("2")
+body_part_data = ExtResource("8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/StageCore"]
+shape = SubResource("CoreShape")

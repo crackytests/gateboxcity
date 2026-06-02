@@ -1,12 +1,20 @@
 extends Node3D
 
-# Water Reclamation Cistern — flooded reclamation room with improvised scavenger repairs.
+# Water Reclamation Cistern — flooded utility reservoir and pump service loop.
 # Job: cistern_pump_heart  Objective: cistern_filter_core_node
 #
-# Three routes to the filter core (northwest pump room):
-#   Route 1 — Combat:        east walkway, fight security node, north walkway, pump room
-#   Route 2 — Filter beds:   cross center via stepping stones (above water threshold), west side, pump room
-#   Route 3 — Pump valve:    west walkway, use pump valve (disables water + despawns node), cross freely
+# Layout:
+#   1. Entry Chamber (south) — spawn, shelter, rain leak
+#   2. Main Cistern Basin (center) — reservoir ring, filter beds, pressure vents, security node
+#   3. Filtration Gallery (east wing) — pipe racks, filter drums, LAN tap junction
+#   4. Pump Control Room (NW) — pump altar, filter core objective, hub conduit junction
+#   5. Overhead Pipe Racks (north) — utility detail, not a walkable route
+#
+# Three routes to the filter core:
+#   Route 1 — Combat:       entry → main hall east walkway, fight security node, north to pump room
+#   Route 2 — Filter beds:  entry → stepping stones across center, west walkway, pump room
+#   Route 3 — Pump valve:   entry → west walkway, use pump valve (disables water + despawns node), cross freely
+#   Route 4 — Gallery flank: entry → east into filtration gallery, loop back through the main cistern
 
 const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
@@ -30,6 +38,11 @@ var _mat_water: StandardMaterial3D
 var _mat_filter_bed: StandardMaterial3D
 var _mat_neon: StandardMaterial3D
 var _mat_rain: StandardMaterial3D
+var _mat_pipe: StandardMaterial3D
+var _mat_catwalk: StandardMaterial3D
+var _mat_metal: StandardMaterial3D
+var _mat_warning: StandardMaterial3D
+var _mat_steam: StandardMaterial3D
 
 
 func _ready() -> void:
@@ -39,6 +52,7 @@ func _ready() -> void:
 	_refresh_hud()
 	var last_event := str(GameState.get_world_flag("last_travel_event_title", "Clear Run"))
 	hud.show_dialogue("Water Reclamation Cistern", "Travel event: %s. The water here smells like it has a legal team." % last_event)
+	hud.present_event.call_deferred("travel", true)
 	hud.push_log("water reclamation cistern reached")
 	EventDeckSystem.add_card("splice_cistern_return")
 
@@ -107,6 +121,10 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 			_use_pump_valve()
 		"hub_cistern_conduit", "hub_lan_tap":
 			_handle_hub_node(interactable)
+		"cistern_water_sample":
+			_collect_water_sample(interactable)
+		"cistern_loot_crate":
+			_open_loot_crate(interactable)
 		_:
 			_handle_job_node(interactable)
 
@@ -122,6 +140,33 @@ func _use_pump_valve() -> void:
 		_security_node = null
 	hud.show_dialogue("Pump Valve", "The pump engages with the confidence of machinery that has not been asked nicely in years. The water level drops. The security node on the east walk stops having a reason to be there.")
 	hud.push_log("cistern pump valve opened — water neutralized, security node offline")
+	_refresh_hud()
+
+
+func _collect_water_sample(interactable: WardInteractable) -> void:
+	if GameState.has_item("Water Sample"):
+		hud.show_dialogue("Water Sample", "Already collected. Your pockets are not a laboratory.")
+		return
+	GameState.add_item("Water Sample")
+	interactable.queue_free()
+	focused_interactable = null
+	_update_prompt()
+	hud.show_dialogue("Water Sample", "The sample vial fills with something that looks like water and smells like a legal settlement. Marbles might want to know about this.")
+	hud.push_log("water sample collected")
+	_refresh_hud()
+
+
+func _open_loot_crate(interactable: WardInteractable) -> void:
+	if GameState.has_item("Cistern Salvage Scrap"):
+		hud.show_dialogue("Loot Crate", "Already picked clean. The crate is now officially furniture.")
+		return
+	GameState.add_item("Cistern Salvage Scrap")
+	GameState.add_item("Ammo Cache")
+	interactable.queue_free()
+	focused_interactable = null
+	_update_prompt()
+	hud.show_dialogue("Loot Crate", "Inside: copper fittings, a sealed capacitor, and a handful of rounds that survived the humidity. Not bad for something floating in reclaimed runoff.")
+	hud.push_log("loot crate opened")
 	_refresh_hud()
 
 
@@ -173,7 +218,13 @@ func _handle_job_node(interactable: WardInteractable) -> void:
 		hud.show_dialogue(interactable.display_name, "Wrong component. Current job: %s" % str(active_job.get("objective", "")))
 		return
 	var item_name := str(active_job.get("objective_item", "Cistern Component"))
-	GameState.add_item(item_name)
+	if str(active_job.get("objective_type", "find")) == "deliver":
+		# Drop-off: hand over the carried parcel (payout consumes it); no duplicate minted.
+		if not GameState.has_item(item_name):
+			hud.show_dialogue(interactable.display_name, "You're meant to be carrying %s. Come back when it's actually on you." % item_name)
+			return
+	else:
+		GameState.add_item(item_name)   # find: recover the marked item here
 	GameState.mark_job_objective_done(job_id)
 	GameState.last_mission_result = "Completed objective: %s" % str(active_job.get("title", job_id))
 	hud.show_dialogue(interactable.display_name, "%s removed. The pump is now running on trust and historical momentum." % item_name)
@@ -223,6 +274,12 @@ func _build_materials() -> void:
 	_mat_neon = _make_mat(Color(0.02, 0.08, 0.18), Color(0.0, 0.5, 1.0), 1.5, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	_mat_pipe = _make_mat(Color(0.42, 0.36, 0.30), Color(0.04, 0.02, 0.01), 0.06, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(3, 3, 1))
+	_mat_catwalk = _make_mat(Color(0.50, 0.48, 0.52), Color(0.03, 0.03, 0.05), 0.12, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(6, 6, 1))
+	_mat_metal = _make_mat(Color(0.40, 0.42, 0.44), Color(0.02, 0.04, 0.06), 0.08, "", Vector3.ONE)
+	_mat_warning = _make_mat(Color(0.90, 0.42, 0.02), Color(1.0, 0.35, 0.0), 1.2, "", Vector3.ONE)
+	_mat_steam = _make_mat(Color(0.55, 0.90, 1.0, 0.32), Color(0.25, 0.75, 1.0), 0.7, "", Vector3.ONE)
+	_mat_steam.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 
 
 func _build_geometry() -> void:
@@ -239,57 +296,201 @@ func _build_geometry() -> void:
 	env_node.environment = env
 	add_child(env_node)
 
-	# Outer shell — 20 wide × 24 long
-	_add_box("Floor", Vector3(20, 0.35, 24), Vector3(0, -0.2, 0), _mat_floor)
-	_add_box("Ceiling", Vector3(20, 0.25, 24), Vector3(0, 4.0, 0), _mat_wall)
-	_add_box("NorthWall", Vector3(20, 4.3, 0.35), Vector3(0, 1.9, -12), _mat_wall)
-	_add_box("SouthWall", Vector3(20, 4.3, 0.35), Vector3(0, 1.9, 12), _mat_wall)
-	_add_box("WestWall", Vector3(0.35, 4.3, 24), Vector3(-10, 1.9, 0), _mat_wall)
-	_add_box("EastWall", Vector3(0.35, 4.3, 24), Vector3(10, 1.9, 0), _mat_wall)
+	_build_entry_chamber()
+	_build_main_cistern_hall()
+	_build_filtration_gallery()
+	_build_pump_control_room()
+	_build_upper_catwalk()
+	_build_interactables()
+	_build_enemies()
+	_build_exits()
+	_add_lights()
+	_add_toxic_rain_controller()
 
-	# Water visual — translucent plane covering the center channel (x -3.5..3.5)
+
+func _build_entry_chamber() -> void:
+	# South entry pocket: x -5..5, z 8..16. A short vestibule before the main hall.
+	_add_box("EntryFloor", Vector3(10, 0.35, 8), Vector3(0, -0.2, 12), _mat_floor)
+	_add_box("EntryCeiling", Vector3(10, 0.25, 8), Vector3(0, 4.0, 12), _mat_wall)
+	_add_box("EntrySouthWall", Vector3(10, 4.3, 0.35), Vector3(0, 1.9, 16), _mat_wall)
+	_add_box("EntryWestWall", Vector3(0.35, 4.3, 8), Vector3(-5, 1.9, 12), _mat_wall)
+	_add_box("EntryEastWall", Vector3(0.35, 4.3, 8), Vector3(5, 1.9, 12), _mat_wall)
+	# Gap in north wall at x -2..2 for main hall entry (handled by main hall south wall)
+	_add_box("EntryNorthWallW", Vector3(3, 4.3, 0.35), Vector3(-3.5, 1.9, 8), _mat_wall)
+	_add_box("EntryNorthWallE", Vector3(3, 4.3, 0.35), Vector3(3.5, 1.9, 8), _mat_wall)
+	# Shelter in entry
+	_add_shelter(Vector3(-3, 0.9, 14))
+	_add_rain_leak(Vector3(3.5, 1.4, 13))
+
+
+func _build_main_cistern_hall() -> void:
+	# Main cistern: a low reservoir ring, not a collapsed mall deck.
+	_add_box("CisternFloor", Vector3(20, 0.35, 20), Vector3(0, -0.2, -2), _mat_floor)
+	_add_box("CisternCeiling", Vector3(20, 0.25, 20), Vector3(0, 4.0, -2), _mat_wall)
+	_add_box("CisternNorthWall", Vector3(20, 4.3, 0.35), Vector3(0, 1.9, -12), _mat_wall)
+	# South wall has gap for entry chamber (x -2..2)
+	_add_box("CisternSouthWallW", Vector3(3, 4.3, 0.35), Vector3(-3.5, 1.9, 8), _mat_wall)
+	_add_box("CisternSouthWallE", Vector3(3, 4.3, 0.35), Vector3(3.5, 1.9, 8), _mat_wall)
+	# West wall has gap for pump room entry (z -6..-10, x=-10)
+	_add_box("CisternWestWallS", Vector3(0.35, 4.3, 8), Vector3(-10, 1.9, 4), _mat_wall)
+	_add_box("CisternWestWallN", Vector3(0.35, 4.3, 8), Vector3(-10, 1.9, -8), _mat_wall)
+	# East wall has gap for filtration gallery entry (z -6..-2, x=10)
+	_add_box("CisternEastWallN", Vector3(0.35, 4.3, 6), Vector3(10, 1.9, -11), _mat_wall)
+	_add_box("CisternEastWallS", Vector3(0.35, 4.3, 10), Vector3(10, 1.9, 3), _mat_wall)
+
 	var water_visual := MeshInstance3D.new()
 	water_visual.name = "WaterSurface"
 	var water_mesh := BoxMesh.new()
-	water_mesh.size = Vector3(7, 0.04, 22)
+	water_mesh.size = Vector3(8, 0.04, 18)
 	water_visual.mesh = water_mesh
-	water_visual.position = Vector3(0, 0.02, 0)
+	water_visual.position = Vector3(0, 0.02, -2)
 	water_visual.set_surface_override_material(0, _mat_water)
 	add_child(water_visual)
 
-	# Water hazard Area3D — 3 hp/s when player.y < 1.2 (filter beds lift player above threshold)
-	_add_damage_zone("WaterChannelHazard", Vector3(7, 3, 22), Vector3(0, 0, 0))
+	_add_damage_zone("WaterChannelHazard", Vector3(8, 3, 18), Vector3(0, 0, -2))
 
-	# Filter bed stepping stones — Route 2 crossing. Surface y = 0.5; player center ≈ 1.55 (above 1.2 threshold).
-	for z_val: float in [4.0, 0.0, -4.0]:
+	# Raised service ring around the basin. It reads as reservoir infrastructure,
+	# while the stepping stones remain the only deliberate center crossing.
+	_add_box("ServiceRingEast", Vector3(2.2, 0.22, 18.0), Vector3(6.1, 0.08, -2), _mat_catwalk)
+	_add_box("ServiceRingWest", Vector3(2.2, 0.22, 18.0), Vector3(-6.1, 0.08, -2), _mat_catwalk)
+	_add_box("ServiceRingSouth", Vector3(16.5, 0.22, 1.6), Vector3(0, 0.08, 6.4), _mat_catwalk)
+	_add_box("ServiceRingNorth", Vector3(16.5, 0.22, 1.6), Vector3(0, 0.08, -10.4), _mat_catwalk)
+
+	for z_val: float in [5.0, 1.0, -3.0, -7.0]:
 		_add_box("FilterBed", Vector3(2.2, 0.5, 2.2), Vector3(0, 0.25, z_val), _mat_filter_bed)
 
-	# Pump control room — northwest corner pocket. South wall split to leave a 2-unit doorway at x -8..-6,
-	# allowing entry from the west walkway northward. East wall unchanged.
-	_add_box("PumpRoomSouthWallW", Vector3(2.0, 3.5, 0.35), Vector3(-9.0, 1.6, -8.0), _mat_wall)
-	_add_box("PumpRoomSouthWallE", Vector3(2.0, 3.5, 0.35), Vector3(-5.5, 1.6, -8.0), _mat_wall)
-	_add_box("PumpRoomEastWall", Vector3(0.35, 3.5, 3.5), Vector3(-4.5, 1.6, -10.25), _mat_wall)
+	# Old luxury fountain pieces have been repurposed as rough filters.
+	for data: Array in [
+		[Vector3(-2.7, 0.55, 4.8), 0.42, 1.1],
+		[Vector3(2.7, 0.55, 0.9), 0.34, 0.9],
+		[Vector3(-2.7, 0.55, -3.2), 0.38, 1.0],
+		[Vector3(2.7, 0.55, -7.0), 0.30, 0.8],
+	]:
+		_add_visual_cylinder("FountainFilterColumn", float(data[1]), float(data[2]), data[0] as Vector3, _mat_filter_bed)
+		_add_box("FilterPourLip", Vector3(1.2, 0.12, 0.35), (data[0] as Vector3) + Vector3(0, 0.65, 0.45), _mat_metal)
 
-	# Pump valve panel — Route 3 environmental. On west walkway. Disables water and despawns node.
-	_add_interactable("pump_valve_panel", "Pump Valve", "Press E: open pump valve", Vector3(-7, 0.95, 0.0), Color(0.0, 0.6, 1.0))
+	# Pressure-burst markers and steam make this room feel mechanical rather than mall-like.
+	for pos: Vector3 in [Vector3(-3.6, 0.95, 2.6), Vector3(3.7, 1.0, -1.8), Vector3(-3.5, 0.9, -6.2)]:
+		_add_visual_cylinder("PressureSteam", 0.18, 2.2, pos, _mat_steam)
+		_add_box("PressureWarningStripe", Vector3(1.2, 0.1, 0.18), pos + Vector3(0, -0.65, 0), _mat_warning)
 
-	# Hub quest nodes — only spawn if not yet resolved.
+	for pos: Vector3 in [Vector3(-9.5, 2.8, -2), Vector3(9.5, 3.2, -2), Vector3(-9.5, 1.4, -2)]:
+		var pipe := MeshInstance3D.new()
+		pipe.name = "PipeRun"
+		var pipe_mesh := CylinderMesh.new()
+		pipe_mesh.top_radius = 0.18
+		pipe_mesh.bottom_radius = 0.18
+		pipe_mesh.height = 18
+		pipe.mesh = pipe_mesh
+		pipe.position = pos
+		pipe.rotation = Vector3(0, 0, PI / 2)
+		pipe.set_surface_override_material(0, _mat_pipe)
+		add_child(pipe)
+
+
+func _build_filtration_gallery() -> void:
+	# East wing: x 10..18, z -8..0. Narrow pipe gallery.
+	_add_box("GalleryFloor", Vector3(9, 0.35, 9), Vector3(14.5, -0.2, -4), _mat_floor)
+	_add_box("GalleryCeiling", Vector3(9, 0.25, 9), Vector3(14.5, 4.0, -4), _mat_wall)
+	_add_box("GalleryEastWall", Vector3(0.35, 4.3, 9), Vector3(19, 1.9, -4), _mat_wall)
+	_add_box("GalleryNorthWall", Vector3(9, 4.3, 0.35), Vector3(14.5, 1.9, -8.5), _mat_wall)
+	_add_box("GallerySouthWall", Vector3(9, 4.3, 0.35), Vector3(14.5, 1.9, 0.5), _mat_wall)
+	# West wall gap at z -6..-2 aligns with main cistern east wall gap (x=10)
+	_add_box("GalleryWestWallN", Vector3(0.35, 4.3, 2.5), Vector3(10, 1.9, -7.25), _mat_wall)
+	_add_box("GalleryWestWallS", Vector3(0.35, 4.3, 4.5), Vector3(10, 1.9, 1.75), _mat_wall)
+
+	# Pipe racks along gallery walls
+	for x_off: float in [11.0, 17.0]:
+		var rack := MeshInstance3D.new()
+		rack.name = "PipeRack"
+		var rack_mesh := BoxMesh.new()
+		rack_mesh.size = Vector3(0.3, 2.5, 7)
+		rack.mesh = rack_mesh
+		rack.position = Vector3(x_off, 1.25, -4)
+		rack.set_surface_override_material(0, _mat_pipe)
+		add_child(rack)
+
+	for z_val: float in [-7.0, -5.0, -3.0, -1.0]:
+		_add_visual_cylinder("FilterDrum", 0.45, 1.4, Vector3(14.5, 0.7, z_val), _mat_filter_bed, Vector3(PI / 2, 0, 0))
+		_add_box("GalleryWarningStripe", Vector3(5.8, 0.08, 0.18), Vector3(14.0, 0.1, z_val + 0.7), _mat_warning)
+
+
+func _build_pump_control_room() -> void:
+	# NW pocket: x -16..-10, z -12..-6. Enclosed pump room.
+	_add_box("PumpFloor", Vector3(6, 0.35, 6), Vector3(-13, -0.2, -9), _mat_floor)
+	_add_box("PumpCeiling", Vector3(6, 0.25, 6), Vector3(-13, 4.0, -9), _mat_wall)
+	_add_box("PumpNorthWall", Vector3(6, 4.3, 0.35), Vector3(-13, 1.9, -12), _mat_wall)
+	_add_box("PumpWestWall", Vector3(0.35, 4.3, 6), Vector3(-16, 1.9, -9), _mat_wall)
+	# South wall split for entry from main hall west walkway
+	_add_box("PumpSouthWallW", Vector3(2, 4.3, 0.35), Vector3(-15, 1.9, -6), _mat_wall)
+	_add_box("PumpSouthWallE", Vector3(2, 4.3, 0.35), Vector3(-11, 1.9, -6), _mat_wall)
+	# East wall split for upper catwalk connection
+	_add_box("PumpEastWallN", Vector3(0.35, 4.3, 2), Vector3(-10, 1.9, -11), _mat_wall)
+	_add_box("PumpEastWallS", Vector3(0.35, 4.3, 2), Vector3(-10, 1.9, -7), _mat_wall)
+
+	# Connecting passage from main cistern west gap to pump room south gap
+	_add_box("PassageFloor", Vector3(6, 0.35, 6), Vector3(-13, -0.2, -3), _mat_floor)
+	_add_box("PassageCeiling", Vector3(6, 0.25, 6), Vector3(-13, 4.0, -3), _mat_wall)
+	_add_box("PassageWestWall", Vector3(0.35, 4.3, 6), Vector3(-16, 1.9, -3), _mat_wall)
+	# East wall of passage is the main cistern west wall (already has gap)
+	# South wall of passage is main cistern interior (open)
+	# North wall of passage is the pump room south wall (already has gap)
+
+	# Pump machinery props
+	_add_box("PumpHousing", Vector3(2.6, 1.8, 1.6), Vector3(-14, 0.9, -10), _mat_metal)
+	_add_visual_cylinder("PumpTank", 0.75, 2.3, Vector3(-12, 1.15, -10.8), _mat_metal)
+	_add_visual_cylinder("PressureGauge", 0.28, 0.14, Vector3(-13.0, 1.7, -8.1), _mat_warning, Vector3(PI / 2, 0, 0))
+	_add_box("BottledWaterShrineShelf", Vector3(2.6, 0.18, 0.8), Vector3(-15.0, 0.65, -7.1), _mat_metal)
+	for x_off: float in [-15.8, -15.2, -14.6]:
+		_add_visual_cylinder("ShrineBottle", 0.12, 0.65, Vector3(x_off, 1.05, -7.1), _mat_water)
+
+
+func _build_upper_catwalk() -> void:
+	# Decorative pipe supports only. A walkable elevated route does not fit the
+	# existing wall openings, so keep this as believable cistern infrastructure.
+	for x_pos: float in [-6.0, 0.0, 6.0]:
+		_add_box("NorthPipeBracket", Vector3(1.6, 0.16, 0.45), Vector3(x_pos, 2.45, -11.65), _mat_metal)
+	for x_pos: float in [-7.5, -2.5, 2.5, 7.5]:
+		var pipe := MeshInstance3D.new()
+		pipe.name = "NorthOverheadPipe"
+		var pipe_mesh := CylinderMesh.new()
+		pipe_mesh.top_radius = 0.12
+		pipe_mesh.bottom_radius = 0.12
+		pipe_mesh.height = 3.5
+		pipe.mesh = pipe_mesh
+		pipe.position = Vector3(x_pos, 2.7, -11.75)
+		pipe.rotation = Vector3(0, 0, PI / 2)
+		pipe.set_surface_override_material(0, _mat_pipe)
+		add_child(pipe)
+
+
+func _build_interactables() -> void:
+	# Pump valve — Route 3 environmental. West walkway, south of pump room.
+	_add_interactable("pump_valve_panel", "Pump Valve", "Press E: open pump valve", Vector3(-7, 0.95, 2.0), Color(0.0, 0.6, 1.0))
+
+	# Hub quest nodes
 	if not GameState.get_world_flag("hub_cistern_connected"):
-		_add_interactable("hub_cistern_conduit", "Cistern Conduit Junction", "Press E: install water conduit", Vector3(-7.5, 0.95, -4.5), Color(0.1, 0.8, 0.6))
+		_add_interactable("hub_cistern_conduit", "Cistern Conduit Junction", "Press E: install water conduit", Vector3(-14, 0.95, -8), Color(0.1, 0.8, 0.6))
 	if not GameState.get_world_flag("hub_lan_restored"):
-		_add_interactable("hub_lan_tap", "LAN Tap Junction", "Press E: splice LAN tap", Vector3(8.0, 0.95, -10.5), Color(0.2, 0.8, 1.0))
+		_add_interactable("hub_lan_tap", "LAN Tap Junction", "Press E: splice LAN tap", Vector3(14, 0.95, -4), Color(0.2, 0.8, 1.0))
 
-	# Job node — inside pump room pocket
-	_add_interactable("cistern_filter_core_node", "Cistern Filter Core", "Press E: recover filter core", Vector3(-7, 0.95, -9.5), Color(0.0, 1.0, 0.8))
+	# Job node — inside pump room
+	_add_interactable("cistern_filter_core_node", "Cistern Filter Core", "Press E: recover filter core", Vector3(-13, 0.95, -10), Color(0.0, 1.0, 0.8))
 
-	_add_shelter(Vector3(-7, 0.9, 7.0))
-	_add_rain_leak(Vector3(7.5, 1.4, 3.0))
-	_add_exit("ExitToCooters", "Press E: return to Cooters", COOTERS_INTERIOR_SCENE, Vector3(0.0, 1.0, 11.1), Color(1.0, 0.08, 0.62))
+	# Optional content
+	_add_interactable("cistern_water_sample", "Water Sample Point", "Press E: collect water sample", Vector3(3, 0.95, -3), Color(0.0, 0.8, 0.6))
+	_add_interactable("cistern_loot_crate", "Loot Crate", "Press E: open", Vector3(15, 0.95, -2), Color(0.9, 0.7, 0.2))
+
+
+func _build_enemies() -> void:
+	# Contested location: faction-themed, threat-scaled enemy profile (refactor §5).
+	EnemyLayouts.spawn_profile(self, "water_reclamation_cistern",
+		GameState.get_active_threat_band(), GameState.get_active_rival_faction())
+
+
+func _build_exits() -> void:
+	_add_exit("ExitToCooters", "Press E: return to Cooters", COOTERS_INTERIOR_SCENE, Vector3(0.0, 1.0, 15.1), Color(1.0, 0.08, 0.62))
 	_add_exit("ExitToLeakStreet", "Press E: return to Leak Street", DISTRICT_SCENE, Vector3(0.0, 1.0, -11.1), Color(0.08, 1.0, 0.45))
-	_add_security_node(Vector3(7.0, 0.0, -5.0))
-	_add_splice(Vector3(7.0, 1.05, 2.0))
-	_add_lights()
-	_add_toxic_rain_controller()
 
 
 func _add_damage_zone(zone_name: String, size: Vector3, world_pos: Vector3) -> void:
@@ -330,6 +531,21 @@ func _add_box(node_name: String, size: Vector3, world_position: Vector3, materia
 	visual.set_surface_override_material(0, material)
 	body.add_child(visual)
 	return body
+
+
+func _add_visual_cylinder(node_name: String, radius: float, height: float, world_position: Vector3, material: Material, world_rotation := Vector3.ZERO) -> MeshInstance3D:
+	var visual := MeshInstance3D.new()
+	visual.name = node_name
+	visual.position = world_position
+	visual.rotation = world_rotation
+	var mesh := CylinderMesh.new()
+	mesh.top_radius = radius
+	mesh.bottom_radius = radius
+	mesh.height = height
+	visual.mesh = mesh
+	visual.set_surface_override_material(0, material)
+	add_child(visual)
+	return visual
 
 
 func _add_interactable(id: String, display_name: String, prompt: String, world_position: Vector3, color: Color) -> WardInteractable:
@@ -427,17 +643,30 @@ func _on_splice_item_dropped(item_name: String) -> void:
 
 func _add_lights() -> void:
 	for data: Array in [
-		[Vector3(-7.0, 2.5, -9.5), Color(0.0, 1.0, 0.8), 1.8],
-		[Vector3(-7.0, 2.5, 0.0), Color(0.0, 0.6, 1.0), 1.4],
-		[Vector3(7.0, 2.5, -5.0), Color(0.0, 0.75, 1.0), 1.4],
-		[Vector3(0.0, 2.5, 4.0), Color(0.0, 0.5, 1.0), 1.0],
-		[Vector3(-7.0, 2.5, 7.0), Color(0.1, 0.6, 0.8), 1.2],
+		# Entry chamber
+		[Vector3(0, 2.5, 12), Color(0.1, 0.6, 0.8), 1.2],
+		[Vector3(-3, 2.5, 14), Color(0.1, 0.6, 0.8), 1.0],
+		# Main hall
+		[Vector3(-7, 2.5, 2), Color(0.0, 0.6, 1.0), 1.4],
+		[Vector3(7, 2.5, -5), Color(0.0, 0.75, 1.0), 1.4],
+		[Vector3(0, 2.5, -2), Color(0.0, 0.5, 1.0), 1.0],
+		[Vector3(-7, 2.5, -8), Color(0.0, 0.5, 0.8), 1.2],
+		# Filtration gallery
+		[Vector3(14, 2.5, -4), Color(0.0, 0.4, 0.8), 1.0],
+		[Vector3(14, 2.5, -6), Color(0.0, 0.3, 0.7), 0.8],
+		# Pump control room
+		[Vector3(-13, 2.5, -9), Color(0.0, 1.0, 0.8), 1.8],
+		[Vector3(-13, 2.5, -11), Color(0.0, 0.8, 0.6), 1.2],
+		# Connecting passage
+		[Vector3(-13, 2.5, -3), Color(0.0, 0.5, 0.8), 1.0],
+		# Upper catwalk
+		[Vector3(0, 3.5, -11), Color(0.0, 0.6, 1.0), 1.0],
 	]:
 		var light := OmniLight3D.new()
 		light.position = data[0] as Vector3
 		light.light_color = data[1] as Color
 		light.light_energy = float(data[2])
-		light.omni_range = 8.0
+		light.omni_range = 9.0
 		add_child(light)
 
 

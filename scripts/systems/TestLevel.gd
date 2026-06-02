@@ -43,6 +43,10 @@ func _ready() -> void:
 		npc.focus_changed.connect(_on_npc_focus_changed)
 	for mission_exit in get_tree().get_nodes_in_group("mission_exit"):
 		mission_exit.focus_changed.connect(_on_exit_focus_changed)
+	# If Wake-Up Call was already cleared, this entry is a replay — reset the run so it can be
+	# played again for rewards without disturbing the campaign milestone.
+	if GameState.is_quest_completed("wake_up_call"):
+		quest.begin_replay()
 	hud.update_targeting(null, 0.0, 0.0)
 	hud.set_ammo(weapon.current_ammo, weapon.reserve_ammo)
 	hud.set_player_health(player_health.current_hp, player_health.max_hp)

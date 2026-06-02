@@ -3,6 +3,7 @@ class_name NPCDialogue
 
 signal focus_changed(interactable: NPCDialogue, has_focus: bool)
 
+@export var npc_id := ""  # if set and DialogueDB has a profile, opens the topic conversation UI
 @export var npc_name := "System X"
 @export_multiline var dialogue_text := "Signal says you are awake. Bring me the broken display and cripple the goon's right arm."
 @export var prompt_text := "Press E: talk to System X"

@@ -106,7 +106,7 @@ func _use_service_panel() -> void:
 		return
 
 	if not GameState.spend_item("Spire Transit Pass"):
-		hud.show_dialogue("Face", "That panel wants the forged Spire pass. It is picky for a wall rectangle with screws showing.")
+		hud.show_dialogue("System X", "That panel wants the forged Spire pass. It is picky for a wall rectangle with screws showing.")
 		hud.show_system_message("NEED SPIRE TRANSIT PASS")
 		return
 
@@ -139,7 +139,7 @@ func _complete_lobby(speaker: String, line: String) -> void:
 
 func _on_security_node_defeated() -> void:
 	hud.push_log("security node offline")
-	hud.show_dialogue("Face", "Nice. Corporate reception just lost an eye. Somewhere a lobby fern feels unsafe.")
+	hud.show_dialogue("System X", "Nice. Corporate reception just lost an eye. Somewhere a lobby fern feels unsafe.")
 
 
 func _get_objective_text() -> String:

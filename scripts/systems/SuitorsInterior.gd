@@ -67,6 +67,12 @@ func _handle_interact() -> void:
 		return
 
 	if focused_npc != null:
+		# Migrated NPCs (with a DialogueDB profile) open the topic conversation window.
+		var nid := str(focused_npc.npc_id)
+		if not nid.is_empty() and DialogueDB.has_profile(nid):
+			focused_npc.face_player_now()
+			hud.open_dialogue(nid)
+			return
 		var line: Dictionary = focused_npc.interact()
 		hud.show_dialogue(str(line["name"]), str(line["text"]))
 		_refresh_hud()

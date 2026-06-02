@@ -20,6 +20,10 @@ const ITEM_DB := {
 	"Suitors Access Chit": {"desc": "Grants access to Suitors back room surveillance feeds.", "type": "Access", "slot": "Key"},
 	"Torai Salvage Contract": {"desc": "Legal permission to salvage corporate waste. Legalese optional.", "type": "Permit", "slot": "Contract"},
 	"Mall Arcade Token": {"desc": "Currency for the Faded Atrium upgrade kiosk.", "type": "Currency", "slot": "Token"},
+	"Jolt": {"desc": "Brickmouth's street stim. Speeds you up hard, then leaves your aim shaking on the comedown.", "type": "Consumable", "slot": "Inventory"},
+	"Glass": {"desc": "Clarity cut for runners. Sharpens aim and hacks; the comedown turns your legs to wet sand.", "type": "Consumable", "slot": "Inventory"},
+	"Redline": {"desc": "Combat juice. You hit far harder — and bleed far easier once it sours.", "type": "Consumable", "slot": "Inventory"},
+	"Patch": {"desc": "Wan Moa Torai field medicine. Restores integrity fast, leaves you briefly foggy.", "type": "Consumable", "slot": "Inventory"},
 }
 
 func _ready() -> void:

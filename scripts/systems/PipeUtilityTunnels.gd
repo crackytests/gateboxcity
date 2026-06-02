@@ -38,6 +38,7 @@ func _ready() -> void:
 	_refresh_hud()
 	var last_event := str(GameState.get_world_flag("last_travel_event_title", "Clear Run"))
 	hud.show_dialogue("Leak Street Gate", "Travel event: %s. The tunnel locks click behind you like the building just accepted a dare." % last_event)
+	hud.present_event.call_deferred("travel", true)   # interactive travel events (e.g. an ambush chain)
 	hud.push_log("pipe utility tunnels reached")
 	EventDeckSystem.add_card("splice_pipes_return")
 
@@ -145,14 +146,15 @@ func _use_drain_valve() -> void:
 
 
 func _handle_velvet_coil_encounter() -> void:
+	# A scripted cameo (not a topic conversation) — shown in the dialogue frame via statement mode.
 	if GameState.get_world_flag("coil_met_in_tunnels", false):
-		hud.show_dialogue("Velvet Coil", "Still here. Still thinking about that hub invitation. The acoustics in this passage are almost acceptable. Almost.")
+		hud.open_statement("Velvet Coil", "Still here. Still thinking about that hub invitation. The acoustics in this passage are almost acceptable. Almost.")
 		return
 	if not GameState.get_world_flag("coil_invitation_available", false):
-		hud.show_dialogue("Velvet Coil", "You should not be able to see me. Come back when the hub is ready for visitors.")
+		hud.open_statement("Velvet Coil", "You should not be able to see me. Come back when the hub is ready for visitors.")
 		return
 	GameState.set_world_flag("coil_met_in_tunnels", true)
-	hud.show_dialogue("Velvet Coil", "A cybernetic surgeon in a pipe tunnel. Yes, I know how it looks. I am scoping the acoustics. Your hub has potential. Tell Gideon I might accept an invitation, if the space is right. The acoustics have to be right.")
+	hud.open_statement("Velvet Coil", "A cybernetic surgeon in a pipe tunnel. Yes, I know how it looks. I am scoping the acoustics. Your hub has potential. Tell Gideon I might accept an invitation, if the space is right. The acoustics have to be right.")
 	EventDeckSystem.add_card("coil_invitation_card")
 	hud.push_log("Velvet Coil encountered in tunnels")
 
@@ -190,7 +192,14 @@ func _handle_job_node(interactable: WardInteractable) -> void:
 		hud.show_dialogue(interactable.display_name, "Wrong node. Current job: %s" % str(active_job.get("objective", "")))
 		return
 	var item_name := str(active_job.get("objective_item", "Tunnel Evidence"))
-	GameState.add_item(item_name)
+	if str(active_job.get("objective_type", "find")) == "deliver":
+		# Drop-off: you hand over the parcel you've been carrying (payout consumes it).
+		# Don't mint a duplicate — just confirm you still have it.
+		if not GameState.has_item(item_name):
+			hud.show_dialogue(interactable.display_name, "You're meant to be carrying %s. Come back when it's actually on you." % item_name)
+			return
+	else:
+		GameState.add_item(item_name)   # find: recover the marked item here
 	GameState.mark_job_objective_done(job_id)
 	GameState.last_mission_result = "Completed objective: %s" % str(active_job.get("title", job_id))
 	hud.show_dialogue(interactable.display_name, "%s secured. Marbles will pretend this was a normal errand, because denial is cheaper than signage." % item_name)
@@ -439,12 +448,9 @@ func _build_interactables() -> void:
 
 
 func _build_creatures() -> void:
-	# Security node on catwalk — elevated threat over flood chamber
-	_add_security_node(Vector3(0.0, 2.0, -6.0))
-	# Splice in south corridor
-	_add_splice(Vector3(-4.0, 1.05, 14.0))
-	# Second splice in north section for pressure
-	_add_splice(Vector3(3.0, 1.05, -20.0))
+	# Contested location: spawn a faction-themed, threat-scaled enemy profile (refactor §5).
+	EnemyLayouts.spawn_profile(self, "pipe_utility_tunnels",
+		GameState.get_active_threat_band(), GameState.get_active_rival_faction())
 
 
 func _build_exits() -> void:

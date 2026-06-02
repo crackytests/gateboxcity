@@ -1,0 +1,116 @@
+[gd_scene load_steps=10 format=3 uid="uid://big_gates_overseer"]
+
+[ext_resource type="Script" path="res://scripts/enemies/BigGatesOverseer.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/enemies/BodyPart.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="3"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.46
+height = 1.95
+
+[sub_resource type="CapsuleMesh" id="BodyMesh"]
+radius = 0.46
+height = 1.95
+
+[sub_resource type="StandardMaterial3D" id="BodyMat"]
+albedo_color = Color(0.28, 0.2, 0.12, 1)
+emission_enabled = true
+emission = Color(1.0, 0.5, 0.12, 1)
+emission_energy_multiplier = 0.3
+
+[sub_resource type="BoxShape3D" id="TorsoShape"]
+size = Vector3(0.62, 0.78, 0.4)
+
+[sub_resource type="BoxShape3D" id="RigShape"]
+size = Vector3(0.4, 0.32, 0.34)
+
+[sub_resource type="BoxShape3D" id="SpineShape"]
+size = Vector3(0.34, 0.7, 0.24)
+
+[sub_resource type="BoxShape3D" id="HipShape"]
+size = Vector3(0.3, 0.34, 0.32)
+
+[node name="BigGatesOverseer" type="CharacterBody3D"]
+script = ExtResource("1")
+move_speed = 1.8
+ranged_range = 10.0
+ranged_damage = 9.0
+melee_damage = 12.0
+attack_cooldown = 1.6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
+shape = SubResource("Body")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
+mesh = SubResource("BodyMesh")
+surface_material_override/0 = SubResource("BodyMat")
+
+[node name="GreenlineBillboard" type="Sprite3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, 0)
+shaded = false
+double_sided = true
+script = ExtResource("3")
+
+[node name="BodyParts" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="ReinforcedTorso" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+script = ExtResource("2")
+display_name = "TORSO"
+max_hp = 70.0
+armor_value = 0.7
+part_role = "core"
+on_destroy_effect = "defeat"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/ReinforcedTorso"]
+shape = SubResource("TorsoShape")
+
+[node name="CommandRig" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34, 1.35, 0)
+script = ExtResource("2")
+display_name = "COMMAND RIG — SHOULDER"
+max_hp = 28.0
+targeting_penalty = 10.0
+lock_difficulty_multiplier = 1.2
+on_destroy_effect = "drop_command"
+effect_payload = {
+"message": "command rig down — the grafts go uncontrolled"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/CommandRig"]
+shape = SubResource("RigShape")
+
+[node name="DataSpine" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.28)
+script = ExtResource("2")
+display_name = "DATA SPINE"
+max_hp = 30.0
+targeting_penalty = 14.0
+lock_difficulty_multiplier = 1.3
+on_destroy_effect = "grant_loot"
+effect_payload = {
+"item": "Experiment Data (Partial)",
+"flag": "ward7_experiment_docs_found",
+"message": "data spine cracked — partial experiment records pulled from the wreck"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/DataSpine"]
+shape = SubResource("SpineShape")
+
+[node name="SidearmMount" type="Area3D" parent="BodyParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.62, 0)
+script = ExtResource("2")
+display_name = "SIDEARM MOUNT — HIP"
+max_hp = 20.0
+targeting_penalty = 8.0
+on_destroy_effect = "disable_ranged"
+telegraph_ability = "ranged_shot"
+windup_lock_bonus = 0.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyParts/SidearmMount"]
+shape = SubResource("HipShape")

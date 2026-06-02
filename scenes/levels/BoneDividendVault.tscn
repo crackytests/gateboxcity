@@ -1,0 +1,178 @@
+[gd_scene load_steps=17 format=3 uid="uid://bone_dividend_vault"]
+
+[ext_resource type="Script" path="res://scripts/systems/BoneDividendVault.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/GeneralBoneDividend.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/WardResidentGraft.tscn" id="7"]
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 1
+background_color = Color(0.04, 0.02, 0.02, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5, 0.28, 0.12, 1)
+ambient_light_energy = 0.32
+fog_enabled = true
+fog_light_color = Color(0.6, 0.3, 0.1, 1)
+fog_density = 0.01
+
+[sub_resource type="StandardMaterial3D" id="FloorMat"]
+albedo_color = Color(0.18, 0.14, 0.11, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="WallMat"]
+albedo_color = Color(0.24, 0.2, 0.16, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="RackMat"]
+albedo_color = Color(0.1, 0.06, 0.14, 1)
+emission_enabled = true
+emission = Color(0.55, 0.35, 1, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="StandardMaterial3D" id="LedgerMat"]
+albedo_color = Color(0.16, 0.1, 0.05, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.12, 1)
+emission_energy_multiplier = 0.9
+
+[sub_resource type="StandardMaterial3D" id="ExitMat"]
+albedo_color = Color(0.2, 0.1, 0.04, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0.1, 1)
+emission_energy_multiplier = 0.7
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(18, 0.4, 36)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(18, 0.4, 36)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(0.4, 4.0, 36)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(0.4, 4.0, 36)
+
+[sub_resource type="BoxMesh" id="RackMesh"]
+size = Vector3(0.8, 3.0, 0.8)
+
+[sub_resource type="BoxMesh" id="PropMesh"]
+size = Vector3(1.0, 1.0, 0.6)
+
+[sub_resource type="BoxShape3D" id="InteractShape"]
+size = Vector3(2.0, 2.4, 2.0)
+
+[node name="BoneDividendVault" type="Node3D"]
+script = ExtResource("1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="WorkLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 0, 8, 0)
+light_energy = 0.28
+light_color = Color(1, 0.55, 0.25, 1)
+
+[node name="Player" parent="." instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 16.5)
+
+[node name="HUD" parent="." instance=ExtResource("3")]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("FloorShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("FloorMesh")
+surface_material_override/0 = SubResource("FloorMat")
+
+[node name="WallWest" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallWest"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallWest"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="WallEast" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallEast"]
+shape = SubResource("WallLongShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WallEast"]
+mesh = SubResource("WallLongMesh")
+surface_material_override/0 = SubResource("WallMat")
+
+[node name="SoulRackA" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.5, -2)
+mesh = SubResource("RackMesh")
+surface_material_override/0 = SubResource("RackMat")
+
+[node name="SoulRackB" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1.5, 2)
+mesh = SubResource("RackMesh")
+surface_material_override/0 = SubResource("RackMat")
+
+[node name="SoulRackC" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, -2)
+mesh = SubResource("RackMesh")
+surface_material_override/0 = SubResource("RackMat")
+
+[node name="SoulRackD" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1.5, 2)
+mesh = SubResource("RackMesh")
+surface_material_override/0 = SubResource("RackMat")
+
+[node name="SoulRackControls" type="Area3D" parent="." groups=["ward_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.0, 0)
+script = ExtResource("5")
+interactable_id = "soul_rack"
+prompt_text = "Press E: the soul battery racks"
+display_name = "Soul Battery Racks"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SoulRackControls"]
+shape = SubResource("InteractShape")
+
+[node name="LedgerTerminal" type="Area3D" parent="." groups=["ward_interactable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.0, 4)
+script = ExtResource("5")
+interactable_id = "ledger_terminal"
+prompt_text = "Press E: read the soul ledger"
+display_name = "Soul Ledger Terminal"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LedgerTerminal"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LedgerTerminal"]
+mesh = SubResource("PropMesh")
+surface_material_override/0 = SubResource("LedgerMat")
+
+[node name="GeneralBoneDividend" parent="." groups=["enemy"] instance=ExtResource("6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.5)
+
+[node name="LedgerGraftA" parent="." groups=["enemy", "graft"] instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -8)
+
+[node name="LedgerGraftB" parent="." groups=["enemy", "graft"] instance=ExtResource("7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -8)
+
+[node name="ReturnGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 16.5)
+script = ExtResource("4")
+target_scene = "res://scenes/levels/MallHub.tscn"
+prompt_text = "Press E: leave the vault"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ReturnGate"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ReturnGate"]
+mesh = SubResource("PropMesh")
+surface_material_override/0 = SubResource("ExitMat")
