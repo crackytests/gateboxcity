@@ -20,6 +20,7 @@ const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
 const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
 const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
+const ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 
 @onready var hud: HUDController = $HUD
 @onready var player: Node3D = $Player
@@ -43,9 +44,11 @@ var _mat_catwalk: StandardMaterial3D
 var _mat_metal: StandardMaterial3D
 var _mat_warning: StandardMaterial3D
 var _mat_steam: StandardMaterial3D
+var _atlas_cutout_cache: Dictionary = {}
 
 
 func _ready() -> void:
+	_repair_hub_cistern_flag_drift()
 	_build_materials()
 	_build_geometry()
 	_wire_runtime()
@@ -55,6 +58,16 @@ func _ready() -> void:
 	hud.present_event.call_deferred("travel", true)
 	hud.push_log("water reclamation cistern reached")
 	EventDeckSystem.add_card("splice_cistern_return")
+
+
+func _repair_hub_cistern_flag_drift() -> void:
+	if GameState.is_quest_completed("hub_cistern"):
+		return
+	if bool(GameState.get_world_flag("hub_cistern_connected", false)):
+		GameState.set_world_flag("hub_cistern_connected", false)
+		if not GameState.is_quest_started("hub_cistern"):
+			GameState.start_quest("hub_cistern")
+		GameState.last_mission_result = "Recovered bad cistern state: conduit still needs seating"
 
 
 func _process(delta: float) -> void:
@@ -174,14 +187,24 @@ func _handle_hub_node(interactable: WardInteractable) -> void:
 	match interactable.interactable_id:
 		"hub_cistern_conduit":
 			if GameState.get_world_flag("hub_cistern_connected"):
-				hud.show_dialogue("Cistern Conduit Junction", "Already connected. Clean water is running to the clinic. Vera stopped mentioning the pipe smell, which means things are better.")
+				if not GameState.is_quest_completed("hub_cistern"):
+					if not GameState.is_quest_started("hub_cistern"):
+						GameState.start_quest("hub_cistern")
+					GameState.mark_quest_objective("hub_cistern", "hub_cistern_connected")
+					GameState.complete_quest("hub_cistern")
+					hud.show_dialogue("Hub Water Conduit", "The flow indicator is already green. GhostTerm logs the conduit as seated and the clinic line as connected. Vera can stop haunting the plumbing now.")
+					hud.push_log("hub cistern conduit verified")
+					_refresh_hud()
+					return
+				hud.show_dialogue("Hub Water Conduit", "Already connected. Clean water is running to the clinic. Vera stopped mentioning the pipe smell, which means things are better.")
 				return
 			if not GameState.is_quest_started("hub_cistern"):
-				hud.show_dialogue("Cistern Conduit Junction", "There is a junction point here waiting for a conduit run. Vera at the Faded Atrium would know the full spec.")
+				hud.show_dialogue("Hub Water Conduit", "This teal-marked junction feeds the Faded Atrium clinic line. Vera needs to authorize the conduit run before you start seating pipe like a well-meaning hazard.")
 				return
 			GameState.mark_quest_objective("hub_cistern", "hub_cistern_connected")
 			if GameState.can_complete_quest("hub_cistern"):
 				GameState.complete_quest("hub_cistern")
+			AudioDirector.play_sfx("generator_restored", -2.0)
 			hud.show_dialogue("Cistern Conduit Junction", "The conduit seats and the flow indicator goes green. Clean water is now running to the hub clinic.")
 			hud.push_log("hub cistern conduit connected")
 			GameState.set_world_flag("_pending_arrival_text", "Water is clean. Clinic is running. Whatever you did in the cistern, it worked. I will not ask about the smell.")
@@ -197,6 +220,7 @@ func _handle_hub_node(interactable: WardInteractable) -> void:
 			GameState.mark_quest_objective("hub_lan_restore", "hub_lan_restored")
 			if GameState.can_complete_quest("hub_lan_restore"):
 				GameState.complete_quest("hub_lan_restore")
+			AudioDirector.play_sfx("lan_restore", -1.0)
 			hud.show_dialogue("LAN Tap Junction", "The splice holds. The tap cable goes live with a tone that sounds like relief. Hub LAN restored.")
 			hud.push_log("hub LAN tap spliced")
 			GameState.set_world_flag("_pending_arrival_text", "Archive is live. System X has seventeen things to tell you. Sixteen are warnings. I have decided one is a joke and I am sticking to it.")
@@ -268,7 +292,7 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 func _build_materials() -> void:
 	_mat_floor = _make_mat(Color(0.52, 0.56, 0.58), Color(0.01, 0.04, 0.06), 0.10, "res://assets/textures/leak_street/wet_concrete_floor.png", Vector3(8, 8, 1))
 	_mat_wall = _make_mat(Color(0.48, 0.54, 0.58), Color(0.01, 0.03, 0.05), 0.08, "res://assets/textures/cistern/cistern_wall.png", Vector3(6, 4, 1))
-	_mat_water = _make_mat(Color(0.02, 0.28, 0.55, 0.72), Color(0.0, 0.45, 0.9), 1.1, "", Vector3.ONE)
+	_mat_water = _make_mat(Color(0.02, 0.28, 0.55, 0.72), Color(0.0, 0.45, 0.9), 1.1, "res://assets/textures/water_surface.png", Vector3(4, 4, 1))
 	_mat_water.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_mat_filter_bed = _make_mat(Color(0.55, 0.52, 0.44), Color(0.06, 0.06, 0.03), 0.14, "res://assets/textures/cistern/filter_bed_aggregate.png", Vector3(4, 4, 1))
 	_mat_neon = _make_mat(Color(0.02, 0.08, 0.18), Color(0.0, 0.5, 1.0), 1.5, "", Vector3.ONE)
@@ -276,7 +300,7 @@ func _build_materials() -> void:
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	_mat_pipe = _make_mat(Color(0.42, 0.36, 0.30), Color(0.04, 0.02, 0.01), 0.06, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(3, 3, 1))
 	_mat_catwalk = _make_mat(Color(0.50, 0.48, 0.52), Color(0.03, 0.03, 0.05), 0.12, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(6, 6, 1))
-	_mat_metal = _make_mat(Color(0.40, 0.42, 0.44), Color(0.02, 0.04, 0.06), 0.08, "", Vector3.ONE)
+	_mat_metal = _make_mat(Color(0.40, 0.42, 0.44), Color(0.02, 0.04, 0.06), 0.08, "res://assets/textures/scuffed_machine_metal.png", Vector3(2, 2, 1))
 	_mat_warning = _make_mat(Color(0.90, 0.42, 0.02), Color(1.0, 0.35, 0.0), 1.2, "", Vector3.ONE)
 	_mat_steam = _make_mat(Color(0.55, 0.90, 1.0, 0.32), Color(0.25, 0.75, 1.0), 0.7, "", Vector3.ONE)
 	_mat_steam.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -301,6 +325,7 @@ func _build_geometry() -> void:
 	_build_filtration_gallery()
 	_build_pump_control_room()
 	_build_upper_catwalk()
+	_build_prop_decals()
 	_build_interactables()
 	_build_enemies()
 	_build_exits()
@@ -469,8 +494,11 @@ func _build_interactables() -> void:
 	_add_interactable("pump_valve_panel", "Pump Valve", "Press E: open pump valve", Vector3(-7, 0.95, 2.0), Color(0.0, 0.6, 1.0))
 
 	# Hub quest nodes
-	if not GameState.get_world_flag("hub_cistern_connected"):
-		_add_interactable("hub_cistern_conduit", "Cistern Conduit Junction", "Press E: install water conduit", Vector3(-14, 0.95, -8), Color(0.1, 0.8, 0.6))
+	if not GameState.is_quest_completed("hub_cistern"):
+		_add_box("HubConduitGuideMast", Vector3(0.24, 2.6, 0.24), Vector3(-6.2, 1.3, -8.5), _mat_neon)
+		_add_box("HubConduitGuideSign", Vector3(2.8, 0.55, 0.14), Vector3(-6.2, 2.65, -8.5), _mat_warning)
+		_add_box("HubConduitFloorPlate", Vector3(2.8, 0.08, 2.0), Vector3(-6.2, 0.05, -8.5), _mat_warning)
+		_add_interactable("hub_cistern_conduit", "Hub Water Conduit", "Press E: install hub water conduit", Vector3(-6.2, 0.95, -8.5), Color(0.1, 1.0, 0.65))
 	if not GameState.get_world_flag("hub_lan_restored"):
 		_add_interactable("hub_lan_tap", "LAN Tap Junction", "Press E: splice LAN tap", Vector3(14, 0.95, -4), Color(0.2, 0.8, 1.0))
 
@@ -624,6 +652,7 @@ func _add_security_node(world_position: Vector3) -> void:
 	var node := SECURITY_NODE_SCENE.instantiate()
 	node.name = "SecurityNode"
 	node.position = world_position
+	node.persistence_id = _enemy_persistence_id("security_node", world_position)
 	add_child(node)
 
 
@@ -631,6 +660,7 @@ func _add_splice(world_position: Vector3) -> void:
 	var splice := SPLICE_SCENE.instantiate()
 	splice.name = "Splice"
 	splice.position = world_position
+	splice.persistence_id = _enemy_persistence_id("splice", world_position)
 	splice.add_to_group("splice")
 	splice.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice)
@@ -639,6 +669,10 @@ func _add_splice(world_position: Vector3) -> void:
 func _on_splice_item_dropped(item_name: String) -> void:
 	hud.push_log("splice dropped: %s" % item_name.replace("_", " "))
 	hud.show_system_message("FOUND " + item_name.to_upper().replace("_", " "))
+
+
+func _enemy_persistence_id(kind: String, pos: Vector3) -> String:
+	return "water_reclamation_cistern:%s:%.2f:%.2f:%.2f" % [kind, pos.x, pos.y, pos.z]
 
 
 func _add_lights() -> void:
@@ -692,9 +726,82 @@ func _make_mat(albedo: Color, emission: Color, emission_energy: float, texture_p
 	return mat
 
 
+# Copies one 4x4 atlas cell into a texture and keys near-black pixels transparent, matching
+# Leak Street's atlas panels so signage does not carry square black backgrounds.
+func _atlas_cutout_texture(path: String, col: int, row: int) -> Texture2D:
+	var cache_key := "%s:%d:%d" % [path, col, row]
+	if _atlas_cutout_cache.has(cache_key):
+		return _atlas_cutout_cache[cache_key]
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return null
+	var texture: Texture2D = load(path)
+	if texture == null:
+		return null
+	var source := texture.get_image()
+	if source == null:
+		return texture
+	var cell_size := Vector2i(floori(float(source.get_width()) / 4.0), floori(float(source.get_height()) / 4.0))
+	var crop_rect := Rect2i(Vector2i(col * cell_size.x, row * cell_size.y), cell_size).intersection(Rect2i(Vector2i.ZERO, source.get_size()))
+	if crop_rect.size.x <= 0 or crop_rect.size.y <= 0:
+		return texture
+	var cutout := Image.create(crop_rect.size.x, crop_rect.size.y, false, Image.FORMAT_RGBA8)
+	for y in range(crop_rect.size.y):
+		for x in range(crop_rect.size.x):
+			var color := source.get_pixel(crop_rect.position.x + x, crop_rect.position.y + y)
+			if maxf(maxf(color.r, color.g), color.b) <= ATLAS_BLACK_ALPHA_CUTOFF:
+				color.a = 0.0
+			cutout.set_pixel(x, y, color)
+	var cutout_texture := ImageTexture.create_from_image(cutout)
+	_atlas_cutout_cache[cache_key] = cutout_texture
+	return cutout_texture
+
+
+# Flat atlas sign rendered as a Sprite3D cutout so near-black atlas backgrounds vanish.
+# `facing` aims the front into the room.
+func _add_atlas_decal(node_name: String, atlas_path: String, col: int, row: int, width: float, height: float, world_position: Vector3, facing: String, _energy := 1.0, extra_yaw_deg := 0.0) -> void:
+	var sprite := Sprite3D.new()
+	sprite.name = node_name
+	sprite.position = world_position
+	var yaw := 0.0
+	match facing:
+		"z-": yaw = 180.0
+		"x+": yaw = 90.0
+		"x-": yaw = -90.0
+		_: yaw = 0.0
+	sprite.rotation_degrees = Vector3(0, yaw + extra_yaw_deg, 0)
+	sprite.texture = _atlas_cutout_texture(atlas_path, col, row)
+	if sprite.texture != null:
+		sprite.pixel_size = width / maxf(float(sprite.texture.get_width()), 1.0)
+		var rendered_height := float(sprite.texture.get_height()) * sprite.pixel_size
+		if rendered_height > 0.0:
+			sprite.scale.y = height / rendered_height
+	sprite.shaded = false
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	sprite.add_to_group("district_atlas_panel")
+	add_child(sprite)
+
+
+# Corporate stencils, gauges and hazard signage from cistern_props_atlas, flush on walls.
+func _build_prop_decals() -> void:
+	const ATLAS := "res://assets/textures/cistern_props_atlas.png"
+	# [position, width, height, facing, col, row]
+	for data: Array in [
+		[Vector3(-3.0, 2.6, -11.78), 1.8, 1.8, "z+", 2, 0],   # WAN MOA TORAI stencil — cistern north wall
+		[Vector3(3.0, 2.6, -11.78), 1.4, 1.4, "z+", 3, 0],    # PIPE ID WTR-7A tag — north wall
+		[Vector3(9.78, 2.4, 3.0), 1.3, 1.3, "x-", 0, 2],      # POTABLE? sign — cistern east wall
+		[Vector3(9.78, 2.4, 5.5), 1.4, 1.4, "x-", 3, 3],      # hazard diamond — east wall
+		[Vector3(18.78, 2.5, -4.0), 1.5, 1.5, "x-", 1, 0],    # WATER LEVEL gauge — gallery east wall
+		[Vector3(14.5, 2.6, -8.28), 1.4, 1.4, "z+", 1, 1],    # FILTER UNIT decal — gallery north wall
+		[Vector3(-13.0, 2.6, -11.78), 1.3, 1.3, "z+", 2, 1],  # PSI gauge — pump room north wall
+		[Vector3(-9.78, 2.3, -8.0), 1.2, 1.6, "x+", 2, 3],    # DEPTH(M) marker — cistern west wall
+	]:
+		_add_atlas_decal("PropDecal", ATLAS, int(data[4]), int(data[5]), float(data[1]), float(data[2]), data[0] as Vector3, str(data[3]))
+
+
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

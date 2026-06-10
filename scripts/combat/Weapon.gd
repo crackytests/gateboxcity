@@ -127,12 +127,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func fire() -> void:
 	if current_ammo <= 0:
+		AudioDirector.play_sfx("scrap_pistol_dry_fire")
 		fired.emit("empty magazine - press R")
 		return
 
 	current_ammo -= 1
 	ammo_changed.emit(current_ammo, reserve_ammo)
 	_show_fire_effect()
+	AudioDirector.play_sfx("scrap_pistol_fire", -0.5, 1.0)
 
 	if targeting == null:
 		fired.emit("shot lost in static")
@@ -147,6 +149,7 @@ func fire() -> void:
 			var dealt := part.apply_damage(damage * GameState.get_damage_multiplier(), damage_type)
 			fired.emit("hit %s for %d" % [part.display_name, roundi(dealt)])
 		else:
+			AudioDirector.play_sfx("target_miss_static", -9.0)
 			fired.emit("missed %s" % part.display_name)
 		targeting.apply_weapon_lock_penalty(lock_retention_after_shot)
 	else:
@@ -184,6 +187,7 @@ func melee() -> void:
 		return
 	# Melee always connects at this range; no hit-chance roll.
 	var dealt := part.apply_damage(dmg, "kinetic")
+	AudioDirector.play_sfx("melee_scrap_hit", 0.0, randf_range(0.94, 1.04))
 	fired.emit("melee smash %s for %d" % [part.display_name, roundi(dealt)])
 
 
@@ -200,6 +204,7 @@ func reload() -> void:
 	current_ammo += loaded
 	reserve_ammo -= loaded
 	ammo_changed.emit(current_ammo, reserve_ammo)
+	AudioDirector.play_sfx("scrap_pistol_reload", -1.0, randf_range(0.97, 1.03))
 	# Jolt's stim shortens the reload animation.
 	active_reload_effect_duration = _base_reload_effect_duration() * GameState.get_reload_multiplier()
 	reload_effect_timer = active_reload_effect_duration

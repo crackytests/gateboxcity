@@ -33,6 +33,7 @@ func _ready() -> void:
 
 
 func open(items: Dictionary) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_items = items
 	visible = true
 	_selected_index = -1
@@ -48,6 +49,8 @@ func open(items: Dictionary) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -2.0)
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	closed.emit()

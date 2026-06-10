@@ -7,6 +7,7 @@ const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
 const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
 const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
 const FLOOD_DAMAGE_RATE := 1.0
+const ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 
 @onready var hud: HUDController = $HUD
 @onready var player: Node3D = $Player
@@ -29,6 +30,7 @@ var _mat_rain: StandardMaterial3D
 var _mat_water: StandardMaterial3D
 var _mat_catwalk: StandardMaterial3D
 var _mat_cover: StandardMaterial3D
+var _atlas_cutout_cache: Dictionary = {}
 
 
 func _ready() -> void:
@@ -171,6 +173,7 @@ func _handle_hub_node(interactable: WardInteractable) -> void:
 			GameState.mark_quest_objective("hub_power_restore", "hub_power_restored")
 			if GameState.can_complete_quest("hub_power_restore"):
 				GameState.complete_quest("hub_power_restore")
+			AudioDirector.play_sfx("generator_restored", -1.0)
 			hud.show_dialogue("Generator Coupling", "The coupling seats with a solid click that makes the whole pipe section sound less afraid. Hub generator coupling secured.")
 			hud.push_log("hub generator coupling repaired")
 			GameState.set_world_flag("_pending_arrival_text", "Generator is stable. Coupling held. I have been apologising to it for six weeks — I can stop now.")
@@ -243,14 +246,14 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 func _build_materials() -> void:
 	_mat_floor = _make_mat(Color(0.58, 0.66, 0.62), Color(0.02, 0.08, 0.065), 0.18, "res://assets/textures/leak_street/wet_concrete_floor.png", Vector3(8, 8, 1))
 	_mat_wall = _make_mat(Color(0.62, 0.68, 0.64), Color(0.015, 0.07, 0.055), 0.14, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(6, 4, 1))
-	_mat_pipe = _make_mat(Color(0.55, 0.45, 0.34), Color(0.12, 0.07, 0.02), 0.18, "", Vector3(4, 4, 1))
+	_mat_pipe = _make_mat(Color(0.55, 0.45, 0.34), Color(0.12, 0.07, 0.02), 0.18, "res://assets/textures/pipes/pipe_metal.png", Vector3(4, 4, 1))
 	_mat_neon = _make_mat(Color(0.02, 0.12, 0.09), Color(0.0, 1.0, 0.55), 1.5, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_mat_water = _make_mat(Color(0.02, 0.22, 0.18, 0.65), Color(0.0, 0.6, 0.45), 0.8, "", Vector3.ONE)
+	_mat_water = _make_mat(Color(0.02, 0.22, 0.18, 0.65), Color(0.0, 0.6, 0.45), 0.8, "res://assets/textures/water_surface.png", Vector3(4, 4, 1))
 	_mat_water.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_mat_catwalk = _make_mat(Color(0.45, 0.48, 0.46), Color(0.04, 0.1, 0.08), 0.3, "", Vector3(2, 2, 1))
-	_mat_cover = _make_mat(Color(0.42, 0.38, 0.32), Color(0.06, 0.04, 0.01), 0.15, "", Vector3.ONE)
+	_mat_catwalk = _make_mat(Color(0.45, 0.48, 0.46), Color(0.04, 0.1, 0.08), 0.3, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(2, 2, 1))
+	_mat_cover = _make_mat(Color(0.42, 0.38, 0.32), Color(0.06, 0.04, 0.01), 0.15, "res://assets/textures/scrap_debris.png", Vector3(2, 2, 1))
 
 
 # ---------------------------------------------------------------------------
@@ -267,6 +270,7 @@ func _build_geometry() -> void:
 	_build_upper_east_walk()
 	_build_pipe_runs()
 	_build_cover()
+	_build_prop_decals()
 	_build_interactables()
 	_build_creatures()
 	_build_exits()
@@ -600,6 +604,7 @@ func _add_security_node(world_position: Vector3) -> void:
 	var node := SECURITY_NODE_SCENE.instantiate()
 	node.name = "SecurityNode"
 	node.position = world_position
+	node.persistence_id = _enemy_persistence_id("security_node", world_position)
 	add_child(node)
 
 
@@ -607,6 +612,7 @@ func _add_splice(world_position: Vector3) -> void:
 	var splice := SPLICE_SCENE.instantiate()
 	splice.name = "Splice"
 	splice.position = world_position
+	splice.persistence_id = _enemy_persistence_id("splice", world_position)
 	splice.add_to_group("splice")
 	splice.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice)
@@ -615,6 +621,10 @@ func _add_splice(world_position: Vector3) -> void:
 func _on_splice_item_dropped(item_name: String) -> void:
 	hud.push_log("splice dropped: %s" % item_name.replace("_", " "))
 	hud.show_system_message("FOUND " + item_name.to_upper().replace("_", " "))
+
+
+func _enemy_persistence_id(kind: String, pos: Vector3) -> String:
+	return "pipe_utility_tunnels:%s:%.2f:%.2f:%.2f" % [kind, pos.x, pos.y, pos.z]
 
 
 func _add_toxic_rain_controller() -> void:
@@ -639,9 +649,80 @@ func _make_mat(albedo: Color, emission: Color, emission_energy: float, texture_p
 	return mat
 
 
+# Copies one 4x4 atlas cell into a texture and keys near-black pixels transparent, matching
+# Leak Street's atlas panels so signage does not carry square black backgrounds.
+func _atlas_cutout_texture(path: String, col: int, row: int) -> Texture2D:
+	var cache_key := "%s:%d:%d" % [path, col, row]
+	if _atlas_cutout_cache.has(cache_key):
+		return _atlas_cutout_cache[cache_key]
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return null
+	var texture: Texture2D = load(path)
+	if texture == null:
+		return null
+	var source := texture.get_image()
+	if source == null:
+		return texture
+	var cell_size := Vector2i(floori(float(source.get_width()) / 4.0), floori(float(source.get_height()) / 4.0))
+	var crop_rect := Rect2i(Vector2i(col * cell_size.x, row * cell_size.y), cell_size).intersection(Rect2i(Vector2i.ZERO, source.get_size()))
+	if crop_rect.size.x <= 0 or crop_rect.size.y <= 0:
+		return texture
+	var cutout := Image.create(crop_rect.size.x, crop_rect.size.y, false, Image.FORMAT_RGBA8)
+	for y in range(crop_rect.size.y):
+		for x in range(crop_rect.size.x):
+			var color := source.get_pixel(crop_rect.position.x + x, crop_rect.position.y + y)
+			if maxf(maxf(color.r, color.g), color.b) <= ATLAS_BLACK_ALPHA_CUTOFF:
+				color.a = 0.0
+			cutout.set_pixel(x, y, color)
+	var cutout_texture := ImageTexture.create_from_image(cutout)
+	_atlas_cutout_cache[cache_key] = cutout_texture
+	return cutout_texture
+
+
+# Flat atlas sign rendered as a Sprite3D cutout so near-black atlas backgrounds vanish.
+# `facing` aims the front into the room.
+func _add_atlas_decal(node_name: String, atlas_path: String, col: int, row: int, width: float, height: float, world_position: Vector3, facing: String, _energy := 1.0, extra_yaw_deg := 0.0) -> void:
+	var sprite := Sprite3D.new()
+	sprite.name = node_name
+	sprite.position = world_position
+	var yaw := 0.0
+	match facing:
+		"z-": yaw = 180.0
+		"x+": yaw = 90.0
+		"x-": yaw = -90.0
+		_: yaw = 0.0
+	sprite.rotation_degrees = Vector3(0, yaw + extra_yaw_deg, 0)
+	sprite.texture = _atlas_cutout_texture(atlas_path, col, row)
+	if sprite.texture != null:
+		sprite.pixel_size = width / maxf(float(sprite.texture.get_width()), 1.0)
+		var rendered_height := float(sprite.texture.get_height()) * sprite.pixel_size
+		if rendered_height > 0.0:
+			sprite.scale.y = height / rendered_height
+	sprite.shaded = false
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	sprite.add_to_group("district_atlas_panel")
+	add_child(sprite)
+
+
+# Flat signage/graffiti decals from pipe_tunnels_props_atlas, mounted flush on walls.
+func _build_prop_decals() -> void:
+	const ATLAS := "res://assets/textures/pipe_tunnels_props_atlas.png"
+	# [position, width, height, facing, col, row]
+	for data: Array in [
+		[Vector3(-1.5, 2.4, 23.72), 1.6, 1.6, "z-", 0, 1],    # TOXIC keep out — south wall
+		[Vector3(8.78, 2.6, -16.0), 1.6, 1.6, "x-", 1, 1],    # Saint Ratchet shrine — east wall by node
+		[Vector3(8.78, 2.4, -8.0), 1.4, 1.4, "x-", 2, 1],     # DANGER HIGH VOLTAGE — east wall
+		[Vector3(-8.78, 2.5, -20.0), 1.8, 1.8, "x+", 3, 2],   # RATZ graffiti — west wall
+		[Vector3(-8.78, 2.2, 6.0), 1.5, 1.5, "x+", 0, 0],     # valve wheel — west wall by pressure valve
+		[Vector3(2.0, 2.6, -23.72), 1.5, 1.5, "z+", 2, 0],    # junction box — north wall
+	]:
+		_add_atlas_decal("PropDecal", ATLAS, int(data[4]), int(data[5]), float(data[1]), float(data[2]), data[0] as Vector3, str(data[3]))
+
+
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

@@ -8,6 +8,20 @@ class_name RockerFellar
 
 signal boss_phase_changed(phase: int)
 
+const FRAME_PATHS := [
+	"res://assets/sprites/rocker_fellar/rocker_back.png",
+	"res://assets/sprites/rocker_fellar/rocker_back_left.png",
+	"res://assets/sprites/rocker_fellar/rocker_left.png",
+	"res://assets/sprites/rocker_fellar/rocker_front_left.png",
+	"res://assets/sprites/rocker_fellar/rocker_front.png",
+	"res://assets/sprites/rocker_fellar/rocker_front_right.png",
+	"res://assets/sprites/rocker_fellar/rocker_right.png",
+	"res://assets/sprites/rocker_fellar/rocker_back_right.png",
+]
+const STATE_WINDUP_PATH := "res://assets/sprites/rocker_fellar/state_windup.png"
+const STATE_DEFEATED_PATH := "res://assets/sprites/rocker_fellar/state_defeated.png"
+const ROCKER_SPRITE_PIXEL_SIZE := 0.0092
+
 var boss_phase := 1
 var _stage_core_exposed := false
 var _jaw_destroyed := false
@@ -16,10 +30,15 @@ var _left_whip_destroyed := false
 var _right_whip_destroyed := false
 var _spine_destroyed := false
 var _on_stage := true
+var _state_windup_texture: Texture2D
+var _state_defeated_texture: Texture2D
+var _base_visual_scale := Vector3.ONE
 
 
 func _ready() -> void:
 	super()
+	_base_visual_scale = $Visuals.scale
+	_apply_rocker_sprite_art()
 	move_speed = 2.2
 	melee_damage = 12.0
 	ranged_damage = 8.0
@@ -66,7 +85,7 @@ func _physics_process(delta: float) -> void:
 	var visual_scale := 1.0
 	if attack_flash_timer > 0.0:
 		visual_scale = 1.0 + attack_flash_timer * 0.35
-	$Visuals.scale = Vector3.ONE * visual_scale
+	$Visuals.scale = _base_visual_scale * visual_scale
 	move_and_slide()
 
 
@@ -106,29 +125,10 @@ func _process_combat(_delta: float) -> void:
 	_try_boss_attack(dist)
 
 
-func _try_boss_attack(dist: float) -> void:
-	if attack_timer > 0.0:
-		return
-
-	var player_health_node := player.find_child("PlayerHealth", true, false) as PlayerHealth
-	if player_health_node == null:
-		return
-
-	# Cable whip (melee, phase 2+)
-	if dist <= attack_range and boss_phase >= 2 and not (_left_whip_destroyed and _right_whip_destroyed):
-		var whip_damage := melee_damage
-		if _left_whip_destroyed or _right_whip_destroyed:
-			whip_damage *= 0.5
-		player_health_node.apply_damage(whip_damage)
-		attack_flash_timer = 0.22
-		attacked_player.emit("cable whip lash — %.0f damage" % whip_damage)
-		attack_timer = attack_cooldown
-	# Sonic attack (ranged, phase 1 or 2 without jaw)
-	elif dist <= ranged_range and not _jaw_destroyed:
-		player_health_node.apply_damage(ranged_damage)
-		attack_flash_timer = 0.18
-		attacked_player.emit("sonic shockwave — %.0f damage" % ranged_damage)
-		attack_timer = attack_cooldown * 1.5
+func _try_boss_attack(_dist: float) -> void:
+	# The level script owns Rocker Fellar's actual damage so cover checks and
+	# big arena telegraphs stay synchronized. This body still moves/faces/charges.
+	pass
 
 
 func _on_boss_part_destroyed(part: BodyPart) -> void:
@@ -216,6 +216,13 @@ func expose_stage_core(exposed: bool) -> void:
 			break
 
 
+func set_telegraph_windup(active: bool) -> void:
+	if billboard != null and billboard.has_method("set_windup"):
+		billboard.set_windup(active)
+	if billboard != null and billboard.has_method("set_override_texture"):
+		billboard.set_override_texture(_state_windup_texture if active else null)
+
+
 func _defeat() -> void:
 	if is_defeated:
 		return
@@ -229,6 +236,8 @@ func _defeat() -> void:
 			part.monitoring = false
 	if billboard != null and billboard.has_method("show_defeated"):
 		billboard.show_defeated()
+	if billboard != null and billboard.has_method("set_override_texture"):
+		billboard.set_override_texture(_state_defeated_texture)
 	defeated.emit()
 
 
@@ -238,3 +247,33 @@ func is_stage_core_exposed() -> bool:
 
 func get_boss_phase() -> int:
 	return boss_phase
+
+
+func _apply_rocker_sprite_art() -> void:
+	if billboard == null:
+		return
+	billboard.frames.clear()
+	billboard.frame_paths = PackedStringArray(FRAME_PATHS)
+	billboard.pixel_size = ROCKER_SPRITE_PIXEL_SIZE
+	billboard.idle_bob_height = 0.018
+	if billboard.has_method("_load_frames_from_paths"):
+		billboard._load_frames_from_paths()
+	if billboard.has_method("align_bottom_to_origin"):
+		billboard.align_bottom_to_origin(0.02)
+	_state_windup_texture = _load_texture_from_path(STATE_WINDUP_PATH)
+	_state_defeated_texture = _load_texture_from_path(STATE_DEFEATED_PATH)
+
+
+func _load_texture_from_path(path: String) -> Texture2D:
+	if ResourceLoader.exists(path):
+		var loaded := load(path) as Texture2D
+		if loaded != null:
+			return loaded
+	var image := Image.new()
+	var bytes := FileAccess.get_file_as_bytes(path)
+	var err := ERR_FILE_CANT_READ
+	if not bytes.is_empty():
+		err = image.load_png_from_buffer(bytes)
+	if err != OK:
+		return null
+	return ImageTexture.create_from_image(image)

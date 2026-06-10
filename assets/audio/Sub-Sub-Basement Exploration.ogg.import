@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://qqex3862m6bg"
+path="res://.godot/imported/Sub-Sub-Basement Exploration.ogg-5d2a2fc020cea943ead72f51232ab3ca.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Sub-Sub-Basement Exploration.ogg"
+dest_files=["res://.godot/imported/Sub-Sub-Basement Exploration.ogg-5d2a2fc020cea943ead72f51232ab3ca.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

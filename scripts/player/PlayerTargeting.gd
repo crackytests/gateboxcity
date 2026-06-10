@@ -18,6 +18,9 @@ var base_hit_chance_unmodified := 0.0
 var lock_gain_unmodified := 0.0
 var crosshair_pick_radius_unmodified := 0.0
 var lock_decay_unmodified := 0.0
+var _lock_build_sfx_timer := 0.0
+var _ready_sfx_played := false
+var _current_target_owner: Node
 
 
 func _ready() -> void:
@@ -52,25 +55,38 @@ func _apply_cybernetic_mods() -> void:
 
 func _process(delta: float) -> void:
 	var part := _raycast_body_part()
+	_lock_build_sfx_timer = maxf(_lock_build_sfx_timer - delta, 0.0)
 
 	if part != null:
+		var target_owner := _target_owner(part)
 		if part == current_part:
 			var difficulty := maxf(part.lock_difficulty_multiplier, 0.1)
 			lock_ratio += (lock_gain_per_second / difficulty) * delta
 		else:
+			var is_new_enemy := target_owner != null and target_owner != _current_target_owner
 			current_part = part
+			_current_target_owner = target_owner
 			lock_ratio = 0.08
+			_ready_sfx_played = false
+			_lock_build_sfx_timer = 0.25
+			if is_new_enemy:
+				AudioDirector.play_sfx("target_lock_begin", -6.0)
 	else:
-		lock_ratio -= lock_decay_per_second * delta
-		if lock_ratio <= 0.0:
-			current_part = null
+		if current_part != null and not _is_part_targetable(current_part):
+			_clear_lock()
+		else:
+			lock_ratio -= lock_decay_per_second * delta
+			if lock_ratio <= 0.0:
+				_clear_lock()
 
 	lock_ratio = clampf(lock_ratio, 0.0, 1.0)
 	hit_chance = _calculate_hit_chance()
+	_update_lock_sfx()
 	targeting_changed.emit(current_part, lock_ratio, hit_chance)
 
 
 func get_targeting_result() -> Dictionary:
+	_refresh_current_part_for_fire()
 	return {
 		"has_valid_part": current_part != null and not current_part.is_destroyed,
 		"body_part": current_part,
@@ -94,6 +110,36 @@ func _calculate_hit_chance() -> float:
 	return clampf(lerpf(base_hit_chance + surveillance_bonus + drug_bonus, part_max, lock_ratio), 1.0, 99.0)
 
 
+func _refresh_current_part_for_fire() -> void:
+	var fresh_part := _raycast_body_part()
+	if fresh_part == null:
+		if current_part == null or not _is_part_targetable(current_part):
+			_clear_lock()
+			lock_ratio = 0.0
+			hit_chance = 0.0
+		return
+
+	if fresh_part != current_part:
+		_current_target_owner = _target_owner(fresh_part)
+		current_part = fresh_part
+		lock_ratio = maxf(lock_ratio, 0.08)
+		_ready_sfx_played = false
+	hit_chance = _calculate_hit_chance()
+
+
+func _update_lock_sfx() -> void:
+	if current_part == null or not _is_part_targetable(current_part):
+		return
+	if lock_ratio >= 0.92:
+		if not _ready_sfx_played:
+			AudioDirector.play_sfx("target_lock_ready", -4.0)
+			_ready_sfx_played = true
+		return
+	if lock_ratio >= 0.22 and _lock_build_sfx_timer <= 0.0:
+		AudioDirector.play_sfx("target_lock_build", -11.0, lerpf(0.9, 1.08, lock_ratio))
+		_lock_build_sfx_timer = 0.48
+
+
 func _raycast_body_part() -> BodyPart:
 	if camera == null:
 		return null
@@ -109,7 +155,7 @@ func _raycast_body_part() -> BodyPart:
 	var result := camera.get_world_3d().direct_space_state.intersect_ray(query)
 	if not result.is_empty():
 		var collider := result.get("collider") as BodyPart
-		if collider != null:
+		if _is_part_targetable(collider):
 			return collider
 
 	return _find_body_part_near_crosshair(viewport_center)
@@ -121,7 +167,7 @@ func _find_body_part_near_crosshair(viewport_center: Vector2) -> BodyPart:
 
 	for node in get_tree().get_nodes_in_group("body_parts"):
 		var part := node as BodyPart
-		if part == null or part.is_destroyed or camera.is_position_behind(part.global_position):
+		if not _is_part_targetable(part) or camera.is_position_behind(part.global_position):
 			continue
 
 		var screen_position := camera.unproject_position(part.global_position)
@@ -140,3 +186,32 @@ func _find_body_part_near_crosshair(viewport_center: Vector2) -> BodyPart:
 			best_part = part
 
 	return best_part
+
+
+func _clear_lock() -> void:
+	current_part = null
+	_current_target_owner = null
+	lock_ratio = 0.0
+	hit_chance = 0.0
+	_ready_sfx_played = false
+
+
+func _is_part_targetable(part: BodyPart) -> bool:
+	if part == null or part.is_destroyed:
+		return false
+	var owner_node := _target_owner(part)
+	if owner_node != null:
+		var defeated = owner_node.get("is_defeated")
+		if defeated != null and bool(defeated):
+			return false
+	return true
+
+
+func _target_owner(part: BodyPart) -> Node:
+	if part == null:
+		return null
+	var parent := part.get_parent()
+	if parent == null:
+		return part
+	var grandparent := parent.get_parent()
+	return grandparent if grandparent != null else parent

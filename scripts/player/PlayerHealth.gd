@@ -2,7 +2,9 @@ extends Node
 class_name PlayerHealth
 
 signal health_changed(current_hp: float, max_hp: float)
-signal damaged(amount: float, current_hp: float, max_hp: float)
+# source_position: world-space origin of the hit (Vector3) for the directional indicator, or
+# null for abstract/environmental damage with no single direction.
+signal damaged(amount: float, current_hp: float, max_hp: float, source_position)
 signal died
 
 @export var max_hp := 100.0
@@ -38,7 +40,7 @@ func _process(delta: float) -> void:
 	health_changed.emit(current_hp, max_hp)
 
 
-func apply_damage(amount: float) -> void:
+func apply_damage(amount: float, source_position = null) -> void:
 	var final_amount := amount
 	if GameState.has_cybernetic("soul_baffle"):
 		final_amount *= 0.75
@@ -47,7 +49,7 @@ func apply_damage(amount: float) -> void:
 	_regen_lockout = bioreactor_combat_cooldown
 	current_hp = maxf(current_hp - final_amount, 0.0)
 	health_changed.emit(current_hp, max_hp)
-	damaged.emit(final_amount, current_hp, max_hp)
+	damaged.emit(final_amount, current_hp, max_hp, source_position)
 	if current_hp <= 0.0:
 		died.emit()
 		GameState.notify_player_died()

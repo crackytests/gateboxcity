@@ -8,8 +8,10 @@ const DEAD_FOOD_COURT_SCENE := "res://scenes/levels/DeadFoodCourtBloom.tscn"
 const WATER_CISTERN_SCENE := "res://scenes/levels/WaterReclamationCistern.tscn"
 const COLLAPSED_ATRIUM_SCENE := "res://scenes/levels/CollapsedServiceAtrium.tscn"
 const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
-const WAKE_UP_CALL_SCENE := "res://scenes/levels/Test_SubSubBasement.tscn"
 const ROCKER_FELLAR_KEEP_SCENE := "res://scenes/levels/RockerFellarKeep.tscn"
+
+# Gatebox standing needed before the Comfort Annexe (Ward 7) reads you as a Comfort Citizen.
+const COMFORT_ANNEXE_REP_GATE := 2
 
 @onready var hud: HUDController = $HUD
 @onready var player_health: PlayerHealth = $Player/PlayerHealth
@@ -223,25 +225,25 @@ func _handle_interact() -> void:
 		var did := str(focused_district_npc.npc_id)
 		if not did.is_empty() and DialogueDB.has_profile(did):
 			focused_district_npc.face_player_now()
-			hud.open_dialogue(did)
+			hud.open_dialogue(did, focused_district_npc)
 			return
 		# Unprofiled residents keep their world-reactive bark, shown in the dialogue frame.
 		var line: Dictionary = focused_district_npc.interact()
-		hud.open_statement(str(line["name"]), str(line["text"]))
+		hud.open_statement(str(line["name"]), str(line["text"]), focused_district_npc)
 		return
 
 	if focused_npc != null:
 		var nid := str(focused_npc.npc_id)
 		if not nid.is_empty() and DialogueDB.has_profile(nid):
 			focused_npc.face_player_now()
-			hud.open_dialogue(nid)
+			hud.open_dialogue(nid, focused_npc)
 			return
 		var line: Dictionary = focused_npc.interact()
 		var speaker := str(line["name"])
 		var text := str(line["text"])
 		if speaker == "System X":
 			text += "\n" + "\n".join(WorldDirector.get_event_status_lines())
-		hud.open_statement(speaker, text)
+		hud.open_statement(speaker, text, focused_npc)
 		_refresh_hud()
 		return
 
@@ -319,6 +321,8 @@ func _on_district_dialogue_service(_npc_id: String, service_id: String) -> void:
 			hud.open_shop("Brickmouth Ronnie — Pharmacy", _ronnie_offers())
 		"cybernetics":
 			hud.open_cybernetics()   # Coil installs implants you're carrying, paid in Wan Notes
+		"repair_implants":
+			hud.open_shop("Ladderboy — Broken Implant Bench", GameState.get_ladderboy_implant_repair_offers())
 
 
 func _on_district_dialogue_closed() -> void:
@@ -389,7 +393,7 @@ func _handle_active_cooters_mutant() -> void:
 		_on_rain_mutant_containment_ready()
 		return
 
-	var hint := "Shoot the Rain Sac and Mobility Frame, then drag it onto the magenta Cooters pad."
+	var hint := "Shoot the Rain Sac and Mobility Frame, then drag it near the Cooters door."
 	if rain_mutant != null and is_instance_valid(rain_mutant) and rain_mutant.has_method("get_containment_hint"):
 		hint = str(rain_mutant.get_containment_hint())
 	hud.show_dialogue("Marbles", hint)
@@ -530,6 +534,7 @@ func _apply_world_lighting() -> void:
 				gen_mat.emission_energy_multiplier = 1.2
 
 	if is_sag:
+		AudioDirector.set_generator_sag_active(true)
 		generator_light.light_energy *= 0.15
 		generator_light.light_color = Color(0.6, 0.3, 0.05)
 		sky_light.light_energy *= 0.12
@@ -548,6 +553,7 @@ func _apply_world_lighting() -> void:
 			hud.push_log("power sag: district lights failing")
 		_last_lighting_event = "power_sag"
 	elif is_lan:
+		AudioDirector.set_generator_sag_active(false)
 		generator_light.light_energy *= 0.6
 		generator_light.light_color = Color(1.0, 0.5, 0.0)
 		sky_light.light_energy *= 0.5
@@ -563,6 +569,7 @@ func _apply_world_lighting() -> void:
 			gen_mat.emission_energy_multiplier = 2.0
 		_last_lighting_event = "lan_outage"
 	else:
+		AudioDirector.set_generator_sag_active(false)
 		sky_light.light_color = Color(0.22, 0.95, 0.82)
 		_set_zone_light(torai_light, 1.7, Color(0.1, 1.0, 0.45))
 		_set_zone_light(slum_light, 1.4, Color(1.0, 0.45, 0.08))
@@ -1042,7 +1049,7 @@ func _get_objective_text() -> String:
 	if not GameState.active_job_id.is_empty():
 		return "Cooters job: %s" % GameState.get_active_job_objective_text()
 	if bool(GameState.get_world_flag("cooters_rain_mutant_active", false)):
-		return "Cooters emergency: rupture the mutant's key parts, drag it onto the magenta pad, then press E at Cooters."
+		return "Cooters emergency: rupture the mutant's key parts, drag it near the door, then press E at Cooters."
 	if GameState.is_dreaming_generator_failing():
 		if GameState.get_sellable_wasted_potential_items().is_empty():
 			return "District: take jobs, salvage wasted potential, then sell it to Pipe Father Gideon."
@@ -1121,23 +1128,19 @@ func _get_travel_routes() -> Array:
 		"locked": false,
 		"locked_reason": "",
 	})
-	routes.append({
-		"id": "wake_up_call",
-		"title": "Wake-Up Call",
-		"description": "Re-enter the authored mission cell. Very official, very dramatic, bring your best bad decisions.",
-		"target_scene": WAKE_UP_CALL_SCENE,
-		"locked": GameState.is_dreaming_generator_failing(),
-		"locked_reason": "Sell wasted-potential loot to Pipe Father Gideon to feed the Dreaming Generator first.",
-	})
-	# Comfort Annexe (Ward 7) — always reachable; the route into the next
-	# district passes close. No quest gate; the player investigates or doesn't.
+	# (Wake-Up Call moved out of the travel gate — it's now a dream reached through the
+	# DreamGate door in the Faded Atrium hub. See MallHub._apply_gate_visibility.)
+	# Comfort Annexe (Ward 7) — a Gatebox Pacification Ward. Reaching it takes Gatebox clearance:
+	# you have to have played their game (complied at checkpoints, paid their levies) enough that
+	# their door reads you as a Comfort Citizen rather than an intruder.
+	var gatebox_rep := int(GameState.reputation.get("Gatebox Corporation", 0))
 	routes.append({
 		"id": "comfort_annexe",
 		"title": "Comfort Annexe (Ward 7)",
 		"description": "A Gatebox Pacification Ward up the line. People in the Basement say something wrong-shaped came out of it, wearing pod-issue clothing.",
 		"target_scene": "res://scenes/levels/ComfortAnnexe_Reception.tscn",
-		"locked": false,
-		"locked_reason": "",
+		"locked": gatebox_rep < COMFORT_ANNEXE_REP_GATE,
+		"locked_reason": "Gatebox clearance required. Play their game — comply at their checkpoints, pay their levies — until the ward reads you as a Comfort Citizen.",
 	})
 	# Bone Dividend Vault — Big Gates soul-accounting vault; appears once the
 	# informant marks it (after you take the lead with the Ward 7 evidence).
@@ -1196,6 +1199,7 @@ func _on_travel_route_selected(route_id: String) -> void:
 	GameState.last_mission_result = "Travel to %s: %s" % [route_title, card_title]
 	hud.push_log("travel event: %s" % card_title.to_lower())
 	GameState.set_world_flag("visited_" + route_id, true)
+	GameState.autosave()
 	get_tree().change_scene_to_file(str(selected.get("target_scene", "")))
 
 
@@ -1274,8 +1278,8 @@ func _sync_dreaming_generator_state() -> void:
 
 
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

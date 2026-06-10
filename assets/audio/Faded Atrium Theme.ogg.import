@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://wf6rudh87rud"
+path="res://.godot/imported/Faded Atrium Theme.ogg-04c7c83ece866b53db48de0fde931876.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Faded Atrium Theme.ogg"
+dest_files=["res://.godot/imported/Faded Atrium Theme.ogg-04c7c83ece866b53db48de0fde931876.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

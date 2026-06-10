@@ -48,6 +48,11 @@ func face_player_now() -> void:
 		look_at(look_target, Vector3.UP)
 
 
+func set_dialogue_locked(locked: bool) -> void:
+	if locked:
+		face_player_now()
+
+
 func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		focus_changed.emit(self, true)

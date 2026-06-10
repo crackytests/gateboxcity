@@ -154,6 +154,21 @@ He remembers pieces of impossible things:
 
 He does not begin the game with a clean explanation of who he is or why he matters. His identity should unfold through play.
 
+### 5.4 Spooky Ghost's Body and Look (GATEBOX BREACH)
+
+In **GATEBOX BREACH**, Spooky Ghost does not start in his own body. He wakes inside a **foreign android body** that Pipe Father Gideon had written off as dead hardware — sheeted, dumped in a bin in a back storage nook of the Faded Atrium, and left for parts. The body springs to life with Spooky's soul in it.
+
+The defining visual: **he looks like a classic bedsheet ghost.** Gideon's burial shroud did not slide off when he woke — it **merged** with the android shell ("cloth to chrome, chrome to cloth, until the seam stops being a seam"), settling into a sheet-draped figure with two worn eyeholes. He cannot take it off; it is now part of him. This is why he is called **Spooky Ghost** in-world, not just in the meta-lore — he is, literally and ridiculously, a ghost.
+
+Writing notes:
+
+- **It's a running gag, played for comic relief.** NPCs notice the sheet and frequently ask about it, or pointedly decide *not* to ask. Spooky is evasive, vain, and self-dramatizing about it — he treats the costume as either beneath comment or secretly perfect. He never gives a straight answer about the sheet.
+- The gag should stay **light**, and should be skipped for tonally heavy characters (e.g. the Ward 7 survivor) and the campaign spine.
+- Underneath the sheet he is an android, with all that implies (he reads "strange/layered" to AIs like Vessel; corporate scanners and factions don't have a clean category for him; he doesn't bleed, he leaks coolant).
+- The look is honest in a way Spooky himself usually isn't — a haunted performer who has, for once, a costume that tells the truth.
+
+Implementation reference: the wakeup plays once on a new game (`MallHub._play_intro`); per-NPC startled first meetings and occasional recurring sheet asides live in `DialogueDB` (`first_greeting` fields + the `SHEET_QUIPS` pool).
+
 ---
 
 ## 6. Spooky Ghost's Return

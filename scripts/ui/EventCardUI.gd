@@ -10,6 +10,7 @@ signal closed
 
 var _card: Dictionary = {}
 var _resolved := false
+var _expired := false
 var _title: Label
 var _body: RichTextLabel
 var _choice_box: VBoxContainer
@@ -23,8 +24,10 @@ func _ready() -> void:
 
 
 func open(card: Dictionary) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_card = card
 	_resolved = false
+	_expired = false
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -37,6 +40,9 @@ func open(card: Dictionary) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -2.0)
+		_autosave_if_travel_card()
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -47,11 +53,11 @@ func is_open() -> bool:
 	return visible
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not visible:
 		return
-	# ESC only exits once resolved (so you can't peek-and-dodge an unresolved check).
-	if event.is_action_pressed("ui_cancel") and _resolved:
+	# ESC only exits once the result is showing (so you can't peek-and-dodge an unresolved check).
+	if event.is_action_pressed("ui_cancel") and _continue_btn.visible:
 		_on_continue()
 		get_viewport().set_input_as_handled()
 
@@ -89,6 +95,7 @@ func _on_choice(index: int) -> void:
 	if index < 0 or index >= choices.size():
 		return
 	var ch: Dictionary = choices[index]
+	AudioDirector.play_sfx("dialogue_next", -3.0)
 	for child in _choice_box.get_children():
 		child.queue_free()
 	_body.append_text("\n\n[color=#66e0ff]> %s[/color]" % str(ch.get("label", "")))
@@ -114,14 +121,31 @@ func _resolve_branch(branch: Dictionary) -> void:
 	if not text.is_empty():
 		_body.append_text("\n\n%s" % text)
 	EventDeckSystem.apply_effects(branch.get("effects", []))
+	AudioDirector.play_sfx("quest_update", -3.0)
+	_expire_current_card()
 	_continue_btn.visible = true
 
 
 func _on_continue() -> void:
 	if not _resolved:
 		_resolved = true
-		EventDeckSystem.expire_card(_card)
+		_expire_current_card()
 	close()
+
+
+func _expire_current_card() -> void:
+	if _expired:
+		return
+	_expired = true
+	EventDeckSystem.expire_card(_card)
+
+
+func _autosave_if_travel_card() -> void:
+	var contexts = _card.get("contexts", [])
+	if contexts is Array and contexts.has("travel"):
+		GameState.autosave()
+	elif contexts is PackedStringArray and contexts.has("travel"):
+		GameState.autosave()
 
 
 func _build_ui() -> void:

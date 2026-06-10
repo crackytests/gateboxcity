@@ -28,6 +28,7 @@ const COOTERS_INTERIOR_SCENE := "res://scenes/levels/CootersInterior.tscn"
 const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
 const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
 const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
+const ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 
 @onready var hud: HUDController = $HUD
 @onready var player: Node3D = $Player
@@ -51,6 +52,7 @@ var _mat_metal: StandardMaterial3D
 var _mat_tile: StandardMaterial3D
 var _mat_menu: StandardMaterial3D
 var _mat_column: StandardMaterial3D
+var _atlas_cutout_cache: Dictionary = {}
 
 
 func _ready() -> void:
@@ -122,6 +124,7 @@ func _spawn_enemies() -> void:
 	var splice_4 := SPLICE_SCENE.instantiate()
 	splice_4.name = "SpliceKitchen"
 	splice_4.position = Vector3(17, 1.05, -4)
+	splice_4.persistence_id = "dead_food_court_bloom:splice_kitchen"
 	splice_4.add_to_group("splice")
 	splice_4.pack_id = "foodcourt_splices"
 	splice_4.item_dropped.connect(_on_splice_item_dropped)
@@ -135,6 +138,7 @@ func _spawn_enemies() -> void:
 	var splice_5 := SPLICE_SCENE.instantiate()
 	splice_5.name = "SpliceBreach"
 	splice_5.position = Vector3(18, 1.05, -24)
+	splice_5.persistence_id = "dead_food_court_bloom:splice_breach"
 	splice_5.add_to_group("splice")
 	splice_5.pack_id = "foodcourt_splices"
 	splice_5.item_dropped.connect(_on_splice_item_dropped)
@@ -144,23 +148,26 @@ func _spawn_enemies() -> void:
 		Vector3(20, 1.05, -26), Vector3(18, 1.05, -20),
 	]))
 
-	# Splice in south entry court
+	# Splice at the main court edge. Keep the south entry/shelter quiet on arrival;
+	# the old patrol started ~7u from the player spawn and could wake the pack instantly.
 	var splice_6 := SPLICE_SCENE.instantiate()
 	splice_6.name = "SpliceEntry"
-	splice_6.position = Vector3(-8, 1.05, 16)
+	splice_6.position = Vector3(-14, 1.05, 4)
+	splice_6.persistence_id = "dead_food_court_bloom:splice_entry"
 	splice_6.add_to_group("splice")
 	splice_6.pack_id = "foodcourt_splices"
 	splice_6.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice_6)
 	splice_6.set_patrol_points(_make_patrol_points([
-		Vector3(-8, 1.05, 16), Vector3(-4, 1.05, 20),
-		Vector3(4, 1.05, 18), Vector3(0, 1.05, 14),
+		Vector3(-14, 1.05, 4), Vector3(-12, 1.05, -2),
+		Vector3(-8, 1.05, -6), Vector3(-16, 1.05, -8),
 	]))
 
 	# Splice in storage room
 	var splice_7 := SPLICE_SCENE.instantiate()
 	splice_7.name = "SpliceStorage"
 	splice_7.position = Vector3(-18, 1.05, -24)
+	splice_7.persistence_id = "dead_food_court_bloom:splice_storage"
 	splice_7.add_to_group("splice")
 	splice_7.pack_id = "foodcourt_splices"
 	splice_7.item_dropped.connect(_on_splice_item_dropped)
@@ -292,18 +299,22 @@ func _on_splice_item_dropped(item_name: String) -> void:
 func _build_materials() -> void:
 	_mat_floor = _make_mat(Color(0.48, 0.44, 0.38), Color(0.06, 0.05, 0.03), 0.12, "res://assets/textures/bloom/food_court_floor.png", Vector3(14, 16, 1))
 	_mat_wall = _make_mat(Color(0.38, 0.42, 0.36), Color(0.04, 0.06, 0.03), 0.10, "res://assets/textures/bloom/food_court_wall.png", Vector3(12, 6, 1))
-	_mat_growth = _make_mat(Color(0.06, 0.16, 0.04), Color(0.12, 0.65, 0.05), 0.95, "res://assets/textures/bloom/bio_bloom_growth.png", Vector3(6, 6, 1))
+	_mat_growth = _make_mat(Color(0.06, 0.16, 0.04), Color(0.35, 1.0, 0.18), 0.7, "res://assets/textures/bloom/bio_bloom_growth.png", Vector3(6, 6, 1))
+	# Make the glow follow the bio texture instead of a flat green fill (otherwise
+	# the emission washes every growth box to a solid neon block).
+	_mat_growth.emission_texture = _mat_growth.albedo_texture
+	_mat_growth.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
 	_mat_ring = _make_mat(Color(0.45, 0.48, 0.42), Color(0.02, 0.04, 0.02), 0.08, "res://assets/textures/shared/metal_catwalk_grating.png", Vector3(10, 10, 1))
 	_mat_neon = _make_mat(Color(0.02, 0.12, 0.04), Color(0.1, 0.9, 0.05), 1.4, "", Vector3.ONE)
 	_mat_rain = _make_mat(Color(0.0, 1.0, 0.5, 0.42), Color(0.0, 1.0, 0.5), 1.2, "", Vector3.ONE)
 	_mat_rain.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	_mat_grease = _make_mat(Color(0.18, 0.14, 0.08), Color(0.06, 0.04, 0.01), 0.15, "", Vector3(4, 4, 1))
+	_mat_grease = _make_mat(Color(0.18, 0.14, 0.08), Color(0.06, 0.04, 0.01), 0.15, "res://assets/textures/grease_slick.png", Vector3(4, 4, 1))
 	_mat_grease.roughness = 0.12
 	_mat_grease.metallic = 0.3
-	_mat_metal = _make_mat(Color(0.3, 0.32, 0.28), Color(0.02, 0.03, 0.01), 0.06, "", Vector3.ONE)
-	_mat_tile = _make_mat(Color(0.52, 0.50, 0.46), Color(0.04, 0.04, 0.02), 0.08, "", Vector3(6, 6, 1))
+	_mat_metal = _make_mat(Color(0.3, 0.32, 0.28), Color(0.02, 0.03, 0.01), 0.06, "res://assets/textures/scuffed_machine_metal.png", Vector3(2, 2, 1))
+	_mat_tile = _make_mat(Color(0.52, 0.50, 0.46), Color(0.04, 0.04, 0.02), 0.08, "res://assets/textures/food_court_table.png", Vector3(6, 6, 1))
 	_mat_menu = _make_mat(Color(0.05, 0.04, 0.03), Color(0.9, 0.6, 0.15), 1.8, "", Vector3.ONE)
-	_mat_column = _make_mat(Color(0.42, 0.40, 0.38), Color(0.03, 0.03, 0.02), 0.04, "", Vector3.ONE)
+	_mat_column = _make_mat(Color(0.42, 0.40, 0.38), Color(0.03, 0.03, 0.02), 0.04, "res://assets/textures/concrete_column.png", Vector3(1, 4, 1))
 
 
 # ─── GEOMETRY ─────────────────────────────────────────────────────────────
@@ -641,38 +652,46 @@ func _build_vendor_stalls() -> void:
 			_add_visual_box("QueuePostA%d_%d" % [i, roundi(post_z * 10.0)], Vector3(0.22, 0.8, 0.22), Vector3(-13.0, 0.4, post_z), _mat_metal)
 			_add_visual_box("QueuePostB%d_%d" % [i, roundi(post_z * 10.0)], Vector3(0.22, 0.8, 0.22), Vector3(-17.8, 0.4, post_z), _mat_metal)
 
-	# Broken overhead sign bands give the row a readable food-court silhouette.
-	for data: Array in [
-		[Vector3(-20.6, 2.35, -10.0), Vector3(4.8, 0.7, 0.15)],
-		[Vector3(-20.6, 2.35, -5.0), Vector3(4.8, 0.7, 0.15)],
-		[Vector3(-20.6, 2.35, 0.0), Vector3(4.8, 0.7, 0.15)],
-		[Vector3(-20.6, 2.35, 5.0), Vector3(4.8, 0.7, 0.15)],
-		[Vector3(-20.6, 2.35, 10.0), Vector3(4.8, 0.7, 0.15)],
-	]:
-		_add_visual_box("VendorSignBand", data[1] as Vector3, data[0] as Vector3, _mat_menu)
+	# Broken overhead sign bands give the row a readable food-court silhouette —
+	# each lit with a vendor sign cell from the food_court_props_atlas.
+	const VENDOR_ATLAS := "res://assets/textures/food_court_props_atlas.png"
+	var band_cells := [[1, 0], [2, 0], [0, 0], [2, 2], [0, 3]]
+	var bands := [
+		Vector3(-20.6, 2.35, -10.0),
+		Vector3(-20.6, 2.35, -5.0),
+		Vector3(-20.6, 2.35, 0.0),
+		Vector3(-20.6, 2.35, 5.0),
+		Vector3(-20.6, 2.35, 10.0),
+	]
+	for i: int in range(bands.size()):
+		var cell: Array = band_cells[i % band_cells.size()]
+		# Spans 4.8 along X above the vendor counters, facing the south aisle.
+		_add_atlas_decal("VendorSignBand", VENDOR_ATLAS, int(cell[0]), int(cell[1]), 4.8, 0.7, bands[i], "z+", 1.2)
 
 
 func _build_menu_boards() -> void:
-	# Glowing menu boards on walls — cycling old food ads through bio-moss
-	for data: Array in [
-		[Vector3(-23.8, 3.5, 4), Vector3(0.08, 1.5, 2.5)],
-		[Vector3(-23.8, 3.5, -4), Vector3(0.08, 1.5, 2.5)],
-		[Vector3(-23.8, 3.5, -14), Vector3(0.08, 1.5, 2.5)],
-		[Vector3(-10.2, 3.0, 8), Vector3(2.5, 1.2, 0.08)],
-		[Vector3(10.2, 3.0, 8), Vector3(2.5, 1.2, 0.08)],
-		[Vector3(-23.8, 3.5, -22), Vector3(0.08, 1.5, 2.5)],
-		[Vector3(23.8, 3.0, -6), Vector3(0.08, 1.2, 2.0)],
-		[Vector3(23.8, 3.0, 4), Vector3(0.08, 1.2, 2.0)],
-		[Vector3(-4, 6.0, 12), Vector3(3.0, 1.5, 0.08)],
-		[Vector3(4, 6.0, 12), Vector3(3.0, 1.5, 0.08)],
-	]:
-		var board := MeshInstance3D.new()
-		board.name = "MenuBoard"
-		board.mesh = BoxMesh.new()
-		board.mesh.size = data[1] as Vector3
-		board.position = data[0] as Vector3
-		board.set_surface_override_material(0, _mat_menu)
-		add_child(board)
+	# Glowing menu boards on walls — each samples a different cell of the
+	# food_court_props_atlas (McCruds, Burger Me, Mega Combo, directory, CEO Linda
+	# closure notice, Glop Star, deals board, etc.).
+	const ATLAS := "res://assets/textures/food_court_props_atlas.png"
+	var cells := [[0, 0], [1, 0], [2, 0], [2, 1], [3, 1], [2, 2], [0, 3], [1, 1]]
+	# [position, width, height, facing]
+	var boards := [
+		[Vector3(-23.78, 3.5, 4), 2.5, 1.5, "x+"],
+		[Vector3(-23.78, 3.5, -4), 2.5, 1.5, "x+"],
+		[Vector3(-23.78, 3.5, -14), 2.5, 1.5, "x+"],
+		[Vector3(-10.18, 3.0, 8), 2.5, 1.2, "z-"],
+		[Vector3(10.18, 3.0, 8), 2.5, 1.2, "z-"],
+		[Vector3(-23.78, 3.5, -22), 2.5, 1.5, "x+"],
+		[Vector3(23.78, 3.0, -6), 2.0, 1.2, "x-"],
+		[Vector3(23.78, 3.0, 4), 2.0, 1.2, "x-"],
+		[Vector3(-4, 6.0, 11.95), 3.0, 1.5, "z+"],
+		[Vector3(4, 6.0, 11.95), 3.0, 1.5, "z+"],
+	]
+	for i: int in range(boards.size()):
+		var data: Array = boards[i]
+		var cell: Array = cells[i % cells.size()]
+		_add_atlas_decal("MenuBoard", ATLAS, int(cell[0]), int(cell[1]), float(data[1]), float(data[2]), data[0] as Vector3, str(data[3]), 1.4)
 
 
 func _build_bio_flora_props() -> void:
@@ -1012,9 +1031,65 @@ func _make_mat(albedo: Color, emission: Color, emission_energy: float, texture_p
 	return mat
 
 
+# Copies one 4x4 atlas cell into a texture and keys near-black pixels transparent, matching
+# Leak Street's atlas panels so signage does not carry square black backgrounds.
+func _atlas_cutout_texture(path: String, col: int, row: int) -> Texture2D:
+	var cache_key := "%s:%d:%d" % [path, col, row]
+	if _atlas_cutout_cache.has(cache_key):
+		return _atlas_cutout_cache[cache_key]
+	if path.is_empty() or not ResourceLoader.exists(path):
+		return null
+	var texture: Texture2D = load(path)
+	if texture == null:
+		return null
+	var source := texture.get_image()
+	if source == null:
+		return texture
+	var cell_size := Vector2i(floori(float(source.get_width()) / 4.0), floori(float(source.get_height()) / 4.0))
+	var crop_rect := Rect2i(Vector2i(col * cell_size.x, row * cell_size.y), cell_size).intersection(Rect2i(Vector2i.ZERO, source.get_size()))
+	if crop_rect.size.x <= 0 or crop_rect.size.y <= 0:
+		return texture
+	var cutout := Image.create(crop_rect.size.x, crop_rect.size.y, false, Image.FORMAT_RGBA8)
+	for y in range(crop_rect.size.y):
+		for x in range(crop_rect.size.x):
+			var color := source.get_pixel(crop_rect.position.x + x, crop_rect.position.y + y)
+			if maxf(maxf(color.r, color.g), color.b) <= ATLAS_BLACK_ALPHA_CUTOFF:
+				color.a = 0.0
+			cutout.set_pixel(x, y, color)
+	var cutout_texture := ImageTexture.create_from_image(cutout)
+	_atlas_cutout_cache[cache_key] = cutout_texture
+	return cutout_texture
+
+
+# Flat atlas sign rendered as a Sprite3D cutout so near-black atlas backgrounds vanish.
+# `facing` aims the front face into the room: "z+", "z-", "x+", "x-".
+func _add_atlas_decal(node_name: String, atlas_path: String, col: int, row: int, width: float, height: float, world_position: Vector3, facing: String, _energy := 1.0, extra_yaw_deg := 0.0) -> void:
+	var sprite := Sprite3D.new()
+	sprite.name = node_name
+	sprite.position = world_position
+	var yaw := 0.0
+	match facing:
+		"z-": yaw = 180.0
+		"x+": yaw = 90.0
+		"x-": yaw = -90.0
+		_: yaw = 0.0
+	sprite.rotation_degrees = Vector3(0, yaw + extra_yaw_deg, 0)
+	sprite.texture = _atlas_cutout_texture(atlas_path, col, row)
+	if sprite.texture != null:
+		sprite.pixel_size = width / maxf(float(sprite.texture.get_width()), 1.0)
+		var rendered_height := float(sprite.texture.get_height()) * sprite.pixel_size
+		if rendered_height > 0.0:
+			sprite.scale.y = height / rendered_height
+	sprite.shaded = false
+	sprite.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
+	sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	sprite.add_to_group("district_atlas_panel")
+	add_child(sprite)
+
+
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

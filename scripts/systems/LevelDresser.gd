@@ -21,6 +21,7 @@ const TEX_PROPS := "res://assets/textures/leak_street/props_atlas.png"
 const TEX_HAZARDS := "res://assets/textures/leak_street/hazard_signs_atlas.png"
 const SHELTER_ZONE_SCRIPT := preload("res://scripts/systems/ShelterZone.gd")
 const LADDER_ZONE_SCRIPT := preload("res://scripts/systems/LadderZone.gd")
+const ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 
 var mat_dark: StandardMaterial3D
 var mat_rust: StandardMaterial3D
@@ -30,6 +31,7 @@ var mat_cyan: StandardMaterial3D
 var mat_white: StandardMaterial3D
 var mat_gold: StandardMaterial3D
 var mat_glass: StandardMaterial3D
+var _atlas_cutout_cache: Dictionary = {}
 
 
 func _ready() -> void:
@@ -125,6 +127,7 @@ func _dress_sub_basement_district(root: Node3D) -> void:
 	_add_arcade_canopy(root)
 	_add_arcade_facades(root)
 	_add_arcade_signs(root)
+	_add_arcade_lived_in_atlas_dressing(root)
 	_add_arcade_catwalk(root)
 	_add_arcade_depth_silhouettes(root)
 	_add_generator_streetlights(root)
@@ -487,6 +490,106 @@ func _add_arcade_signs(root: Node3D) -> void:
 	_add_atlas_panel(root, "PropsServerRackA", Vector3(-10.0, 1.45, -16.0), Vector2(0.72, 1.35), 90.0, TEX_PROPS, Rect2(450, 10, 315, 455), Color(0.0, 0.8, 1.0), 0.16)
 
 
+func _add_arcade_lived_in_atlas_dressing(root: Node3D) -> void:
+	_add_patchwork_storefront_layers(root)
+	_add_sidewalk_prop_clusters(root)
+	_add_market_habitation_layers(root)
+	_add_lan_and_service_clutter(root)
+	_add_overhead_tarp_and_neon_layers(root)
+
+
+func _add_patchwork_storefront_layers(root: Node3D) -> void:
+	var layers := [
+		{"name": "EastBoardedDoor_Cooters", "pos": Vector3(10.28, 1.42, -14.0), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(405, 16, 122, 255)},
+		{"name": "EastGreenDoor_Service", "pos": Vector3(10.28, 1.42, -5.2), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(795, 16, 125, 255)},
+		{"name": "EastPatchDoor_Market", "pos": Vector3(10.28, 1.42, 4.8), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(668, 16, 124, 255)},
+		{"name": "WestTealDoor_Lan", "pos": Vector3(-10.28, 1.42, -17.2), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(20, 16, 123, 255)},
+		{"name": "WestPinkDoor_SuitorsBack", "pos": Vector3(-10.28, 1.42, -4.8), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(535, 16, 124, 255)},
+		{"name": "WestBrownDoor_PipeRoom", "pos": Vector3(-10.28, 1.42, 16.2), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(280, 16, 122, 255)},
+		{"name": "EastSmallWindowA", "pos": Vector3(10.2, 1.72, -17.9), "size": Vector2(1.55, 1.0), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(20, 405, 178, 116)},
+		{"name": "EastSmallWindowB", "pos": Vector3(10.2, 1.72, 0.0), "size": Vector2(1.55, 1.0), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(210, 405, 176, 116)},
+		{"name": "WestMeshWindowA", "pos": Vector3(-10.2, 1.72, -9.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(585, 405, 180, 116)},
+		{"name": "WestBoardedWindowB", "pos": Vector3(-10.2, 1.72, 7.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(775, 405, 178, 116)},
+		{"name": "EastVentStack", "pos": Vector3(10.16, 2.55, -2.5), "size": Vector2(1.45, 0.95), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(985, 18, 245, 150)},
+		{"name": "WestVentStack", "pos": Vector3(-10.16, 2.55, 1.8), "size": Vector2(1.45, 0.95), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(990, 172, 245, 140)},
+	]
+	for layer in layers:
+		_add_atlas_panel(root, str(layer["name"]), layer["pos"], layer["size"], float(layer["yaw"]), str(layer["tex"]), layer["rect"])
+
+
+func _add_sidewalk_prop_clusters(root: Node3D) -> void:
+	var props := [
+		{"name": "CootersBlueBarrel", "pos": Vector3(9.82, 0.82, -12.8), "size": Vector2(0.72, 1.18), "yaw": -90.0, "rect": Rect2(16, 460, 105, 225)},
+		{"name": "CootersYellowBarrel", "pos": Vector3(9.82, 0.82, -8.4), "size": Vector2(0.72, 1.18), "yaw": -90.0, "rect": Rect2(125, 595, 105, 225)},
+		{"name": "CootersCratePile", "pos": Vector3(9.78, 0.62, -6.8), "size": Vector2(1.15, 0.72), "yaw": -90.0, "rect": Rect2(374, 870, 142, 100)},
+		{"name": "MarketWaterTank", "pos": Vector3(9.78, 1.0, 6.4), "size": Vector2(1.18, 1.55), "yaw": -90.0, "rect": Rect2(390, 490, 170, 210)},
+		{"name": "MarketGreenTank", "pos": Vector3(9.78, 1.0, 10.7), "size": Vector2(1.18, 1.55), "yaw": -90.0, "rect": Rect2(580, 490, 170, 210)},
+		{"name": "MarketChairTeal", "pos": Vector3(9.76, 0.72, 12.2), "size": Vector2(0.62, 1.05), "yaw": -90.0, "rect": Rect2(1040, 760, 70, 172)},
+		{"name": "MarketChairPink", "pos": Vector3(9.76, 0.72, 15.0), "size": Vector2(0.62, 1.05), "yaw": -90.0, "rect": Rect2(1192, 760, 70, 172)},
+		{"name": "PipeChapelRationCrate", "pos": Vector3(-9.78, 0.62, 10.4), "size": Vector2(1.12, 0.72), "yaw": 90.0, "rect": Rect2(520, 870, 145, 100)},
+		{"name": "PipeChapelBlackCase", "pos": Vector3(-9.78, 0.62, 13.8), "size": Vector2(1.18, 0.72), "yaw": 90.0, "rect": Rect2(672, 870, 180, 100)},
+		{"name": "AlleyCrateBlue", "pos": Vector3(-9.82, 0.65, -18.3), "size": Vector2(0.9, 0.8), "yaw": 90.0, "rect": Rect2(15, 770, 115, 120)},
+		{"name": "AlleyCrateGreen", "pos": Vector3(-9.82, 0.65, -11.8), "size": Vector2(0.9, 0.8), "yaw": 90.0, "rect": Rect2(250, 770, 115, 120)},
+		{"name": "StreetGaugePanel", "pos": Vector3(10.04, 1.2, 2.2), "size": Vector2(0.82, 1.1), "yaw": -90.0, "rect": Rect2(1060, 510, 178, 190)},
+		{"name": "ServiceFanPanel", "pos": Vector3(-10.04, 1.25, 4.8), "size": Vector2(0.86, 1.0), "yaw": 90.0, "rect": Rect2(1005, 1085, 120, 145)},
+	]
+	for prop in props:
+		_add_atlas_panel(root, str(prop["name"]), prop["pos"], prop["size"], float(prop["yaw"]), TEX_PROPS, prop["rect"])
+
+
+func _add_market_habitation_layers(root: Node3D) -> void:
+	var panels := [
+		{"name": "MarketBlueCurtain", "pos": Vector3(9.9, 1.55, 5.2), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(460, 735, 175, 105)},
+		{"name": "MarketStripedCurtain", "pos": Vector3(9.9, 1.55, 7.2), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(650, 735, 175, 105)},
+		{"name": "MarketHazardCurtain", "pos": Vector3(9.9, 1.55, 11.7), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(835, 735, 180, 105)},
+		{"name": "WestSleepingTarpBlue", "pos": Vector3(-9.9, 1.42, 2.4), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(18, 900, 144, 95)},
+		{"name": "WestSleepingTarpBrown", "pos": Vector3(-9.9, 1.42, 5.8), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(168, 900, 144, 95)},
+		{"name": "WestSleepingTarpGreen", "pos": Vector3(-9.9, 1.42, 9.2), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(318, 900, 144, 95)},
+		{"name": "EastPatchPlateBlue", "pos": Vector3(10.18, 1.48, -1.8), "size": Vector2(1.35, 1.35), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(18, 560, 165, 180)},
+		{"name": "EastPatchPlatePink", "pos": Vector3(10.18, 1.48, 13.8), "size": Vector2(1.35, 1.35), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(198, 560, 165, 180)},
+		{"name": "WestPatchPlateGray", "pos": Vector3(-10.18, 1.48, -18.0), "size": Vector2(1.35, 1.35), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(385, 560, 165, 180)},
+		{"name": "WestPatchPlateGreen", "pos": Vector3(-10.18, 1.48, 18.0), "size": Vector2(1.35, 1.35), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(760, 560, 165, 180)},
+	]
+	for panel in panels:
+		_add_atlas_panel(root, str(panel["name"]), panel["pos"], panel["size"], float(panel["yaw"]), str(panel["tex"]), panel["rect"])
+
+
+func _add_lan_and_service_clutter(root: Node3D) -> void:
+	var panels := [
+		{"name": "LanServerRackB", "pos": Vector3(-9.82, 1.58, -15.0), "size": Vector2(0.85, 1.95), "yaw": 90.0, "rect": Rect2(620, 18, 150, 420)},
+		{"name": "LanServerRackC", "pos": Vector3(-9.82, 1.58, -12.5), "size": Vector2(0.85, 1.95), "yaw": 90.0, "rect": Rect2(780, 18, 145, 420)},
+		{"name": "LanMonitorBankA", "pos": Vector3(-9.78, 1.45, -18.5), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(16, 16, 135, 135)},
+		{"name": "LanMonitorBankB", "pos": Vector3(-9.78, 1.45, -10.2), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(160, 160, 135, 135)},
+		{"name": "LanMonitorBankC", "pos": Vector3(-9.78, 1.45, -7.8), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(305, 16, 135, 135)},
+		{"name": "CootersVendingMachine", "pos": Vector3(9.82, 1.65, -15.4), "size": Vector2(1.05, 2.05), "yaw": -90.0, "rect": Rect2(960, 20, 260, 430)},
+		{"name": "ToraiPaymentBox", "pos": Vector3(9.82, 1.35, 9.8), "size": Vector2(0.72, 1.25), "yaw": -90.0, "rect": Rect2(1150, 1040, 90, 205)},
+		{"name": "PipeControlBoxA", "pos": Vector3(-9.82, 1.35, 15.2), "size": Vector2(0.72, 1.25), "yaw": 90.0, "rect": Rect2(1045, 1040, 90, 205)},
+	]
+	for panel in panels:
+		_add_atlas_panel(root, str(panel["name"]), panel["pos"], panel["size"], float(panel["yaw"]), TEX_PROPS, panel["rect"])
+
+
+func _add_overhead_tarp_and_neon_layers(root: Node3D) -> void:
+	var awnings := [
+		{"name": "CootersPatchAwning", "pos": Vector3(9.88, 2.38, -8.5), "size": Vector2(1.95, 0.72), "yaw": -90.0, "rect": Rect2(392, 294, 185, 86)},
+		{"name": "ToraiRustAwning", "pos": Vector3(9.88, 2.38, 5.2), "size": Vector2(1.95, 0.72), "yaw": -90.0, "rect": Rect2(206, 294, 175, 80)},
+		{"name": "LanBlueAwning", "pos": Vector3(-9.88, 2.38, -15.8), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(18, 294, 178, 86)},
+		{"name": "SuitorsPinkAwning", "pos": Vector3(-9.88, 2.38, -1.8), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(210, 294, 175, 80)},
+		{"name": "PipeChapelGreenAwning", "pos": Vector3(-9.88, 2.38, 12.4), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(1085, 294, 175, 86)},
+	]
+	for awning in awnings:
+		_add_atlas_panel(root, str(awning["name"]), awning["pos"], awning["size"], float(awning["yaw"]), TEX_PATCHWORK, awning["rect"])
+
+	var neon := [
+		{"name": "LowerCyanTubeEast", "pos": Vector3(9.95, 2.78, -2.8), "size": Vector2(1.5, 0.18), "yaw": -90.0, "rect": Rect2(18, 1138, 245, 38)},
+		{"name": "LowerPinkTubeEast", "pos": Vector3(9.95, 2.78, 12.0), "size": Vector2(1.5, 0.18), "yaw": -90.0, "rect": Rect2(268, 1138, 245, 38)},
+		{"name": "LowerGreenTubeWest", "pos": Vector3(-9.95, 2.78, -8.2), "size": Vector2(1.5, 0.18), "yaw": 90.0, "rect": Rect2(518, 1138, 245, 38)},
+		{"name": "LowerAmberTubeWest", "pos": Vector3(-9.95, 2.78, 16.8), "size": Vector2(1.5, 0.18), "yaw": 90.0, "rect": Rect2(518, 1185, 245, 38)},
+	]
+	for tube in neon:
+		_add_atlas_panel(root, str(tube["name"]), tube["pos"], tube["size"], float(tube["yaw"]), TEX_PATCHWORK, tube["rect"])
+
+
 func _add_arcade_depth_silhouettes(root: Node3D) -> void:
 	for side in [-1, 1]:
 		for i in range(4):
@@ -665,6 +768,7 @@ func _configure_textured_mat(material: StandardMaterial3D, texture: Texture2D) -
 	material.emission_energy_multiplier = 0.08
 	if texture != null:
 		material.emission_texture = texture
+		material.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
 	material.cull_mode = BaseMaterial3D.CULL_DISABLED
 	return material
 
@@ -674,6 +778,45 @@ func _atlas_texture(texture_path: String, region: Rect2) -> AtlasTexture:
 	atlas.atlas = _texture_from_path(texture_path)
 	atlas.region = region
 	return atlas
+
+
+func _atlas_cutout_texture(texture_path: String, region: Rect2) -> Texture2D:
+	var cache_key := "%s:%d:%d:%d:%d" % [
+		texture_path,
+		int(region.position.x),
+		int(region.position.y),
+		int(region.size.x),
+		int(region.size.y),
+	]
+	if _atlas_cutout_cache.has(cache_key):
+		return _atlas_cutout_cache[cache_key]
+
+	var texture := _texture_from_path(texture_path)
+	if texture == null:
+		return null
+	var source := texture.get_image()
+	if source == null:
+		return texture
+
+	var atlas_rect := Rect2i(Vector2i.ZERO, source.get_size())
+	var crop_rect := Rect2i(
+		Vector2i(int(region.position.x), int(region.position.y)),
+		Vector2i(int(region.size.x), int(region.size.y))
+	).intersection(atlas_rect)
+	if crop_rect.size.x <= 0 or crop_rect.size.y <= 0:
+		return texture
+
+	var cutout := Image.create(crop_rect.size.x, crop_rect.size.y, false, Image.FORMAT_RGBA8)
+	for y in range(crop_rect.size.y):
+		for x in range(crop_rect.size.x):
+			var color := source.get_pixel(crop_rect.position.x + x, crop_rect.position.y + y)
+			if maxf(maxf(color.r, color.g), color.b) <= ATLAS_BLACK_ALPHA_CUTOFF:
+				color.a = 0.0
+			cutout.set_pixel(x, y, color)
+
+	var cutout_texture := ImageTexture.create_from_image(cutout)
+	_atlas_cutout_cache[cache_key] = cutout_texture
+	return cutout_texture
 
 
 func _add_textured_panel(root: Node3D, node_name: String, local_position: Vector3, size: Vector2, yaw_degrees: float, texture_path: String, emission := Color.BLACK, energy := 0.0) -> MeshInstance3D:
@@ -701,9 +844,8 @@ func _add_atlas_panel(root: Node3D, node_name: String, local_position: Vector3, 
 	item.name = node_name
 	item.position = local_position
 	item.rotation_degrees = Vector3(0.0, yaw_degrees, 0.0)
-	item.texture = _texture_from_path(texture_path)
-	item.region_enabled = true
-	item.region_rect = region
+	item.texture = _atlas_cutout_texture(texture_path, region)
+	item.region_enabled = false
 	item.centered = true
 	item.pixel_size = size.x / maxf(region.size.x, 1.0)
 	var rendered_height := region.size.y * item.pixel_size

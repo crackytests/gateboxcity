@@ -71,7 +71,7 @@ func _handle_interact() -> void:
 		var nid := str(focused_npc.npc_id)
 		if not nid.is_empty() and DialogueDB.has_profile(nid):
 			focused_npc.face_player_now()
-			hud.open_dialogue(nid)
+			hud.open_dialogue(nid, focused_npc)
 			return
 		var line: Dictionary = focused_npc.interact()
 		hud.show_dialogue(str(line["name"]), str(line["text"]))
@@ -153,8 +153,8 @@ func _on_hack_terminal_focus_changed(terminal: HackTerminal, has_focus: bool) ->
 
 
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

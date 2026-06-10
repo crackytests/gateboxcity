@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://gatebox_hud"]
+[gd_scene load_steps=19 format=3 uid="uid://gatebox_hud"]
 
 [ext_resource type="Script" path="res://scripts/ui/HUDController.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/ui/TargetingReticle.gd" id="2"]
@@ -13,6 +13,38 @@
 [ext_resource type="Script" path="res://scripts/ui/EventCardUI.gd" id="13"]
 [ext_resource type="Script" path="res://scripts/ui/CyberEyeOverlay.gd" id="11"]
 [ext_resource type="Script" path="res://scripts/ui/EnemyScaleDebug.gd" id="12"]
+[ext_resource type="Script" path="res://scripts/ui/DamageIndicators.gd" id="14"]
+
+[sub_resource type="StyleBoxFlat" id="ARFrame"]
+bg_color = Color(0.02, 0.05, 0.07, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 1, 1, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="ARBorder"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 1, 1, 0.16)
+
+[sub_resource type="SystemFont" id="LogMono"]
+font_names = PackedStringArray("Consolas", "Lucida Console", "Courier New", "monospace")
+
+[sub_resource type="FontVariation" id="LogFont"]
+base_font = SubResource("LogMono")
+variation_transform = Transform2D(1, 0, 0.22, 1, 0, 0)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1")
@@ -37,6 +69,35 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0.05, 0.22, 0)
 
+[node name="ARBorder" type="Panel" parent="Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ARBorder")
+
+[node name="SoulSigil" type="Label" parent="Root"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -52.0
+offset_right = -20.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+modulate = Color(1, 0.22, 0.82, 0.33)
+theme_override_font_sizes/font_size = 26
+text = "✶"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Reticle" type="Control" parent="Root"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -58,6 +119,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11")
+
+[node name="DamageIndicators" type="Control" parent="Root"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14")
 
 [node name="CenterChanceLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
@@ -132,6 +204,7 @@ offset_top = 118.0
 offset_right = -24.0
 offset_bottom = 226.0
 grow_horizontal = 0
+theme_override_styles/panel = SubResource("ARFrame")
 
 [node name="Margin" type="MarginContainer" parent="Root/TargetPanel"]
 layout_mode = 2
@@ -146,7 +219,7 @@ layout_mode = 2
 [node name="TargetLabel" type="Label" parent="Root/TargetPanel/Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.2, 1, 0.6, 1)
+theme_override_colors/font_color = Color(0.3, 1, 1, 1)
 text = "NO TARGET"
 
 [node name="ChanceLabel" type="Label" parent="Root/TargetPanel/Margin/VBox"]
@@ -221,6 +294,19 @@ text = ""
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="VitalsPanel" type="Panel" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -98.0
+offset_right = 408.0
+offset_bottom = -16.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ARFrame")
+
 [node name="AmmoLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -229,10 +315,10 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = -88.0
-offset_right = 360.0
+offset_right = 278.0
 offset_bottom = -58.0
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.2, 1, 0.6, 1)
+theme_override_colors/font_color = Color(0.3, 1, 1, 1)
 text = "SCRAP PISTOL  -- / --"
 
 [node name="PlayerHealthLabel" type="Label" parent="Root"]
@@ -243,67 +329,38 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = -56.0
-offset_right = 430.0
+offset_right = 278.0
 offset_bottom = -24.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.65, 0.95, 1, 1)
 text = "BODY INTEGRITY  --- / ---"
 
-[node name="InventoryLabel" type="Label" parent="Root"]
+[node name="WanNotesLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 0
-offset_left = 24.0
-offset_top = 24.0
-offset_right = 560.0
-offset_bottom = 54.0
-theme_override_colors/font_color = Color(0.65, 0.95, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "INVENTORY  empty"
-
-[node name="FactionLabel" type="Label" parent="Root"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 0
-offset_left = 24.0
-offset_top = 54.0
-offset_right = 430.0
-offset_bottom = 84.0
-theme_override_colors/font_color = Color(0.2, 1, 0.6, 1)
-text = "REP  Resistance +0  Gatebox +0"
-
-[node name="CyberneticLabel" type="Label" parent="Root"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 0
-offset_left = 24.0
-offset_top = 84.0
-offset_right = 520.0
-offset_bottom = 114.0
-theme_override_colors/font_color = Color(1, 0.22, 0.82, 1)
-text = "CYBERNETICS  none"
-
-[node name="WorldStateLabel" type="Label" parent="Root"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 0
-offset_left = 24.0
-offset_top = 114.0
-offset_right = 560.0
-offset_bottom = 144.0
-theme_override_colors/font_color = Color(0.95, 0.82, 0.52, 1)
-text = "SKY  false daylight  Faded Atrium"
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_top = -72.0
+offset_right = 398.0
+offset_bottom = -40.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.82, 0.28, 1)
+theme_override_font_sizes/font_size = 20
+text = "WAN 000"
+horizontal_alignment = 2
 
 [node name="QuestLogLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 0
 offset_left = 24.0
 offset_top = 146.0
 offset_right = 600.0
 offset_bottom = 204.0
-theme_override_colors/font_color = Color(0.72, 1, 0.78, 1)
+theme_override_colors/font_color = Color(0.3, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 text = "QUEST  Objective: talk to System X."
@@ -311,18 +368,24 @@ autowrap_mode = 2
 
 [node name="LogLabel" type="Label" parent="Root"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -430.0
-offset_top = 146.0
+anchor_bottom = 1.0
+offset_left = -440.0
+offset_top = -128.0
 offset_right = -24.0
-offset_bottom = 178.0
+offset_bottom = -96.0
 grow_horizontal = 0
-theme_override_colors/font_color = Color(0.2, 1, 0.6, 1)
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.3, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = SubResource("LogFont")
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 2
 text = "> connection established"
 

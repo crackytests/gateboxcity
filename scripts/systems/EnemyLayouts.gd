@@ -30,6 +30,12 @@ var TEMPLATES: Dictionary = {
 	# A grafted laborer — cheap Big Gates fodder.
 	"tithe_servitor": {"scene": "goon", "faction": "Big Gates", "name": "Tithe Servitor",
 		"loot": "big_gates", "hp_mult": 0.85, "damage_mult": 0.9},
+	# Gatebox Sentinel — a fast, fragile corporate android (a cousin of the shell Spooky woke up
+	# in). Closes distance quickly and strikes fast; folds under sustained fire. Speed is its whole
+	# identity. Drops Gatebox cyberware.
+	"gatebox_android": {"scene": "goon", "faction": "Gatebox", "name": "Gatebox Sentinel",
+		"loot": "gatebox", "hp_mult": 0.6, "damage_mult": 0.9,
+		"speed_mult": 2.3, "attack_cooldown_mult": 0.7},
 }
 
 # points: [sn, a, b, c]  (security-node slot + three combatant slots)
@@ -46,7 +52,7 @@ var LAYOUTS: Dictionary = {
 			{"faction": "Gatebox", "band": [2, 3], "spawns": [
 				{"e": "security_node", "p": 0},
 				{"e": "goon", "p": 1, "pack": "pipe_gb", "anchor": true},
-				{"e": "goon", "p": 2, "pack": "pipe_gb"},
+				{"e": "gatebox_android", "p": 2, "pack": "pipe_gb"},
 				{"e": "splice", "p": 3}]},
 			{"faction": "Big Gates", "band": [3, 4], "spawns": [
 				{"e": "soul_drone", "p": 0},
@@ -65,7 +71,8 @@ var LAYOUTS: Dictionary = {
 			{"faction": "Gatebox", "band": [2, 3], "spawns": [
 				{"e": "security_node", "p": 0},
 				{"e": "goon", "p": 1, "pack": "bloom_gb", "anchor": true},
-				{"e": "splice", "p": 2}]},
+				{"e": "splice", "p": 2},
+				{"e": "gatebox_android", "p": 3}]},
 			{"faction": "Big Gates", "band": [3, 4], "spawns": [
 				{"e": "soul_drone", "p": 0},
 				{"e": "tithe_servitor", "p": 1},
@@ -84,7 +91,7 @@ var LAYOUTS: Dictionary = {
 			{"faction": "Gatebox", "band": [2, 3], "spawns": [
 				{"e": "security_node", "p": 0},
 				{"e": "goon", "p": 1, "pack": "cistern_gb", "anchor": true},
-				{"e": "goon", "p": 2, "pack": "cistern_gb"},
+				{"e": "gatebox_android", "p": 2, "pack": "cistern_gb"},
 				{"e": "splice", "p": 3}]},
 			{"faction": "Big Gates", "band": [3, 4], "spawns": [
 				{"e": "soul_drone", "p": 0},
@@ -105,7 +112,8 @@ var LAYOUTS: Dictionary = {
 			{"faction": "Gatebox", "band": [2, 3], "spawns": [
 				{"e": "security_node", "p": 0},
 				{"e": "goon", "p": 1, "pack": "atrium_gb", "anchor": true},
-				{"e": "splice", "p": 2}]},
+				{"e": "splice", "p": 2},
+				{"e": "gatebox_android", "p": 3}]},
 			{"faction": "Big Gates", "band": [3, 4], "spawns": [
 				{"e": "soul_drone", "p": 0},
 				{"e": "foundation_enforcer", "p": 1},
@@ -127,13 +135,18 @@ func spawn_profile(host: Node, location_id: String, band: int = 2, preferred_fac
 	var chosen := _pick_profile(profiles, band, preferred_faction)
 	if chosen.is_empty():
 		return {}
+	var persistence_prefix := _get_persistence_prefix(location_id, chosen)
+	var spawn_index := 0
 	for spec: Dictionary in chosen.get("spawns", []):
 		var idx := int(spec.get("p", 0))
 		var pos := Vector3.ZERO
 		if idx >= 0 and idx < points.size():
 			var pt: Array = points[idx]
 			pos = Vector3(float(pt[0]), float(pt[1]), float(pt[2]))
-		_spawn_one(host, spec, pos)
+		var keyed_spec := spec.duplicate()
+		keyed_spec["persistence_id"] = "%s:%d" % [persistence_prefix, spawn_index]
+		_spawn_one(host, keyed_spec, pos)
+		spawn_index += 1
 	return chosen
 
 
@@ -167,6 +180,29 @@ func _pick_profile(profiles: Array, band: int, preferred_faction: String) -> Dic
 	return eligible[randi() % eligible.size()]
 
 
+func _get_persistence_prefix(location_id: String, profile: Dictionary) -> String:
+	var layout_prefix := "layout:%s" % location_id
+	var active_job := GameState.get_active_job_data()
+	if active_job.is_empty() or str(active_job.get("destination_id", "")) != location_id:
+		return layout_prefix
+	if not _profile_layout_cleared(location_id, profile):
+		return layout_prefix
+	var run_key := GameState.get_active_job_run_key()
+	if run_key.is_empty():
+		return layout_prefix
+	return "job:%s:%s" % [location_id, run_key]
+
+
+func _profile_layout_cleared(location_id: String, profile: Dictionary) -> bool:
+	var spawns: Array = profile.get("spawns", [])
+	if spawns.is_empty():
+		return false
+	for i in spawns.size():
+		if not GameState.is_enemy_defeated("layout:%s:%d" % [location_id, i]):
+			return false
+	return true
+
+
 func _spawn_one(host: Node, spec: Dictionary, pos: Vector3) -> void:
 	# Resolve a template (faction-flavored variant) down to its base scene + overrides.
 	var key := str(spec.get("e", ""))
@@ -182,6 +218,8 @@ func _spawn_one(host: Node, spec: Dictionary, pos: Vector3) -> void:
 	if enemy == null:
 		return
 	enemy.position = pos
+	if spec.has("persistence_id") and "persistence_id" in enemy:
+		enemy.persistence_id = str(spec["persistence_id"])
 	if spec.has("pack"):
 		enemy.set("pack_id", str(spec["pack"]))
 	if bool(spec.get("anchor", false)):
@@ -232,3 +270,14 @@ func _apply_template_stats(enemy: Node3D, tmpl: Dictionary) -> void:
 			enemy.melee_damage *= dmg_mult
 		if "ranged_damage" in enemy:
 			enemy.ranged_damage *= dmg_mult
+	# Speed-focused variants (e.g. the Gatebox android). base_move_speed is set in _ready from
+	# move_speed and is what slow effects scale, so scale both.
+	var speed_mult := float(tmpl.get("speed_mult", 1.0))
+	if speed_mult != 1.0:
+		if "move_speed" in enemy:
+			enemy.move_speed *= speed_mult
+		if "base_move_speed" in enemy:
+			enemy.base_move_speed *= speed_mult
+	var cooldown_mult := float(tmpl.get("attack_cooldown_mult", 1.0))
+	if cooldown_mult != 1.0 and "attack_cooldown" in enemy:
+		enemy.attack_cooldown *= cooldown_mult

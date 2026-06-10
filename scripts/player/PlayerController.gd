@@ -28,6 +28,9 @@ var is_climbing := false
 var is_crouching := false
 var _crouch_t := 0.0          # 0 = fully standing, 1 = fully crouched
 var _stand_camera_y := 0.62
+# True only after the player frees the cursor with Escape during gameplay. A click
+# reclaims the cursor only in that state, so opening any menu can't have its cursor stolen.
+var _mouse_freed_by_player := false
 
 
 func _ready() -> void:
@@ -43,14 +46,20 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		# Player explicitly freed the cursor for gameplay (not via a menu).
+		if not _menu_open():
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			_mouse_freed_by_player = true
 	else:
 		var mb := event as InputEventMouseButton
-		# Re-capture the cursor when the player clicks back into the game — but only on
-		# a real left/right click, never from a mouse-wheel "button" (scrolling a menu)
-		# and never while a menu is open. Either of those used to hide the cursor in-menu.
-		if mb != null and mb.pressed and _is_recapture_button(mb) and not _menu_open():
+		# Reclaim the cursor only when the player personally released it with Escape, and
+		# only on a real left/right click (never a mouse-wheel "button"). This way no menu —
+		# HUD or level-specific, enumerated by is_panel_open() or not — can have its cursor
+		# stolen by a stray click or scroll that leaks through to gameplay.
+		if mb != null and mb.pressed and _is_recapture_button(mb) \
+				and _mouse_freed_by_player and not _menu_open():
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			_mouse_freed_by_player = false
 
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)

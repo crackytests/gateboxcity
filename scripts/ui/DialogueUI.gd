@@ -41,6 +41,7 @@ func _ready() -> void:
 
 
 func open(npc_id: String) -> void:
+	AudioDirector.play_sfx("menu_open", -6.0)
 	_npc_id = npc_id
 	_statement_mode = false
 	_current_tab = "tell"
@@ -61,6 +62,7 @@ func open(npc_id: String) -> void:
 
 # Plain one-shot line in the same window frame (objects, consoles, barks).
 func open_statement(speaker: String, text: String) -> void:
+	AudioDirector.play_sfx("menu_open", -6.0)
 	_statement_mode = true
 	visible = true
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -74,6 +76,8 @@ func open_statement(speaker: String, text: String) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -7.0)
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -144,6 +148,7 @@ func _refresh_keywords() -> void:
 
 
 func _on_keyword_pressed(topic_id: String) -> void:
+	AudioDirector.play_sfx("dialogue_next", -8.0)
 	_say_player(_player_question(topic_id))
 	var r := DialogueDB.ask(_npc_id, topic_id)
 	_say(str(r.get("name", "")), str(r.get("text", "")))
@@ -172,9 +177,12 @@ func _show_services() -> void:
 
 
 func _on_service_pressed(service_id: String) -> void:
+	# Close THIS window first, then hand off. close() forces the mouse captured, so the
+	# service panel must open afterwards — otherwise its visible cursor gets stomped and
+	# the player is left in a menu with no pointer.
+	close()
 	# Hand off to whoever owns the panels for this NPC (the location script, usually).
 	service_requested.emit(_npc_id, service_id)
-	close()
 
 
 func _on_tone_pressed(tone: String) -> void:
@@ -202,10 +210,7 @@ func _say_player(text: String) -> void:
 
 # Phrase the player's prompt to match the tab the keyword was asked from.
 func _player_question(topic_id: String) -> String:
-	match _current_tab:
-		"work": return "Anything that needs doing?"
-		"where": return "Where can I find %s?" % DialogueDB.topic_label(topic_id)
-		_: return "Tell me about %s." % DialogueDB.topic_label(topic_id)
+	return DialogueDB.topic_question(topic_id, _current_tab)
 
 
 func _set_mood(mood: String) -> void:
@@ -239,6 +244,7 @@ func _service_label(service_id: String) -> String:
 		"job_board": return "Cooters job board"
 		"travel": return "Travel"
 		"cybernetics": return "Surgical suite"
+		"repair_implants": return "Rebuild broken implants"
 		_: return service_id.capitalize()
 
 

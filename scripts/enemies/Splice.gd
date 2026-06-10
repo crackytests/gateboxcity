@@ -14,4 +14,8 @@ func _ready() -> void:
 		faction = "Splice"  # drift-hostile: locks on faster the more modded you are
 	melee_hit_message = "splice drove the frame into you for %d"
 	enraged_hit_message = "splice berserk — frame impact %d"
+	can_leap = true            # Splice vaults obstacles to reach you
+	leap_force = 15.0
+	lunge_range = 13.0
+	lunge_speed = 32.0         # and its frame-lunge crosses real distance
 	super._ready()

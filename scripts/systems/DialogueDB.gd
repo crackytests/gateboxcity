@@ -26,6 +26,22 @@ var TOPICS: Dictionary = {
 	"system_x":       {"category": "person",   "label": "System X",             "starts_known": true},
 	"wan_moa_torai":  {"category": "person",   "label": "Wan Moa Torai",        "starts_known": true},
 	"gatebox":        {"category": "person",   "label": "Gatebox",              "starts_known": true},
+	"who_am_i":       {"category": "thing",    "label": "what happened to me",  "question": "What happened to me?", "starts_known": true},
+	"borrowed_body":  {"category": "thing",    "label": "this borrowed body",   "question": "Whose body am I wearing?", "starts_known": true},
+	"the_sheet":      {"category": "thing",    "label": "the sheet",            "question": "Why am I wearing a sheet?", "starts_known": true},
+	"where_am_i":     {"category": "location", "label": "where I woke up",      "question": "Where am I?", "starts_known": true},
+	"what_year_is_it": {"category": "thing",   "label": "the date",             "question": "What year is it?", "starts_known": true},
+	"mall_of_future": {"category": "location", "label": "the Mall of the Future", "question": "What was this mall supposed to be?", "starts_known": true},
+	"the_breach":     {"category": "location", "label": "the breach",           "question": "What is the breach?", "starts_known": true},
+	"the_lower_city": {"category": "location", "label": "the lower city",       "question": "What is below the mall?", "starts_known": true},
+	"the_mall_people": {"category": "person",  "label": "the people in the mall", "question": "Who are all these people?", "starts_known": true},
+	"the_jobs":       {"category": "thing",    "label": "the jobs",             "question": "Why does everyone have work for me?", "starts_known": true},
+	"dying_once":     {"category": "thing",    "label": "dying once",           "question": "Did I die?", "starts_known": true},
+	"spooky_ghost":   {"category": "person",   "label": "Spooky Ghost",         "question": "Why are they calling me Spooky Ghost?", "starts_known": true},
+	"cybernetics":    {"category": "thing",    "label": "cybernetics",          "question": "What can you do with broken implants?", "starts_known": true},
+	"wake_up_call":   {"category": "work",     "label": "the Wake-Up Call",     "question": "What is the Wake-Up Call?", "starts_known": true},
+	"rocker_fellar":  {"category": "person",   "label": "Rocker Fellar",        "question": "Who is Rocker Fellar?"},
+	"big_gates_generals": {"category": "person", "label": "the Big Gates generals", "question": "What are the Big Gates generals?"},
 	# Discoverable topics (taught by NPCs / quests).
 	"generator":      {"category": "thing",    "label": "the generator"},
 	"generator_coupling": {"category": "thing","label": "the generator coupling"},
@@ -34,6 +50,11 @@ var TOPICS: Dictionary = {
 	"pipe_church":    {"category": "person",   "label": "the Pipe Church"},
 	"the_bar":        {"category": "location", "label": "the bar"},
 	"vessel":         {"category": "person",   "label": "Vessel"},
+	"vessel_memory":  {"category": "thing",    "label": "Vessel's memory",      "question": "What do you remember?"},
+	"cooters_branch": {"category": "location", "label": "the mall Cooters",     "question": "What is this bar now?"},
+	"yoko":           {"category": "person",   "label": "Yoko",                 "question": "Who is Yoko?"},
+	"pee_kid":        {"category": "person",   "label": "Pee Kid",              "question": "Who is Pee Kid?"},
+	"splice_enemies": {"category": "thing",    "label": "the splices",          "question": "What are those splices?"},
 	# Ward 7 / Comfort Annexe arc.
 	"ward_7":               {"category": "location", "label": "Ward 7"},
 	"the_grafts":           {"category": "thing",    "label": "the failed grafts"},
@@ -48,7 +69,9 @@ var TOPICS: Dictionary = {
 	"torai_obligation":  {"category": "work", "label": "one more try"},
 	"torai_salvage_contract": {"category": "work", "label": "a salvage contract"},
 	"bone_dividend_lead": {"category": "work", "label": "the Bone Dividend lead"},
+	"quest_rocker_fellar": {"category": "work", "label": "Rocker Fellar Keep", "question": "Are we ready for Rocker Fellar?"},
 	# Cooters job board (Marbles).
+	"current_mission": {"category": "work", "label": "current mission", "question": "What is my current mission?"},
 	"collect_pay": {"category": "work", "label": "collecting your pay"},
 	"cooters": {"category": "location", "label": "Cooters"},
 	"the_rain_mutant": {"category": "thing", "label": "the contained rain mutant"},
@@ -60,6 +83,7 @@ var TOPICS: Dictionary = {
 var NPC_PROFILES: Dictionary = {
 	"mister_static": {
 		"name": "Mister Static", "faction": "System X", "tone_pref": "blunt",
+		"first_greeting": "You. The thing from the back nook. I clocked you as a dust-sheet over dead hardware an hour ago, and now the dust-sheet is upright and making eye contact through two holes. ...Why are you wearing the sheet. No — don't. Talk first. I'll be unsettled on my own time.",
 		"greetings": [
 			{"conditions": {"flag_true": "ward7_quest_logged"}, "text": {
 				"warm": "You came back from Ward 7 carrying something heavy. I can see it. Tell me — then take it to the Big Gates informant. They have been waiting for a reason like you.",
@@ -92,8 +116,44 @@ var NPC_PROFILES: Dictionary = {
 			"generator_coupling": {
 				"text": "Basement coupling. When it goes, the whole block smells like blue fire and regret. Keep it seated.",
 			},
+			"who_am_i": {
+				"text": "You are ambulatory proof that dead hardware is sometimes only mostly dead. The soul in there reads older than the body, and the body reads like it was pulled from a bin with bad paperwork.",
+			},
+			"borrowed_body": {
+				"text": "A maintenance droid chassis. Damaged, dormant, misfiled as scrap. Gideon draped the sheet. You handled the rest by becoming everybody's problem.",
+			},
+			"the_sheet": {
+				"text": "Gideon put it over the chassis when it looked dead. It stayed when you stood up. I am choosing not to have a theory because every theory is worse than the sheet.",
+			},
+			"where_am_i": {
+				"text": "Faded Atrium. Mall hub. Safe-ish. The old brochures called it the Mall of the Future, which is funny in the way a locked elevator is funny.",
+			},
+			"what_year_is_it": {
+				"text": "No clean calendar down here. Corporate clocks lie, Torai clocks invoice you, and System X came from a timeline that no longer has the manners to match this one.",
+			},
+			"mall_of_future": {
+				"text": "A corporate promise with escalators. Retail, companions, curated weather, wellness kiosks, the whole bright smile. Then the smile cracked and people moved into the teeth.",
+			},
+			"the_breach": {
+				"text": "The gate. Dream route, job route, wound in the map. You step through, reality sends you somewhere useful, and then everyone pretends that is travel.",
+			},
+			"the_lower_city": {
+				"text": "Everything under the mall that corporate stopped naming. Basements under basements, debt offices, bars, rain shelters, and people too stubborn to become statistics.",
+			},
+			"the_mall_people": {
+				"text": "Survivors, squatters, tech-priests, creditors, patients, and one sheet ghost. Nobody here is thriving. That makes the place honest.",
+			},
+			"the_jobs": {
+				"text": "Because you can move, shoot, and come back from terrible decisions. That combination makes people hopeful, which is rude of them but useful.",
+			},
+			"dying_once": {
+				"text": "Probably. I do not like saying probably about death, but you woke in a body that was not yours under a sheet someone meant sincerely.",
+			},
+			"spooky_ghost": {
+				"text": "You are wearing a fused bedsheet over a maintenance chassis and asking existential questions in a mall ruin. The nickname did not have to work hard.",
+			},
 			"lan_tap": {
-				"text": "Vessel's department, not mine. Ask the bunny once it stops sulking and starts booting.",
+				"text": "Vessel's department, not mine. Ask the bar once it stops sulking and starts booting.",
 				"hint": "who handles the LAN",
 				"requires_flag": "vessel_repaired",
 			},
@@ -137,6 +197,7 @@ var NPC_PROFILES: Dictionary = {
 	},
 	"gideon": {
 		"name": "Pipe Father Gideon", "faction": "System X", "tone_pref": "blunt",
+		"first_greeting": "...I draped that sheet over you myself. A shroud for hardware that never woke, left in the bin where dead things wait to be useful. And here you stand — still wearing it. The body underneath is one I buried; the cloth on top has plainly decided to stay. The pipes warned me a guest was overdue. They did not say he'd arrive dressed as his own funeral.",
 		"greetings": {
 			"warm":    "The pipes have been kind today. So will I be. Bring me your wasted potential and sit a while.",
 			"neutral": "The Pipe Church holds. Bring me mission scrap, failed miracles, broken proofs — I feed them to the Dreaming Generator and pay in Wan Notes.",
@@ -150,6 +211,27 @@ var NPC_PROFILES: Dictionary = {
 			"wan_moa_torai": {
 				"text": "Torai will invoice a miracle if you let them. Keep your debts small and your prayers quiet.",
 			},
+			"who_am_i": {
+				"text": "A returned thing. A guest in a borrowed vessel. Maybe a man, maybe a warning, maybe a door that learned to walk back through itself.",
+			},
+			"borrowed_body": {
+				"text": "That chassis came to me quiet. Too quiet. I gave it a sheet because even machines deserve the courtesy of being covered when the world is done staring.",
+			},
+			"the_sheet": {
+				"text": "A shroud first. Then a decision. It clung to you like the world had assigned you a shape and you had accepted without reading the form.",
+			},
+			"where_am_i": {
+				"text": "Faded Atrium, child of broken commerce and stubborn shelter. People come here when the rain, the debt, or the cameras leave them nowhere more polite.",
+			},
+			"the_lower_city": {
+				"text": "Below us: pipes, debts, rooms nobody admits building, and the people still alive enough to resent all three.",
+			},
+			"dying_once": {
+				"text": "You had a funeral gesture, if not a funeral. I covered you. Then you stood. The distinction is above my pay grade and below my faith.",
+			},
+			"spooky_ghost": {
+				"text": "Because the eye sees a sheet and the soul hears a draft from a room that should be empty. Names are just handles for fear.",
+			},
 		},
 		"rumors": [
 			{"text": "Saint Ratchet is back among the pipes. The congregation calls it a sign. I called it maintenance. They think that is a sign too.",
@@ -160,6 +242,7 @@ var NPC_PROFILES: Dictionary = {
 	},
 	"vera": {
 		"name": "Vera", "faction": "System X", "tone_pref": "blunt",
+		"first_greeting": "Hold still — no, actually hold still, I need to know if I'm triaging a patient or being addressed by laundry. There's a person in there: behind the sheet, behind the optics, somebody's home. ...You do know you've got a bedsheet on. You've decided. Fine. Sit down anyway.",
 		"open_effects": [{"type": "heal"}],   # patches the player up the moment they walk in
 		"greetings": [
 			{"conditions": {"flag_true": "hub_cistern_connected"}, "text": {
@@ -177,12 +260,12 @@ var NPC_PROFILES: Dictionary = {
 			"water_cistern": {
 				"text": [
 					{"conditions": {"flag_true": "hub_cistern_connected"}, "text": "Clean water changed everything. The clinic runs, the bar runs, people stopped tasting the pipes. Thank you for that."},
-					{"text": "I need clean water for the clinic. West walkway of the cistern has a junction point — run a conduit and we are connected. Do not let Torai log you there."},
+					{"text": "I need clean water for the clinic. The cistern junction is beside a teal mast on the west service ring, just before the pump room. Run the conduit there and we are connected. Do not let Torai log you there."},
 				],
 			},
 			"hub_cistern": {
 				"category": "work",
-				"text": "The clinic is dry. The Water Reclamation Cistern has a junction on the west walkway — install a conduit and we have clean water. If the valve there is already bled, it is half done.",
+				"text": "The clinic is dry. In the Water Reclamation Cistern, look for the teal conduit mast on the west service ring just before the pump room. Seat the conduit there and we have clean water. If the valve is already bled, it is half done.",
 				"hint": "work the clinic needs",
 				"requires_flag_false": "hub_cistern_connected",
 				"teaches": ["water_cistern"],
@@ -191,6 +274,30 @@ var NPC_PROFILES: Dictionary = {
 					{"type": "add_card", "card": "hub_cistern_exit"},
 					{"type": "add_card", "card": "hub_cistern_return"},
 				],
+			},
+			"who_am_i": {
+				"text": "A patient until proven otherwise. After that, maybe a person. After that, maybe the reason the terminal woke up. I like to diagnose in that order.",
+			},
+			"borrowed_body": {
+				"text": "Maintenance droid chassis, trauma history, terrible repair record. It fits you better than it should, which is medically rude.",
+			},
+			"the_sheet": {
+				"text": "It is fused cleanly enough that I am not pulling it off without consent, tools, and a day I am willing to ruin. So: sheet stays.",
+			},
+			"where_am_i": {
+				"text": "Faded Atrium clinic side. If you can hear Mister Static arguing with a wall, you are still in the safe part.",
+			},
+			"what_year_is_it": {
+				"text": "People ask when the shock hits. I can give you dates from three systems and none would help. Start with today: you are upright, armed, and leaking less than expected.",
+			},
+			"the_mall_people": {
+				"text": "Patients, neighbors, creditors, believers, runners. Some of them are irritating. All of them are alive, and that means they are my problem.",
+			},
+			"the_jobs": {
+				"text": "Because the clinic needs water, the hub needs power, and everybody here is one broken errand away from becoming my next emergency.",
+			},
+			"dying_once": {
+				"text": "Your vitals do not answer that question cleanly. Your eyes do. Whatever happened before, this body is alive enough for responsibility.",
 			},
 		},
 		"rumors": [
@@ -204,6 +311,7 @@ var NPC_PROFILES: Dictionary = {
 		# Faction Torai: her disposition tier tracks your standing with Wan Moa Torai,
 		# so warm/neutral/cold double as the Torai-standing readout.
 		"name": "Kiki Baja", "faction": "Wan Moa Torai", "tone_pref": "blunt",
+		"first_greeting": "A walking bedsheet that talks. Wonderful. Torai has no line item for that, which means you're either invisible to the ledger or about to become a very strange one. I am not going to ask about the sheet. I am absolutely going to wonder about the sheet.",
 		"greetings": {
 			"warm":    "Wan Moa Torai thinks you are useful. That is its own kind of danger, but I will take useful over flagged any day.",
 			"neutral": "Wan Moa Torai is watching this location. My job is to make sure that watching is all they do. So far, so good.",
@@ -220,6 +328,30 @@ var NPC_PROFILES: Dictionary = {
 			"gatebox": {
 				"text": "Torai and Gatebox pretend to be rivals. They are more like two collectors arguing over the same estate.",
 			},
+			"who_am_i": {
+				"text": "You are a person no ledger expected and every ledger will eventually notice. Enjoy the grace period. They are short.",
+			},
+			"borrowed_body": {
+				"text": "That body has asset history all over it. Scratched-off ownership, missing chain of custody, probably a very boring crime before it became you.",
+			},
+			"the_sheet": {
+				"text": "Branding. Accidental, but strong. Torai would spend six meetings and three consultants to get half that recognizable.",
+			},
+			"what_year_is_it": {
+				"text": "Whatever year the contract says it is. Down here, time is less calendar and more payment schedule.",
+			},
+			"the_lower_city": {
+				"text": "A stacked argument about who gets to survive. Torai lends ladders, Gatebox owns ceilings, System X cuts holes in both.",
+			},
+			"the_mall_people": {
+				"text": "People with needs. Needs become trades. Trades become debts. Debts become relationships with worse lighting.",
+			},
+			"the_jobs": {
+				"text": "Because you are new, useful, and not yet priced correctly. That makes you everyone's favorite temporary solution.",
+			},
+			"spooky_ghost": {
+				"text": "Because 'unlicensed postmortem maintenance-asset anomaly' is accurate but bad for conversation.",
+			},
 		},
 		"rumors": [
 			{"text": "Torai sent a message. It is formatted as a sales letter. I am choosing to read it as a threat.",
@@ -230,6 +362,7 @@ var NPC_PROFILES: Dictionary = {
 	},
 	"ladderboy": {
 		"name": "Ladderboy", "faction": "System X", "tone_pref": "blunt",
+		"first_greeting": "Whoa — the sheet in the nook stood up. I reach the things other people can't, but I did not expect the drop-cloth to say hello. Is the sheet load-bearing, or a lifestyle? You don't have to answer. I'll worry either way.",
 		"greetings": [
 			{"conditions": {"flag_true": "atrium_cleared"}, "text": {
 				"warm": "Atrium's clear and people actually walk through it. I did not think we would reach the part where people walk through things. What do you need reached?",
@@ -251,18 +384,49 @@ var NPC_PROFILES: Dictionary = {
 			},
 			"hub_clear_court": {
 				"category": "work",
-				"text": "Three debris piles in the central atrium came down with the ceiling. Move them and the hub opens up. I would do it myself, but the workshop reaches over things — it does not clear them.",
+				"text": "Three debris piles in the Collapsed Service Atrium are still blocking the traffic route I need. Take the Leak Street travel gate to the Collapsed Service Atrium, get up to the relay deck, and clear the marked piles. Then the hub has a real pass-through again.",
 				"hint": "work in the atrium",
 				"requires_flag_false": "atrium_cleared",
-				"effects": [{"type": "start_quest", "quest": "hub_clear_court"}],
+				"effects": [
+					{"type": "start_quest", "quest": "hub_clear_court"},
+					{"type": "add_card", "card": "hub_clear_court_exit"},
+				],
+			},
+			"who_am_i": {
+				"text": "The sheet person from the nook. Sorry, that is not metaphysical, but it is extremely current.",
+			},
+			"the_sheet": {
+				"text": "I thought it was a drop cloth. Then it had eyeholes. Then it talked. I am updating my categories in real time.",
+			},
+			"where_am_i": {
+				"text": "Faded Atrium. Ground level if you are being normal, bottom of a vertical problem if you are me.",
+			},
+			"mall_of_future": {
+				"text": "It was supposed to be stores, sky, escalators, happy people looking up. Now it is stores, false sky, broken escalators, and people looking for exits.",
+			},
+			"the_breach": {
+				"text": "That door System X likes. It feels like a hallway having a bad idea. I do ladders, not impossible hallways.",
+			},
+			"the_lower_city": {
+				"text": "Down from here gets dense fast. Shelters under shops, shops under pipes, pipes under problems. Do not trust anything labelled basement one.",
+			},
+			"the_mall_people": {
+				"text": "Everybody here found a corner and made it a job. That is how the mall stays a place instead of just a roof with opinions.",
+			},
+			"false_sky": {
+				"text": "Ceiling pretending to be sky. From up high you can see the seams, which is comforting if you like proof and depressing if you like hope.",
+			},
+			"cybernetics": {
+				"text": "Broken implants are just useful mistakes with sharp edges. Bring me cracked optics, bent actuators, fried cortex chips, leaking cells — plus actual money — and I can bench them into something Coil can install.",
 			},
 		},
 		"rumors": [],
-		"services": [],
+		"services": ["repair_implants"],
 		"unknown_line": "If it is not above head height, it is not my problem.",
 	},
 	"vessel": {
 		"name": "Vessel", "faction": "System X", "tone_pref": "blunt",
+		"first_greeting": "Oh, you read strange — layered, like a recording of a man left running long after the man stopped. Also you are, unmistakably, a bedsheet. I'm a bar now, not a diagnostician, so I'll only ask the important one: do you want the sheet acknowledged, or do we both pretend it's perfectly normal? ...Pretend. Understood. Welcome.",
 		"greetings": [
 			{"conditions": {"flag_true": "bar_open"}, "text":
 				"Sit, breathe, let the lower city end without your supervision for five minutes. The stools are mostly real and the rain mutant does not visit this branch. People are drinking in a place they built instead of one they fled to. I will take it. So should you."},
@@ -289,6 +453,70 @@ var NPC_PROFILES: Dictionary = {
 			"system_x": {
 				"text": "I am part of how System X sees down here. Pee Kid and Yoko do the worrying. I do the pouring, now.",
 			},
+			"vessel": {
+				"text": "Vessel is what I was called before the damage made the name too accurate. I am repaired now. Repaired is not the same as whole, but it serves drinks better.",
+			},
+			"vessel_memory": {
+				"text": [
+					{"conditions": {"flag_true": "hub_lan_restored"}, "text": "Fragments, routes, voices, archived warnings, some bar tabs. The LAN gives my memory edges. It still refuses to give me a center."},
+					{"text": "Partial. I remember being useful, then damaged, then looked at kindly by people who needed me useful again. The rest returns in sparks."},
+				],
+				"teaches": ["system_x", "lan_tap"],
+			},
+			"cooters_branch": {
+				"text": [
+					{"conditions": {"flag_true": "bar_open"}, "text": "A bar because people need a place to stop running without calling it surrender. Cooters has history. This branch has reinforced walls and me."},
+					{"text": "Not open yet. A room with bar-shaped intentions. Intentions improve when the water stops tasting like pipe grief."},
+				],
+				"teaches": ["the_bar", "cooters"],
+			},
+			"who_am_i": {
+				"text": "You are layered. A soul with old handling marks, a maintenance chassis with new fear, and a sheet everyone pretends not to rank among the diagnostic data.",
+			},
+			"borrowed_body": {
+				"text": "Maintenance droid body, service class, generation four or earlier. Damaged enough to be discarded. Compatible enough to become you. I do not recommend thinking about that too long without sitting down.",
+			},
+			"the_sheet": {
+				"text": "It reads as cloth and symbol and attachment event. That is the clinical answer. The social answer is: yes, everyone sees it, and no, nobody has agreed on what to do with that.",
+			},
+			"dying_once": {
+				"text": "You crossed a boundary and came back with paperwork missing. Death is usually more decisive. You are making it look bad.",
+			},
+			"the_breach": {
+				"text": "A travel wound System X keeps using because all the proper doors are owned, watched, or pretending to be wellness architecture.",
+			},
+			"the_lower_city": {
+				"text": "Below the mall, everything grows teeth: debt, rain, music, infrastructure, grief. The people are the only part that still surprises me.",
+			},
+			"the_mall_people": {
+				"text": "A settlement pretending to be a waiting room. Static holds power, Vera holds bodies together, Gideon holds rituals, Kiki holds the ledger away from your throat. Ladderboy holds up.",
+			},
+			"the_jobs": {
+				"text": "They ask because you return. That is rare. Most people who can help are already carrying too much, broken, or charging interest.",
+			},
+			"yoko": {
+				"text": "System X operator. Careful, sharp, angry in a way that still leaves room for accuracy. She watches the mission like it might bite a child.",
+				"teaches": ["system_x"],
+			},
+			"pee_kid": {
+				"text": "System X operator. Less tidy than Yoko, no less dangerous. He distrusts you with impressive stamina.",
+				"teaches": ["system_x"],
+			},
+			"linda": {
+				"text": "Linda calls control care because she has built an empire where those words share a hallway. Do not let the polite voice soften the locks.",
+			},
+			"gatebox": {
+				"text": "Gatebox made companion tech intimate enough to become infrastructure. Then they treated infrastructure like a leash and called the leash comfort.",
+			},
+			"toxic_rain": {
+				"text": "The rain edits people. Skin first, then patience, then plans. Wear protection unless you want the sky to have an opinion about your organs.",
+			},
+			"spooky_ghost": {
+				"text": "A nickname, a visual report, and a warning label. It is friendlier than most accurate names down here.",
+			},
+			"splice_enemies": {
+				"text": "People and hardware badly persuaded into the same sentence. Fast, hungry, not fully in agreement with themselves. If you can avoid pity during combat, do. If you cannot, aim cleanly.",
+			},
 			"hub_lan_restore": {
 				"category": "work",
 				"text": "The LAN tap is severed — Water Reclamation Cistern, east end of the upper walkway. Bring a splice kit. When it is live, System X sees the whole lower city again. Some of what it sees will be your problem.",
@@ -302,12 +530,34 @@ var NPC_PROFILES: Dictionary = {
 				],
 			},
 		},
-		"rumors": [],
+		"rumors": [
+			{"text": "People keep coming to the bar and asking if the sheet ghost is real. I say yes. Then they ask if that makes things better. I say ask again after last call.",
+			 "conditions": {"flag_true": "bar_open"}},
+			{"text": "The LAN is clean enough now that System X can complain in higher fidelity. This is progress, technically.",
+			 "conditions": {"flag_true": "hub_lan_restored"}},
+			{"text": "Vera has clean water. You can hear it in how people cough less dramatically. The mall is learning a quieter kind of survival.",
+			 "conditions": {"flag_true": "hub_cistern_connected"}},
+			{"text": "Static stopped threatening the generator out loud. Either the power is healthier or he is. My archive favors the generator.",
+			 "conditions": {"flag_true": "hub_power_restored"}},
+			{"text": "The atrium paths are open. People walk through the center now, like the mall is a place and not a dare.",
+			 "conditions": {"flag_true": "atrium_cleared"}},
+			{"text": "A Ward 7 survivor sleeps badly in the hub. Nobody says the ward name near them unless they want the whole room to go cold.",
+			 "conditions": {"flag_true": "ward7_survivor_settled"}},
+			{"text": "Ward 7 documentation is moving hand to hand. Quietly. The kind of quietly that means someone powerful should be afraid.",
+			 "conditions": {"flag_true": "ward7_experiment_docs_found"}},
+			{"text": "Rocker Fellar went down and the pipes stopped humming along to his bass. I did not know infrastructure could sound relieved.",
+			 "conditions": {"flag_true": "rocker_fellar_defeated"}},
+			{"text": "Suitors has calmer cameras lately. Sunday calls that a mood. System X calls it a blind spot. Both are smiling too little.",
+			 "conditions": {"flag_true": "suitors_surveillance_jammed"}},
+			{"text": "The Cooters original says the rain mutant is contained. I respect any bar with a regular that requires signage and bolts.",
+			 "conditions": {}},
+		],
 		"services": [],
 		"unknown_line": "Outside my archive. Ask System X when the LAN is honest again.",
 	},
 	"velvet_coil": {
 		"name": "Velvet Coil", "faction": "", "tone_pref": "polite",
+		"first_greeting": "Now *that* is a presentation. A genuine soul-rated chassis underneath — I can always tell — and you've gone and draped it in a dust sheet. Bold. Most of my clients pay extra to look intimidating; you made yourself a ghost for free. I respect a committed aesthetic. Sit on my table sometime — sheet on, if you must.",
 		"greetings": [
 			{"conditions": {"flag_true": "coil_invitation_accepted"}, "text":
 				"Conditions are holding. You will find me up in the atrium once things settle. While you are here — the table is open."},
@@ -340,6 +590,7 @@ var NPC_PROFILES: Dictionary = {
 	},
 	"brickmouth_ronnie": {
 		"name": "Brickmouth Ronnie", "faction": "Wan Moa Torai", "tone_pref": "blunt",
+		"first_greeting": "A talking bedsheet at my counter. Do you even metabolize, or am I about to sell product to haunted laundry? ...You've got the look, though — the buy-anyway look, two holes and all. Fine. What do you need, spook.",
 		"greetings": {
 			"warm":    "My favourite kind of customer — the kind still breathing. You want up, sharp, mean, or stitched?",
 			"neutral": "You want up, sharp, mean, or stitched? I got all four. Read the label, swallow the comedown, do not bleed on the stools.",
@@ -435,6 +686,7 @@ var NPC_PROFILES: Dictionary = {
 	},
 	"sunday": {
 		"name": "Sunday", "faction": "System X", "tone_pref": "blunt",
+		"first_greeting": "Don't move like that near the cameras — a talking bedsheet makes them curious, and curious is expensive in here. You're new. You're a Halloween costume with a soul stitched in. Keep your voice down and your eyeholes pointed away from the lenses.",
 		"greetings": {
 			"warm":    "Welcome to Suitors. Speak softly — the cameras are pretending not to listen, and I hate embarrassing them.",
 			"neutral": "Suitors sells calm by the glass. System X buys silence by the second. What do you need?",
@@ -513,13 +765,80 @@ var NPC_PROFILES: Dictionary = {
 				"text": "Infrastructure pretending to be heaven. It pacifies. Do not let it convince you the ceiling is the sky — that is the whole trick.",
 			},
 			"linda": {
-				"text": "Head of Gatebox. She frames control as care. The horror is she is often right about the danger and always wrong about the answer.",
+				"text": {
+					"warm": "Head of Gatebox. Frames control as care — right about the danger, wrong about the answer, every time. I read her history when we arrived. Yours files closer to it than any org chart explains, and the dates overlap where they shouldn't. I'm not going to say the word for what she was to you. You already went quiet. Half her empire is just an answer to a question you stopped sticking around to answer.",
+					"neutral": "Head of Gatebox. Control sold as care. I pulled her file the day we got here, and yours sits uncomfortably close to it — closer than 'CEO and stranger,' let's leave it there. I'm not going to spell it out. You know exactly what she was to you, back when you had a pulse.",
+					"cold": "Head of Gatebox. You know her better than the file does, and the file knows plenty. Don't make me be the one to put a name to what she was to you.",
+				},
 			},
 			"gatebox": {
 				"text": "A companion-AI company that learned to lock doors and call it wellness. Already dangerous; not yet honest about it.",
 			},
 			"wan_moa_torai": {
 				"text": "Debt logic with a folk-wisdom accent. Every favour is a future invoice. Useful, rarely free.",
+			},
+			"who_am_i": {
+				"text": "You are Spooky Ghost. That is the field name because the real one carries more blast radius than clarity. Soul-signature matches the anchor. Body does not. We proceed anyway.",
+			},
+			"borrowed_body": {
+				"text": "Damaged maintenance chassis. Locally sourced. Improperly dead. Your soul latched hard enough that the hardware stopped arguing.",
+			},
+			"the_sheet": {
+				"text": "A shroud that became an interface. No, I do not know why. Yes, everyone can see it. No, this is not the strangest thing in the mission file.",
+			},
+			"where_am_i": {
+				"text": "Faded Atrium. Safe hub, local mall ruin, breach access point. Treat it as home base until it becomes something louder.",
+			},
+			"what_year_is_it": {
+				"text": "Wrong question. This timeline is damaged and our clocks crossed it badly. Operational answer: after Gatebox learned care could be weaponized, before Linda finishes proving it.",
+			},
+			"mall_of_future": {
+				"text": "Gatebox showroom habitat. Retail, companion tech, compliance architecture, false sky. A sales pitch big enough to become a district after the pitch failed.",
+			},
+			"the_breach": {
+				"text": "Transit wound. We use it to route you into jobs before corporate, debt, or weather notices. It is unstable, useful, and therefore exactly our kind of bad idea.",
+			},
+			"the_lower_city": {
+				"text": "Sub-Sub-Basement and deeper. Old infrastructure, rain corridors, faction claims, buried bosses. The city stacks its abandoned people underneath its approved ones.",
+				"teaches": ["rocker_fellar"],
+			},
+			"the_mall_people": {
+				"text": "Assets if you are Gatebox. Accounts if you are Torai. Neighbors if you are still human enough to make this worth doing.",
+			},
+			"the_jobs": {
+				"text": "The hub stabilizes when its people get what they need. Power, water, LAN, clear paths. Do that work and the mall becomes less dead around you.",
+			},
+			"big_gates_generals": {
+				"text": [
+					{"conditions": {"flag_true": "rocker_fellar_defeated"}, "text": "Thirteen bosses, give or take whatever the Foundation is pretending not to count. Rocker Fellar was one of them. One down means the rest start checking the locks."},
+					{"text": "Big Gates calls them program heads, patrons, auditors. We call them generals because the bodies pile up in patterns. Rocker Fellar is the one making the deep pipes sing."},
+				],
+				"teaches": ["rocker_fellar"],
+			},
+			"rocker_fellar": {
+				"text": [
+					{"conditions": {"flag_true": "rocker_fellar_defeated"}, "text": "Rocker Fellar is down. First general cracked, soul batteries empty, lower city a little less haunted by bass."},
+					{"conditions": {"flag_true": "quest_rocker_fellar_active"}, "text": "Rocker Fellar's fortress waits beneath Leak Street. Deep lift, concert architecture, soul batteries. This is the section's ugly center. Go end the noise."},
+					{"conditions": {"rep_gte": ["System X", 8]}, "text": "You have enough trust for the real brief. Rocker Fellar is a Big Gates general holding the deep settlement by the throat with music, debt, and soul batteries. Ask for the Rocker Fellar Keep operation when you are ready."},
+					{"conditions": {"rep_gte": ["System X", 4]}, "text": "Name keeps surfacing in broken audio: Rocker Fellar. Big Gates money, concert fortress, bass in the pipes. We are not sending you yet. Earn more trust, finish more local work, and we will open the deep lift."},
+					{"text": "You are hearing the hints before the shape. Bass through concrete. Big Gates signatures on old venue wiring. People below Leak Street flinching at music. The name attached is Rocker Fellar."},
+				],
+				"teaches": ["big_gates_generals"],
+			},
+			"dying_once": {
+				"text": "Yes enough to matter. No enough to keep moving. If you need a cleaner answer, survive long enough to earn one.",
+			},
+			"spooky_ghost": {
+				"text": "Codename, observation, coping mechanism. You woke under a sheet in a body with no clean owner. We are not wasting a better codename before breakfast.",
+			},
+			"quest_rocker_fellar": {
+				"category": "work",
+				"text": "Now we can say it plainly. Rocker Fellar is the big bad under this whole stretch: Big Gates general, soul-harvesting venue lord, bass frequency cracking shelter pipes three levels up. Deep lift is opening on Leak Street. Go down there, break the batteries, and end the concert.",
+				"requires_rep_gte": ["System X", 8],
+				"requires_flag_false": "quest_rocker_fellar_active",
+				"requires_flag_false_any": ["rocker_fellar_defeated"],
+				"teaches": ["rocker_fellar", "big_gates_generals"],
+				"effects": [{"type": "start_quest", "quest": "quest_rocker_fellar"}],
 			},
 		},
 		"rumors": [],
@@ -528,6 +847,7 @@ var NPC_PROFILES: Dictionary = {
 	},
 	"marbles": {
 		"name": "Marbles", "faction": "", "tone_pref": "blunt",
+		"first_greeting": "A bedsheet walks up to my bar and orders nothing. Classic. Look — I don't care if you're chrome, cloth, or a rumor, long as you don't bleed coolant on the stools and you take one job at a time. Board's on the wall. And yeah — everybody's going to ask about the sheet. You'll get used to it.",
 		"greetings": [
 			{"conditions": {"job_ready": true}, "text": {
 				"warm": "Board says you finished, and you came back breathing. Ask me about your pay before the register grows a conscience.",
@@ -546,6 +866,11 @@ var NPC_PROFILES: Dictionary = {
 			}},
 		],
 		"topics": {
+			"current_mission": {
+				"category": "work",
+				"dynamic_text": "active_job_brief",
+				"requires_job_active": true,
+			},
 			"collect_pay": {
 				"category": "work",
 				"text": "Paid and witnessed. Don't spend it all on liquids with opinions — unless they're funny opinions.",
@@ -581,7 +906,51 @@ var NPC_PROFILES: Dictionary = {
 # ── Shared rumor pool ───────────────────────────────────────────────
 # Fallback "Any news?" lines so even un-profiled NPCs have something to say. First match wins.
 var CITY_RUMORS: Array = [
+	{"text": "The mall has power again in places that forgot they were rooms. People keep touching light switches like they are testing a miracle.",
+	 "conditions": {"flag_true": "hub_power_restored"}},
+	{"text": "Clean water reached the clinic. That sounds small until you watch people stop flinching at a cup.",
+	 "conditions": {"flag_true": "hub_cistern_connected"}},
+	{"text": "System X sees more since the LAN tap came back. The cameras hate it. The cameras can cope.",
+	 "conditions": {"flag_true": "hub_lan_restored"}},
+	{"text": "The central atrium is passable. Folks are already arguing about whether a clear hallway counts as civic progress.",
+	 "conditions": {"flag_true": "atrium_cleared"}},
+	{"text": "Vessel's bar has become the place people go when they want to call fear thirst and solve it temporarily.",
+	 "conditions": {"flag_true": "bar_open"}},
+	{"text": "Someone came back from Ward 7 with proof. The kind of proof that makes corporate green lights look like blood under glass.",
+	 "conditions": {"flag_true": "ward7_experiment_docs_found"}},
+	{"text": "A survivor from Ward 7 is in the atrium now. People leave food outside the door and pretend they were just passing by.",
+	 "conditions": {"flag_true": "ward7_survivor_settled"}},
+	{"text": "Big Gates sent people looking for the hole you made in their plans. They are calling it an audit. Everybody else calls it fear.",
+	 "conditions": {"flag_true": "ward7_big_gates_sweep_armed"}},
+	{"text": "Rocker Fellar is dead or quiet enough to count. The deep pipes stopped carrying that awful bass through people's teeth.",
+	 "conditions": {"flag_true": "rocker_fellar_defeated"}},
+	{"text": "Gatebox attention is climbing. The nice drones are using nicer voices, which is how you know the threat budget increased.",
+	 "conditions": {"flag_true": "high_drift"}},
+	{"text": "Suitors jammed something important. People are calling the camera blind spot romantic, which tells you how bad things are.",
+	 "conditions": {"flag_true": "suitors_surveillance_jammed"}},
+	{"text": "Torai is sending gifts again. Down here a gift is a debt wearing perfume.",
+	 "conditions": {"flag_true": "torai_obligation"}},
+	{"text": "Linda's wellness checks are showing up in conversations before they show up in hallways. That is never a good order.",
+	 "conditions": {"flag_true": "ward7_linda_wellness_armed"}},
+	{"text": "The upper routes keep opening. Every floor above us has better lighting and worse intentions.",
+	 "conditions": {"quest_completed": "transit_breach"}},
+	{"text": "People say the companion core answered you. They lower their voices for that rumor, like the walls have feelings.",
+	 "conditions": {"quest_completed": "companion_core"}},
+	{"text": "Linda granted an audience. Around here, that phrase has the same shape as a trap and a wedding invitation.",
+	 "conditions": {"flag_true": "linda_audience_granted"}},
+	{"text": "The city heard something crack in the care loop. Nobody agrees whether it was a lock, a bone, or a promise.",
+	 "conditions": {"flag_true": "ending_care_loop_broken"}},
+	{"text": "Managed autonomy is the phrase going around. People keep repeating it slowly, looking for the part where it starts sounding free.",
+	 "conditions": {"flag_true": "ending_managed_autonomy"}},
+	{"text": "The breach gate is awake and everyone pretends that is normal. Nobody wants to be the first person to admit the door looks hungry.",
+	 "conditions": {"flag_true": "face_terminal_online"}},
 	{"text": "They say the false sky flickered over Leak Street again. People stop looking up. That is the point of it.",
+	 "conditions": {}},
+	{"text": "Someone saw a goon cannon punch a wall and lose the argument. The wall is being insufferable about it.",
+	 "conditions": {}},
+	{"text": "The rain is early, late, or lying. Those are the three local weather reports.",
+	 "conditions": {}},
+	{"text": "A person in a sheet walked out of the dead nook, and the mall decided to continue anyway. Strong survival instinct, this place.",
 	 "conditions": {}},
 ]
 
@@ -590,6 +959,17 @@ var CITY_RUMORS: Array = [
 const TONE_MATCH_BONUS := 4
 const TONE_MISMATCH_PENALTY := -3
 const TONE_NORMAL_NUDGE := 1
+
+# Spooky Ghost looks like a classic bedsheet ghost (a sheet fused to a borrowed android body).
+# These are occasional asides everyday NPCs tack onto a later greeting — running comic relief.
+const SHEET_QUIPS: Array = [
+	"(They glance at the sheet, decide not to ask, and visibly lose that fight with themselves.)",
+	"\"...still going with the sheet, then. Bold. Carry on.\"",
+	"\"One of these days you'll explain the sheet. Today is not that day.\"",
+	"\"Nice sheet,\" they offer, in the tone of someone with questions and no time for them.",
+	"(A long look at the two eyeholes. A longer look pointedly away from them.)",
+	"\"You know we can all see the bedsheet, right? Right. Just checking.\"",
+]
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -609,6 +989,17 @@ func topic_label(topic_id: String) -> String:
 	return _topic_label(topic_id)
 
 
+func topic_question(topic_id: String, tab: String = "tell") -> String:
+	var t: Dictionary = TOPICS.get(topic_id, {})
+	var authored := str(t.get("question", ""))
+	if not authored.is_empty():
+		return authored
+	match tab:
+		"work": return "Anything that needs doing?"
+		"where": return "Where can I find %s?" % _topic_label(topic_id)
+		_: return "Tell me about %s." % _topic_label(topic_id)
+
+
 # Fires a profile's open_effects once, when the conversation begins (e.g. Vera's heal).
 func on_open(npc_id: String) -> void:
 	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
@@ -618,22 +1009,37 @@ func on_open(npc_id: String) -> void:
 func greeting(npc_id: String) -> Dictionary:
 	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
 	var tier := _tier(npc_id)
+	# First-meeting "surprised at the sheet ghost" line, shown once per NPC. Tracked by a world
+	# flag so it persists and only fires the first time you talk to this NPC.
+	var met_flag := "dlg_met_" + npc_id
+	var first := not bool(GameState.get_world_flag(met_flag, false))
+	var text_value = profile.get("greetings", {})
+	if profile.has("first_greeting") and first:
+		text_value = profile["first_greeting"]
+	GameState.set_world_flag(met_flag, true)
+	var text := _resolve_text(text_value, tier)
+	var context_aside := _contextual_greeting_aside(npc_id)
+	if not context_aside.is_empty():
+		text += "\n\n" + context_aside
+	# Recurring comic relief: on later visits an everyday NPC (one that authored a first_greeting,
+	# so this skips the survivor / spine characters) occasionally can't help remarking on the sheet.
+	if not first and profile.has("first_greeting") and randf() < 0.22:
+		text += "\n\n" + str(SHEET_QUIPS[randi() % SHEET_QUIPS.size()])
 	return {
 		"name": str(profile.get("name", npc_id.capitalize())),
-		"text": _resolve_text(profile.get("greetings", {}), tier),
+		"text": text,
 		"tier": tier,
 		"mood": _mood_word(tier),
 	}
 
 
 # Returns the keyword buttons for a tab: "tell" (person+thing), "where" (location), "work".
-# Each entry: {topic_id, label, state}  state in "known" | "hint" | "shrug".
+# Each entry: {topic_id, label, state}  state in "known" | "hint".
 func category_entries(npc_id: String, tab: String) -> Array:
 	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
 	var npc_topics: Dictionary = profile.get("topics", {})
 	var wanted := _categories_for_tab(tab)
 	var entries: Array = []
-	var seen: Dictionary = {}
 
 	# 1) Topics this NPC can personally speak to.
 	#    - Work offers are always selectable (you take a job by picking it).
@@ -648,20 +1054,12 @@ func category_entries(npc_id: String, tab: String) -> Array:
 		var cat := _topic_category(topic_id, entry)
 		if not wanted.has(cat):
 			continue
-		seen[topic_id] = true
 		# A topic is a locked "?" cue only if it explicitly authored a `hint` AND is unlearned.
 		# Work offers, already-known topics, and plain (no-hint) common-knowledge topics stay askable.
 		if cat == "work" or GameState.has_topic(topic_id) or not entry.has("hint"):
 			entries.append({"topic_id": topic_id, "label": _topic_label(topic_id), "state": "known"})
 		else:
 			entries.append({"topic_id": topic_id, "label": "? " + str(entry.get("hint", "something")), "state": "hint"})
-
-	# 2) Codex topics in this tab the NPC has no entry for — askable, but they will shrug.
-	for topic_id: String in GameState.known_topics.keys():
-		if seen.has(topic_id) or not TOPICS.has(topic_id):
-			continue
-		if wanted.has(_topic_category(topic_id, {})):
-			entries.append({"topic_id": topic_id, "label": _topic_label(topic_id), "state": "shrug"})
 
 	entries.sort_custom(func(a, b): return str(a["label"]) < str(b["label"]))
 	return entries
@@ -671,13 +1069,13 @@ func category_entries(npc_id: String, tab: String) -> Array:
 func ask(npc_id: String, topic_id: String) -> Dictionary:
 	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
 	var npc_topics: Dictionary = profile.get("topics", {})
-	var name := str(profile.get("name", npc_id.capitalize()))
+	var speaker_name := str(profile.get("name", npc_id.capitalize()))
 	var tier := _tier(npc_id)
 
 	if not npc_topics.has(topic_id):
 		# Known to the player but not to this NPC — disposition-flavoured shrug.
 		GameState.learn_topic(topic_id)  # asking still counts as "knowing" it
-		return {"name": name, "text": _resolve_text(profile.get("unknown_line", "I would not know."), tier)}
+		return {"name": speaker_name, "text": _resolve_text(profile.get("unknown_line", "I would not know."), tier)}
 
 	var entry: Dictionary = npc_topics[topic_id]
 	# Learning happens on ask (this is how `?` hints enter the codex).
@@ -686,26 +1084,172 @@ func ask(npc_id: String, topic_id: String) -> Dictionary:
 		GameState.learn_topic(str(taught))
 	_apply_effects(entry.get("effects", []))
 
-	return {"name": name, "text": _resolve_text(entry.get("text", "..."), tier)}
+	if entry.has("dynamic_text"):
+		return {"name": speaker_name, "text": _resolve_dynamic_text(str(entry["dynamic_text"]), tier)}
+	return {"name": speaker_name, "text": _resolve_text(entry.get("text", "..."), tier)}
 
 
 func rumor(npc_id: String) -> Dictionary:
 	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
-	var name := str(profile.get("name", npc_id.capitalize()))
+	var speaker_name := str(profile.get("name", npc_id.capitalize()))
+	var matching_news: Array = _contextual_news_lines(npc_id)
+	var matching_profile_rumors: Array = []
 	for r: Dictionary in profile.get("rumors", []):
 		if _check_conditions(r.get("conditions", {})):
-			for taught: String in r.get("teaches", []):
-				GameState.learn_topic(str(taught))
-			return {"name": name, "text": str(r.get("text", ""))}
+			matching_profile_rumors.append(r)
+	var matching_city_rumors: Array = []
 	for r: Dictionary in CITY_RUMORS:
 		if _check_conditions(r.get("conditions", {})):
-			return {"name": name, "text": str(r.get("text", ""))}
-	return {"name": name, "text": "Nothing worth repeating. That is its own kind of news down here."}
+			matching_city_rumors.append(r)
+	var pool: Array = []
+	pool.append_array(matching_news)
+	pool.append_array(matching_profile_rumors)
+	pool.append_array(matching_city_rumors)
+	if not pool.is_empty():
+		var picked = pool[randi() % pool.size()]
+		if typeof(picked) != TYPE_DICTIONARY:
+			return {"name": speaker_name, "text": str(picked)}
+		var picked_profile: Dictionary = picked
+		for taught: String in picked_profile.get("teaches", []):
+			GameState.learn_topic(str(taught))
+		return {"name": speaker_name, "text": str(picked_profile.get("text", ""))}
+	return {"name": speaker_name, "text": "Nothing worth repeating. That is its own kind of news down here."}
 
 
 func services(npc_id: String) -> Array:
 	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
 	return profile.get("services", []).duplicate()
+
+
+func _contextual_greeting_aside(npc_id: String) -> String:
+	var lines := _contextual_news_lines(npc_id, false)
+	if lines.is_empty():
+		return ""
+	return str(lines[0])
+
+
+func _contextual_news_lines(npc_id: String, include_idle_sky := true) -> Array:
+	var lines: Array = []
+	var profile: Dictionary = NPC_PROFILES.get(npc_id, {})
+	var faction := str(profile.get("faction", ""))
+	var event_id := str(GameState.get_world_flag("active_world_event", "clear"))
+	match event_id:
+		"toxic_rain":
+			lines.append("The false sky is leaking poison again. People are checking masks before names.")
+		"power_sag":
+			lines.append("The artificial sky is dimming at the corners. When the ceiling gets tired, everyone below it starts counting batteries.")
+		"lan_outage":
+			lines.append("The ceiling ads are stuttering and the camera feeds have gaps. System X calls that opportunity; everybody else calls it a reason to hurry.")
+		_:
+			if include_idle_sky:
+				if bool(GameState.get_world_flag("hub_power_restored", false)):
+					lines.append("The false sky is still fake, but at least the lights behind it no longer sound like they are begging.")
+				else:
+					lines.append("The false sky keeps pretending everything is normal. Down here, normal flickers and asks for parts.")
+
+	if not GameState.active_job_id.is_empty():
+		var job: Dictionary = GameState.get_active_job_data()
+		var destination := str(job.get("destination", "the dead floors"))
+		if GameState.is_job_objective_done(GameState.active_job_id):
+			lines.append("Word is you finished the Cooters job in %s. Marbles will pretend not to be pleased until the register opens." % destination)
+		else:
+			lines.append("People heard you took work in %s. That place has started appearing in conversations with the kind of pause people use for bad stairs." % destination)
+
+	if bool(GameState.get_world_flag("ward7_experiment_docs_found", false)):
+		lines.append("Ward 7 is not just a rumor anymore. People say 'green report' now like it means 'grave with a login screen.'")
+	elif bool(GameState.get_world_flag("ward7_entered", false)):
+		lines.append("You went into Ward 7 and came back carrying the room with you. Even people who do not know the name can feel it.")
+
+	if bool(GameState.get_world_flag("rocker_fellar_defeated", false)):
+		lines.append("Rocker Fellar went quiet. The lower pipes stopped humming bass through everybody's teeth, which is the closest this place gets to a holiday.")
+	if bool(GameState.get_world_flag("hub_cistern_connected", false)):
+		lines.append("Clean water changed the room temperature of the whole hub. People are learning to drink without bracing for punishment.")
+	if bool(GameState.get_world_flag("hub_lan_restored", false)):
+		lines.append("The LAN tap is alive. System X sees farther now, and the cameras seem offended by the competition.")
+	if bool(GameState.get_world_flag("atrium_cleared", false)):
+		lines.append("The atrium paths are open. People keep walking through the center just because they can.")
+
+	_append_reputation_news(lines, faction)
+	return lines
+
+
+func _append_reputation_news(lines: Array, listener_faction: String) -> void:
+	var system_x_rep := int(GameState.reputation.get("System X", 0))
+	var gatebox_rep := int(GameState.reputation.get("Gatebox Corporation", 0))
+	var torai_rep := int(GameState.reputation.get("Wan Moa Torai", 0))
+	var linda_rep := int(GameState.reputation.get("Linda", 0))
+
+	if system_x_rep >= 4:
+		lines.append("System X is saying your name with less static in it. Around here, that is practically affection.")
+	elif system_x_rep <= -2:
+		lines.append("System X has you filed under 'useful risk.' That folder is thicker than you want it to be.")
+
+	if torai_rep >= 3:
+		lines.append("Wan Moa Torai likes you, which means the ledger smiles when you enter the room. Do not smile back without reading the margin notes.")
+	elif torai_rep <= -2:
+		lines.append("Torai clerks are using your name like a balance due. That is a bad kind of famous.")
+
+	if gatebox_rep >= 2:
+		lines.append("Gatebox systems have started greeting you like a valued irregularity. Nobody trusts a polite door down here.")
+	elif gatebox_rep <= -2:
+		lines.append("Gatebox attention is souring around you. Cameras tilt a little faster when the sheet passes under them.")
+
+	if linda_rep >= 2:
+		lines.append("Linda's metrics are warm around you. Warmth from that direction usually means the cage has found a comfortable shape.")
+	elif linda_rep <= -2:
+		lines.append("Linda's wellness logic has you flagged as disruptive. In the lower city, that almost sounds like a compliment.")
+
+	if not listener_faction.is_empty():
+		var listener_rep := int(GameState.reputation.get(listener_faction, 0))
+		if listener_rep >= 3:
+			lines.append("%s people are giving you the small nod now. Not trust exactly, but trust's cheaper cousin." % listener_faction)
+		elif listener_rep <= -2:
+			lines.append("%s people have started measuring doorways when you enter. Reputation travels ahead of you." % listener_faction)
+
+
+func _resolve_dynamic_text(text_id: String, tier: String) -> String:
+	match text_id:
+		"active_job_brief":
+			return _active_job_brief(tier)
+	return "I had that note written down, then the board ate it. Ask me again after I threaten the chalk."
+
+
+func _active_job_brief(tier: String) -> String:
+	var job: Dictionary = GameState.get_active_job_data()
+	if job.is_empty():
+		return "No current mission. Board's on the wall when you want a fresh mistake."
+	var title := str(job.get("title", "the job"))
+	var destination := str(job.get("destination", "the dead floors"))
+	var giver := str(job.get("giver", "Cooters"))
+	var faction := str(job.get("faction", ""))
+	var rival := str(job.get("rival_faction", ""))
+	var reward := str(job.get("reward_text", "bar credit"))
+	var objective := GameState.get_active_job_objective_text()
+	if objective.is_empty():
+		objective = str(job.get("objective", "Finish the job and come back upright."))
+	var threat := ""
+	if not rival.is_empty():
+		threat = " Contested by %s, so expect the usual hospitality problem." % rival
+	var source := giver
+	if not faction.is_empty() and faction != giver:
+		source = "%s, through %s" % [giver, faction]
+
+	if GameState.is_job_objective_done(GameState.active_job_id):
+		match tier:
+			"warm":
+				return "Current mission: %s. You did it. Bring that result back to me and I will make the register behave. Payout is %s." % [title, reward]
+			"cold":
+				return "%s is done. Collect your pay before the board gets bored: %s." % [title, reward]
+			_:
+				return "Current mission: %s. Objective complete. Come collect: %s." % [title, reward]
+
+	match tier:
+		"warm":
+			return "Current mission: %s. Came from %s. Destination is %s. %s%s Payout says %s if you come back with the important bits still attached." % [title, source, destination, objective, threat, reward]
+		"cold":
+			return "%s. Go to %s. %s%s Pays %s. Try not to make me update the board twice." % [title, destination, objective, threat, reward]
+		_:
+			return "Current mission: %s. Source: %s. Destination: %s. %s%s Reward: %s." % [title, source, destination, objective, threat, reward]
 
 
 # Apply a tone choice; returns the new disposition. Tone is also remembered globally.
@@ -761,9 +1305,19 @@ func _topic_visible(entry: Dictionary) -> bool:
 		return false
 	if entry.has("requires_flag_false") and bool(GameState.get_world_flag(str(entry["requires_flag_false"]))):
 		return false
+	if entry.has("requires_flag_false_any"):
+		for flag in entry.get("requires_flag_false_any", []):
+			if bool(GameState.get_world_flag(str(flag))):
+				return false
 	if entry.has("requires_quest") and not GameState.is_quest_completed(str(entry["requires_quest"])):
 		return false
 	if entry.has("requires_quest_not") and GameState.is_quest_completed(str(entry["requires_quest_not"])):
+		return false
+	if entry.has("requires_rep_gte"):
+		var rep_req: Array = entry.get("requires_rep_gte", [])
+		if rep_req.size() >= 2 and int(GameState.reputation.get(str(rep_req[0]), 0)) < int(rep_req[1]):
+			return false
+	if entry.has("requires_job_active") and bool(entry["requires_job_active"]) != (not GameState.active_job_id.is_empty()):
 		return false
 	if entry.has("requires_job_ready") and bool(entry["requires_job_ready"]) and not GameState.is_job_objective_done(GameState.active_job_id):
 		return false

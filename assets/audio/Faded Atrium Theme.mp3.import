@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dtpdnoqdi30to"
+path="res://.godot/imported/Faded Atrium Theme.mp3-e9040d15dfda5ab6e66650c9ee8ae652.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Faded Atrium Theme.mp3"
+dest_files=["res://.godot/imported/Faded Atrium Theme.mp3-e9040d15dfda5ab6e66650c9ee8ae652.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

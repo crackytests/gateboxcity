@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chg81ax2e4vvy"
+path="res://.godot/imported/Toxic Rain Event.ogg-ef8d0604748cc72224995218dea8f9c3.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/Toxic Rain Event.ogg"
+dest_files=["res://.godot/imported/Toxic Rain Event.ogg-ef8d0604748cc72224995218dea8f9c3.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

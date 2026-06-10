@@ -18,6 +18,7 @@ signal item_dropped(item_name: String)
 @export var ranged_damage := 5.0
 @export var attack_cooldown := 1.15
 @export var player_path: NodePath
+@export var persistence_id := ""
 @export var detection_range := 14.0
 @export var detection_delay := 0.6  # seconds of line-of-sight before aggro at baseline drift
 @export var pacified_dialogue_name := "Gatebox Guard"
@@ -37,6 +38,10 @@ signal item_dropped(item_name: String)
 @export var special_cooldown := 3.0
 @export var lunge_range := 6.5
 @export var lunge_damage_mult := 1.35
+@export var lunge_speed := 13.0          # how hard a lunge/charge physically propels the attacker forward
+@export var lunge_dash_time := 0.28      # how long that forward dash velocity holds
+@export var can_leap := false            # can hop over obstacles when its path is blocked (e.g. Splice)
+@export var leap_force := 7.5            # upward impulse for an obstacle leap
 @export var stagger_on_interrupt := 0.7  # seconds of stun when a wind-up is broken
 
 enum AIState { PATROL, COMBAT }
@@ -74,6 +79,13 @@ var windup_timer := 0.0
 var special_cooldown_timer := 0.0
 var _telegraph_part: BodyPart = null
 
+# Forward-dash on a lunge strike + obstacle-hop state.
+var _dash_timer := 0.0
+var _dash_velocity := Vector3.ZERO
+var _dash_damage_pending := 0.0
+var _dash_hit_done := false
+var _leap_cooldown := 0.0
+
 # Pack coordination.
 @export var pack_id := ""               # members of the same pack share a frame-link
 @export var is_pack_anchor := false     # while alive, the pack is buffed
@@ -87,6 +99,11 @@ var _behavior_mode := ""      # set by behavior_shift (e.g. "grab", "erratic") �
 
 
 func _ready() -> void:
+	if GameState.is_enemy_defeated(_persistence_key()):
+		is_defeated = true
+		queue_free()
+		return
+
 	base_move_speed = move_speed
 	add_to_group("enemy")
 	if not player_path.is_empty():
@@ -110,6 +127,7 @@ func _physics_process(delta: float) -> void:
 	attack_timer = maxf(attack_timer - delta, 0.0)
 	stun_timer = maxf(stun_timer - delta, 0.0)
 	attack_flash_timer = maxf(attack_flash_timer - delta, 0.0)
+	_leap_cooldown = maxf(_leap_cooldown - delta, 0.0)
 	_tick_enrage(delta)
 
 	if player == null:
@@ -132,12 +150,23 @@ func _physics_process(delta: float) -> void:
 		AIState.COMBAT:
 			_process_combat(delta)
 
+	# A lunge strike physically throws the attacker forward for a brief window, overriding
+	# the normal chase velocity so the attack actually closes distance / crosses gaps.
+	if _dash_timer > 0.0:
+		if is_on_floor():
+			_dash_timer -= delta
+			velocity.x = _dash_velocity.x
+			velocity.z = _dash_velocity.z
+		else:
+			_clear_dash_attack()
+
 	var visual_scale := 1.0
 	if attack_flash_timer > 0.0:
 		visual_scale = 1.0 + attack_flash_timer * 0.45
 	$Visuals.scale = Vector3.ONE * visual_scale
 
 	move_and_slide()
+	_resolve_dash_contact()
 
 
 func _process_patrol(delta: float) -> void:
@@ -202,6 +231,10 @@ func _process_combat(delta: float) -> void:
 		velocity.x = direction.x * move_speed
 		velocity.z = direction.z * move_speed
 		look_at(look_target, Vector3.UP)
+		# Hop over an obstacle when the path forward is blocked (Splice and other leapers).
+		if can_leap and _leap_cooldown <= 0.0 and is_on_floor() and is_on_wall():
+			velocity.y = leap_force
+			_leap_cooldown = 1.4
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, move_speed)
 		velocity.z = move_toward(velocity.z, 0.0, move_speed)
@@ -225,7 +258,7 @@ func _update_attacks(delta: float, dist: float) -> void:
 
 	var tp := _find_telegraph_part()
 	if tp != null and special_cooldown_timer <= 0.0:
-		if dist <= _telegraph_range(tp.telegraph_ability):
+		if dist <= _telegraph_range(tp.telegraph_ability) and _can_start_telegraph(tp.telegraph_ability):
 			_begin_windup(tp)
 			return
 
@@ -251,6 +284,24 @@ func _telegraph_range(ability: String) -> float:
 			return attack_range
 
 
+func _can_start_telegraph(ability: String) -> bool:
+	match ability:
+		"ranged_shot", "sonic_beam", "sedative":
+			return _has_attack_line_of_sight()
+		"lunge", "charge":
+			return _is_flat_on_ground() and _has_attack_line_of_sight()
+		_:
+			return true
+
+
+func _is_flat_on_ground() -> bool:
+	if not is_on_floor():
+		return false
+	if absf(velocity.y) > 0.05:
+		return false
+	return get_floor_normal().dot(Vector3.UP) >= 0.92
+
+
 func _begin_windup(part: BodyPart) -> void:
 	attack_state = AttackState.WINDUP
 	windup_timer = windup_time
@@ -258,6 +309,10 @@ func _begin_windup(part: BodyPart) -> void:
 	part.begin_windup(part.windup_lock_bonus)
 	if billboard != null and billboard.has_method("set_windup"):
 		billboard.set_windup(true)
+	if faction == "Splice" or part.display_name == "Splice Arm":
+		AudioDirector.play_sfx("splice_lunge_charge", -1.0)
+	elif part.telegraph_ability == "ranged_shot":
+		AudioDirector.play_sfx("goon_cannon_charge", -2.0)
 	attacked_player.emit("%s charging — break it" % part.display_name)
 
 
@@ -280,12 +335,13 @@ func _strike() -> void:
 		if ph != null:
 			match ability:
 				"ranged_shot", "sonic_beam":
-					if dist <= ranged_range:
-						ph.apply_damage(ranged_damage)
+					if dist <= ranged_range and _has_attack_line_of_sight():
+						ph.apply_damage(ranged_damage, global_position)
+						AudioDirector.play_sfx("goon_cannon_fire", -1.0)
 						attacked_player.emit(ranged_hit_message % roundi(ranged_damage))
 				"sedative":
-					if dist <= ranged_range:
-						ph.apply_damage(ranged_damage * 0.5)
+					if dist <= ranged_range and _has_attack_line_of_sight():
+						ph.apply_damage(ranged_damage * 0.5, global_position)
 						GameState.apply_timed_effect("sedated", {
 							"label": "Sedated",
 							"active_duration": 4.0,
@@ -293,14 +349,24 @@ func _strike() -> void:
 							"log": "sedative spray — your limbs go heavy",
 						})
 				"lunge", "charge":
-					if dist <= lunge_range + 0.5:
+					# Physically throw the body forward toward the player, then resolve the hit.
+					var lunge_dir := player.global_position - global_position
+					lunge_dir.y = 0.0
+					if lunge_dir.length() > 0.01:
+						_dash_velocity = lunge_dir.normalized() * lunge_speed
+						_dash_timer = lunge_dash_time
+						_dash_damage_pending = _outgoing_melee() * lunge_damage_mult
+						_dash_hit_done = false
+					elif dist <= attack_range + 0.6:
 						var dmg := _outgoing_melee() * lunge_damage_mult
-						ph.apply_damage(dmg)
+						ph.apply_damage(dmg, global_position)
+						if faction == "Splice" or ability == "lunge":
+							AudioDirector.play_sfx("splice_lunge_hit", 0.0)
 						attacked_player.emit(melee_hit_message % roundi(dmg))
 				_:
 					if dist <= attack_range:
 						var basic := _outgoing_melee()
-						ph.apply_damage(basic)
+						ph.apply_damage(basic, global_position)
 						attacked_player.emit(melee_hit_message % roundi(basic))
 	attack_flash_timer = 0.22
 	_end_windup()
@@ -309,6 +375,7 @@ func _strike() -> void:
 
 func _cancel_windup(staggered: bool) -> void:
 	_end_windup()
+	_clear_dash_attack()
 	if staggered:
 		stun_timer = maxf(stun_timer, stagger_on_interrupt)
 	# Whiffed wind-ups recover a little faster than a completed strike.
@@ -325,7 +392,42 @@ func _end_windup() -> void:
 		billboard.set_windup(false)
 
 
+func _resolve_dash_contact() -> void:
+	if _dash_damage_pending <= 0.0 or _dash_hit_done or player == null:
+		if _dash_timer <= 0.0 and _dash_damage_pending > 0.0:
+			_clear_dash_attack()
+		return
+	var dist := player.global_position.distance_to(global_position)
+	if dist > attack_range + 0.75:
+		if _dash_timer <= 0.0:
+			_clear_dash_attack()
+		return
+	var ph := player.find_child("PlayerHealth", true, false)
+	if ph == null:
+		_clear_dash_attack()
+		return
+	ph.apply_damage(_dash_damage_pending, global_position)
+	if faction == "Splice":
+		AudioDirector.play_sfx("splice_lunge_hit", 0.0)
+	attacked_player.emit(melee_hit_message % roundi(_dash_damage_pending))
+	_dash_hit_done = true
+	_clear_dash_attack()
+
+
+func _clear_dash_attack() -> void:
+	_dash_timer = 0.0
+	_dash_velocity = Vector3.ZERO
+	_dash_damage_pending = 0.0
+	_dash_hit_done = false
+
+
 func _on_part_damaged(part: BodyPart, _amount: float, remaining_hp: float) -> void:
+	# Getting hit makes an unaware enemy hostile immediately — no line-of-sight needed — and
+	# wakes nearby allies through the normal aggro propagation.
+	if ai_state != AIState.COMBAT and not is_defeated:
+		ai_state = AIState.COMBAT
+		_detection = 1.0
+		_on_aggro()
 	if billboard != null and billboard.has_method("flash_damage"):
 		billboard.flash_damage()
 	if part.display_name == "Head" and remaining_hp <= part.max_hp * 0.5:
@@ -341,6 +443,7 @@ func _on_part_destroyed(part: BodyPart) -> void:
 	_show_part_break_effect(part)
 	if billboard != null and billboard.has_method("show_part_broken"):
 		billboard.show_part_broken(part.display_name)
+	AudioDirector.play_body_part_break(part.display_name)
 
 	_apply_part_destroy_effect(part)
 
@@ -445,7 +548,7 @@ func _trigger_detonate(part: BodyPart) -> void:
 			var ph = player.find_child("PlayerHealth", true, false)
 			if ph != null:
 				var falloff := clampf(1.0 - d / radius, 0.15, 1.0)
-				ph.apply_damage(dmg * falloff)
+				ph.apply_damage(dmg * falloff, pos)
 				attacked_player.emit("reactor blast — %d" % roundi(dmg * falloff))
 	_spawn_burst_vfx(pos, radius, Color(1.0, 0.55, 0.1))
 
@@ -526,7 +629,7 @@ func _try_attack(distance_to_player: float) -> void:
 	# system (_update_attacks) so they can be read and interrupted.
 	if distance_to_player <= attack_range:
 		var dmg := _outgoing_melee()
-		player_health.apply_damage(dmg)
+		player_health.apply_damage(dmg, global_position)
 		attack_flash_timer = 0.22
 		var msg := enraged_hit_message if (_enrage_active and not enraged_hit_message.is_empty()) else melee_hit_message
 		attacked_player.emit(msg % roundi(dmg))
@@ -538,6 +641,7 @@ func _defeat() -> void:
 		return
 
 	is_defeated = true
+	GameState.mark_enemy_defeated(_persistence_key())
 	collision_layer = 0
 	collision_mask = 0
 	for child in parts_root.get_children():
@@ -547,11 +651,22 @@ func _defeat() -> void:
 			part.monitoring = false
 	if billboard != null and billboard.has_method("show_defeated"):
 		billboard.show_defeated()
+	if faction == "Splice":
+		AudioDirector.play_sfx("splice_death", 0.0)
 	_drop_loot()
 	if is_pack_anchor:
 		attacked_player.emit("pack anchor down — the frame-link drops and the pack softens")
 	_notify_pack_changed()
 	defeated.emit()
+
+
+func _persistence_key() -> String:
+	if not persistence_id.is_empty():
+		return persistence_id
+	var scene_path := ""
+	if get_tree().current_scene != null:
+		scene_path = get_tree().current_scene.scene_file_path
+	return "%s:%s" % [scene_path, str(get_path())]
 
 
 # ── Loot drops (refactor §2) ────────────────────────────────────────
@@ -711,6 +826,25 @@ func _has_line_of_sight() -> bool:
 	return hit_dist >= dist - 0.5
 
 
+func _has_attack_line_of_sight() -> bool:
+	if player == null:
+		return false
+	var player_eye := 0.8
+	if player.has_method("get_sight_height"):
+		player_eye = player.get_sight_height()
+	var from := global_position + Vector3.UP * 0.8
+	var to := player.global_position + Vector3.UP * player_eye
+	var dist := from.distance_to(to)
+	var space_state := get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [get_rid()]
+	var result := space_state.intersect_ray(query)
+	if result.is_empty():
+		return true
+	var hit_dist := from.distance_to(result.position)
+	return hit_dist >= dist - 0.5
+
+
 func set_patrol_points(points: Array[Vector3]) -> void:
 	patrol_points = points
 	_patrol_index = 0
@@ -792,6 +926,8 @@ func _outgoing_melee() -> float:
 
 func _on_aggro() -> void:
 	_refresh_pack_buff()
+	if faction == "Splice":
+		AudioDirector.play_sfx("splice_aggro", -1.0)
 	# One-hop alert: wake nearby pack/faction allies that are still on patrol.
 	for node in get_tree().get_nodes_in_group("enemy"):
 		var e := node as Enemy

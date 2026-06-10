@@ -19,6 +19,7 @@ var reputation: Dictionary = {
 }
 var completed_quests: Dictionary = {}
 var active_job_id := ""
+var active_job_run_id := 0
 var available_jobs: Array = [
 	"pipe_blood_sample",
 	"ratchet_saint",
@@ -33,6 +34,7 @@ var last_mission_result := ""
 var world_flags: Dictionary = {}
 var quest_states: Dictionary = {}
 var cybernetics: Dictionary = {}
+var defeated_enemies: Dictionary = {}  # persistence_key -> true
 
 # ── Dialogue system (Daggerfall-style topics) ───────────────────────
 var known_topics: Dictionary = {}      # topic_id -> true (the keyword codex)
@@ -68,6 +70,8 @@ var _save_php := 100.0
 var _has_saved_location := false
 var _is_dead := false
 var _force_reload_pending := false
+var _load_restore_pending := false
+var _new_game_intro_pending := false
 
 const DRIFT_MAX := 100
 const DRIFT_FLAG_NOTICED := "drift_noticed"   # 21+: Gatebox grows attentive
@@ -131,6 +135,20 @@ const SCRAP_VALUES := {
 	"Fried Cortex Chip": 4,
 	"Leaking Cell": 5,
 }
+
+const LADDERBOY_IMPLANT_REPAIR_RECIPES := [
+	{"broken": "Cracked Optic", "implant": "gatebox_eye_mk1", "wan": 10},
+	{"broken": "Cracked Optic", "implant": "mag_retina", "wan": 16},
+	{"broken": "Bent Actuator", "implant": "pipewalker_legs", "wan": 10},
+	{"broken": "Bent Actuator", "implant": "sprint_pistons", "wan": 12},
+	{"broken": "Bent Actuator", "implant": "black_market_armature", "wan": 18},
+	{"broken": "Fried Cortex Chip", "implant": "targeting_coprocessor", "wan": 14},
+	{"broken": "Fried Cortex Chip", "implant": "neural_jack", "wan": 18},
+	{"broken": "Fried Cortex Chip", "implant": "trauma_dampener", "wan": 14},
+	{"broken": "Leaking Cell", "implant": "soul_baffle", "wan": 14},
+	{"broken": "Leaking Cell", "implant": "endoskeletal_brace", "wan": 16},
+	{"broken": "Leaking Cell", "implant": "bioreactor_mesh", "wan": 24},
+]
 
 # Implant rarity → drop weight (rarer = lower weight) and later install price / scrap value.
 const IMPLANT_TIERS := {
@@ -198,7 +216,12 @@ const CONSUMABLES := {
 # Untyped Array so Array.filter() results assign back cleanly.
 var active_effects: Array = []
 
+const SAVE_SLOT_MANUAL := "manual"
+const SAVE_SLOT_QUICK := "quick"
+const SAVE_SLOT_AUTO := "auto"
 const SAVE_PATH := "user://gatebox_save.json"
+const QUICK_SAVE_PATH := "user://gatebox_quicksave.json"
+const AUTO_SAVE_PATH := "user://gatebox_autosave.json"
 const WAN_NOTE_ITEM := "Wan Note"
 const DREAMING_GENERATOR_POTENTIAL_FLAG := "dreaming_generator_potential"
 const DREAMING_GENERATOR_THRESHOLD := 40
@@ -481,7 +504,7 @@ var QUEST_DEFS: Dictionary = {
 		"objectives": [
 			{"id": "hub_cistern_connected", "text": "Install the water conduit at the cistern junction", "required": true, "done_flag": "hub_cistern_connected"},
 		],
-		"objective_text_active": "Hub: install water conduit at the cistern west walkway junction.",
+		"objective_text_active": "Hub: install the water conduit at the teal mast on the west service ring of the Water Reclamation Cistern, just before the pump room.",
 		"objective_text_done": "Hub water connected.",
 	},
 	"hub_clear_court": {
@@ -491,9 +514,9 @@ var QUEST_DEFS: Dictionary = {
 		"active_flag": "quest_clear_court_active",
 		"done_flag": "atrium_cleared",
 		"objectives": [
-			{"id": "atrium_cleared", "text": "Remove three debris piles from the central atrium", "required": true, "done_flag": "atrium_cleared"},
+			{"id": "atrium_cleared", "text": "Clear three debris piles in the Collapsed Service Atrium relay deck", "required": true, "done_flag": "atrium_cleared"},
 		],
-		"objective_text_active": "Hub: remove three debris piles from the central atrium.",
+		"objective_text_active": "Hub: travel to the Collapsed Service Atrium and clear three marked debris piles on/near the relay deck.",
 		"objective_text_done": "Hub atrium cleared.",
 	},
 	"hub_store_4": {
@@ -756,6 +779,36 @@ func get_sellable_wasted_potential_items() -> Array:
 	return sellable
 
 
+func get_ladderboy_implant_repair_offers() -> Array:
+	var offers := []
+	for recipe: Dictionary in LADDERBOY_IMPLANT_REPAIR_RECIPES:
+		var broken := str(recipe.get("broken", ""))
+		var implant_id := str(recipe.get("implant", ""))
+		if broken.is_empty() or implant_id.is_empty():
+			continue
+		if not CyberneticSurgeryUI.UPGRADE_DB.has(implant_id):
+			continue
+		if has_cybernetic(implant_id):
+			continue
+		var db: Dictionary = CyberneticSurgeryUI.UPGRADE_DB[implant_id]
+		var implant_name := str(db.get("name", implant_id))
+		var slot := str(db.get("slot", "Body"))
+		offers.append({
+			"item": implant_id,
+			"label": "Rebuild: %s" % implant_name,
+			"desc": "Ladderboy turns one %s into a usable %s implant for the %s slot.\n\n%s\n\nCoil still has to install it after you buy the bench work." % [
+				broken,
+				implant_name,
+				slot,
+				str(db.get("desc", "")),
+			],
+			"wan_price": int(recipe.get("wan", 0)),
+			"cost_items": {broken: 1},
+			"count": 1,
+		})
+	return offers
+
+
 func sell_highest_wasted_potential_to_gideon() -> Dictionary:
 	var sellable := get_sellable_wasted_potential_items()
 	if sellable.is_empty():
@@ -836,7 +889,14 @@ func mark_quest_completed(quest_id: String) -> void:
 
 
 func is_quest_completed(quest_id: String) -> bool:
-	return bool(completed_quests.get(quest_id, false))
+	if bool(completed_quests.get(quest_id, false)):
+		return true
+	var state: Dictionary = quest_states.get(quest_id, {})
+	if bool(state.get("completed", false)):
+		return true
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	var done_flag := str(def.get("done_flag", ""))
+	return not done_flag.is_empty() and bool(get_world_flag(done_flag, false))
 
 
 const JOB_BOARD_SIZE := 4
@@ -957,6 +1017,8 @@ func accept_job(template_id: String) -> bool:
 		return false
 	active_job_id = template_id
 	active_job_instance = inst
+	active_job_run_id += 1
+	active_job_instance["run_id"] = active_job_run_id
 	job_flags.erase(_objective_flag(template_id))
 	# Drive the contested-location enemy spawns (EnemyLayouts reads these).
 	set_world_flag("_active_threat_band", int(inst.get("threat_band", 2)))
@@ -974,6 +1036,9 @@ func accept_job(template_id: String) -> bool:
 	# (rival) faction may ambush en route. (Cards expire after one fire.)
 	_seed_event_card(_faction_demand_card(str(inst.get("faction", ""))))
 	_seed_event_card(_faction_ambush_card(str(inst.get("rival_faction", ""))))
+	# The contesting faction also shakes you down on the way in — for Gatebox-contested jobs this
+	# is the checkpoint where complying earns Gatebox standing (the path toward the Comfort Annexe).
+	_seed_event_card(_faction_demand_card(str(inst.get("rival_faction", ""))))
 	last_mission_result = "Accepted job from %s: %s" % [str(inst.get("giver", "Marbles")), str(inst.get("title", template_id))]
 	return true
 
@@ -1021,10 +1086,28 @@ func clear_active_job() -> void:
 	set_world_flag("_active_rival_faction", "")
 
 
+func abandon_active_job() -> bool:
+	if active_job_id.is_empty():
+		return false
+	EventDeckSystem.remove_cards_by_tag(active_job_id + "_active")
+	last_mission_result = "Abandoned job: %s" % str(active_job_instance.get("title", active_job_id))
+	clear_active_job()
+	return true
+
+
 func get_active_job_data() -> Dictionary:
 	if active_job_id.is_empty():
 		return {}
 	return get_job_data(active_job_id)
+
+
+func get_active_job_run_key() -> String:
+	if active_job_id.is_empty():
+		return ""
+	var run_id := int(active_job_instance.get("run_id", active_job_run_id))
+	if run_id <= 0:
+		return active_job_id
+	return "%s:%d" % [active_job_id, run_id]
 
 
 func get_job_status(job_id: String) -> String:
@@ -1335,9 +1418,48 @@ func get_cybernetic_summary() -> String:
 	return "CYBERNETICS  " + ", ".join(names)
 
 
-func save_game() -> bool:
+func mark_enemy_defeated(enemy_key: String) -> void:
+	if enemy_key.is_empty():
+		return
+	defeated_enemies[enemy_key] = true
+
+
+func is_enemy_defeated(enemy_key: String) -> bool:
+	if enemy_key.is_empty():
+		return false
+	return bool(defeated_enemies.get(enemy_key, false))
+
+
+func has_save_file(slot := SAVE_SLOT_MANUAL) -> bool:
+	return FileAccess.file_exists(_save_path_for_slot(slot))
+
+
+func has_any_save_file() -> bool:
+	for slot in [SAVE_SLOT_MANUAL, SAVE_SLOT_QUICK, SAVE_SLOT_AUTO]:
+		if has_save_file(slot):
+			return true
+	return false
+
+
+func get_latest_save_slot() -> String:
+	var best_slot := ""
+	var best_time := -1
+	for slot in [SAVE_SLOT_MANUAL, SAVE_SLOT_QUICK, SAVE_SLOT_AUTO]:
+		var path := _save_path_for_slot(slot)
+		if not FileAccess.file_exists(path):
+			continue
+		var modified := FileAccess.get_modified_time(path)
+		if modified > best_time:
+			best_time = modified
+			best_slot = slot
+	return best_slot
+
+
+func save_game(slot := SAVE_SLOT_MANUAL) -> bool:
 	_capture_location()
 	var data := {
+		"save_slot": str(slot),
+		"saved_at": Time.get_unix_time_from_system(),
 		"location": {
 			"scene": saved_scene_path,
 			"x": _save_px, "y": _save_py, "z": _save_pz,
@@ -1348,6 +1470,7 @@ func save_game() -> bool:
 		"reputation": reputation,
 		"completed_quests": completed_quests,
 		"active_job_id": active_job_id,
+		"active_job_run_id": active_job_run_id,
 		"active_job_instance": active_job_instance,
 		"board_instances": board_instances,
 		"available_jobs": available_jobs,
@@ -1356,6 +1479,7 @@ func save_game() -> bool:
 		"world_flags": world_flags,
 		"quest_states": quest_states,
 		"cybernetics": cybernetics,
+		"defeated_enemies": defeated_enemies,
 		"known_topics": known_topics,
 		"npc_disposition": npc_disposition,
 		"conversation_tone": conversation_tone,
@@ -1366,18 +1490,27 @@ func save_game() -> bool:
 		"last_mission_result": last_mission_result,
 		"event_deck": EventDeckSystem.get_deck_for_save(),
 	}
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var file := FileAccess.open(_save_path_for_slot(slot), FileAccess.WRITE)
 	if file == null:
 		return false
 	file.store_string(JSON.stringify(data, "\t"))
 	return true
 
 
-func load_game() -> bool:
-	if not FileAccess.file_exists(SAVE_PATH):
+func quicksave() -> bool:
+	return save_game(SAVE_SLOT_QUICK)
+
+
+func autosave() -> bool:
+	return save_game(SAVE_SLOT_AUTO)
+
+
+func load_game(slot := SAVE_SLOT_MANUAL) -> bool:
+	var path := _save_path_for_slot(slot)
+	if not FileAccess.file_exists(path):
 		return false
 
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
 		return false
 
@@ -1395,6 +1528,7 @@ func load_game() -> bool:
 	_migrate_reputation_keys()
 	completed_quests = parsed.get("completed_quests", {})
 	active_job_id = str(parsed.get("active_job_id", ""))
+	active_job_run_id = int(parsed.get("active_job_run_id", 0))
 	active_job_instance = parsed.get("active_job_instance", {})
 	board_instances = parsed.get("board_instances", [])
 	available_jobs = parsed.get("available_jobs", COOTERS_JOBS.keys())
@@ -1405,7 +1539,9 @@ func load_game() -> bool:
 	job_flags = parsed.get("job_flags", {})
 	world_flags = parsed.get("world_flags", {})
 	quest_states = parsed.get("quest_states", {})
+	_repair_loaded_save_inconsistencies()
 	cybernetics = parsed.get("cybernetics", {})
+	defeated_enemies = parsed.get("defeated_enemies", {})
 	known_topics = parsed.get("known_topics", {})
 	npc_disposition = parsed.get("npc_disposition", {})
 	conversation_tone = str(parsed.get("conversation_tone", "normal"))
@@ -1426,10 +1562,141 @@ func load_game() -> bool:
 	_save_php = float(loc.get("hp", 100.0))
 	_has_saved_location = not saved_scene_path.is_empty()
 	_is_dead = false
+	_load_restore_pending = true
 	# Drop the player back where they saved once the current frame settles. For a
 	# same-scene load this just teleports; for a different scene it travels there.
 	call_deferred("_apply_loaded_location")
 	return true
+
+
+func load_latest_save() -> bool:
+	var slot := get_latest_save_slot()
+	if slot.is_empty():
+		return false
+	return load_game(slot)
+
+
+func describe_save_slot(slot: String) -> String:
+	var path := _save_path_for_slot(slot)
+	if not FileAccess.file_exists(path):
+		return "%s  EMPTY" % _save_slot_label(slot)
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return "%s  UNREADABLE" % _save_slot_label(slot)
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_DICTIONARY:
+		return "%s  CORRUPT" % _save_slot_label(slot)
+	var loc: Dictionary = parsed.get("location", {}) if typeof(parsed.get("location")) == TYPE_DICTIONARY else {}
+	var scene_name := str(loc.get("scene", "unknown")).get_file().get_basename()
+	var saved_at := int(parsed.get("saved_at", 0))
+	var time_text := "unknown time"
+	if saved_at > 0:
+		var dt := Time.get_datetime_dict_from_unix_time(saved_at)
+		time_text = "%04d-%02d-%02d %02d:%02d" % [dt.year, dt.month, dt.day, dt.hour, dt.minute]
+	return "%s  %s  %s" % [_save_slot_label(slot), scene_name, time_text]
+
+
+func start_new_game() -> void:
+	_reset_runtime_state()
+	_new_game_intro_pending = true
+	get_tree().change_scene_to_file("res://scenes/levels/MallHub.tscn")
+
+
+func consume_new_game_intro_pending() -> bool:
+	if not _new_game_intro_pending:
+		return false
+	_new_game_intro_pending = false
+	return true
+
+
+func _save_path_for_slot(slot) -> String:
+	match str(slot):
+		SAVE_SLOT_AUTO:
+			return AUTO_SAVE_PATH
+		SAVE_SLOT_QUICK:
+			return QUICK_SAVE_PATH
+		_:
+			return SAVE_PATH
+
+
+func _save_slot_label(slot: String) -> String:
+	match slot:
+		SAVE_SLOT_AUTO:
+			return "AUTOSAVE"
+		SAVE_SLOT_QUICK:
+			return "QUICKSAVE"
+		_:
+			return "MANUAL"
+
+
+func _reset_runtime_state() -> void:
+	items = {}
+	wan_notes = 0
+	reputation = {
+		"System X": 0,
+		"Gatebox Corporation": 0,
+		"Wan Moa Torai": 0,
+		"Linda": 0,
+	}
+	completed_quests = {}
+	active_job_id = ""
+	active_job_run_id = 0
+	active_job_instance = {}
+	board_instances = []
+	available_jobs = [
+		"pipe_blood_sample",
+		"ratchet_saint",
+		"listen_to_the_pipes",
+		"food_court_filter",
+		"cistern_pump_heart",
+		"atrium_relay_echo",
+	]
+	completed_jobs = {}
+	job_flags = {}
+	last_mission_result = ""
+	world_flags = {}
+	quest_states = {}
+	cybernetics = {}
+	defeated_enemies = {}
+	known_topics = {}
+	npc_disposition = {}
+	conversation_tone = "normal"
+	attributes = {
+		"STR": 2, "AGL": 3, "CON": 2,
+		"INT": 4, "PER": 3, "WIL": 2,
+		"EMP": 1, "LUCK": 2,
+	}
+	drift = 0
+	soul_rot = 0
+	gatebox_attention_level = 0
+	active_effects = []
+	saved_scene_path = ""
+	_save_px = 0.0
+	_save_py = 0.0
+	_save_pz = 0.0
+	_save_pyaw = 0.0
+	_save_php = 100.0
+	_has_saved_location = false
+	_is_dead = false
+	_force_reload_pending = false
+	_load_restore_pending = false
+	_new_game_intro_pending = false
+	EventDeckSystem.restore_from_save([])
+	inventory_changed.emit(get_inventory_summary())
+	reputation_changed.emit(get_faction_summary())
+	effects_changed.emit()
+
+
+func _repair_loaded_save_inconsistencies() -> void:
+	for quest_id in QUEST_DEFS.keys():
+		if is_quest_completed(str(quest_id)):
+			completed_quests[str(quest_id)] = true
+			if quest_states.has(quest_id):
+				quest_states[quest_id]["completed"] = true
+	if bool(world_flags.get("hub_cistern_connected", false)) and not bool(completed_quests.get("hub_cistern", false)):
+		world_flags["hub_cistern_connected"] = false
+		start_quest("hub_cistern")
+		last_mission_result = "Recovered bad cistern state: conduit still needs seating"
 
 
 # ── Save location ───────────────────────────────────────────────────
@@ -1499,6 +1766,14 @@ func _teleport_player_to_save() -> void:
 		var max_hp := float(ph.max_hp)
 		ph.current_hp = clampf(_save_php, 1.0, max_hp)
 		ph.health_changed.emit(ph.current_hp, max_hp)
+	_load_restore_pending = false
+
+
+func consume_load_restore_pending() -> bool:
+	if not _load_restore_pending:
+		return false
+	_load_restore_pending = false
+	return true
 
 
 # ── Death & respawn ─────────────────────────────────────────────────
@@ -1517,9 +1792,9 @@ func clear_death() -> void:
 # Reload the last save and force the destination scene to rebuild (so enemies,
 # hazards, and pickups reset). Returns false when there's no save to fall back on.
 func respawn_from_save() -> bool:
-	if not FileAccess.file_exists(SAVE_PATH):
+	if not has_any_save_file():
 		return false
-	if not load_game():
+	if not load_latest_save():
 		return false
 	_force_reload_pending = true
 	return true
@@ -1631,6 +1906,20 @@ func complete_quest(quest_id: String) -> void:
 		quest_states[quest_id] = {"objectives": {}, "completed": true}
 
 
+func abandon_quest(quest_id: String) -> bool:
+	if quest_id.is_empty() or not QUEST_DEFS.has(quest_id):
+		return false
+	if is_quest_completed(quest_id) or not is_quest_started(quest_id):
+		return false
+	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
+	if def.has("active_flag"):
+		set_world_flag(str(def.get("active_flag")), false)
+	EventDeckSystem.remove_cards_by_tag(quest_id + "_active")
+	quest_states.erase(quest_id)
+	last_mission_result = "Abandoned quest: %s" % str(def.get("title", quest_id))
+	return true
+
+
 func get_quest_objective_text(quest_id: String) -> String:
 	var def: Dictionary = QUEST_DEFS.get(quest_id, {})
 	if def.is_empty():
@@ -1649,6 +1938,26 @@ func get_quest_objective_text(quest_id: String) -> String:
 		var label := str((obj as Dictionary).get("id", "")).replace("_", " ")
 		parts.append("%s (%s)" % [label, "done" if done else "needed"])
 	return "%s: %s" % [str(def.get("title", quest_id)), ", ".join(parts)]
+
+
+func get_active_quests(type_filter := "") -> Array:
+	var result: Array = []
+	for quest_id in QUEST_DEFS.keys():
+		var qid := str(quest_id)
+		var def: Dictionary = QUEST_DEFS.get(qid, {})
+		if not type_filter.is_empty() and str(def.get("type", "")) != type_filter:
+			continue
+		if not is_quest_started(qid):
+			continue
+		if is_quest_completed(qid):
+			continue
+		result.append({
+			"id": qid,
+			"title": str(def.get("title", qid)),
+			"type": str(def.get("type", "")),
+			"objective_text": get_quest_objective_text(qid),
+		})
+	return result
 
 
 func get_active_hub_quests() -> Array:

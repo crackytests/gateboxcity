@@ -38,7 +38,7 @@ Prototype can start with a single 8-frame row, then expand to idle/damage rows l
 
 ## Characters Referenced
 
-- `LX-04 Spooky Ghost`: pale sheet/ghost silhouette, red-black glitch palette, unknown rogue AI.
+- `LX-04 Spooky Ghost`: the **protagonist's** look — a classic bedsheet-ghost silhouette (draped sheet, two worn eyeholes) over a salvaged android chassis; pale cloth with a red-black glitch palette. The sheet is fused to the body and never comes off; it's his permanent, deliberately on-the-nose appearance (and a running comic gag).
 - `LX-05 Lethal`: neon magenta operative/enforcer, glossy cyberpunk palette.
 - `LX-02 Field Operative / Greenline`: compact helmeted operative, green/brown industrial palette.
 

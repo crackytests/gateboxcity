@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="3"]
 [ext_resource type="Script" path="res://scripts/systems/NPCDialogue.gd" id="4"]
 [ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
-[ext_resource type="Script" path="res://scripts/systems/UpgradeStation.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/systems/WardInteractable.gd" id="7"]
 [ext_resource type="Script" path="res://scripts/systems/LevelDresser.gd" id="99"]
 
@@ -45,6 +44,21 @@ size = Vector3(2.6, 3.0, 1.0)
 [sub_resource type="BoxMesh" id="GateMesh"]
 size = Vector3(2.6, 3.0, 0.18)
 
+[sub_resource type="BoxMesh" id="BinMesh"]
+size = Vector3(1.1, 0.95, 1.1)
+
+[sub_resource type="StandardMaterial3D" id="BinMat"]
+albedo_color = Color(0.09, 0.1, 0.12, 1)
+metallic = 0.4
+roughness = 0.7
+
+[sub_resource type="BoxMesh" id="SheetMesh"]
+size = Vector3(1.35, 0.12, 1.35)
+
+[sub_resource type="StandardMaterial3D" id="SheetMat"]
+albedo_color = Color(0.62, 0.6, 0.58, 1)
+roughness = 0.95
+
 [node name="MallHub" type="Node3D"]
 script = ExtResource("1")
 
@@ -56,11 +70,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 20.0)
 
 [node name="HUD" parent="." instance=ExtResource("3")]
 
+[node name="WakeBin" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.5, 20.4)
+mesh = SubResource("BinMesh")
+surface_material_override/0 = SubResource("BinMat")
+
+[node name="WakeSheet" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.18, 20.0)
+mesh = SubResource("SheetMesh")
+surface_material_override/0 = SubResource("SheetMat")
+
 [node name="Geometry" type="Node3D" parent="."]
 
 [node name="FaceTerminal" type="Area3D" parent="." groups=["npc"]]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.8, 1.0, 4.2)
 script = ExtResource("4")
+npc_id = "system_x"
 npc_name = "System X"
 dialogue_text = "The mall is outside their map, which means it is either safe, cursed, or waiting for a better category. Use the green gate when you are ready to wake something up."
 prompt_text = "Press E: talk to System X"
@@ -84,6 +109,19 @@ shape = SubResource("GateShape")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MissionGate"]
 mesh = SubResource("GateMesh")
 surface_material_override/0 = SubResource("NeonGreen")
+
+[node name="DreamGate" type="Area3D" parent="." groups=["mission_exit"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.5, 20.4)
+script = ExtResource("5")
+prompt_text = "Press E: lie back and dream"
+target_scene = "res://scenes/levels/Test_SubSubBasement.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DreamGate"]
+shape = SubResource("GateShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DreamGate"]
+mesh = SubResource("GateMesh")
+surface_material_override/0 = SubResource("NeonPink")
 
 [node name="PacificationLift" type="Area3D" parent="." groups=["mission_exit"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2, 1.5, -7.2)
@@ -190,45 +228,6 @@ shape = SubResource("GateShape")
 mesh = SubResource("GateMesh")
 surface_material_override/0 = SubResource("NeonPink")
 
-[node name="CyberneticsKiosk" type="Area3D" parent="." groups=["upgrade_station"]]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.8, 1.0, 3.4)
-script = ExtResource("6")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CyberneticsKiosk"]
-shape = SubResource("InteractShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CyberneticsKiosk"]
-mesh = SubResource("TerminalMesh")
-surface_material_override/0 = SubResource("NeonPink")
-
-[node name="MissionBoard" type="Area3D" parent="." groups=["mission_board"]]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 8.8, 1.0, -1.0)
-script = ExtResource("7")
-interactable_id = "mission_board"
-prompt_text = "Press E: view mission board"
-display_name = "Mission Board"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MissionBoard"]
-shape = SubResource("InteractShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MissionBoard"]
-mesh = SubResource("TerminalMesh")
-surface_material_override/0 = SubResource("NeonGreen")
-
-[node name="StatusArchive" type="Area3D" parent="." groups=["status_archive"]]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -8.8, 1.0, -1.4)
-script = ExtResource("7")
-interactable_id = "status_archive"
-prompt_text = "Press E: view status archive"
-display_name = "Status Archive"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StatusArchive"]
-shape = SubResource("InteractShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StatusArchive"]
-mesh = SubResource("TerminalMesh")
-surface_material_override/0 = SubResource("NeonPink")
-
 [node name="PinkOmni" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.2, 3.7)
 light_color = Color(1, 0.1, 0.72, 1)
@@ -276,18 +275,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 2.5, 5.0)
 light_color = Color(1, 0.08, 0.72, 1)
 light_energy = 2.0
 omni_range = 6.0
-
-[node name="MissionBoardOmni" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8, 2.1, -1.0)
-light_color = Color(0.1, 1, 0.45, 1)
-light_energy = 1.7
-omni_range = 5.0
-
-[node name="StatusArchiveOmni" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8, 2.1, -1.4)
-light_color = Color(1, 0.08, 0.72, 1)
-light_energy = 1.7
-omni_range = 5.0
 
 [node name="LevelDresser" type="Node3D" parent="."]
 script = ExtResource("99")

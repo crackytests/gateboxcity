@@ -19,7 +19,7 @@ Current source-of-truth updates:
 - **System X** has replaced the older generic Sub-Basement Resistance/Face-facing early faction language.
 - Early district play centers on toxic rain, shelter, generator instability, debt/permit economy, LAN outages, and lightweight NPC social density.
 - The game should be described as a **tactical survival FPS** with immersive RPG systems, not only as a retro-immersive RPG/shooter.
-- The main character is **Spooky Ghost**: a later-timeline ghost returned in an android body.
+- The main character is **Spooky Ghost**: a later-timeline ghost returned in a foreign android body that Pipe Father Gideon had sheeted and dumped for dead. The burial sheet fused to the chassis on wakeup, so Spooky now literally presents as a **classic bedsheet ghost** (two eyeholes, draped silhouette) — he can't take it off, and it suits the name. NPCs frequently ask why he's wearing the sheet; it's a running comic-relief gag and he's always evasive about it.
 - Linda is alive during the current story and is the CEO of Gatebox Corporation.
 - When Spooky Ghost was alive, he and Linda were lovers. Linda encouraged him to pursue the unrealized potential of his ideas, and the original "AI Waifus are the future" premise came from Spooky Ghost before Linda turned it into corporate doctrine.
 - The Spooky Ghost Linda knew left their reality long ago. When she realizes he has returned as an android, she tries to capture him.
@@ -140,7 +140,7 @@ Role in game:
 
 #### Face & Spooky Ghost
 
-Face and Spooky Ghost are original hacked creators or interpreters of the Gatebox system, but the current playable identity belongs to **Spooky Ghost**. He is a ghost from much later in his own timeline, returned in an android body after the living version Linda knew left their reality.
+Face and Spooky Ghost are original hacked creators or interpreters of the Gatebox system, but the current playable identity belongs to **Spooky Ghost**. He is a ghost from much later in his own timeline, returned in an android body after the living version Linda knew left their reality. The body was salvage Gideon had sheeted and binned for dead; the shroud fused to the chassis when Spooky woke it, leaving him in the unmistakable silhouette of a **classic bedsheet ghost**. The look is permanent, on-the-nose, and a recurring source of comedy — NPCs keep asking about the sheet and he keeps dodging.
 
 Spooky Ghost's relationship to Face, System X, and the Mall of the Future should remain mysterious early on. His old connection to Linda should be felt first through Gatebox attention, surveillance oddities, and corporate attempts to identify or reclaim him.
 

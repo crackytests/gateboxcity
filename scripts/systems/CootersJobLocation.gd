@@ -300,6 +300,7 @@ func _add_security_node(world_position: Vector3) -> void:
 	var node := SECURITY_NODE_SCENE.instantiate()
 	node.name = "JobLocationSecurityNode"
 	node.position = world_position
+	node.persistence_id = "cooters_job:%s:security_node:%.2f:%.2f:%.2f" % [location_id, world_position.x, world_position.y, world_position.z]
 	add_child(node)
 
 
@@ -327,8 +328,8 @@ func _make_mat(albedo: Color, emission: Color, emission_energy: float, texture_p
 
 
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

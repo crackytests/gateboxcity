@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://xpcus8rt7ihl"
+path="res://.godot/imported/Splice Combat.mp3-801d52884cc089ac6be99d4b9b61857b.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Splice Combat.mp3"
+dest_files=["res://.godot/imported/Splice Combat.mp3-801d52884cc089ac6be99d4b9b61857b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

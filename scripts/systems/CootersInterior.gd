@@ -46,6 +46,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		return   # don't act on interact while an event/menu panel is up
 	if event.is_action_pressed("interact") or _is_manual_interact_key(event):
 		_handle_interact()
+	elif event.is_action_pressed("toggle_inventory") or _is_tab_key(event):
+		hud.toggle_inventory()
 	elif event.is_action_pressed("save_game") or _is_save_key(event):
 		_save_game()
 	elif event.is_action_pressed("load_game") or _is_load_key(event):
@@ -63,7 +65,7 @@ func _handle_interact() -> void:
 		var nid := str(focused_npc.npc_id)
 		if not nid.is_empty() and DialogueDB.has_profile(nid):
 			focused_npc.face_player_now()
-			hud.open_dialogue(nid)
+			hud.open_dialogue(nid, focused_npc)
 			return
 		var line: Dictionary = focused_npc.interact()
 		hud.show_dialogue(str(line["name"]), str(line["text"]))
@@ -160,8 +162,8 @@ func _on_interactable_focus_changed(interactable: WardInteractable, has_focus: b
 
 
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 
@@ -189,3 +191,8 @@ func _is_save_key(event: InputEvent) -> bool:
 func _is_load_key(event: InputEvent) -> bool:
 	var key_event := event as InputEventKey
 	return key_event != null and key_event.pressed and not key_event.echo and key_event.keycode == KEY_F6
+
+
+func _is_tab_key(event: InputEvent) -> bool:
+	var key_event := event as InputEventKey
+	return key_event != null and key_event.pressed and not key_event.echo and key_event.keycode == KEY_TAB

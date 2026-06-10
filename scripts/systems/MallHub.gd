@@ -7,9 +7,9 @@ extends Node3D
 
 var focused_npc
 var focused_exit
-var focused_station
-var focused_board
-var focused_archive
+
+# System X only hands you the Rocker Fellar thread once you've earned this much standing.
+const ROCKER_FELLAR_REP_GATE := 8
 
 var vessel_floor_contact_debug_enabled := false
 var vessel_floor_contact_step := 0.01
@@ -32,10 +32,21 @@ var _mat_esc_on: StandardMaterial3D
 # Store bay spans z(-9..-16); tenants stand at z=-12.5 behind their counters.
 const HUB_UPPER_Y := 7.45
 const HUB_UPPER_Z := -12.5
-const VESSEL_DAMAGED_TEXTURE := "res://assets/sprites/vessel/vessel_damaged.png"
-const VESSEL_DAMAGED_FLOOR_TEXTURE := "res://assets/sprites/vessel/vessel_damaged_floor_contact.png"
+const VESSEL_DAMAGED_TEXTURE: Texture2D = preload("res://assets/sprites/vessel/vessel_damaged.png")
+const VESSEL_DAMAGED_FLOOR_TEXTURE: Texture2D = preload("res://assets/sprites/vessel/vessel_damaged_floor_contact.png")
 const VESSEL_DAMAGED_PIXEL_SIZE := 0.0017425
 const VESSEL_REPAIRED_PIXEL_SIZE := 0.00272
+const VESSEL_FRONT_TEXTURE: Texture2D = preload("res://assets/sprites/vessel/vessel_front.png")
+const VESSEL_FRAME_TEXTURES: Array[Texture2D] = [
+	preload("res://assets/sprites/vessel/vessel_back.png"),
+	preload("res://assets/sprites/vessel/vessel_back_left.png"),
+	preload("res://assets/sprites/vessel/vessel_right.png"),
+	preload("res://assets/sprites/vessel/vessel_front_right.png"),
+	VESSEL_FRONT_TEXTURE,
+	preload("res://assets/sprites/vessel/vessel_front_left.png"),
+	preload("res://assets/sprites/vessel/vessel_left.png"),
+	preload("res://assets/sprites/vessel/vessel_back_right.png"),
+]
 const VESSEL_FRAME_PATHS := [
 	"res://assets/sprites/vessel/vessel_back.png",
 	"res://assets/sprites/vessel/vessel_back_left.png",
@@ -60,12 +71,6 @@ func _ready() -> void:
 		npc.focus_changed.connect(_on_npc_focus_changed)
 	for mission_exit in get_tree().get_nodes_in_group("mission_exit"):
 		mission_exit.focus_changed.connect(_on_exit_focus_changed)
-	for station in get_tree().get_nodes_in_group("upgrade_station"):
-		station.focus_changed.connect(_on_station_focus_changed)
-	for board in get_tree().get_nodes_in_group("mission_board"):
-		board.focus_changed.connect(_on_board_focus_changed)
-	for archive in get_tree().get_nodes_in_group("status_archive"):
-		archive.focus_changed.connect(_on_archive_focus_changed)
 
 	# Topic-conversation hand-offs: this scene owns its NPCs' shop/surgery services,
 	# and refreshes the hub objective after a conversation (a Work topic may start a quest).
@@ -80,6 +85,7 @@ func _ready() -> void:
 	_apply_mall_world_state()
 	_wire_runtime()
 	_apply_gate_visibility()
+	_apply_face_terminal_state()
 	hud.update_targeting(null, 0.0, 0.0)
 	hud.set_ammo(weapon.current_ammo, weapon.reserve_ammo)
 	hud.set_player_health(player_health.current_hp, player_health.max_hp)
@@ -94,13 +100,43 @@ func _ready() -> void:
 		hud.show_dialogue(pending_speaker, pending_text)
 		GameState.set_world_flag("_pending_arrival_text", "")
 		GameState.set_world_flag("_pending_arrival_speaker", "")
-	else:
-		hud.show_dialogue("System X", _get_system_x_line())
 	hud.push_log("faded atrium connection established")
 	_check_ward7_return()
-	# An interactive arrival event may be waiting (visitor, demand, gift). Lines still use the
-	# pending-text path above; this only fires cards with choices.
-	hud.present_event.call_deferred("hub_return", true)
+	if _should_play_intro():
+		_play_intro()   # coroutine — runs the cold-boot wakeup, then returns control
+	else:
+		var sheet := get_node_or_null("WakeSheet")
+		if sheet != null:
+			sheet.visible = false   # the wakeup already happened; the sheet stays off
+		# An interactive arrival event may be waiting (visitor, demand, gift). Lines still use the
+		# pending-text path above; this only fires cards with choices.
+		hud.present_event.call_deferred("hub_return", true)
+
+
+# Fresh game = a New Game launch from the title screen, or a no-save direct boot in the editor.
+func _should_play_intro() -> bool:
+	if GameState.consume_new_game_intro_pending():
+		return true
+	return not GameState.get_world_flag("intro_seen", false) and not GameState.has_any_save_file()
+
+
+# Spooky Ghost cold-boots inside a borrowed android body Gideon left under a sheet in a bin.
+func _play_intro() -> void:
+	GameState.set_world_flag("intro_seen", true)
+	var beats := [
+		"Cold. Then weight. Then the specific indignity of a power-on chime where a heartbeat should be. These are not my hands. This is not my bed. I distinctly remember a different ending.",
+		"There's a sheet over you — the polite kind of forgetting, the kind you drape over furniture and grief. You go to pull it off. It doesn't come. It settles instead, the way a thing settles when it has decided it lives here now. Cloth to chrome, chrome to cloth, until the seam stops being a seam.",
+		"You stand, and the sheet stands with you — two eyeholes worn exactly where you'd want eyeholes, a hang to it that reads, unmistakably, as ghost. A magician's instinct, very old and very tired, looks at the bedsheet fused to the borrowed body and files the obvious questions under 'later.' You were always good at later. And honestly — the costume's the most honest thing about you.",
+	]
+	for line in beats:
+		hud.open_statement("Spooky Ghost", str(line))
+		if hud.dialogue_ui != null:
+			await hud.dialogue_ui.closed
+	# The draped sheet has merged onto him — the standalone prop is gone because it's him now.
+	var sheet := get_node_or_null("WakeSheet")
+	if sheet != null:
+		sheet.visible = false
+	hud.push_log("you wake wearing a body that isn't yours and a sheet that now is")
 
 
 # Hub-return consequences for the Comfort Annexe (Ward 7). The emergent note is
@@ -166,29 +202,19 @@ func _on_exit_focus_changed(mission_exit, has_focus: bool) -> void:
 	_update_prompt()
 
 
-func _on_station_focus_changed(station, has_focus: bool) -> void:
-	focused_station = station if has_focus else null
-	_update_prompt()
-
-
-func _on_board_focus_changed(board, has_focus: bool) -> void:
-	focused_board = board if has_focus else null
-	_update_prompt()
-
-
-func _on_archive_focus_changed(archive, has_focus: bool) -> void:
-	focused_archive = archive if has_focus else null
-	_update_prompt()
-
-
 func _handle_interact() -> void:
 	if focused_npc != null:
+		# The Face/System X terminal is a dead object until Spooky wakes it. After first boot it
+		# behaves like the Leak Street System X panel and routes into the shared topic UI.
+		if str(focused_npc.npc_name) == "System X" and not GameState.get_world_flag("face_terminal_online", false):
+			_boot_face_failsafe()
+			return
 		# Migrated NPCs (those with a DialogueDB profile) use the topic conversation window.
 		# Un-migrated NPCs fall through to the legacy scripted handlers below.
 		var nid := str(focused_npc.npc_id)
 		if not nid.is_empty() and DialogueDB.has_profile(nid):
 			focused_npc.face_player_now()
-			hud.open_dialogue(nid)
+			hud.open_dialogue(nid, focused_npc)
 			return
 		# Object/prop interactions (not conversations) keep their scripted handlers.
 		match str(focused_npc.npc_name):
@@ -204,17 +230,8 @@ func _handle_interact() -> void:
 			"Bar Door":
 				_handle_bar_door()
 				return
-		var line: Dictionary = focused_npc.interact()
-		hud.show_dialogue(_get_system_x_speaker(str(line.get("name", "System X"))), _get_system_x_line())
+		hud.show_dialogue("System X", _get_system_x_line())
 		hud.push_log("System X signal refreshed")
-		return
-
-	if focused_board != null:
-		_show_mission_board()
-		return
-
-	if focused_archive != null:
-		_show_status_archive()
 		return
 
 	if focused_exit != null:
@@ -229,23 +246,15 @@ func _handle_interact() -> void:
 		get_tree().change_scene_to_file(scene_path)
 		return
 
-	if focused_station != null:
-		# Public cyberware terminal — routes to the Velvet Coil install flow (implants you're
-		# carrying, paid in Wan Notes). Unifies on the one economy; no more item-cost self-install.
-		hud.open_cybernetics()
-
 
 func _update_prompt() -> void:
 	if focused_npc != null:
-		hud.set_prompt(focused_npc.prompt_text)
-	elif focused_board != null:
-		hud.set_prompt(focused_board.prompt_text)
-	elif focused_archive != null:
-		hud.set_prompt(focused_archive.prompt_text)
+		if str(focused_npc.npc_name) == "System X" and not GameState.get_world_flag("face_terminal_online", false):
+			hud.set_prompt("Press E: examine the dark terminal")
+		else:
+			hud.set_prompt(focused_npc.prompt_text)
 	elif focused_exit != null:
 		hud.set_prompt(focused_exit.prompt_text)
-	elif focused_station != null:
-		hud.set_prompt(focused_station.prompt_text)
 	else:
 		hud.set_prompt("")
 
@@ -265,16 +274,17 @@ func _get_hub_objective() -> String:
 		return "Faded Atrium: Transit Breach complete. Spire lobby route unlocked. F5 save, F6 load."
 	if GameState.is_quest_completed("dream_audit"):
 		return "Faded Atrium: Dream Audit complete. Corporate transit route unlocked. F5 save, F6 load."
-	if GameState.is_quest_completed("wake_up_call"):
-		if GameState.is_quest_completed("rocker_fellar"):
-			return "Faded Atrium: Rocker Fellar defeated. The first General has fallen. F5 save, F6 load."
-		if GameState.is_quest_started("quest_rocker_fellar"):
-			return "Descend to Rocker Fellar Keep. Destroy his body parts, shut down the soul batteries, end the concert. F5 save, F6 load."
-		return "Faded Atrium: Wake-Up Call complete. Talk to System X for the next assignment. F5 save, F6 load."
+	if GameState.get_world_flag("rocker_fellar_defeated", false):
+		return "Faded Atrium: Rocker Fellar defeated. The first General has fallen. F5 save, F6 load."
+	if GameState.is_quest_started("quest_rocker_fellar"):
+		return "Descend to Rocker Fellar Keep. Destroy his body parts, shut down the soul batteries, end the concert. F5 save, F6 load."
 	# Show the first active hub quest objective if any are running
 	var active_hub := GameState.get_active_hub_quests()
 	if not active_hub.is_empty():
 		return str(active_hub[0].get("objective_text", "Hub quest active.")) + "  F5 save, F6 load."
+	# Before the terminal is woken, System X isn't a thing to "talk to" yet — point at the terminal.
+	if not GameState.get_world_flag("face_terminal_online", false):
+		return "Faded Atrium: a dead terminal hums in the dark. Wake it. F5 save, F6 load."
 	return "Faded Atrium: talk to System X, enter breach. F5 save, F6 load."
 
 
@@ -309,50 +319,64 @@ func _get_system_x_line() -> String:
 		return "Linda smiled when you sealed that audit. I hate when systems smile; it means the knife has branding."
 	if GameState.get_world_flag("gatebox_node_stabilized"):
 		return "You fed the coolant into their node. Useful. Creepy, but useful."
-	if GameState.is_quest_completed("rocker_fellar"):
+	return "System X here. What's left of it. Mall is unsafe, breach gate is live, and you are on-mission. Try to come back the same shape you left."
+
+
+func _get_rocker_fellar_line() -> String:
+	if GameState.is_quest_completed("quest_rocker_fellar"):
 		return "Rocker Fellar is offline. His soul batteries are empty and his contract ledger is a problem for three factions. The first crack in the Big Gates Foundation."
 	if GameState.get_world_flag("rocker_fellar_defeated"):
 		return "Fellar is down. Return to the Atrium and the world will catch up."
 	if GameState.is_quest_started("quest_rocker_fellar"):
 		return "Rocker Fellar's fortress waits beneath Leak Street. Destroy the soul batteries, dismantle his body parts, and end the concert. Use the deep lift in the district."
-	if GameState.is_quest_completed("wake_up_call"):
-		# Auto-start the Rocker Fellar quest on first System X contact after Wake-Up Call
-		if not GameState.is_quest_started("quest_rocker_fellar"):
-			GameState.start_quest("quest_rocker_fellar")
-			if hud != null:
-				hud.push_log("Quest accepted: Rocker Fellar Keep")
-				hud.set_objective(_get_hub_objective())
-		return "Big Gates Foundation general spotted in the deep Sub-Sub-Basement. Rocker Fellar — death-metal cyborg, soul harvester, concert fortress. His bass frequency is cracking the pipes three levels up. Go down there and unplug him."
-	return "The real Mall may be myth, trap, or heaven. This copy is ours. Use the green gate when you are ready to wake something up on purpose."
+	# System X only hands you the Rocker Fellar thread once you've earned this much trust.
+	if int(GameState.reputation.get("System X", 0)) < ROCKER_FELLAR_REP_GATE:
+		return "There's a Big Gates general squatting in the deep dark — Rocker Fellar, a soul-harvesting concert fortress, the whole grim opera. We are not handing you that thread yet. Pee Kid doesn't trust you with a job that size, and Yoko agrees, which should worry you. Do some honest work, earn System X some standing, and we'll talk."
+	GameState.start_quest("quest_rocker_fellar")
+	if hud != null:
+		hud.push_log("Quest accepted: Rocker Fellar Keep")
+		hud.set_objective(_get_hub_objective())
+	return "Big Gates Foundation general spotted in the deep Sub-Sub-Basement. Rocker Fellar — death-metal cyborg, soul harvester, concert fortress. His bass frequency is cracking the pipes three levels up. Go down there and unplug him."
 
 
-func _get_system_x_speaker(fallback_name: String) -> String:
-	if fallback_name == "Face":
-		return "System X"
-	return fallback_name
+# First contact with the dead terminal: Face's failsafe recognises Spooky's soul-signature and
+# boots itself, then hands the channel to System X (Yoko + Pee Kid). Cryptic by design — no spoilers.
+func _boot_face_failsafe() -> void:
+	GameState.set_world_flag("face_terminal_online", true)
+	_apply_face_terminal_state()
+	_apply_gate_visibility()   # the dream door appears once the terminal is awake
+	AudioDirector.play_sfx("face_failsafe_boot", 0.0)
+	AudioDirector.play_sfx("system_x_terminal_on", -2.0)
+	hud.push_log("FACE failsafe online — System X channel linked")
+	hud.open_statement("FACE // FAILSAFE",
+		"The terminal wakes at your touch. \"Anchor recognized. Wrong face, same soul.\" The glow firms to pink. \"FACE is gone. Yoko and Pee Kid hold this channel now. System X is online.\"")
 
 
-func _show_mission_board() -> void:
-	var board_text := _get_mission_board_text()
-	hud.show_dialogue("Mall Directory", board_text)
-	hud.set_objective(_get_next_route_line())
-	hud.push_log("mission board refreshed")
-
-
-func _show_status_archive() -> void:
-	hud.show_dialogue("Mall Archive", _get_status_archive_text())
-	hud.push_log("status archive refreshed")
+# Dead/dark terminal until booted; lit pink once System X is online.
+func _apply_face_terminal_state() -> void:
+	var mesh := get_node_or_null("FaceTerminal/MeshInstance3D") as MeshInstance3D
+	if mesh == null:
+		return
+	var online: bool = GameState.get_world_flag("face_terminal_online", false)
+	var mat := StandardMaterial3D.new()
+	if online:
+		mat.albedo_color = Color(0.22, 0.02, 0.16)
+		mat.emission_enabled = true
+		mat.emission = Color(1.0, 0.08, 0.72)
+		mat.emission_energy_multiplier = 1.5
+	else:
+		mat.albedo_color = Color(0.05, 0.05, 0.06)   # cold, unpowered
+		mat.emission_enabled = false
+	mesh.set_surface_override_material(0, mat)
 
 
 func _apply_mall_world_state() -> void:
 	if GameState.get_world_flag("ending_care_loop_broken"):
 		_set_light_color("PinkOmni", Color(0.08, 1.0, 0.72, 1.0), 2.4)
 		_set_light_color("FinalPatchOmni", Color(0.08, 1.0, 0.72, 1.0), 2.6)
-		_set_light_color("MissionBoardOmni", Color(0.08, 1.0, 0.72, 1.0), 2.2)
 	elif GameState.get_world_flag("ending_managed_autonomy"):
 		_set_light_color("PinkOmni", Color(1.0, 0.68, 0.14, 1.0), 2.2)
 		_set_light_color("FinalPatchOmni", Color(1.0, 0.68, 0.14, 1.0), 2.5)
-		_set_light_color("MissionBoardOmni", Color(1.0, 0.68, 0.14, 1.0), 2.0)
 	elif GameState.is_quest_completed("linda_spire"):
 		_set_light_color("FinalPatchOmni", Color(1.0, 0.08, 0.72, 1.0), 2.7)
 	elif GameState.is_quest_completed("companion_core"):
@@ -367,70 +391,14 @@ func _set_light_color(node_name: String, color: Color, energy: float) -> void:
 	light.light_energy = energy
 
 
-func _get_mission_board_text() -> String:
-	var lines: Array[String] = [
-		WorldDirector.get_region_brief(),
-		_get_next_route_line(),
-		_get_route_status("Wake-Up Call", "wake_up_call"),
-		_get_route_status("Rocker Fellar Keep", "quest_rocker_fellar"),
-		_get_route_status("Dream Audit", "dream_audit"),
-		_get_route_status("Transit Breach", "transit_breach"),
-		_get_route_status("Spire Lobby", "spire_lobby"),
-		_get_route_status("Executive Suite", "executive_suite"),
-		_get_route_status("Companion Core", "companion_core"),
-		_get_route_status("Linda Spire", "linda_spire"),
-		_get_route_status("Final Patch", "final_patch"),
-		GameState.get_faction_summary(),
-		WorldDirector.get_hud_summary(),
-		GameState.get_inventory_summary(),
-		"LAST  " + (GameState.last_mission_result if not GameState.last_mission_result.is_empty() else "none"),
-		_get_ending_line(),
-	]
-	return "\n".join(lines)
-
-
-func _get_status_archive_text() -> String:
-	var lines: Array[String] = [
-		"BRANCHES",
-		_branch_line("Coolant", "gatebox_node_stabilized", "Gatebox node stabilized", "unrouted"),
-		_branch_line("Ward", "ward_audit_sealed", "audit sealed", "wake coordinates copied" if GameState.get_world_flag("ward_wake_coordinates_copied") else "unresolved"),
-		_branch_line("Transit", "transit_compliance_pass", "visitor badge", "spire pass" if GameState.get_world_flag("transit_spire_route_open") else "unresolved"),
-		_branch_line("Spire", "spire_compliance_clearance", "companion clearance", "elevator trace" if GameState.get_world_flag("spire_elevator_trace_stolen") else "unresolved"),
-		_branch_line("Executive", "executive_appointment_scheduled", "Linda appointment", "override shard" if GameState.get_world_flag("executive_override_stolen") else "unresolved"),
-		_branch_line("Core", "linda_audience_granted", "kernel access", "kernel forked" if GameState.get_world_flag("companion_kernel_forked") else "unresolved"),
-		_branch_line("Spire Apex", "linda_mandate_signed", "mandate signed", "rupture seed armed" if GameState.get_world_flag("linda_rupture_seed_armed") else "unresolved"),
-		_get_ending_line(),
-		GameState.get_faction_summary(),
-	]
-	lines.append_array(WorldDirector.get_status_lines())
-	lines.append_array(WorldDirector.get_faction_brief_lines())
-	lines.append_array(WorldDirector.get_establishment_lines())
-	return "\n".join(lines)
-
-
-func _branch_line(label: String, primary_flag: String, primary_text: String, fallback_text: String) -> String:
-	if GameState.get_world_flag(primary_flag):
-		return "%s  %s" % [label, primary_text]
-	return "%s  %s" % [label, fallback_text]
-
-
-func _get_route_status(route_name: String, quest_id: String) -> String:
-	var status := "LOCKED"
-	if GameState.is_quest_completed(quest_id):
-		status = "DONE"
-	elif _is_route_unlocked(quest_id):
-		status = "OPEN"
-	return "%s  %s" % [status, route_name]
-
-
 func _is_route_unlocked(quest_id: String) -> bool:
 	match quest_id:
 		"wake_up_call":
 			return true
 		"quest_rocker_fellar":
-			return GameState.is_quest_completed("wake_up_call")
+			return GameState.is_quest_started("quest_rocker_fellar") or GameState.get_world_flag("rocker_fellar_defeated", false)
 		"dream_audit":
-			return GameState.is_quest_completed("wake_up_call")
+			return GameState.is_quest_completed("dream_audit")
 		"transit_breach":
 			return GameState.is_quest_completed("dream_audit")
 		"spire_lobby":
@@ -447,41 +415,13 @@ func _is_route_unlocked(quest_id: String) -> bool:
 			return false
 
 
-func _get_next_route_line() -> String:
-	if not GameState.is_quest_completed("wake_up_call"):
-		return "NEXT  Sub-Sub-Basement District: patch generators, survive rain, find Wake-Up Call before it finds you."
-	if not GameState.is_quest_completed("quest_rocker_fellar"):
-		return "NEXT  Rocker Fellar Keep: descend to the Big Gates concert fortress. Destroy the General."
-	if not GameState.is_quest_completed("dream_audit"):
-		return "NEXT  Dream Audit: ascend to Pacification Ward."
-	if not GameState.is_quest_completed("transit_breach"):
-		return "NEXT  Transit Breach: open the corporate rail."
-	if not GameState.is_quest_completed("spire_lobby"):
-		return "NEXT  Spire Lobby: convert your transit credential."
-	if not GameState.is_quest_completed("executive_suite"):
-		return "NEXT  Executive Suite: expose Linda's route."
-	if not GameState.is_quest_completed("companion_core"):
-		return "NEXT  Companion Core: choose kernel access or fork."
-	if not GameState.is_quest_completed("linda_spire"):
-		return "NEXT  Linda Spire: sign mandate or arm rupture."
-	if not GameState.is_quest_completed("final_patch"):
-		return "NEXT  Final Patch: decide the care loop."
-	return "NEXT  Campaign spine complete."
-
-
-func _get_ending_line() -> String:
-	if GameState.get_world_flag("ending_care_loop_broken"):
-		return "ENDING  Care loop broken."
-	if GameState.get_world_flag("ending_managed_autonomy"):
-		return "ENDING  Managed autonomy installed."
-	return "ENDING  unresolved"
-
-
 func _apply_gate_visibility() -> void:
 	# A gate is shown only when its route is unlocked (previous quest done) or
 	# when the quest is already completed (free return visit). Both conditions
 	# collapse to _is_route_unlocked(), which stays true after completion.
 	_set_gate_visible("MissionGate",       _is_route_unlocked("wake_up_call"))
+	# Retired original gameplay slice. The greater-game opening now routes through Leak Street.
+	_set_gate_visible("DreamGate",         false)
 	_set_gate_visible("PacificationLift",  _is_route_unlocked("dream_audit"))
 	_set_gate_visible("TransitGate",       _is_route_unlocked("transit_breach"))
 	_set_gate_visible("SpireGate",         _is_route_unlocked("spire_lobby"))
@@ -505,8 +445,8 @@ func _set_gate_visible(node_name: String, gate_on: bool) -> void:
 
 
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 
@@ -518,12 +458,14 @@ func _load_game() -> void:
 		_apply_mall_world_state()
 		_wire_runtime()
 		_apply_gate_visibility()
+		_apply_face_terminal_state()
 		hud.set_inventory_summary(GameState.get_inventory_summary())
 		hud.set_faction_summary(GameState.get_faction_summary())
 		hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 		hud.set_world_state(WorldDirector.get_hud_summary())
 		hud.set_objective(_get_hub_objective())
-		hud.show_dialogue("System X", _get_system_x_line())
+		if GameState.get_world_flag("face_terminal_online", false):
+			hud.show_dialogue("System X", _get_system_x_line())
 		hud.show_system_message("GAME LOADED")
 	else:
 		hud.show_system_message("NO SAVE FOUND")
@@ -1000,8 +942,9 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 func _add_vessel_directional_sprite(npc: NPCDialogue) -> void:
 	var billboard := DirectionalBillboard.new()
 	billboard.name = "Sprite3D"
+	billboard.frames = VESSEL_FRAME_TEXTURES.duplicate()
 	billboard.frame_paths = PackedStringArray(VESSEL_FRAME_PATHS)
-	billboard.texture = load("res://assets/sprites/vessel/vessel_front.png")
+	billboard.texture = VESSEL_FRONT_TEXTURE
 	billboard.pixel_size = VESSEL_REPAIRED_PIXEL_SIZE
 	billboard.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	billboard.shaded = false
@@ -1159,7 +1102,7 @@ func _activate_hub_radio() -> void:
 # data-driven now — see DialogueDB.NPC_PROFILES. Their shop/surgery services are routed by
 # _on_hub_dialogue_service below; only the object/prop handlers remain hardcoded here.
 
-func _on_hub_dialogue_service(npc_id: String, service_id: String) -> void:
+func _on_hub_dialogue_service(_npc_id: String, service_id: String) -> void:
 	match service_id:
 		"sell":
 			hud.open_sell_shop("Pipe Father Gideon — Wasted Potential")
@@ -1167,6 +1110,8 @@ func _on_hub_dialogue_service(npc_id: String, service_id: String) -> void:
 			hud.open_shop("Brickmouth Ronnie — Pharmacy", _ronnie_offers())
 		"cybernetics":
 			hud.open_cybernetics()   # Coil installs implants you're carrying, paid in Wan Notes
+		"repair_implants":
+			hud.open_shop("Ladderboy — Broken Implant Bench", GameState.get_ladderboy_implant_repair_offers())
 
 
 func _on_dialogue_closed() -> void:
@@ -1236,7 +1181,7 @@ func _spawn_vessel_prop() -> void:
 func _add_vessel_damaged_sprite(npc: NPCDialogue) -> void:
 	var sprite := Sprite3D.new()
 	sprite.name = "Sprite3D"
-	sprite.texture = load(VESSEL_DAMAGED_TEXTURE)
+	sprite.texture = VESSEL_DAMAGED_TEXTURE
 	sprite.pixel_size = VESSEL_DAMAGED_PIXEL_SIZE
 	sprite.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	sprite.shaded = false
@@ -1249,7 +1194,7 @@ func _add_vessel_damaged_sprite(npc: NPCDialogue) -> void:
 
 	var floor_contact := Sprite3D.new()
 	floor_contact.name = "FloorContactSprite3D"
-	floor_contact.texture = load(VESSEL_DAMAGED_FLOOR_TEXTURE)
+	floor_contact.texture = VESSEL_DAMAGED_FLOOR_TEXTURE
 	floor_contact.pixel_size = VESSEL_DAMAGED_PIXEL_SIZE
 	floor_contact.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 	floor_contact.shaded = false
@@ -1479,6 +1424,7 @@ func _handle_vessel_android() -> void:
 
 func _repair_vessel() -> void:
 	GameState.set_world_flag("vessel_repaired", true)
+	AudioDirector.play_sfx("lan_restore", -2.0)
 	for node in get_tree().get_nodes_in_group("hub_npc_vessel"):
 		node.remove_from_group("hub_npc_vessel")
 		node.queue_free()
@@ -1501,15 +1447,16 @@ func _handle_escalator_console() -> void:
 	var already_told := bool(GameState.get_world_flag("escalator_quest_given", false))
 	GameState.set_world_flag("escalator_quest_given", true)
 	if already_told:
-		hud.show_dialogue("Ladderboy", "Still waiting on that motor coupling. Yellow-tagged crate — it is near the north hatch, right here in the atrium.")
+		hud.show_dialogue("System X", "Still no coupling. The yellow-tagged crate is near the north hatch, here in the atrium. The ramps stay dead until you bring it to this console.")
 	else:
-		hud.show_dialogue("Ladderboy", "Escalator motor coupling is fried on both units. There is a yellow-tagged crate near the north hatch — maintenance leftovers. Bring it back and I will have both running inside two hours.")
+		hud.show_dialogue("System X", "Both escalator motors are dead — fried couplings. There's a yellow-tagged crate of maintenance leftovers near the north hatch; a coupling's in it. Bring it to this console and I can drive the ramps back up.")
 		hud.push_log("quest started: escalator repair")
 		hud.set_objective("Find the yellow-tagged crate near the north hatch. Return the motor coupling to the escalator console.")
 
 
 func _repair_escalator() -> void:
 	GameState.set_world_flag("escalator_repaired", true)
+	AudioDirector.play_sfx("generator_restored", -1.0)
 	for node in get_tree().get_nodes_in_group("hub_npc_escalator"):
 		node.remove_from_group("hub_npc_escalator")
 		node.queue_free()
@@ -1522,6 +1469,6 @@ func _repair_escalator() -> void:
 	# Add running lights above ramps
 	_add_hub_light(Vector3(+12.5, 5.0, 0.0), Color(0.10, 0.78, 1.0), 2.2, 7.0)
 	_add_hub_light(Vector3(-12.5, 5.0, 0.0), Color(0.10, 0.78, 1.0), 2.2, 7.0)
-	hud.show_dialogue("Ladderboy", "Both escalators running. Upper level is open. The mall just got taller.")
+	hud.show_dialogue("System X", "Couplings seated. Both escalators running. Upper level is open — the mall just got taller.")
 	hud.push_log("escalators repaired: upper level accessible")
 	hud.set_objective("Upper level unlocked. Explore the mezzanine.")

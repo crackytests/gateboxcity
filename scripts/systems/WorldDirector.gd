@@ -326,11 +326,19 @@ var NAMED_CARDS: Dictionary = {
 	"hub_cistern_return": {
 		"id": "hub_cistern_return", "title": "Hub Water Connected",
 		"contexts": ["hub_return"], "weight": 3,
-		"conditions": {},
-		"effects": [{"type": "set_flag", "flag": "hub_cistern_connected", "value": true}],
+		"conditions": {"flag_true": "hub_cistern_connected"},
+		"effects": [],
 		"expires_after": 0, "tags": [],
 		"speaker": "Vera",
 		"text": "Water is running. I ran three purity tests. It passed all three, which is two more than I expected. I am not going to question this.",
+	},
+	"hub_clear_court_exit": {
+		"id": "hub_clear_court_exit", "title": "Collapsed Court Route",
+		"contexts": ["district_exit"], "weight": 3,
+		"conditions": {"flag_true": "quest_clear_court_active"},
+		"effects": [], "expires_after": 1, "tags": ["hub_clear_court_active"],
+		"speaker": "Ladderboy",
+		"text": "Wrong atrium if you are staring at the safe one. The debris is in the Collapsed Service Atrium, up on the relay deck. Three marked piles. Clear those and the traffic route stops being a theory.",
 	},
 	"hub_ambient_phase1_a": {
 		"id": "hub_ambient_phase1_a", "title": "Generator Cough",
@@ -572,7 +580,7 @@ var NAMED_CARDS: Dictionary = {
 	},
 	"gatebox_commendation": {
 		"id": "gatebox_commendation", "contexts": ["hub_return"], "weight": 4,
-		"faction": "Gatebox Corporation", "conditions": {"rep_gte": ["Gatebox Corporation", 2]},
+		"faction": "Gatebox Corporation", "conditions": {"rep_gte": ["Gatebox Corporation", 1]},
 		"title": "A Commendation", "speaker": "Gatebox Corporation",
 		"body": "A polished envelope waits at the atrium: a Comfort Citizen commendation, and a wellness stipend that smells faintly of obligation.",
 		"choices": [

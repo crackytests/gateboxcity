@@ -25,13 +25,17 @@ func _ready() -> void:
 	WorldDirector.world_state_changed.connect(hud.set_world_state)
 	WorldDirector.set_region(WorldDirector.REGION_SUB_BASEMENT)
 	_connect_enemy(enemy)
+	_make_dream_sentinel(enemy)   # the dream's signature foe: a fast Gatebox android, like Spooky's shell
 	if GameState.get_world_flag("gatebox_node_stabilized"):
 		_connect_enemy(reinforcement)
-		hud.push_log("world event: Gatebox node spawned reinforcement")
+		_make_dream_sentinel(reinforcement)
+		hud.push_log("world event: Gatebox node spawned a second sentinel")
 	else:
 		reinforcement.queue_free()
-	GameState.inventory_changed.connect(hud.set_inventory_summary)
-	GameState.reputation_changed.connect(hud.set_faction_summary)
+	if not GameState.inventory_changed.is_connected(hud.set_inventory_summary):
+		GameState.inventory_changed.connect(hud.set_inventory_summary)
+	if not GameState.reputation_changed.is_connected(hud.set_faction_summary):
+		GameState.reputation_changed.connect(hud.set_faction_summary)
 	quest.objective_changed.connect(hud.set_objective)
 	quest.quest_completed.connect(_on_quest_completed)
 	for pickup in get_tree().get_nodes_in_group("loot"):
@@ -55,15 +59,27 @@ func _ready() -> void:
 	hud.set_faction_summary(GameState.get_faction_summary())
 	hud.set_cybernetic_summary(GameState.get_cybernetic_summary())
 	hud.set_world_state(WorldDirector.get_hud_summary())
-	hud.push_log("connection established: sub-sub-basement test cell")
+	hud.push_log("the dream sharpens: a sub-basement that never quite existed")
+	hud.show_dialogue("Spooky Ghost", "Ah. A dream. I'd know the texture anywhere — too clean, too on-the-nose, a sub-basement assembled from a memory that isn't mine. Something fast is already moving in it, wearing a body like the one I woke up in. Best play along until the dream tells me why.")
+
+
+# Retune a placed goon into a fast, fragile Gatebox Sentinel (mirrors EnemyLayouts'
+# gatebox_android template). Scene children's _ready has already set base_move_speed.
+func _make_dream_sentinel(e: Enemy) -> void:
+	if e == null or not is_instance_valid(e):
+		return
+	e.move_speed *= 2.3
+	e.base_move_speed = e.move_speed
+	e.attack_cooldown *= 0.7
+	e.faction = "Gatebox"
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") or _is_manual_interact_key(event):
 		_handle_interact()
 	elif event.is_action_pressed("save_game") or _is_save_key(event):
-		if GameState.save_game():
-			hud.show_system_message("GAME SAVED")
+		if GameState.quicksave():
+			hud.show_system_message("QUICKSAVED")
 		else:
 			hud.show_system_message("SAVE FAILED")
 	elif event.is_action_pressed("load_game") or _is_load_key(event):

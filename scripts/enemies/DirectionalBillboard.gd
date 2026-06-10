@@ -16,10 +16,15 @@ var break_flash_timer := 0.0
 var defeated := false
 var windup_active := false
 var broken_parts: Array[String] = []
+var override_texture: Texture2D = null
 
 
 func set_windup(active: bool) -> void:
 	windup_active = active
+
+
+func set_override_texture(next_texture: Texture2D) -> void:
+	override_texture = next_texture
 
 
 func _ready() -> void:
@@ -53,7 +58,10 @@ func _process(_delta: float) -> void:
 		return
 
 	_face_camera_yaw()
-	_update_direction_frame()
+	if override_texture != null:
+		texture = override_texture
+	else:
+		_update_direction_frame()
 	position.y = base_y + sin(Time.get_ticks_msec() * 0.001 * idle_bob_speed) * idle_bob_height
 	if defeated:
 		rotation_degrees.z = lerpf(rotation_degrees.z, 90.0, 0.1)
@@ -136,10 +144,11 @@ func _load_frames_from_paths() -> void:
 		return
 
 	for path in frame_paths:
-		var loaded_texture := load(path) as Texture2D
-		if loaded_texture != null:
-			frames.append(loaded_texture)
-			continue
+		if ResourceLoader.exists(path):
+			var loaded_texture := load(path) as Texture2D
+			if loaded_texture != null:
+				frames.append(loaded_texture)
+				continue
 
 		var image := Image.new()
 		var bytes := FileAccess.get_file_as_bytes(path)

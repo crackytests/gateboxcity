@@ -1,5 +1,7 @@
 extends Node3D
 
+const COMFORT_TEXTURES := preload("res://scripts/systems/ComfortAnnexeTextures.gd")
+
 ## Ward 7 — Comfort Annexe, Scene 1: Reception (the lie).
 ## A functioning-looking Gatebox ward. No quest on entry; the building teaches.
 ## Mirrors the PacificationWard level pattern: HUD wiring, mission_exit +
@@ -17,6 +19,7 @@ var _dead_unit_spent := false
 
 
 func _ready() -> void:
+	COMFORT_TEXTURES.apply_reception(self)
 	targeting.targeting_changed.connect(hud.update_targeting)
 	weapon.ammo_changed.connect(hud.set_ammo)
 	weapon.fired.connect(hud.push_log)
@@ -150,7 +153,7 @@ func _update_prompt() -> void:
 
 
 func _save() -> void:
-	hud.show_system_message("GAME SAVED" if GameState.save_game() else "SAVE FAILED")
+	hud.show_system_message("QUICKSAVED" if GameState.quicksave() else "SAVE FAILED")
 
 
 func _load() -> void:

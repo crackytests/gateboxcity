@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://coxq480kgjeh4"
+path="res://.godot/imported/Toxic Rain Event.mp3-e3fadf0782f9f5a6f20d4d9bb10532d3.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/Toxic Rain Event.mp3"
+dest_files=["res://.godot/imported/Toxic Rain Event.mp3-e3fadf0782f9f5a6f20d4d9bb10532d3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

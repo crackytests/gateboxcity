@@ -4,6 +4,7 @@ class_name ShopUI
 ## Generic vendor panel. A list of offers, a detail pane, and a BUY button.
 ## Each offer is a Dictionary:
 ##   {item, label, desc, price_item, price_count}
+##   or {item, label, desc, wan_price, cost_items: {item_name: count}}
 ## Opened via HUDController.open_shop(vendor_name, offers).
 
 signal closed
@@ -25,6 +26,7 @@ func _ready() -> void:
 
 
 func open(vendor_name: String, offers: Array) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_mode = "buy"
 	_vendor = vendor_name
 	_offers = offers
@@ -39,6 +41,7 @@ func open(vendor_name: String, offers: Array) -> void:
 ## Sell mode: the list is built from the player's sellable wasted-potential
 ## loot. Selling pays Wan Notes and feeds the Dreaming Generator.
 func open_sell(vendor_name: String) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_mode = "sell"
 	_vendor = vendor_name
 	_offers = []
@@ -51,6 +54,8 @@ func open_sell(vendor_name: String) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -2.0)
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -175,16 +180,20 @@ func _on_buy_pressed() -> void:
 
 	if not _can_afford(offer):
 		return
-	var price_item := str(offer.get("price_item", ""))
-	var price_count := int(offer.get("price_count", 0))
-	if price_count > 0 and not price_item.is_empty():
-		if not GameState.spend_item(price_item, price_count):
-			return
+	if not _spend_offer_price(offer):
+		return
 	GameState.add_item(str(offer.get("item", "")), int(offer.get("count", 1)))
 	_refresh()
 
 
 func _can_afford(offer: Dictionary) -> bool:
+	var wan_price := int(offer.get("wan_price", 0))
+	if wan_price > 0 and GameState.get_wan_notes() < wan_price:
+		return false
+	var cost_items: Dictionary = offer.get("cost_items", {})
+	for item_name in cost_items.keys():
+		if not GameState.has_item(str(item_name), int(cost_items[item_name])):
+			return false
 	var price_item := str(offer.get("price_item", ""))
 	var price_count := int(offer.get("price_count", 0))
 	if price_item.is_empty() or price_count <= 0:
@@ -193,11 +202,40 @@ func _can_afford(offer: Dictionary) -> bool:
 
 
 func _price_text(offer: Dictionary) -> String:
+	var parts: Array[String] = []
+	var wan_price := int(offer.get("wan_price", 0))
+	if wan_price > 0:
+		parts.append("%d Wan Note" % wan_price)
+	var cost_items: Dictionary = offer.get("cost_items", {})
+	for item_name in cost_items.keys():
+		var count := int(cost_items[item_name])
+		if count > 0:
+			parts.append("%d x %s" % [count, str(item_name)])
 	var price_item := str(offer.get("price_item", ""))
 	var price_count := int(offer.get("price_count", 0))
-	if price_item.is_empty() or price_count <= 0:
+	if not price_item.is_empty() and price_count > 0:
+		parts.append("%d x %s" % [price_count, price_item])
+	if parts.is_empty():
 		return "free"
-	return "%d x %s" % [price_count, price_item]
+	return " + ".join(parts)
+
+
+func _spend_offer_price(offer: Dictionary) -> bool:
+	if not _can_afford(offer):
+		return false
+	var wan_price := int(offer.get("wan_price", 0))
+	if wan_price > 0 and not GameState.spend_wan_notes(wan_price):
+		return false
+	var cost_items: Dictionary = offer.get("cost_items", {})
+	for item_name in cost_items.keys():
+		if not GameState.spend_item(str(item_name), int(cost_items[item_name])):
+			return false
+	var price_item := str(offer.get("price_item", ""))
+	var price_count := int(offer.get("price_count", 0))
+	if price_count > 0 and not price_item.is_empty():
+		if not GameState.spend_item(price_item, price_count):
+			return false
+	return true
 
 
 func _wallet_text() -> String:

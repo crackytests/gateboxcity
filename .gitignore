@@ -1,2 +1,6 @@
 .godot/
 build/
+
+# Exported game binaries (build artifacts, not source)
+*.exe
+*.pck

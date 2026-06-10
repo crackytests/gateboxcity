@@ -53,6 +53,9 @@ var _status_label: Label
 
 var _stat_rt: RichTextLabel
 var _data_rt: RichTextLabel
+var _data_action_list: ItemList
+var _data_abandon_btn: Button
+var _data_actions: Array[Dictionary] = []
 var _world_rt: RichTextLabel
 var _logs_rt: RichTextLabel
 
@@ -194,6 +197,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_E:
 				_cycle_tab(1)
 				get_viewport().set_input_as_handled()
+	# Data action list navigation
+	if _tabs.current_tab == TAB_DATA:
+		if event.is_action_pressed("ui_down"):
+			_move_data_selection(1)
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("ui_up"):
+			_move_data_selection(-1)
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("ui_accept"):
+			if _data_abandon_btn != null and not _data_abandon_btn.disabled:
+				_on_data_abandon_pressed()
+			get_viewport().set_input_as_handled()
 	# Inventory list navigation
 	if _tabs.current_tab == TAB_INV:
 		if event.is_action_pressed("ui_down"):
@@ -512,12 +527,83 @@ func _refresh_data() -> void:
 		lines.append("  [color=#6f8f7f]Board not seen yet — visit Marbles at Cooters.[/color]")
 
 	_data_rt.text = "\n".join(lines)
+	_refresh_data_actions()
 
 
 func _quest_state_tag(quest_id: String) -> String:
 	if GameState.is_quest_completed(quest_id):
 		return "[color=#5f8f6f][complete][/color]"
 	return "[color=#ffd24a][in progress][/color]"
+
+
+func _refresh_data_actions() -> void:
+	if _data_action_list == null:
+		return
+	var prev := _data_action_list.get_selected_items()
+	var prev_idx: int = prev[0] if not prev.is_empty() else 0
+	_data_action_list.clear()
+	_data_actions.clear()
+
+	for q in GameState.get_active_quests():
+		var quest: Dictionary = q
+		_data_actions.append({"kind": "quest", "id": str(quest.get("id", ""))})
+		_data_action_list.add_item("Quest: %s" % str(quest.get("title", "")))
+
+	var active_job := GameState.get_active_job_data()
+	if not active_job.is_empty():
+		_data_actions.append({"kind": "job", "id": str(active_job.get("id", ""))})
+		_data_action_list.add_item("Job: %s" % str(active_job.get("title", "")))
+
+	if _data_actions.is_empty():
+		_data_action_list.add_item("No abandonable work")
+		_data_action_list.set_item_selectable(0, false)
+		_data_abandon_btn.disabled = true
+		return
+
+	var restore := clampi(prev_idx, 0, _data_action_list.item_count - 1)
+	_data_action_list.select(restore)
+	_data_abandon_btn.disabled = false
+
+
+func _move_data_selection(delta: int) -> void:
+	if _data_action_list == null or _data_action_list.item_count == 0:
+		return
+	var sel := _data_action_list.get_selected_items()
+	var cur := sel[0] if not sel.is_empty() else -1
+	var next := clampi(cur + delta, 0, _data_action_list.item_count - 1)
+	if _data_action_list.is_item_selectable(next):
+		_data_action_list.select(next)
+		_data_action_list.ensure_current_is_visible()
+
+
+func _on_data_action_selected(index: int) -> void:
+	if index < 0 or index >= _data_actions.size():
+		if _data_abandon_btn != null:
+			_data_abandon_btn.disabled = true
+		return
+	if _data_abandon_btn != null:
+		_data_abandon_btn.disabled = false
+
+
+func _on_data_abandon_pressed() -> void:
+	if _data_action_list == null:
+		return
+	var selected := _data_action_list.get_selected_items()
+	if selected.is_empty():
+		return
+	var index: int = selected[0]
+	if index < 0 or index >= _data_actions.size():
+		return
+	var action: Dictionary = _data_actions[index]
+	var did_abandon := false
+	match str(action.get("kind", "")):
+		"quest":
+			did_abandon = GameState.abandon_quest(str(action.get("id", "")))
+		"job":
+			did_abandon = GameState.abandon_active_job()
+	if did_abandon:
+		add_log("abandoned: %s" % str(action.get("id", "")))
+		refresh_all()
 
 
 # ── Tab content: WORLD ──────────────────────────────────────────────
@@ -595,7 +681,7 @@ func _bar(value: int, maxv: int, width: int, color: String) -> String:
 
 func _signed_bar(value: int, span: int, width: int) -> String:
 	# Centered bar: negative fills left of center, positive fills right.
-	var half := width / 2
+	var half := int(float(width) * 0.5)
 	var v := clampi(value, -span, span)
 	var units := 0
 	if span > 0:
@@ -684,7 +770,7 @@ func _build_ui() -> void:
 	_build_ware_tab()
 
 	var hint := Label.new()
-	hint.text = "TAB / ESC close      1-6 jump      Q / E cycle tabs      ↑↓ navigate      ENTER install"
+	hint.text = "TAB / ESC close      1-6 jump      Q / E cycle tabs      ↑↓ navigate      ENTER use / abandon / install"
 	hint.add_theme_color_override("font_color", Color(0.45, 0.55, 0.48))
 	hint.add_theme_font_size_override("font_size", 13)
 	vbox.add_child(hint)
@@ -748,9 +834,41 @@ func _build_inv_tab() -> void:
 
 
 func _build_data_tab() -> void:
+	var root := HBoxContainer.new()
+	root.name = "DATA"
+	root.add_theme_constant_override("separation", 14)
+	_tabs.add_child(root)
+
 	_data_rt = _make_scroll_rt()
-	_data_rt.name = "DATA"
-	_tabs.add_child(_data_rt)
+	root.add_child(_data_rt)
+
+	var action_col := VBoxContainer.new()
+	action_col.custom_minimum_size = Vector2(240, 0)
+	action_col.add_theme_constant_override("separation", 8)
+	root.add_child(action_col)
+
+	var action_hdr := Label.new()
+	action_hdr.text = "ACTIVE WORK"
+	action_hdr.add_theme_color_override("font_color", COL_PRIMARY)
+	action_hdr.add_theme_font_size_override("font_size", 13)
+	action_col.add_child(action_hdr)
+
+	_data_action_list = ItemList.new()
+	_data_action_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_data_action_list.add_theme_color_override("font_color", COL_HEADER)
+	_data_action_list.add_theme_color_override("font_selected_color", COL_PRIMARY)
+	_data_action_list.add_theme_font_size_override("font_size", 14)
+	_data_action_list.item_selected.connect(_on_data_action_selected)
+	action_col.add_child(_data_action_list)
+
+	_data_abandon_btn = Button.new()
+	_data_abandon_btn.text = "ABANDON"
+	_data_abandon_btn.disabled = true
+	_data_abandon_btn.add_theme_color_override("font_color", COL_DANGER)
+	_data_abandon_btn.add_theme_color_override("font_disabled_color", Color(0.3, 0.3, 0.3))
+	_data_abandon_btn.add_theme_font_size_override("font_size", 15)
+	_data_abandon_btn.pressed.connect(_on_data_abandon_pressed)
+	action_col.add_child(_data_abandon_btn)
 
 
 func _build_world_tab() -> void:

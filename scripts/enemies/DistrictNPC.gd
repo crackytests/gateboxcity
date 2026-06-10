@@ -42,6 +42,7 @@ var state_timer := 0.0
 var is_walking := false
 var bark_cooldown := 0.0
 var _has_barked := false
+var _dialogue_locked := false
 var gravity := ProjectSettings.get_setting("physics/3d/default_gravity") as float
 
 
@@ -57,6 +58,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+
+	if _dialogue_locked:
+		is_walking = false
+		velocity.x = 0.0
+		velocity.z = 0.0
+		move_and_slide()
+		return
 
 	state_timer -= delta
 	bark_cooldown = maxf(bark_cooldown - delta, 0.0)
@@ -112,6 +120,14 @@ func face_player_now() -> void:
 	look_target.y = global_position.y
 	if global_position.distance_squared_to(look_target) > 0.001:
 		look_at(look_target, Vector3.UP)
+
+
+func set_dialogue_locked(locked: bool) -> void:
+	_dialogue_locked = locked
+	if locked:
+		is_walking = false
+		velocity.x = 0.0
+		velocity.z = 0.0
 
 
 func _pick_next_state() -> void:

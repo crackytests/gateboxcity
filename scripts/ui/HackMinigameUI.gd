@@ -37,6 +37,7 @@ func _ready() -> void:
 
 
 func open(difficulty: int) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_difficulty = clampi(difficulty, 1, 5)
 	_solved = false
 	_attempt_spent = false
@@ -58,6 +59,8 @@ func open(difficulty: int) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -2.0)
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	closed.emit()
@@ -78,6 +81,7 @@ func _process(delta: float) -> void:
 		_solved = true
 		if not _attempt_spent:
 			_attempt_spent = true
+			AudioDirector.play_sfx("target_miss_static", -3.0)
 			hack_completed.emit(false, _difficulty)
 	else:
 		var secs := ceili(_time_remaining)
@@ -333,6 +337,7 @@ func _on_node_clicked(row: int, col: int) -> void:
 		_status_label.add_theme_color_override("font_color", Color(0.2, 1.0, 0.6))
 		if not _attempt_spent:
 			_attempt_spent = true
+			AudioDirector.play_sfx("lan_restore", -3.0)
 			hack_completed.emit(true, _difficulty)
 	else:
 		_status_label.text = "NO PATH — rotate nodes to route signal"

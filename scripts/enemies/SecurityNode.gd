@@ -9,6 +9,7 @@ signal defeated
 @export var attack_damage := 6.0
 @export var attack_cooldown := 1.25
 @export var player_path: NodePath
+@export var persistence_id := ""
 
 @onready var parts_root: Node3D = %BodyParts
 @onready var visual_root: Node3D = $Visuals
@@ -23,6 +24,11 @@ var is_defeated := false
 
 
 func _ready() -> void:
+	if GameState.is_enemy_defeated(_persistence_key()):
+		is_defeated = true
+		queue_free()
+		return
+
 	if not player_path.is_empty():
 		player = get_node_or_null(player_path)
 
@@ -70,9 +76,10 @@ func _try_attack() -> void:
 		return
 
 	var damage := attack_damage * (0.45 if lens_destroyed else 1.0)
-	player_health.apply_damage(damage)
+	player_health.apply_damage(damage, global_position)
 	flash_timer = 0.25
 	pulse_light.light_energy = 3.0
+	AudioDirector.play_sfx("security_node_fire", -2.0)
 	attacked_player.emit("security node pulse hit for %d" % roundi(damage))
 	attack_timer = attack_cooldown * (1.45 if antenna_destroyed else 1.0)
 
@@ -95,6 +102,8 @@ func _has_line_of_sight() -> bool:
 func _on_part_damaged(_part: BodyPart, _amount: float, _remaining_hp: float) -> void:
 	flash_timer = 0.18
 	pulse_light.light_energy = 2.4
+	if attack_timer <= 0.05:
+		AudioDirector.play_sfx("security_node_charge", -5.0)
 
 
 func _on_part_destroyed(part: BodyPart) -> void:
@@ -102,6 +111,7 @@ func _on_part_destroyed(part: BodyPart) -> void:
 	part.monitoring = false
 	part.visible = false
 	body_part_destroyed.emit(part.display_name)
+	AudioDirector.play_body_part_break(part.display_name)
 
 	if part.display_name == "Lens":
 		lens_destroyed = true
@@ -116,6 +126,7 @@ func _defeat() -> void:
 		return
 
 	is_defeated = true
+	GameState.mark_enemy_defeated(_persistence_key())
 	for child in parts_root.get_children():
 		var part := child as BodyPart
 		if part != null:
@@ -124,3 +135,12 @@ func _defeat() -> void:
 	visual_root.visible = false
 	pulse_light.visible = false
 	defeated.emit()
+
+
+func _persistence_key() -> String:
+	if not persistence_id.is_empty():
+		return persistence_id
+	var scene_path := ""
+	if get_tree().current_scene != null:
+		scene_path = get_tree().current_scene.scene_file_path
+	return "%s:%s" % [scene_path, str(get_path())]

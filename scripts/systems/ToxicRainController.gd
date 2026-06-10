@@ -24,14 +24,17 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_update_rain_effects()
 	if not WorldDirector.is_toxic_rain_active():
+		AudioDirector.set_rain_active(false)
 		tick_timer = 0.0
 		last_exposure_state = ""
 		return
 
 	if shelter_count > 0:
+		AudioDirector.set_rain_active(false)
 		_announce_once("sheltered", "pipe shelter blocks the toxic rain")
 		tick_timer = 0.0
 		return
+	AudioDirector.set_rain_active(true)
 
 	var damage := WorldDirector.get_event_damage_per_second()
 	if GameState.has_item("Sealed Mask"):
@@ -46,11 +49,13 @@ func _process(delta: float) -> void:
 	tick_timer += delta
 	if tick_timer >= tick_interval:
 		tick_timer = 0.0
+		AudioDirector.play_sfx("toxic_rain_damage_tick", -3.0)
 		player_health.apply_damage(damage * tick_interval)
 
 
 func enter_shelter() -> void:
 	shelter_count += 1
+	AudioDirector.play_sfx("shelter_enter", -4.0)
 
 
 func exit_shelter() -> void:

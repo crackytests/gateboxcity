@@ -24,6 +24,8 @@ const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
 const GOON_SCENE := preload("res://scenes/enemies/GoonMaterial.tscn")
 const BOSS_SCENE := preload("res://scenes/enemies/RockerFellar.tscn")
 const SPLICE_SCENE := preload("res://scenes/enemies/Splice.tscn")
+const ENTRY_SPAWN := Vector3(0.0, 1.05, 8.0)
+const FALL_RESCUE_Y := -8.0
 
 @onready var hud: HUDController = $HUD
 @onready var player: Node3D = $Player
@@ -43,6 +45,9 @@ var _boss_charge_recovery_timer := 0.0
 var _boss_sonic_timer := 0.0
 var _boss_cable_timer := 0.0
 var _boss_charge_timer := 0.0
+var _boss_pending_attack := ""
+var _boss_attack_windup_timer := 0.0
+var _boss_attack_origin := Vector3.ZERO
 var _blood_pit_spawns: Array[Node3D] = []
 var _blood_pit_spawn_timer := 0.0
 var _blood_pit_alive_count := 0
@@ -76,16 +81,48 @@ var _mat_puddle: StandardMaterial3D
 func _ready() -> void:
 	_build_materials()
 	_build_geometry()
+	_stabilize_entry_spawn()
+	_stabilize_entry_spawn_deferred()
 	_wire_runtime()
 	_refresh_hud()
 	hud.show_dialogue("Rocker Fellar Keep", "The service lift grinds to a halt. You step out into dead air and silence. Collapsed buildings on every side. Somewhere ahead, bass vibration throbs through the rubble. The city died here. Something else moved in after.")
 	hud.push_log("rocker fellar keep entered")
 	if GameState.get_world_flag("rocker_fellar_defeated", false):
 		_boss_defeated = true
+		_bass_debris_active = false
 		_open_extraction()
 
 
+func _stabilize_entry_spawn() -> void:
+	if player == null:
+		return
+	# The authored lift arrival used to sit on the plaza floor's south edge, flush with
+	# the wall. Nudge only that entry-edge placement onto solid plaza collision.
+	if player.global_position.z > 10.5 and absf(player.global_position.x) < 2.0:
+		_place_player_at_entry()
+
+
+func _stabilize_entry_spawn_deferred() -> void:
+	for _i in 3:
+		await get_tree().process_frame
+		_stabilize_entry_spawn()
+
+
+func _rescue_fallen_player() -> void:
+	if player != null and player.global_position.y < FALL_RESCUE_Y:
+		_place_player_at_entry()
+		if hud != null:
+			hud.push_log("lift safety caught you")
+
+
+func _place_player_at_entry() -> void:
+	player.global_position = ENTRY_SPAWN
+	if "velocity" in player:
+		player.velocity = Vector3.ZERO
+
+
 func _process(delta: float) -> void:
+	_rescue_fallen_player()
 	if _in_blood_pit and player != null and player.global_position.y < 1.2:
 		player_health.apply_damage(2.0 * delta)
 	if _in_soul_burn and player != null:
@@ -189,6 +226,8 @@ func _dispatch_interactable(interactable: WardInteractable) -> void:
 			_use_loot_crate(interactable)
 		"bass_debris_warning":
 			hud.open_statement("Warning Graffiti", "Spray-painted across a collapsed storefront: THE BUILDING REMEMBERS WHAT THE BASS TELLS IT. HEAD DOWN WHEN THE WALLS SING. Below that, someone else wrote: this is not a metaphor.")
+		"crawlspace_warning":
+			hud.open_statement("Service Crawlspace", "A waist-high service crawl runs behind the collapsed storefront ribs. Crouch low and stay left; the boulevard pickets watch the open street, not the dust under it.")
 		"vip_health_cache":
 			_use_health_cache(interactable)
 		"vip_lore_contract":
@@ -242,12 +281,32 @@ func _use_loot_crate(interactable: WardInteractable) -> void:
 
 func _use_health_cache(interactable: WardInteractable) -> void:
 	if GameState.get_world_flag("fellar_health_cache_used", false):
+		if not GameState.get_world_flag("fellar_health_cache_actual_heal_used", false) and player_health.current_hp < player_health.max_hp:
+			_apply_health_cache(interactable, true)
+			return
 		hud.show_dialogue(interactable.display_name, "Already taken. The overturned bar has nothing left to give except stains and a view of the crater.")
 		return
+	if player_health.current_hp >= player_health.max_hp:
+		hud.show_dialogue("Health Cache", "The med kit is still sealed. You are already at full body integrity, so you leave it for when the concert gets educational.")
+		hud.push_log("health cache left sealed")
+		return
+	_apply_health_cache(interactable, false)
+
+
+func _apply_health_cache(interactable: WardInteractable, recovered_old_save: bool) -> void:
+	var before := player_health.current_hp
 	player_health.heal(30.0)
+	var restored := roundi(player_health.current_hp - before)
 	GameState.set_world_flag("fellar_health_cache_used", true)
-	hud.show_dialogue("Health Cache", "A med kit behind what used to be a penthouse bar. The label says Gatebox Corporation Executive Wellness. The expiration date is a suggestion from a dead company. You use it anyway.")
-	hud.push_log("health restored +30")
+	GameState.set_world_flag("fellar_health_cache_actual_heal_used", true)
+	interactable.visible = false
+	interactable.set_deferred("monitoring", false)
+	var message := "A med kit behind what used to be a penthouse bar. The label says Gatebox Corporation Executive Wellness. The expiration date is a suggestion from a dead company. You use it anyway."
+	if recovered_old_save:
+		message = "One sealed injector was still wedged under the tray. The cache finally does what the label promised."
+	hud.show_dialogue("Health Cache", message)
+	hud.push_log("health restored +%d" % restored)
+	hud.show_system_message("BODY INTEGRITY +%d" % restored)
 	_refresh_hud()
 
 
@@ -334,7 +393,7 @@ func _detonate_pyro_charge(interactable: WardInteractable) -> void:
 	if player != null:
 		var dist := charge_pos.distance_to(player.global_position)
 		if dist <= 3.0:
-			player_health.apply_damage(15.0)
+			player_health.apply_damage(15.0, charge_pos)
 			hud.push_log("pyrotechnic detonation — 15 damage")
 		else:
 			hud.push_log("pyrotechnic detonation — you were clear of the blast")
@@ -395,6 +454,8 @@ func _use_extraction_lift() -> void:
 func _process_boss(delta: float) -> void:
 	if _boss.is_defeated or _boss.is_pacified:
 		return
+	if _process_boss_attack_windup(delta):
+		return
 	if _boss_regen_active and _boss_regen_rate > 0.0:
 		if _boss.has_method("regen_all_parts"):
 			_boss.regen_all_parts(_boss_regen_rate * delta)
@@ -413,7 +474,7 @@ func _process_phase_1(delta: float) -> void:
 	_boss_sonic_timer += delta
 	if _boss_sonic_timer >= 3.0:
 		_boss_sonic_timer = 0.0
-		_do_boss_sonic_attack()
+		_start_boss_attack_windup("sonic")
 
 
 func _process_phase_2(delta: float) -> void:
@@ -421,12 +482,12 @@ func _process_phase_2(delta: float) -> void:
 	var dist := _boss.global_position.distance_to(player.global_position)
 	if dist <= 3.0 and _boss_cable_timer >= 1.5:
 		_boss_cable_timer = 0.0
-		_do_boss_cable_attack()
+		_start_boss_attack_windup("cable")
 	elif dist > 3.0:
 		_boss_sonic_timer += delta
 		if _boss_sonic_timer >= 3.0:
 			_boss_sonic_timer = 0.0
-			_do_boss_sonic_attack()
+			_start_boss_attack_windup("sonic")
 
 
 func _process_phase_3(delta: float) -> void:
@@ -438,35 +499,191 @@ func _process_phase_3(delta: float) -> void:
 	_boss_charge_timer += delta
 	if _boss_charge_timer >= 5.0:
 		_boss_charge_timer = 0.0
-		_do_boss_charge()
+		_start_boss_attack_windup("charge")
+
+
+func _start_boss_attack_windup(kind: String) -> void:
+	if _boss == null or not is_instance_valid(_boss) or not _boss_pending_attack.is_empty():
+		return
+	_boss_pending_attack = kind
+	_boss_attack_windup_timer = 0.85 if kind != "charge" else 1.15
+	_boss_attack_origin = _boss.global_position
+	if _boss.has_method("set_telegraph_windup"):
+		_boss.set_telegraph_windup(true)
+	_spawn_boss_telegraph(kind, _boss_attack_origin)
+	match kind:
+		"sonic":
+			hud.push_log("Rocker Fellar inhales feedback — get behind cover")
+		"cable":
+			hud.push_log("Rocker Fellar raises the cable whips")
+		"charge":
+			hud.push_log("Rocker Fellar's spine flares — break line or move")
+
+
+func _process_boss_attack_windup(delta: float) -> bool:
+	if _boss_pending_attack.is_empty():
+		return false
+	_boss_attack_windup_timer -= delta
+	if _boss_attack_windup_timer > 0.0:
+		return true
+	var kind := _boss_pending_attack
+	_boss_pending_attack = ""
+	if _boss != null and is_instance_valid(_boss) and _boss.has_method("set_telegraph_windup"):
+		_boss.set_telegraph_windup(false)
+	match kind:
+		"sonic":
+			_do_boss_sonic_attack()
+		"cable":
+			_do_boss_cable_attack()
+		"charge":
+			_do_boss_charge()
+	return false
 
 
 func _do_boss_sonic_attack() -> void:
 	if _boss == null or not is_instance_valid(_boss): return
 	var dist := _boss.global_position.distance_to(player.global_position)
 	if dist > 15.0: return
+	if _player_has_cover_from(_boss.global_position):
+		hud.push_log("boss sonic shockwave broke against cover")
+		return
 	var amp_stacks_alive := 8
 	for i in range(1, 9):
-		if GameState.get_world_flag("fellar_amp_%d_destroyed" % i, false):
+		if GameState.get_world_flag("fellar_amp_stack_%d_destroyed" % i, false):
 			amp_stacks_alive -= 1
 	var damage_mult := float(amp_stacks_alive) / 8.0
-	player_health.apply_damage(8.0 * damage_mult)
+	player_health.apply_damage(8.0 * damage_mult, _boss.global_position)
 	hud.push_log("boss sonic shockwave — %.0f damage" % (8.0 * damage_mult))
 
 
 func _do_boss_cable_attack() -> void:
-	player_health.apply_damage(12.0)
+	var source = null
+	if _boss != null:
+		source = _boss.global_position
+	if source != null and _player_has_cover_from(source):
+		hud.push_log("boss cable whip lashed into cover")
+		return
+	player_health.apply_damage(12.0, source)
 	hud.push_log("boss cable whip — 12 damage")
 
 
 func _do_boss_charge() -> void:
-	player_health.apply_damage(18.0)
+	var source = null
+	if _boss != null:
+		source = _boss.global_position
+	if source != null and _player_has_cover_from(source):
+		hud.push_log("boss charge slammed into cover")
+		_boss_charge_recovery = true
+		_boss_charge_recovery_timer = 1.4
+		return
+	player_health.apply_damage(18.0, source)
 	player.set_meta("stun_timer", 1.5)
 	hud.push_log("boss charge — 18 damage — stunned")
 	_boss_charge_recovery = true
 	_boss_charge_recovery_timer = 2.0
 	if _boss != null and is_instance_valid(_boss) and _boss.has_method("expose_stage_core"):
 		_boss.expose_stage_core(true)
+
+
+func _player_has_cover_from(source: Vector3) -> bool:
+	if player == null:
+		return false
+	var from := source + Vector3.UP * 1.35
+	var to := player.global_position + Vector3.UP * 0.75
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [player.get_rid()]
+	if _boss != null and is_instance_valid(_boss):
+		query.exclude.append(_boss.get_rid())
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return false
+	var collider: Object = hit.get("collider") as Object
+	return collider is StaticBody3D
+
+
+func _spawn_boss_telegraph(kind: String, origin: Vector3) -> void:
+	var color := Color(1.0, 0.1, 0.75, 0.62)
+	var radius := 15.0
+	var duration := 0.85
+	match kind:
+		"sonic":
+			color = Color(1.0, 0.12, 0.85, 0.66)
+			radius = 15.0
+			duration = 0.85
+		"cable":
+			color = Color(1.0, 0.55, 0.05, 0.72)
+			radius = 4.4
+			duration = 0.85
+		"charge":
+			color = Color(0.15, 1.0, 0.95, 0.72)
+			radius = 7.0
+			duration = 1.15
+	_add_telegraph_disc(origin + Vector3(0, 0.035, 0), radius, color, duration)
+	_add_telegraph_light(origin + Vector3.UP * 2.2, color, duration)
+	if kind == "charge" and player != null:
+		var dir := player.global_position - origin
+		dir.y = 0.0
+		if dir.length() > 0.01:
+			dir = dir.normalized()
+		_add_telegraph_bar(origin + dir * 4.0 + Vector3(0, 0.08, 0), dir, color, duration)
+
+
+func _add_telegraph_disc(pos: Vector3, radius: float, color: Color, duration: float) -> void:
+	var mesh := CylinderMesh.new()
+	mesh.top_radius = 1.0
+	mesh.bottom_radius = 1.0
+	mesh.height = 0.035
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = color
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.emission_enabled = true
+	mat.emission = Color(color.r, color.g, color.b, 1.0)
+	mat.emission_energy_multiplier = 4.0
+	var disc := MeshInstance3D.new()
+	disc.name = "BossAttackTelegraph"
+	disc.mesh = mesh
+	disc.scale = Vector3(radius, 1.0, radius)
+	disc.position = pos
+	disc.set_surface_override_material(0, mat)
+	add_child(disc)
+	var tween := create_tween()
+	tween.tween_property(disc, "scale", Vector3(radius * 1.18, 1.0, radius * 1.18), duration)
+	tween.parallel().tween_property(mat, "albedo_color:a", 0.0, duration)
+	tween.tween_callback(disc.queue_free)
+
+
+func _add_telegraph_light(pos: Vector3, color: Color, duration: float) -> void:
+	var light := OmniLight3D.new()
+	light.name = "BossAttackWarningLight"
+	light.position = pos
+	light.light_color = Color(color.r, color.g, color.b, 1.0)
+	light.light_energy = 8.0
+	light.omni_range = 18.0
+	add_child(light)
+	var tween := create_tween()
+	tween.tween_property(light, "light_energy", 0.0, duration)
+	tween.tween_callback(light.queue_free)
+
+
+func _add_telegraph_bar(pos: Vector3, dir: Vector3, color: Color, duration: float) -> void:
+	var mesh := BoxMesh.new()
+	mesh.size = Vector3(3.0, 0.08, 14.0)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = color
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.emission_enabled = true
+	mat.emission = Color(color.r, color.g, color.b, 1.0)
+	mat.emission_energy_multiplier = 5.0
+	var bar := MeshInstance3D.new()
+	bar.name = "BossChargeLaneTelegraph"
+	bar.mesh = mesh
+	bar.position = pos
+	bar.look_at(pos + dir, Vector3.UP)
+	bar.set_surface_override_material(0, mat)
+	add_child(bar)
+	var tween := create_tween()
+	tween.tween_property(mat, "albedo_color:a", 0.0, duration)
+	tween.tween_callback(bar.queue_free)
 
 
 func _on_boss_part_destroyed(part_name: String) -> void:
@@ -509,6 +726,7 @@ func _enter_phase_3() -> void:
 
 func _on_boss_defeated() -> void:
 	_boss_defeated = true
+	_bass_debris_active = false
 	GameState.set_world_flag("rocker_fellar_defeated", true)
 	hud.push_log("rocker fellar defeated")
 	hud.show_dialogue("Rocker Fellar", "The Stage Core overloads. Fellar shatters into feedback static and collapsed chrome. The bass stops. The dead city is quiet again. The extraction shaft is now active.")
@@ -521,9 +739,9 @@ func _on_boss_defeated() -> void:
 
 func _spawn_blood_pit_horror() -> void:
 	var horror := GOON_SCENE.instantiate()
-	var rx := randf_range(-6.0, 6.0)
-	var rz := randf_range(-46.0, -42.0)
-	horror.position = Vector3(rx, -0.5, rz)
+	var rx := randf_range(-5.8, 5.8)
+	var rz := randf_range(-36.5, -31.5)
+	horror.position = Vector3(rx, -0.9, rz)
 	horror.name = "BloodPitHorror"
 	horror.add_to_group("blood_pit_horror")
 	add_child(horror)
@@ -548,19 +766,23 @@ func _open_extraction() -> void:
 
 func _do_bass_debris() -> void:
 	if player == null: return
+	if _boss_defeated:
+		_bass_debris_active = false
+		return
 	var pz := player.global_position.z
 	if pz > -2.0 or pz < -28.0: return
-	hud.push_log("bass vibration — building debris falls from above")
-	player_health.apply_damage(8.0)
+	hud.push_log("bass debris overhead — 8 damage")
+	var source := player.global_position + Vector3(0.8, 4.0, -2.0)
+	player_health.apply_damage(8.0, source)
 
 
 # ---- Geometry & Materials ----
 
 func _build_materials() -> void:
-	_mat_asphalt = _make_mat(Color(0.18, 0.16, 0.14), Color(0.02, 0.02, 0.02), 0.1, "", Vector3(4, 4, 1))
-	_mat_concrete = _make_mat(Color(0.28, 0.26, 0.24), Color(0.01, 0.01, 0.01), 0.05, "", Vector3(3, 3, 1))
-	_mat_rubble = _make_mat(Color(0.22, 0.20, 0.18), Color(0.01, 0.01, 0.01), 0.08, "", Vector3.ONE)
-	_mat_building_dark = _make_mat(Color(0.12, 0.11, 0.10), Color(0.005, 0.005, 0.005), 0.05, "", Vector3(2, 2, 1))
+	_mat_asphalt = _make_mat(Color(0.24, 0.22, 0.19), Color(0.04, 0.035, 0.03), 0.12, "", Vector3(4, 4, 1))
+	_mat_concrete = _make_mat(Color(0.36, 0.34, 0.31), Color(0.03, 0.028, 0.025), 0.08, "", Vector3(3, 3, 1))
+	_mat_rubble = _make_mat(Color(0.30, 0.28, 0.24), Color(0.025, 0.022, 0.018), 0.08, "", Vector3.ONE)
+	_mat_building_dark = _make_mat(Color(0.18, 0.17, 0.15), Color(0.012, 0.011, 0.01), 0.06, "", Vector3(2, 2, 1))
 	_mat_rust = _make_mat(Color(0.45, 0.28, 0.15), Color(0.08, 0.04, 0.01), 0.2, "", Vector3.ONE)
 	_mat_dead_neon = _make_mat(Color(0.08, 0.06, 0.08), Color(0.3, 0.0, 0.3), 0.8, "", Vector3.ONE)
 	_mat_stage = _make_mat(Color(0.15, 0.08, 0.08), Color(0.4, 0.1, 0.1), 1.5, "", Vector3(4, 8, 1))
@@ -576,13 +798,13 @@ func _build_geometry() -> void:
 	var env_node := WorldEnvironment.new()
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color(0.01, 0.01, 0.02)
+	env.background_color = Color(0.025, 0.022, 0.03)
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color(0.06, 0.05, 0.07)
-	env.ambient_light_energy = 0.6
+	env.ambient_light_color = Color(0.16, 0.14, 0.17)
+	env.ambient_light_energy = 1.05
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.03, 0.02, 0.04)
-	env.fog_density = 0.018
+	env.fog_light_color = Color(0.05, 0.04, 0.065)
+	env.fog_density = 0.008
 	env_node.environment = env
 	add_child(env_node)
 
@@ -591,7 +813,8 @@ func _build_geometry() -> void:
 	_add_box("PlazaSouthWall", Vector3(16, 5.5, 0.35), Vector3(0, 2.75, 12), _mat_building_dark)
 	_add_box("PlazaEastShell", Vector3(0.35, 4.0, 8), Vector3(8, 2.0, 4), _mat_building_dark)
 	_add_box("PlazaWestShell", Vector3(0.35, 4.0, 8), Vector3(-8, 2.0, 4), _mat_building_dark)
-	_add_box("PlazaNorthLeft", Vector3(5, 4.5, 0.35), Vector3(-5.5, 2.25, 0), _mat_building_dark)
+	_add_box("PlazaNorthLeftFar", Vector3(1.0, 4.5, 0.35), Vector3(-7.5, 2.25, 0), _mat_building_dark)
+	_add_box("PlazaNorthLeftNear", Vector3(2.3, 4.5, 0.35), Vector3(-4.15, 2.25, 0), _mat_building_dark)
 	_add_box("PlazaNorthRight", Vector3(5, 4.5, 0.35), Vector3(5.5, 2.25, 0), _mat_building_dark)
 	_add_box("QuestGateBlock", Vector3(4, 3.0, 1.5), Vector3(0, 1.5, 0), _mat_rust)
 	for rd: Array in [[-4, 3], [5, 9], [-6, 7], [3, 5]]:
@@ -617,6 +840,7 @@ func _build_geometry() -> void:
 		pv.position = pp
 		add_child(pv)
 	_add_interactable("bass_debris_warning", "Warning Graffiti", "Press E: read graffiti", Vector3(-5, 1.5, -10), Color(0.85, 0.2, 0.2))
+	_build_west_crawlspace()
 	# Dead neon sign (visual)
 	var nm := BoxMesh.new()
 	nm.size = Vector3(6.0, 0.8, 0.1)
@@ -631,7 +855,7 @@ func _build_geometry() -> void:
 	_add_box("VIPNorth", Vector3(8, 3.5, 0.35), Vector3(10, 1.75, -14), _mat_building_dark)
 	_add_box("VIPEast", Vector3(0.35, 3.5, 8), Vector3(14, 1.75, -10), _mat_building_dark)
 	_add_box("VIPSouth", Vector3(8, 3.5, 0.35), Vector3(10, 1.75, -6), _mat_building_dark)
-	_add_box("VIPCeiling", Vector3(6, 0.25, 6), Vector3(10, 3.0, -10), _mat_building_dark)
+	_add_box("VIPCeiling", Vector3(6, 0.25, 6), Vector3(10, 5.0, -10), _mat_building_dark)
 	_add_box("VIPRubble1", Vector3(2.0, 1.0, 1.5), Vector3(8, 0.5, -12), _mat_rubble)
 	_add_box("VIPRubble2", Vector3(1.5, 0.8, 2.0), Vector3(12, 0.4, -8), _mat_rubble)
 	_add_interactable("vip_health_cache", "Health Cache", "Press E: search health cache", Vector3(8, 0.95, -12), Color(0.2, 0.8, 0.2))
@@ -642,7 +866,7 @@ func _build_geometry() -> void:
 	_add_box("UCNorth", Vector3(8, 3.5, 0.35), Vector3(-10, 1.75, -14), _mat_building_dark)
 	_add_box("UCWest", Vector3(0.35, 3.5, 8), Vector3(-14, 1.75, -10), _mat_building_dark)
 	_add_box("UCSouth", Vector3(8, 3.5, 0.35), Vector3(-10, 1.75, -6), _mat_building_dark)
-	_add_box("UCEiling", Vector3(8, 0.25, 8), Vector3(-10, 1.5, -10), _mat_building_dark)
+	_add_box("UCEiling", Vector3(8, 0.25, 8), Vector3(-10, 5.0, -10), _mat_building_dark)
 	_add_box("VaultHatchBlock", Vector3(2, 0.1, 2), Vector3(-10, -0.05, -14), _mat_metal)
 	_add_box("UCRubble1", Vector3(1.5, 0.8, 1.5), Vector3(-12, 0.4, -8), _mat_rubble)
 	_add_box("UCRubble2", Vector3(2.0, 0.6, 1.0), Vector3(-8, 0.3, -12), _mat_rubble)
@@ -703,6 +927,8 @@ func _build_geometry() -> void:
 		_add_interactable("amp_stack_%d" % (i + 1), "Amp Stack %d" % (i + 1), "Press E: destroy amp stack", amp_pos[i], Color(1.0, 0.4, 0.0))
 	for rd: Array in [[-10, -25], [10, -35], [-6, -42], [8, -28], [-12, -38], [5, -22]]:
 		_add_box("BowlRubble", Vector3(2.5, 1.2, 2.0), Vector3(rd[0], 0.6, rd[1]), _mat_rubble)
+	for cover: Array in [[-6, -31], [6, -31], [-6, -39], [6, -39]]:
+		_add_box("SonicCoverBlock", Vector3(3.2, 2.2, 1.0), Vector3(cover[0], 1.1, cover[1]), _mat_rubble)
 	_add_exit("ExtractionLift", "Press E: extraction lift — return to Faded Atrium", MALLHUB_SCENE, Vector3(0, 1.0, -48.1), Color(0.1, 0.8, 0.3))
 
 	# --- Zone 6: Soul Battery Vault (below undercity, y -2..0) ---
@@ -735,9 +961,12 @@ func _build_geometry() -> void:
 
 
 func _spawn_enemies() -> void:
-	# Zone 1: plaza goons — patrol north-south along their side
-	_add_goon(Vector3(-3, 0, -2), "keep_goon", [Vector3(-3, 0, -4), Vector3(-3, 0, 3)])
-	_add_goon(Vector3(3, 0, -2), "keep_goon", [Vector3(3, 0, -4), Vector3(3, 0, 3)])
+	# Zone 1: entry pickets — tucked deeper and slower to identify the player so the lift
+	# arrival does not become instant combat.
+	var west_picket := _add_goon(Vector3(-5.6, 0, -3.5), "keep_goon", [Vector3(-5.6, 0, -2.5), Vector3(-5.6, 0, -6.8)])
+	var east_picket := _add_goon(Vector3(5.6, 0, -3.5), "keep_goon", [Vector3(5.6, 0, -2.5), Vector3(5.6, 0, -6.8)])
+	_soften_entry_guard(west_picket)
+	_soften_entry_guard(east_picket)
 	# Zone 2: boulevard goons — patrol along the avenue
 	_add_goon(Vector3(-2, 0, -6), "keep_goon", [Vector3(-2, 0, -3), Vector3(-2, 0, -10)])
 	_add_goon(Vector3(2, 0, -12), "keep_goon", [Vector3(2, 0, -9), Vector3(2, 0, -16)])
@@ -757,9 +986,37 @@ func _spawn_enemies() -> void:
 	var boss := BOSS_SCENE.instantiate()
 	boss.name = "RockerFellar"
 	boss.position = Vector3(0, 1.8, -44)
+	_scale_rocker_fellar(boss)
 	boss.add_to_group("boss_rocker_fellar")
 	add_child(boss)
 	boss.alert()
+
+
+func _scale_rocker_fellar(boss: Node3D) -> void:
+	var big := 2.25
+	var planted_visual_y := -1.55
+	var visuals := boss.get_node_or_null("Visuals") as Node3D
+	if visuals != null:
+		visuals.position.y = planted_visual_y
+		visuals.scale = Vector3.ONE * big
+	var body_parts := boss.get_node_or_null("BodyParts") as Node3D
+	if body_parts != null:
+		body_parts.position.y = planted_visual_y
+		body_parts.scale = Vector3.ONE * big
+	var talk_zone := boss.get_node_or_null("TalkZone") as Node3D
+	if talk_zone != null:
+		talk_zone.position.y = planted_visual_y
+		talk_zone.scale = Vector3.ONE * 1.75
+	var collision := boss.get_node_or_null("CollisionShape3D") as CollisionShape3D
+	if collision != null:
+		var capsule := collision.shape as CapsuleShape3D
+		if capsule != null:
+			var scaled := capsule.duplicate() as CapsuleShape3D
+			scaled.radius *= 1.85
+			scaled.height *= 1.85
+			collision.shape = scaled
+	if "attack_range" in boss:
+		boss.attack_range *= 1.35
 
 
 func _add_box(node_name: String, size: Vector3, world_position: Vector3, material: Material, world_rotation := Vector3.ZERO) -> StaticBody3D:
@@ -847,20 +1104,54 @@ func _add_exit(node_name: String, prompt: String, target_scene: String, world_po
 	exit.add_child(vis)
 
 
-func _add_goon(pos: Vector3, group: String, patrol_points: Array[Vector3] = []) -> void:
+func _build_west_crawlspace() -> void:
+	# Low service crawl along the west storefronts. Crouching keeps the player below the
+	# sightline while the pickets patrol the boulevard proper. It now enters through a break in
+	# the lift-plaza north wall and exits into the undercity room instead of dead-ending.
+	_add_box("CrawlspaceEntryFloor", Vector3(1.9, 0.18, 3.2), Vector3(-6.45, 0.09, 0.8), _mat_concrete)
+	_add_box("CrawlspaceEntryLintel", Vector3(1.9, 0.22, 0.45), Vector3(-6.45, 1.6, 0.0), _mat_building_dark)
+	_add_box("CrawlspaceFloor", Vector3(2.2, 0.18, 14.5), Vector3(-6.65, 0.09, -7.0), _mat_concrete)
+	_add_box("CrawlspaceCeiling", Vector3(2.2, 0.18, 14.5), Vector3(-6.65, 1.62, -7.0), _mat_building_dark)
+	_add_box("CrawlspaceExitFloor", Vector3(4.8, 0.18, 2.0), Vector3(-8.65, 0.09, -10.5), _mat_concrete)
+	_add_box("CrawlspaceExitCeiling", Vector3(4.8, 0.18, 2.0), Vector3(-8.65, 1.62, -10.5), _mat_building_dark)
+	_add_box("CrawlspaceWestRibA", Vector3(0.18, 1.45, 4.8), Vector3(-7.65, 0.82, -3.4), _mat_rust)
+	_add_box("CrawlspaceWestRibB", Vector3(0.18, 1.45, 4.8), Vector3(-7.65, 0.82, -11.0), _mat_rust)
+	_add_box("CrawlspaceEastRibA", Vector3(0.18, 1.25, 3.5), Vector3(-5.65, 0.72, -5.2), _mat_rubble)
+	_add_box("CrawlspaceEastRibB", Vector3(0.18, 1.25, 3.5), Vector3(-5.65, 0.72, -12.2), _mat_rubble)
+	for panel: Array in [
+		[Vector3(-7.25, 0.95, -2.1), Vector3(0.85, 1.45, 0.24)],
+		[Vector3(-9.8, 0.95, -11.45), Vector3(0.85, 1.45, 0.24)],
+		[Vector3(-5.25, 1.0, -8.2), Vector3(0.26, 1.55, 1.8)],
+	]:
+		_add_box("CrawlspaceSightBaffle", panel[1] as Vector3, panel[0] as Vector3, _mat_rubble)
+	_add_interactable("crawlspace_warning", "Service Crawlspace", "Press E: inspect crawlspace", Vector3(-6.45, 0.7, 1.5), Color(0.25, 0.85, 0.65))
+
+
+func _add_goon(pos: Vector3, group: String, patrol_points: Array[Vector3] = []) -> Enemy:
 	var goon := GOON_SCENE.instantiate()
 	goon.name = "Goon"
 	goon.position = pos
+	goon.persistence_id = _enemy_persistence_id(group, pos)
 	goon.add_to_group(group)
 	add_child(goon)
 	if not patrol_points.is_empty():
 		goon.set_patrol_points(patrol_points)
+	return goon as Enemy
+
+
+func _soften_entry_guard(enemy: Enemy) -> void:
+	if enemy == null:
+		return
+	enemy.detection_range = 7.5
+	enemy.detection_delay = 1.35
+	enemy.pack_alert_radius = 6.0
 
 
 func _add_enemy_splice(pos: Vector3, group: String, patrol_points: Array[Vector3] = []) -> void:
 	var sp := SPLICE_SCENE.instantiate()
 	sp.name = "Splice"
 	sp.position = pos
+	sp.persistence_id = _enemy_persistence_id(group, pos)
 	sp.add_to_group(group)
 	sp.item_dropped.connect(_on_splice_item_dropped)
 	add_child(sp)
@@ -877,30 +1168,41 @@ func _add_security(pos: Vector3, group: String) -> void:
 	var sn := SECURITY_NODE_SCENE.instantiate()
 	sn.name = "AmpStackOperator"
 	sn.position = pos
+	sn.persistence_id = _enemy_persistence_id(group, pos)
 	sn.add_to_group(group)
 	add_child(sn)
 
 
+func _enemy_persistence_id(group: String, pos: Vector3) -> String:
+	return "rocker_fellar_keep:%s:%.2f:%.2f:%.2f" % [group, pos.x, pos.y, pos.z]
+
+
 func _add_lights() -> void:
+	var key := DirectionalLight3D.new()
+	key.name = "KeepOverheadKeyLight"
+	key.rotation_degrees = Vector3(-58.0, 28.0, 0.0)
+	key.light_color = Color(0.72, 0.82, 1.0)
+	key.light_energy = 0.55
+	add_child(key)
 	for data: Array in [
-		[Vector3(0, 3.0, 6), Color(0.6, 0.4, 0.2), 1.2, 8.0],
-		[Vector3(-4, 3.0, 9), Color(0.6, 0.4, 0.2), 0.8, 8.0],
-		[Vector3(0, 4.0, -5), Color(0.4, 0.1, 0.4), 1.0, 10.0],
-		[Vector3(0, 4.0, -15), Color(0.4, 0.1, 0.4), 1.0, 10.0],
-		[Vector3(-4, 3.0, -10), Color(0.6, 0.3, 0.1), 0.6, 10.0],
-		[Vector3(10, 2.5, -10), Color(0.7, 0.5, 0.2), 1.0, 6.0],
-		[Vector3(-10, 1.3, -10), Color(0.4, 0.5, 0.5), 0.8, 6.0],
-		[Vector3(0, 6.0, -44), Color(0.6, 0.1, 0.1), 2.5, 12.0],
-		[Vector3(-4, 6.0, -44), Color(0.4, 0.0, 0.5), 1.5, 12.0],
-		[Vector3(4, 6.0, -44), Color(0.4, 0.0, 0.5), 1.5, 12.0],
-		[Vector3(0, 1.0, -34), Color(0.4, 0.05, 0.05), 1.8, 8.0],
-		[Vector3(-10, 5.0, -30), Color(0.5, 0.3, 0.1), 1.2, 10.0],
-		[Vector3(10, 5.0, -30), Color(0.5, 0.3, 0.1), 1.2, 10.0],
-		[Vector3(0, 5.5, -45), Color(0.2, 0.2, 0.5), 0.8, 10.0],
-		[Vector3(0, 5.5, -21), Color(0.2, 0.2, 0.5), 0.8, 10.0],
-		[Vector3(0, -0.5, -51), Color(0.0, 0.6, 0.2), 2.0, 5.0],
-		[Vector3(-3, -0.5, -51), Color(0.0, 0.4, 0.15), 1.2, 5.0],
-		[Vector3(3, -0.5, -51), Color(0.0, 0.4, 0.15), 1.2, 5.0],
+		[Vector3(0, 3.0, 6), Color(0.75, 0.52, 0.28), 1.9, 10.0],
+		[Vector3(-4, 3.0, 9), Color(0.75, 0.52, 0.28), 1.4, 9.0],
+		[Vector3(0, 4.0, -5), Color(0.55, 0.22, 0.62), 1.7, 12.0],
+		[Vector3(0, 4.0, -15), Color(0.55, 0.22, 0.62), 1.7, 12.0],
+		[Vector3(-4, 3.0, -10), Color(0.8, 0.42, 0.18), 1.2, 12.0],
+		[Vector3(10, 3.2, -10), Color(0.9, 0.68, 0.34), 2.0, 9.0],
+		[Vector3(-10, 3.2, -10), Color(0.55, 0.75, 0.75), 1.8, 9.0],
+		[Vector3(0, 6.0, -44), Color(0.8, 0.14, 0.12), 3.5, 15.0],
+		[Vector3(-4, 6.0, -44), Color(0.55, 0.08, 0.7), 2.3, 14.0],
+		[Vector3(4, 6.0, -44), Color(0.55, 0.08, 0.7), 2.3, 14.0],
+		[Vector3(0, 1.4, -34), Color(0.65, 0.08, 0.06), 2.5, 10.0],
+		[Vector3(-10, 5.0, -30), Color(0.72, 0.42, 0.18), 2.0, 12.0],
+		[Vector3(10, 5.0, -30), Color(0.72, 0.42, 0.18), 2.0, 12.0],
+		[Vector3(0, 5.5, -45), Color(0.35, 0.35, 0.75), 1.5, 13.0],
+		[Vector3(0, 5.5, -21), Color(0.35, 0.35, 0.75), 1.5, 13.0],
+		[Vector3(0, -0.5, -51), Color(0.0, 0.85, 0.28), 2.8, 7.0],
+		[Vector3(-3, -0.5, -51), Color(0.0, 0.6, 0.22), 1.8, 6.5],
+		[Vector3(3, -0.5, -51), Color(0.0, 0.6, 0.22), 1.8, 6.5],
 	]:
 		var light := OmniLight3D.new()
 		light.position = data[0] as Vector3
@@ -953,8 +1255,8 @@ func _on_exit_focus_changed(mission_exit: MissionExit, has_focus: bool) -> void:
 
 
 func _save_game() -> void:
-	if GameState.save_game():
-		hud.show_system_message("GAME SAVED")
+	if GameState.quicksave():
+		hud.show_system_message("QUICKSAVED")
 	else:
 		hud.show_system_message("SAVE FAILED")
 

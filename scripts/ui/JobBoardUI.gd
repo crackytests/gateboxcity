@@ -19,6 +19,7 @@ func _ready() -> void:
 
 
 func open(jobs: Array, active_job_id: String) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_jobs = jobs
 	_active_job_id = active_job_id
 	_selected_index = -1
@@ -29,6 +30,8 @@ func open(jobs: Array, active_job_id: String) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -2.0)
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -101,6 +104,7 @@ func _on_accept_pressed() -> void:
 	if job_id.is_empty():
 		return
 	job_accepted.emit(job_id)
+	AudioDirector.play_sfx("quest_update", -2.0)
 	close()
 
 

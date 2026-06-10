@@ -18,6 +18,7 @@ func _ready() -> void:
 
 
 func open(routes: Array) -> void:
+	AudioDirector.play_sfx("menu_open", -2.0)
 	_routes = routes
 	_selected_index = -1
 	visible = true
@@ -27,6 +28,8 @@ func open(routes: Array) -> void:
 
 
 func close() -> void:
+	if visible:
+		AudioDirector.play_sfx("menu_close", -2.0)
 	visible = false
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -81,6 +84,7 @@ func _on_travel_pressed() -> void:
 	if bool(route.get("locked", false)):
 		return
 	route_selected.emit(str(route.get("id", "")))
+	AudioDirector.play_sfx("breach_gate_use", -3.0)
 	close()
 
 

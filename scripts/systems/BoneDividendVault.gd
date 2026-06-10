@@ -120,7 +120,7 @@ func _update_prompt() -> void:
 
 
 func _save() -> void:
-	hud.show_system_message("GAME SAVED" if GameState.save_game() else "SAVE FAILED")
+	hud.show_system_message("QUICKSAVED" if GameState.quicksave() else "SAVE FAILED")
 
 
 func _load() -> void:
