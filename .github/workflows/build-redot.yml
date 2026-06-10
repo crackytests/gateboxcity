@@ -516,6 +516,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           name: GATEBOX BREACH ${{ github.ref_name }}
-          files: dist/*.zip
+          body_path: docs/releases/${{ github.ref_name }}.md
+          files: |
+            dist/*.zip
+            docs/releases/${{ github.ref_name }}.md
           fail_on_unmatched_files: true
           generate_release_notes: true
