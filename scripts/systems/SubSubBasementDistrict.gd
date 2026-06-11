@@ -9,6 +9,7 @@ const WATER_CISTERN_SCENE := "res://scenes/levels/WaterReclamationCistern.tscn"
 const COLLAPSED_ATRIUM_SCENE := "res://scenes/levels/CollapsedServiceAtrium.tscn"
 const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
 const ROCKER_FELLAR_KEEP_SCENE := "res://scenes/levels/RockerFellarKeep.tscn"
+const DEBUG_ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 
 # Gatebox standing needed before the Comfort Annexe (Ward 7) reads you as a Comfort Citizen.
 const COMFORT_ANNEXE_REP_GATE := 2
@@ -910,12 +911,12 @@ func _load_selected_debug_atlas_values() -> void:
 	var sprite := _get_selected_debug_atlas()
 	if sprite == null:
 		return
-	var region := sprite.region_rect
+	var region := _get_debug_atlas_region(sprite)
 	_debug_values["atlas_x"] = region.position.x
 	_debug_values["atlas_y"] = region.position.y
 	_debug_values["atlas_w"] = region.size.x
 	_debug_values["atlas_h"] = region.size.y
-	_debug_values["atlas_scale"] = sprite.scale.x
+	_debug_values["atlas_scale"] = float(sprite.get_meta("debug_scale", 1.0))
 	_sync_debug_sliders()
 
 
@@ -923,15 +924,70 @@ func _apply_selected_debug_atlas_values() -> void:
 	var sprite := _get_selected_debug_atlas()
 	if sprite == null:
 		return
+	var current_region := _get_debug_atlas_region(sprite)
 	var region := Rect2(
-		float(_debug_values.get("atlas_x", sprite.region_rect.position.x)),
-		float(_debug_values.get("atlas_y", sprite.region_rect.position.y)),
-		float(_debug_values.get("atlas_w", sprite.region_rect.size.x)),
-		float(_debug_values.get("atlas_h", sprite.region_rect.size.y))
+		float(_debug_values.get("atlas_x", current_region.position.x)),
+		float(_debug_values.get("atlas_y", current_region.position.y)),
+		maxf(float(_debug_values.get("atlas_w", current_region.size.x)), 1.0),
+		maxf(float(_debug_values.get("atlas_h", current_region.size.y)), 1.0)
 	)
-	sprite.region_rect = region
 	var scale_value := float(_debug_values.get("atlas_scale", 1.0))
-	sprite.scale = Vector3(scale_value, scale_value, scale_value)
+	_apply_debug_atlas_region(sprite, region, scale_value)
+
+
+func _get_debug_atlas_region(sprite: Sprite3D) -> Rect2:
+	var region = sprite.get_meta("debug_region", null)
+	if region is Rect2:
+		return region
+	if sprite.region_rect.size.x > 0.0 and sprite.region_rect.size.y > 0.0:
+		return sprite.region_rect
+	var texture := sprite.texture
+	if texture != null:
+		return Rect2(Vector2.ZERO, texture.get_size())
+	return Rect2(Vector2.ZERO, Vector2(1.0, 1.0))
+
+
+func _apply_debug_atlas_region(sprite: Sprite3D, region: Rect2, scale_value: float) -> void:
+	var texture_path := str(sprite.get_meta("debug_texture_path", ""))
+	if not texture_path.is_empty():
+		sprite.texture = _debug_atlas_cutout_texture(texture_path, region)
+	else:
+		sprite.region_enabled = true
+		sprite.region_rect = region
+	var size_meta = sprite.get_meta("debug_size", Vector2.ONE)
+	var debug_size: Vector2 = size_meta if size_meta is Vector2 else Vector2.ONE
+	sprite.region_enabled = false
+	sprite.centered = true
+	sprite.pixel_size = debug_size.x / maxf(region.size.x, 1.0) * maxf(scale_value, 0.01)
+	var rendered_height := region.size.y * sprite.pixel_size
+	if rendered_height > 0.0:
+		sprite.scale = Vector3(1.0, (debug_size.y * maxf(scale_value, 0.01)) / rendered_height, 1.0)
+	sprite.set_meta("debug_region", region)
+	sprite.set_meta("debug_scale", scale_value)
+
+
+func _debug_atlas_cutout_texture(texture_path: String, region: Rect2) -> Texture2D:
+	var texture := ResourceLoader.load(texture_path) as Texture2D
+	if texture == null:
+		return null
+	var source := texture.get_image()
+	if source == null:
+		return texture
+	var atlas_rect := Rect2i(Vector2i.ZERO, source.get_size())
+	var crop_rect := Rect2i(
+		Vector2i(int(region.position.x), int(region.position.y)),
+		Vector2i(int(region.size.x), int(region.size.y))
+	).intersection(atlas_rect)
+	if crop_rect.size.x <= 0 or crop_rect.size.y <= 0:
+		return texture
+	var cutout := Image.create(crop_rect.size.x, crop_rect.size.y, false, Image.FORMAT_RGBA8)
+	for y in range(crop_rect.size.y):
+		for x in range(crop_rect.size.x):
+			var color := source.get_pixel(crop_rect.position.x + x, crop_rect.position.y + y)
+			if maxf(maxf(color.r, color.g), color.b) <= DEBUG_ATLAS_BLACK_ALPHA_CUTOFF:
+				color.a = 0.0
+			cutout.set_pixel(x, y, color)
+	return ImageTexture.create_from_image(cutout)
 
 
 func _sync_debug_sliders() -> void:
@@ -997,8 +1053,9 @@ func _update_debug_tuning_labels() -> void:
 	if sprite == null:
 		_debug_atlas_label.text = "No atlas panels found."
 		return
-	var region := sprite.region_rect
-	_debug_atlas_label.text = "atlas %d/%d %s\nregion %.0f, %.0f, %.0f, %.0f | scale %.2f" % [
+	var region := _get_debug_atlas_region(sprite)
+	var texture_path := str(sprite.get_meta("debug_texture_path", "no source texture metadata"))
+	_debug_atlas_label.text = "atlas %d/%d %s\nregion %.0f, %.0f, %.0f, %.0f | scale %.2f\n%s" % [
 		_debug_selected_atlas + 1,
 		_debug_atlas_panels.size(),
 		sprite.name,
@@ -1006,7 +1063,8 @@ func _update_debug_tuning_labels() -> void:
 		region.position.y,
 		region.size.x,
 		region.size.y,
-		sprite.scale.x,
+		float(sprite.get_meta("debug_scale", 1.0)),
+		texture_path,
 	]
 
 

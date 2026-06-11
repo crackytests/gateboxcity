@@ -28,9 +28,11 @@ var _mat_railing: StandardMaterial3D
 var _mat_esc_off: StandardMaterial3D
 var _mat_esc_on: StandardMaterial3D
 
-# Upper-floor tenant stores: floor surface is y=6.4, NPCs sit +1.05 above it like the ground floor.
+# Billboard NPC node origins sit on the floor; the sprite child aligns its feet to that origin.
+const HUB_GROUND_NPC_Y := 0.02
+const HUB_UPPER_NPC_Y := 6.42
+# Upper-floor tenant stores: floor surface is y=6.4.
 # Store bay spans z(-9..-16); tenants stand at z=-12.5 behind their counters.
-const HUB_UPPER_Y := 7.45
 const HUB_UPPER_Z := -12.5
 const VESSEL_DAMAGED_TEXTURE: Texture2D = preload("res://assets/sprites/vessel/vessel_damaged.png")
 const VESSEL_DAMAGED_FLOOR_TEXTURE: Texture2D = preload("res://assets/sprites/vessel/vessel_damaged_floor_contact.png")
@@ -57,6 +59,26 @@ const VESSEL_FRAME_PATHS := [
 	"res://assets/sprites/vessel/vessel_left.png",
 	"res://assets/sprites/vessel/vessel_back_right.png",
 ]
+
+const HUB_NPC_SPRITE_PREFIX := {
+	"mister_static": "mister_static",
+	"gideon": "pipe_father_gideon",
+	"vera": "vera",
+	"kiki_baja": "kiki_baja",
+	"ladderboy": "ladderboy",
+	"velvet_coil": "velvet_coil",
+	"brickmouth_ronnie": "brickmouth_ronnie",
+}
+
+const HUB_NPC_PIXEL_SIZE := {
+	"mister_static": 0.00335,
+	"gideon": 0.003,
+	"vera": 0.0029,
+	"kiki_baja": 0.0028,
+	"ladderboy": 0.0028,
+	"velvet_coil": 0.00295,
+	"brickmouth_ronnie": 0.00325,
+}
 
 
 func _ready() -> void:
@@ -504,11 +526,11 @@ func _wire_runtime() -> void:
 	_spawn_npc("mister_static", "Mister Static",
 		"The generator coupling is in the west passage. I have been managing it with tape and intention for six weeks.",
 		"Press E: talk to Mister Static",
-		Vector3(-12.0, 1.05, +12.5))
+		Vector3(-12.0, HUB_GROUND_NPC_Y, +12.5))
 	_spawn_npc("gideon", "Pipe Father Gideon",
 		"The Pipe Church holds. Whatever comes down from the upper levels, the pipes remember it.",
 		"Press E: talk to Pipe Father Gideon",
-		Vector3(-4.0, 1.05, +12.5))
+		Vector3(-4.0, HUB_GROUND_NPC_Y, +12.5))
 	if bool(GameState.get_world_flag("vessel_repaired", false)):
 		_spawn_vessel_npc()
 	else:
@@ -569,29 +591,36 @@ func _apply_phase_2() -> void:
 	WorldDirector.set_generator_state(WorldDirector.GENERATOR_STABLE)
 	# Upper-floor tenant stores move in.
 	_build_upper_shop("VeraShop",   -12.0, Color(0.20, 0.85, 0.35))
-	_spawn_npc("vera",      "Vera",      "Medical station's open. Bring clean water and I can keep people functional. Talk to me and I will patch you up.", "Press E: see Vera (heal)",        Vector3(-12.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_spawn_npc("vera",      "Vera",      "Medical station's open. Bring clean water and I can keep people functional. Talk to me and I will patch you up.", "Press E: see Vera (heal)",        Vector3(-12.0, HUB_UPPER_NPC_Y, HUB_UPPER_Z), 2.6)
 	_build_upper_shop("KikiShop",    -4.0, Color(1.00, 0.45, 0.75))
-	_spawn_npc("kiki_baja", "Kiki Baja", "Torai liaison. My job is to make sure they think we are manageable. I am very good at my job.",                  "Press E: talk to Kiki Baja",      Vector3( -4.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_spawn_npc("kiki_baja", "Kiki Baja", "Torai liaison. My job is to make sure they think we are manageable. I am very good at my job.",                  "Press E: talk to Kiki Baja",      Vector3( -4.0, HUB_UPPER_NPC_Y, HUB_UPPER_Z), 2.6)
 	_build_upper_shop("LadderShop",  +4.0, Color(0.35, 0.70, 1.00))
-	_spawn_npc("ladderboy", "Ladderboy", "Vertical access workshop. The ceiling knows things the floor does not. I am the reason that is useful.",          "Press E: talk to Ladderboy",      Vector3( +4.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_spawn_npc("ladderboy", "Ladderboy", "Vertical access workshop. The ceiling knows things the floor does not. I am the reason that is useful.",          "Press E: talk to Ladderboy",      Vector3( +4.0, HUB_UPPER_NPC_Y, HUB_UPPER_Z), 2.6)
 	_unlock_basement_hatch()
 	# Point the player upstairs. If the escalators are still dead, they need the motor coupling first.
 	if bool(GameState.get_world_flag("escalator_repaired", false)):
 		hud.push_log("hub: upper stores occupied — Vera, Kiki Baja, Ladderboy")
 	else:
 		hud.push_log("hub: upper stores occupied — repair the escalators to reach them")
+	if GameState.get_world_flag("coil_invitation_accepted", false):
+		_spawn_velvet_coil_shop()
 
 
 func _apply_phase_3() -> void:
 	# Velvet Coil takes the fourth upper store (surgical suite) if her invitation was accepted.
-	if GameState.get_world_flag("coil_invitation_accepted", false):
-		_build_upper_shop("CoilShop", +12.0, Color(0.90, 0.30, 0.45))
-		_spawn_npc("velvet_coil", "Velvet Coil",
-			"The surgical suite is conditional and the conditions are holding. Sit on the table when you want hardware.",
-			"Press E: Velvet Coil (cybernetics)",
-			Vector3(+12.0, HUB_UPPER_Y, HUB_UPPER_Z), 2.6)
+	_spawn_velvet_coil_shop()
 	_apply_phase_3_dressing()
 	_activate_hub_radio()
+
+
+func _spawn_velvet_coil_shop() -> void:
+	if not GameState.get_world_flag("coil_invitation_accepted", false):
+		return
+	_build_upper_shop("CoilShop", +12.0, Color(0.90, 0.30, 0.45))
+	_spawn_npc("velvet_coil", "Velvet Coil",
+		"The surgical suite is conditional and the conditions are holding. Sit on the table when you want hardware.",
+		"Press E: Velvet Coil (cybernetics)",
+		Vector3(+12.0, HUB_UPPER_NPC_Y, HUB_UPPER_Z), 2.6)
 
 
 func _apply_phase_3_dressing() -> void:
@@ -910,6 +939,7 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 	npc.dialogue_text = dialogue
 	npc.prompt_text = prompt
 	npc.position = spawn_position
+	_face_hub_npc_into_atrium(npc)
 	npc.add_to_group("npc")
 	npc.add_to_group(group_tag)
 	add_child(npc)
@@ -921,6 +951,8 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 	npc.add_child(col)
 	if npc_id == "vessel":
 		_add_vessel_directional_sprite(npc)
+	elif _add_hub_npc_directional_sprite(npc, npc_id):
+		pass
 	else:
 		# Visual capsule so the NPC is actually visible in the world
 		var mesh_inst := MeshInstance3D.new()
@@ -937,6 +969,45 @@ func _spawn_npc(npc_id: String, npc_name: String, dialogue: String, prompt: Stri
 		mesh_inst.set_surface_override_material(0, mat)
 		npc.add_child(mesh_inst)
 	npc.focus_changed.connect(_on_npc_focus_changed)
+
+
+func _face_hub_npc_into_atrium(npc: NPCDialogue) -> void:
+	# DirectionalBillboard uses the parent forward vector to choose front/back frames.
+	npc.rotation_degrees.y = 180.0 if npc.position.z < 0.0 else 0.0
+
+
+func _add_hub_npc_directional_sprite(npc: NPCDialogue, npc_id: String) -> bool:
+	if not HUB_NPC_SPRITE_PREFIX.has(npc_id):
+		return false
+	var prefix := str(HUB_NPC_SPRITE_PREFIX[npc_id])
+	var base := "res://assets/sprites/%s/%s_" % [prefix, prefix]
+	var paths := PackedStringArray([
+		base + "back.png",
+		base + "back_left.png",
+		base + "left.png",
+		base + "front_left.png",
+		base + "front.png",
+		base + "front_right.png",
+		base + "right.png",
+		base + "back_right.png",
+	])
+	for path in paths:
+		if not FileAccess.file_exists(path) and not ResourceLoader.exists(path):
+			push_warning("Missing hub NPC sprite frame: " + path)
+			return false
+	var billboard := DirectionalBillboard.new()
+	billboard.name = "Sprite3D"
+	billboard.frame_paths = paths
+	billboard.pixel_size = float(HUB_NPC_PIXEL_SIZE.get(npc_id, 0.003))
+	billboard.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+	billboard.shaded = false
+	billboard.double_sided = true
+	billboard.alpha_cut = SpriteBase3D.ALPHA_CUT_DISABLED
+	billboard.idle_bob_height = 0.02
+	npc.add_child(billboard)
+	billboard._load_frames_from_paths()
+	billboard.align_bottom_to_origin(0.02)
+	return true
 
 
 func _add_vessel_directional_sprite(npc: NPCDialogue) -> void:
@@ -978,12 +1049,12 @@ func _spawn_ward7_npcs() -> void:
 		_spawn_npc("big_gates_informant", "Big Gates Informant",
 			"You went to Ward 7. We should talk about what you saw — quietly.",
 			"Press E: talk to the Big Gates Informant",
-			Vector3(-7.5, 1.05, +6.0), 1.6)
+			Vector3(-7.5, HUB_GROUND_NPC_Y, +6.0), 1.6)
 	if GameState.get_world_flag("ward7_survivor_settled", false):
 		_spawn_npc("ward7_survivor", "Ward 7 Survivor",
 			"...",
 			"Press E: the Ward 7 survivor",
-			Vector3(+5.5, 1.05, +10.5), 1.6)
+			Vector3(+5.5, HUB_GROUND_NPC_Y, +10.5), 1.6)
 
 
 # ── Bar (Store 3) — phase-3 social beat, gated on hub water ──────────
@@ -1076,7 +1147,7 @@ func _open_bar_interior() -> void:
 	_spawn_npc("brickmouth_ronnie", "Brickmouth Ronnie",
 		"End of the bar. I sell what gets you through the next hour, not the next year. Comedown's on you.",
 		"Press E: Brickmouth Ronnie (pharmacy)",
-		Vector3(+6.6, 1.05, +10.2), 2.4)
+		Vector3(+6.6, HUB_GROUND_NPC_Y, +10.2), 2.4)
 
 
 # ── Hub structural changes ──────────────────────────────────────────

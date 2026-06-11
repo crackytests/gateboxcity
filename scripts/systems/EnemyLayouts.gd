@@ -233,6 +233,9 @@ func _spawn_one(host: Node, spec: Dictionary, pos: Vector3) -> void:
 		enemy.name = str(tmpl["name"])
 	if base_key == "splice":
 		enemy.add_to_group("splice")
+		if spec.has("pack"):
+			enemy.set("pack_alert_radius", float(spec.get("pack_alert_radius", 7.0)))
+			enemy.set("pack_buff_damage", float(spec.get("pack_buff_damage", 1.12)))
 	elif base_key == "security_node":
 		enemy.add_to_group("security_node")   # destinations wire the turret via this group
 	# Ambush spawns arrive after the destination's _ready wiring pass, so they must point

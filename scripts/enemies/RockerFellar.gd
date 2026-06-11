@@ -19,8 +19,12 @@ const FRAME_PATHS := [
 	"res://assets/sprites/rocker_fellar/rocker_back_right.png",
 ]
 const STATE_WINDUP_PATH := "res://assets/sprites/rocker_fellar/state_windup.png"
+const STATE_CHARGE_PATH := "res://assets/sprites/rocker_fellar/state_charge.png"
+const STATE_SONIC_PATH := "res://assets/sprites/rocker_fellar/state_sonic.png"
+const STATE_CABLE_WHIP_PATH := "res://assets/sprites/rocker_fellar/state_cable_whip.png"
+const STATE_STAGGERED_PATH := "res://assets/sprites/rocker_fellar/state_staggered.png"
 const STATE_DEFEATED_PATH := "res://assets/sprites/rocker_fellar/state_defeated.png"
-const ROCKER_SPRITE_PIXEL_SIZE := 0.0092
+const ROCKER_SPRITE_PIXEL_SIZE := 0.0021
 
 var boss_phase := 1
 var _stage_core_exposed := false
@@ -31,8 +35,14 @@ var _right_whip_destroyed := false
 var _spine_destroyed := false
 var _on_stage := true
 var _state_windup_texture: Texture2D
+var _state_charge_texture: Texture2D
+var _state_sonic_texture: Texture2D
+var _state_cable_whip_texture: Texture2D
+var _state_staggered_texture: Texture2D
 var _state_defeated_texture: Texture2D
+var _state_textures := {}
 var _base_visual_scale := Vector3.ONE
+var _temporary_state_timer := 0.0
 
 
 func _ready() -> void:
@@ -61,6 +71,9 @@ func _physics_process(delta: float) -> void:
 	attack_timer = maxf(attack_timer - delta, 0.0)
 	stun_timer = maxf(stun_timer - delta, 0.0)
 	attack_flash_timer = maxf(attack_flash_timer - delta, 0.0)
+	_temporary_state_timer = maxf(_temporary_state_timer - delta, 0.0)
+	if _temporary_state_timer == 0.0 and billboard != null and billboard.override_texture == _state_staggered_texture:
+		billboard.set_override_texture(null)
 
 	if player == null:
 		player = get_tree().get_first_node_in_group("player") as Node3D
@@ -136,6 +149,7 @@ func _on_boss_part_destroyed(part: BodyPart) -> void:
 	part.visible = false
 	body_part_destroyed.emit(part.display_name)
 	_show_part_break_effect(part)
+	_show_temporary_state(_state_staggered_texture, 0.45)
 
 	var destroyed_count := get_destroyed_part_count()
 
@@ -216,11 +230,14 @@ func expose_stage_core(exposed: bool) -> void:
 			break
 
 
-func set_telegraph_windup(active: bool) -> void:
+func set_telegraph_windup(active: bool, kind := "") -> void:
 	if billboard != null and billboard.has_method("set_windup"):
 		billboard.set_windup(active)
 	if billboard != null and billboard.has_method("set_override_texture"):
-		billboard.set_override_texture(_state_windup_texture if active else null)
+		if active:
+			billboard.set_override_texture(_state_textures.get(kind, _state_windup_texture))
+		else:
+			billboard.set_override_texture(null)
 
 
 func _defeat() -> void:
@@ -261,7 +278,25 @@ func _apply_rocker_sprite_art() -> void:
 	if billboard.has_method("align_bottom_to_origin"):
 		billboard.align_bottom_to_origin(0.02)
 	_state_windup_texture = _load_texture_from_path(STATE_WINDUP_PATH)
+	_state_charge_texture = _load_texture_from_path(STATE_CHARGE_PATH)
+	_state_sonic_texture = _load_texture_from_path(STATE_SONIC_PATH)
+	_state_cable_whip_texture = _load_texture_from_path(STATE_CABLE_WHIP_PATH)
+	_state_staggered_texture = _load_texture_from_path(STATE_STAGGERED_PATH)
 	_state_defeated_texture = _load_texture_from_path(STATE_DEFEATED_PATH)
+	_state_textures = {
+		"windup": _state_windup_texture,
+		"charge": _state_charge_texture,
+		"sonic": _state_sonic_texture,
+		"cable": _state_cable_whip_texture,
+	}
+
+
+func _show_temporary_state(state_texture: Texture2D, duration: float) -> void:
+	if state_texture == null or billboard == null or is_defeated:
+		return
+	if billboard.has_method("set_override_texture"):
+		billboard.set_override_texture(state_texture)
+		_temporary_state_timer = duration
 
 
 func _load_texture_from_path(path: String) -> Texture2D:

@@ -25,6 +25,7 @@ func set_windup(active: bool) -> void:
 
 func set_override_texture(next_texture: Texture2D) -> void:
 	override_texture = next_texture
+	_refresh_bottom_alignment()
 
 
 func _ready() -> void:
@@ -174,9 +175,12 @@ func _refresh_bottom_alignment() -> void:
 		return
 
 	var tallest := 0.0
-	for frame_texture in frames:
-		if frame_texture != null:
-			tallest = maxf(tallest, float(frame_texture.get_height()) * pixel_size)
+	if override_texture != null:
+		tallest = float(override_texture.get_height()) * pixel_size
+	else:
+		for frame_texture in frames:
+			if frame_texture != null:
+				tallest = maxf(tallest, float(frame_texture.get_height()) * pixel_size)
 	if tallest <= 0.0 and texture != null:
 		tallest = float(texture.get_height()) * pixel_size
 	if tallest <= 0.0:

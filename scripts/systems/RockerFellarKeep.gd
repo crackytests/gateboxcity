@@ -509,7 +509,7 @@ func _start_boss_attack_windup(kind: String) -> void:
 	_boss_attack_windup_timer = 0.85 if kind != "charge" else 1.15
 	_boss_attack_origin = _boss.global_position
 	if _boss.has_method("set_telegraph_windup"):
-		_boss.set_telegraph_windup(true)
+		_boss.set_telegraph_windup(true, kind)
 	_spawn_boss_telegraph(kind, _boss_attack_origin)
 	match kind:
 		"sonic":
@@ -970,7 +970,7 @@ func _spawn_enemies() -> void:
 	# Zone 2: boulevard goons — patrol along the avenue
 	_add_goon(Vector3(-2, 0, -6), "keep_goon", [Vector3(-2, 0, -3), Vector3(-2, 0, -10)])
 	_add_goon(Vector3(2, 0, -12), "keep_goon", [Vector3(2, 0, -9), Vector3(2, 0, -16)])
-	_add_enemy_splice(Vector3(0, 0, -16), "keep_goon", [Vector3(0, 0, -16), Vector3(-2, 0, -18)])
+	_add_enemy_splice(Vector3(0, 0, -16), "keep_goon", [Vector3(0, 0, -16), Vector3(-2, 0, -18)], "", 6.0)
 	# Zone 3: VIP Tower guards — patrol inside the ruins
 	_add_goon(Vector3(9, 0, -8), "keep_vip_enemy", [Vector3(9, 0, -8), Vector3(12, 0, -12)])
 	_add_goon(Vector3(12, 0, -11), "keep_vip_enemy", [Vector3(12, 0, -11), Vector3(8, 0, -9)])
@@ -978,8 +978,8 @@ func _spawn_enemies() -> void:
 	for p: Vector3 in [Vector3(-12, 0, -26), Vector3(-12, 0, -30), Vector3(12, 0, -26), Vector3(12, 0, -30)]:
 		_add_security(p, "keep_concert_enemy")
 	# Zone 4: undercity cable fiends — patrol between corridor and back area
-	_add_enemy_splice(Vector3(-12, 0, -8), "keep_backstage_enemy", [Vector3(-12, 0, -8), Vector3(-10, 0, -12)])
-	_add_enemy_splice(Vector3(-8, 0, -12), "keep_backstage_enemy", [Vector3(-8, 0, -12), Vector3(-12, 0, -9)])
+	_add_enemy_splice(Vector3(-12, 0, -8), "keep_backstage_enemy", [Vector3(-12, 0, -8), Vector3(-10, 0, -12)], "keep_backstage_splice_duo", 7.0, true)
+	_add_enemy_splice(Vector3(-8, 0, -12), "keep_backstage_enemy", [Vector3(-8, 0, -12), Vector3(-12, 0, -9)], "keep_backstage_splice_duo", 7.0)
 	# Zone 6: soul warden — small vault patrol
 	_add_goon(Vector3(0, -1.55, -51), "keep_vault_enemy", [Vector3(-3, -1.55, -50), Vector3(3, -1.55, -52)])
 	# Boss on stage (no patrol)
@@ -993,30 +993,31 @@ func _spawn_enemies() -> void:
 
 
 func _scale_rocker_fellar(boss: Node3D) -> void:
-	var big := 2.25
+	var visual_big := 1.34
+	var target_big := 1.08
 	var planted_visual_y := -1.55
 	var visuals := boss.get_node_or_null("Visuals") as Node3D
 	if visuals != null:
 		visuals.position.y = planted_visual_y
-		visuals.scale = Vector3.ONE * big
+		visuals.scale = Vector3.ONE * visual_big
 	var body_parts := boss.get_node_or_null("BodyParts") as Node3D
 	if body_parts != null:
 		body_parts.position.y = planted_visual_y
-		body_parts.scale = Vector3.ONE * big
+		body_parts.scale = Vector3.ONE * target_big
 	var talk_zone := boss.get_node_or_null("TalkZone") as Node3D
 	if talk_zone != null:
 		talk_zone.position.y = planted_visual_y
-		talk_zone.scale = Vector3.ONE * 1.75
+		talk_zone.scale = Vector3.ONE * 1.25
 	var collision := boss.get_node_or_null("CollisionShape3D") as CollisionShape3D
 	if collision != null:
 		var capsule := collision.shape as CapsuleShape3D
 		if capsule != null:
 			var scaled := capsule.duplicate() as CapsuleShape3D
-			scaled.radius *= 1.85
-			scaled.height *= 1.85
+			scaled.radius *= 1.25
+			scaled.height *= 1.25
 			collision.shape = scaled
 	if "attack_range" in boss:
-		boss.attack_range *= 1.35
+		boss.attack_range *= 1.15
 
 
 func _add_box(node_name: String, size: Vector3, world_position: Vector3, material: Material, world_rotation := Vector3.ZERO) -> StaticBody3D:
@@ -1147,12 +1148,16 @@ func _soften_entry_guard(enemy: Enemy) -> void:
 	enemy.pack_alert_radius = 6.0
 
 
-func _add_enemy_splice(pos: Vector3, group: String, patrol_points: Array[Vector3] = []) -> void:
+func _add_enemy_splice(pos: Vector3, group: String, patrol_points: Array[Vector3] = [], pack_id := "", alert_radius := 7.0, is_anchor := false) -> void:
 	var sp := SPLICE_SCENE.instantiate()
 	sp.name = "Splice"
 	sp.position = pos
 	sp.persistence_id = _enemy_persistence_id(group, pos)
 	sp.add_to_group(group)
+	sp.pack_id = pack_id
+	sp.pack_alert_radius = alert_radius
+	sp.pack_buff_damage = 1.12
+	sp.is_pack_anchor = is_anchor
 	sp.item_dropped.connect(_on_splice_item_dropped)
 	add_child(sp)
 	if not patrol_points.is_empty():

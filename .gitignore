@@ -4,3 +4,6 @@ build/
 # Exported game binaries (build artifacts, not source)
 *.exe
 *.pck
+
+# Python tool caches
+__pycache__/

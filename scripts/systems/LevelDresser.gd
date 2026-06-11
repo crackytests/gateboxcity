@@ -500,21 +500,21 @@ func _add_arcade_lived_in_atlas_dressing(root: Node3D) -> void:
 
 func _add_patchwork_storefront_layers(root: Node3D) -> void:
 	var layers := [
-		{"name": "EastBoardedDoor_Cooters", "pos": Vector3(10.28, 1.42, -14.0), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(405, 16, 122, 255)},
-		{"name": "EastGreenDoor_Service", "pos": Vector3(10.28, 1.42, -5.2), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(795, 16, 125, 255)},
-		{"name": "EastPatchDoor_Market", "pos": Vector3(10.28, 1.42, 4.8), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(668, 16, 124, 255)},
-		{"name": "WestTealDoor_Lan", "pos": Vector3(-10.28, 1.42, -17.2), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(20, 16, 123, 255)},
-		{"name": "WestPinkDoor_SuitorsBack", "pos": Vector3(-10.28, 1.42, -4.8), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(535, 16, 124, 255)},
-		{"name": "WestBrownDoor_PipeRoom", "pos": Vector3(-10.28, 1.42, 16.2), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(280, 16, 122, 255)},
-		{"name": "EastSmallWindowA", "pos": Vector3(10.2, 1.72, -17.9), "size": Vector2(1.55, 1.0), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(20, 405, 178, 116)},
+		{"name": "EastBoardedDoor_Cooters", "pos": Vector3(10.28, 1.42, -14.0), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(405, 16, 127, 260), "scale": 1.36},
+		{"name": "EastGreenDoor_Service", "pos": Vector3(10.28, 1.42, -5.2), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(804, 16, 142, 259), "scale": 1.36},
+		{"name": "EastPatchDoor_Market", "pos": Vector3(10.28, 1.42, 4.8), "size": Vector2(1.0, 2.15), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(668, 14, 124, 268), "scale": 1.36},
+		{"name": "WestTealDoor_Lan", "pos": Vector3(-10.28, 1.42, -17.2), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(20, 16, 123, 267), "scale": 1.36},
+		{"name": "WestPinkDoor_SuitorsBack", "pos": Vector3(-10.28, 1.42, -4.8), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(535, 16, 124, 267), "scale": 1.36},
+		{"name": "WestBrownDoor_PipeRoom", "pos": Vector3(-10.28, 1.42, 16.2), "size": Vector2(1.0, 2.15), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(280, 16, 122, 275), "scale": 1.36},
+		{"name": "EastSmallWindowA", "pos": Vector3(10.2, 1.72, -17.9), "size": Vector2(1.55, 1.0), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(20, 405, 178, 116), "scale": 1.0},
 		{"name": "EastSmallWindowB", "pos": Vector3(10.2, 1.72, 0.0), "size": Vector2(1.55, 1.0), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(210, 405, 176, 116)},
-		{"name": "WestMeshWindowA", "pos": Vector3(-10.2, 1.72, -9.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(585, 405, 180, 116)},
-		{"name": "WestBoardedWindowB", "pos": Vector3(-10.2, 1.72, 7.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(775, 405, 178, 116)},
-		{"name": "EastVentStack", "pos": Vector3(10.16, 2.55, -2.5), "size": Vector2(1.45, 0.95), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(985, 18, 245, 150)},
+		{"name": "WestMeshWindowA", "pos": Vector3(-10.2, 1.72, -9.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(536, 405, 203, 131), "scale": 1.0},
+		{"name": "WestBoardedWindowB", "pos": Vector3(-10.2, 1.72, 7.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(736, 395, 211, 166), "scale": 1.0},
+		{"name": "EastVentStack", "pos": Vector3(10.16, 2.55, -2.5), "size": Vector2(1.45, 0.95), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(945, 18, 175, 80), "scale": 0.9},
 		{"name": "WestVentStack", "pos": Vector3(-10.16, 2.55, 1.8), "size": Vector2(1.45, 0.95), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(990, 172, 245, 140)},
 	]
 	for layer in layers:
-		_add_atlas_panel(root, str(layer["name"]), layer["pos"], layer["size"], float(layer["yaw"]), str(layer["tex"]), layer["rect"])
+		_add_atlas_panel(root, str(layer["name"]), layer["pos"], layer["size"], float(layer["yaw"]), str(layer["tex"]), layer["rect"], Color.BLACK, 0.0, float(layer.get("scale", 1.0)))
 
 
 func _add_sidewalk_prop_clusters(root: Node3D) -> void:
@@ -839,7 +839,7 @@ func _add_textured_panel(root: Node3D, node_name: String, local_position: Vector
 	return item
 
 
-func _add_atlas_panel(root: Node3D, node_name: String, local_position: Vector3, size: Vector2, yaw_degrees: float, texture_path: String, region: Rect2, _emission := Color.BLACK, _energy := 0.0) -> Sprite3D:
+func _add_atlas_panel(root: Node3D, node_name: String, local_position: Vector3, size: Vector2, yaw_degrees: float, texture_path: String, region: Rect2, _emission := Color.BLACK, _energy := 0.0, height_scale := 1.0) -> Sprite3D:
 	var item := Sprite3D.new()
 	item.name = node_name
 	item.position = local_position
@@ -850,13 +850,15 @@ func _add_atlas_panel(root: Node3D, node_name: String, local_position: Vector3, 
 	item.pixel_size = size.x / maxf(region.size.x, 1.0)
 	var rendered_height := region.size.y * item.pixel_size
 	if rendered_height > 0.0:
-		item.scale.y = size.y / rendered_height
+		item.scale.y = (size.y * maxf(height_scale, 0.01)) / rendered_height
 	item.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	item.shaded = false
 	item.alpha_cut = SpriteBase3D.ALPHA_CUT_DISCARD
 	item.add_to_group("district_atlas_panel")
+	item.set_meta("debug_texture_path", texture_path)
 	item.set_meta("debug_region", region)
 	item.set_meta("debug_size", size)
+	item.set_meta("debug_scale", height_scale)
 	root.add_child(item)
 	return item
 

@@ -126,7 +126,7 @@ func _spawn_enemies() -> void:
 	splice_4.position = Vector3(17, 1.05, -4)
 	splice_4.persistence_id = "dead_food_court_bloom:splice_kitchen"
 	splice_4.add_to_group("splice")
-	splice_4.pack_id = "foodcourt_splices"
+	_tune_splice_duo(splice_4, "foodcourt_east_duo")
 	splice_4.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice_4)
 	splice_4.set_patrol_points(_make_patrol_points([
@@ -140,7 +140,7 @@ func _spawn_enemies() -> void:
 	splice_5.position = Vector3(18, 1.05, -24)
 	splice_5.persistence_id = "dead_food_court_bloom:splice_breach"
 	splice_5.add_to_group("splice")
-	splice_5.pack_id = "foodcourt_splices"
+	_tune_splice_duo(splice_5, "foodcourt_east_duo")
 	splice_5.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice_5)
 	splice_5.set_patrol_points(_make_patrol_points([
@@ -155,7 +155,7 @@ func _spawn_enemies() -> void:
 	splice_6.position = Vector3(-14, 1.05, 4)
 	splice_6.persistence_id = "dead_food_court_bloom:splice_entry"
 	splice_6.add_to_group("splice")
-	splice_6.pack_id = "foodcourt_splices"
+	_tune_splice_duo(splice_6, "foodcourt_west_duo")
 	splice_6.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice_6)
 	splice_6.set_patrol_points(_make_patrol_points([
@@ -169,13 +169,19 @@ func _spawn_enemies() -> void:
 	splice_7.position = Vector3(-18, 1.05, -24)
 	splice_7.persistence_id = "dead_food_court_bloom:splice_storage"
 	splice_7.add_to_group("splice")
-	splice_7.pack_id = "foodcourt_splices"
+	_tune_splice_duo(splice_7, "foodcourt_west_duo")
 	splice_7.item_dropped.connect(_on_splice_item_dropped)
 	add_child(splice_7)
 	splice_7.set_patrol_points(_make_patrol_points([
 		Vector3(-18, 1.05, -24), Vector3(-16, 1.05, -26),
 		Vector3(-20, 1.05, -22), Vector3(-18, 1.05, -20),
 	]))
+
+
+func _tune_splice_duo(splice: Node, pack_id: String) -> void:
+	splice.set("pack_id", pack_id)
+	splice.set("pack_alert_radius", 7.0)
+	splice.set("pack_buff_damage", 1.12)
 
 
 func _handle_interact() -> void:

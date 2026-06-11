@@ -85,6 +85,8 @@ var _dash_velocity := Vector3.ZERO
 var _dash_damage_pending := 0.0
 var _dash_hit_done := false
 var _leap_cooldown := 0.0
+var _wall_avoid_timer := 0.0
+var _wall_avoid_side := 1.0
 
 # Pack coordination.
 @export var pack_id := ""               # members of the same pack share a frame-link
@@ -128,6 +130,7 @@ func _physics_process(delta: float) -> void:
 	stun_timer = maxf(stun_timer - delta, 0.0)
 	attack_flash_timer = maxf(attack_flash_timer - delta, 0.0)
 	_leap_cooldown = maxf(_leap_cooldown - delta, 0.0)
+	_wall_avoid_timer = maxf(_wall_avoid_timer - delta, 0.0)
 	_tick_enrage(delta)
 
 	if player == null:
@@ -165,6 +168,7 @@ func _physics_process(delta: float) -> void:
 		visual_scale = 1.0 + attack_flash_timer * 0.45
 	$Visuals.scale = Vector3.ONE * visual_scale
 
+	_apply_wall_avoidance()
 	move_and_slide()
 	_resolve_dash_contact()
 
@@ -987,3 +991,24 @@ func _separation_vector() -> Vector3:
 		if d > 0.01 and d < separation_radius:
 			push += away.normalized() * ((separation_radius - d) / separation_radius)
 	return push * separation_strength
+
+
+func _apply_wall_avoidance() -> void:
+	if attack_state == AttackState.WINDUP or _dash_timer > 0.0 or not is_on_wall():
+		return
+	var horizontal_velocity := Vector3(velocity.x, 0.0, velocity.z)
+	if horizontal_velocity.length() < 0.15:
+		return
+	var normal := get_wall_normal()
+	normal.y = 0.0
+	if normal.length() < 0.01:
+		return
+	normal = normal.normalized()
+	if _wall_avoid_timer <= 0.0:
+		_wall_avoid_side = -_wall_avoid_side
+		_wall_avoid_timer = 0.55
+	var tangent := Vector3(-normal.z, 0.0, normal.x) * _wall_avoid_side
+	var slid := horizontal_velocity.slide(normal)
+	var nudged := slid + tangent * move_speed * 0.55 + normal * move_speed * 0.25
+	velocity.x = nudged.x
+	velocity.z = nudged.z
