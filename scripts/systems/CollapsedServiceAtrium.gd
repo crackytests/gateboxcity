@@ -517,14 +517,41 @@ func _add_interactable(id: String, display_name: String, prompt: String, world_p
 	var collision := CollisionShape3D.new()
 	collision.shape = col_shape
 	area.add_child(collision)
-	var mesh := SphereMesh.new()
-	mesh.radius = 0.32
-	mesh.height = 0.64
-	var mat := _make_mat(color.darkened(0.78), color, 1.7, "", Vector3.ONE)
-	var visual := MeshInstance3D.new()
-	visual.mesh = mesh
-	visual.set_surface_override_material(0, mat)
-	area.add_child(visual)
+	# Interactive beacon: a compact glowing core inside a flat halo ring, lit by a soft point
+	# light — reads as a deliberate "interact here" marker instead of a blown-out solid disc.
+	var core_mat := StandardMaterial3D.new()
+	core_mat.albedo_color = color.darkened(0.3)
+	core_mat.emission_enabled = true
+	core_mat.emission = color
+	core_mat.emission_energy_multiplier = 0.9
+	var core_mesh := SphereMesh.new()
+	core_mesh.radius = 0.12
+	core_mesh.height = 0.24
+	var core := MeshInstance3D.new()
+	core.name = "BeaconCore"
+	core.mesh = core_mesh
+	core.set_surface_override_material(0, core_mat)
+	area.add_child(core)
+
+	var ring_mat := StandardMaterial3D.new()
+	ring_mat.albedo_color = color.darkened(0.5)
+	ring_mat.emission_enabled = true
+	ring_mat.emission = color
+	ring_mat.emission_energy_multiplier = 0.6
+	var ring_mesh := TorusMesh.new()
+	ring_mesh.inner_radius = 0.26
+	ring_mesh.outer_radius = 0.31
+	var ring := MeshInstance3D.new()
+	ring.name = "BeaconRing"
+	ring.mesh = ring_mesh
+	ring.set_surface_override_material(0, ring_mat)
+	area.add_child(ring)
+
+	var beacon_light := OmniLight3D.new()
+	beacon_light.light_color = color
+	beacon_light.light_energy = 1.1
+	beacon_light.omni_range = 2.6
+	area.add_child(beacon_light)
 	return area
 
 
@@ -567,11 +594,27 @@ func _add_exit(node_name: String, prompt: String, target_scene: String, world_po
 	var collision := CollisionShape3D.new()
 	collision.shape = shape
 	exit.add_child(collision)
+	# Lit doorway: an emissive trim frame behind a textured metal hatch, instead of one flat
+	# solid-color panel.
+	var frame_mat := StandardMaterial3D.new()
+	frame_mat.albedo_color = color.darkened(0.3)
+	frame_mat.emission_enabled = true
+	frame_mat.emission = color
+	frame_mat.emission_energy_multiplier = 1.0
+	var frame := MeshInstance3D.new()
+	frame.name = "ExitFrame"
+	var frame_mesh := BoxMesh.new()
+	frame_mesh.size = Vector3(3.7, 1.9, 0.08)
+	frame.mesh = frame_mesh
+	frame.position = Vector3(0.0, 0.0, -0.05)
+	frame.set_surface_override_material(0, frame_mat)
+	exit.add_child(frame)
+
 	var mesh := BoxMesh.new()
 	mesh.size = Vector3(3.4, 1.6, 0.12)
 	var visual := MeshInstance3D.new()
 	visual.mesh = mesh
-	visual.set_surface_override_material(0, _make_mat(color.darkened(0.8), color, 1.4, "", Vector3.ONE))
+	visual.set_surface_override_material(0, _make_mat(color.darkened(0.6), color, 0.4, "res://assets/textures/leak_street/rusted_metal_wall.png", Vector3(3, 2, 1)))
 	exit.add_child(visual)
 
 

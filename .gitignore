@@ -7,3 +7,7 @@ build/
 
 # Python tool caches
 __pycache__/
+
+# Editor backups and local launchers
+*~
+test.bat

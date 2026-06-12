@@ -49,6 +49,7 @@ const LOOPS := {
 	"faded_atrium_music": "Faded Atrium Theme.ogg",
 	"faded_atrium_ambience": "faded_atrium_ambience_loop.ogg",
 	"generator_sag": "generator_sag_loop.ogg",
+	"main_menu": "be_seeing_you.mp3",
 	"pipe_tunnels": "pipe_tunnels_ambience_loop.ogg",
 	"rocker_fellar": "Rocker Fellar Boss.ogg",
 	"splice_combat": "Splice Combat.ogg",
@@ -61,6 +62,7 @@ const LOOPS := {
 }
 
 const SCENE_LOOPS := {
+	"res://scenes/ui/MainMenu.tscn": {"music": "main_menu"},
 	"res://scenes/levels/MallHub.tscn": {"music": "faded_atrium_music", "ambience": "faded_atrium_ambience"},
 	"res://scenes/levels/SubSubBasementDistrict.tscn": {"music": "sub_basement"},
 	"res://scenes/levels/Test_SubSubBasement.tscn": {"music": "sub_basement"},

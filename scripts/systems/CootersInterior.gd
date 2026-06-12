@@ -1,5 +1,7 @@
 extends Node3D
 
+const DISTRICT_SCENE := "res://scenes/levels/SubSubBasementDistrict.tscn"
+
 @onready var hud: HUDController = $HUD
 @onready var player_health: PlayerHealth = $Player/PlayerHealth
 @onready var weapon: Weapon = $Player/CameraPivot/Camera3D/WeaponMount/ScrapPistol
@@ -77,6 +79,8 @@ func _handle_interact() -> void:
 		# A district_exit event may catch you on the way out — resolve it before leaving.
 		if hud.present_event("district_exit"):
 			await _await_event_close()
+		if target == DISTRICT_SCENE:
+			GameState.set_world_flag("_district_spawn_hint", "cooters_door")
 		get_tree().change_scene_to_file(target)
 
 

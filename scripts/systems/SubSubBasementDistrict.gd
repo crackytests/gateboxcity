@@ -10,11 +10,13 @@ const COLLAPSED_ATRIUM_SCENE := "res://scenes/levels/CollapsedServiceAtrium.tscn
 const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
 const ROCKER_FELLAR_KEEP_SCENE := "res://scenes/levels/RockerFellarKeep.tscn"
 const DEBUG_ATLAS_BLACK_ALPHA_CUTOFF := 0.03
+const COOTERS_DOOR_SPAWN := Vector3(7.0, 1.05, -10.5)
 
 # Gatebox standing needed before the Comfort Annexe (Ward 7) reads you as a Comfort Citizen.
 const COMFORT_ANNEXE_REP_GATE := 2
 
 @onready var hud: HUDController = $HUD
+@onready var player: PlayerController = $Player
 @onready var player_health: PlayerHealth = $Player/PlayerHealth
 @onready var weapon: Weapon = $Player/CameraPivot/Camera3D/WeaponMount/ScrapPistol
 @onready var targeting: PlayerTargeting = $Player/PlayerTargeting
@@ -79,6 +81,7 @@ func _ready() -> void:
 	_sync_dreaming_generator_state()
 	if WorldDirector.active_event == WorldDirector.EVENT_CLEAR and WorldDirector.get_generator_state() != WorldDirector.GENERATOR_STABLE:
 		WorldDirector.trigger_event(WorldDirector.EVENT_TOXIC_RAIN)
+	_apply_pending_spawn_hint()
 
 	for npc in get_tree().get_nodes_in_group("npc"):
 		npc.focus_changed.connect(_on_npc_focus_changed)
@@ -118,6 +121,18 @@ func _ready() -> void:
 	hud.set_objective(_get_objective_text())
 	hud.show_dialogue("System X", "Welcome to the district under the imitation of heaven. Rain first, questions later, panic whenever it becomes educational.")
 	hud.push_log("sub-sub-basement district linked")
+
+
+func _apply_pending_spawn_hint() -> void:
+	var spawn_hint := str(GameState.get_world_flag("_district_spawn_hint", ""))
+	if spawn_hint.is_empty():
+		return
+	GameState.set_world_flag("_district_spawn_hint", "")
+	match spawn_hint:
+		"cooters_door":
+			player.global_position = COOTERS_DOOR_SPAWN
+			player.rotation.y = PI * 0.5
+			player.velocity = Vector3.ZERO
 
 
 func _stabilize_district_npcs() -> void:
@@ -1176,16 +1191,7 @@ func _get_travel_routes() -> Array:
 				"locked_reason": "",
 			})
 
-	# These two are always listed. Wake-Up Call can still be locked by
-	# generator state — that is a gameplay gate, not a mission-visibility gate.
-	routes.append({
-		"id": "faded_atrium",
-		"title": "Faded Atrium",
-		"description": "Return to the exposed second floor of the old submerged mall beside Leak Street.",
-		"target_scene": FADED_ATRIUM_SCENE,
-		"locked": false,
-		"locked_reason": "",
-	})
+	# The Faded Atrium is now a direct street gate, not part of the route picker.
 	# (Wake-Up Call moved out of the travel gate — it's now a dream reached through the
 	# DreamGate door in the Faded Atrium hub. See MallHub._apply_gate_visibility.)
 	# Comfort Annexe (Ward 7) — a Gatebox Pacification Ward. Reaching it takes Gatebox clearance:

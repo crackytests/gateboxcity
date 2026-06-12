@@ -236,7 +236,6 @@ func _add_arcade_catwalk(root: Node3D) -> void:
 	_add_catwalk_crossings(catwalk)
 	_add_catwalk_collision_deck(catwalk)
 	_add_catwalk_access(catwalk)
-	_add_catwalk_cover(catwalk)
 	_add_catwalk_lights(catwalk)
 
 
@@ -511,7 +510,7 @@ func _add_patchwork_storefront_layers(root: Node3D) -> void:
 		{"name": "WestMeshWindowA", "pos": Vector3(-10.2, 1.72, -9.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(536, 405, 203, 131), "scale": 1.0},
 		{"name": "WestBoardedWindowB", "pos": Vector3(-10.2, 1.72, 7.2), "size": Vector2(1.55, 1.0), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(736, 395, 211, 166), "scale": 1.0},
 		{"name": "EastVentStack", "pos": Vector3(10.16, 2.55, -2.5), "size": Vector2(1.45, 0.95), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(945, 18, 175, 80), "scale": 0.9},
-		{"name": "WestVentStack", "pos": Vector3(-10.16, 2.55, 1.8), "size": Vector2(1.45, 0.95), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(990, 172, 245, 140)},
+		{"name": "WestVentStack", "pos": Vector3(-10.16, 2.55, 1.8), "size": Vector2(1.45, 0.95), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(1120, 212, 245, 70), "scale": 1.0},
 	]
 	for layer in layers:
 		_add_atlas_panel(root, str(layer["name"]), layer["pos"], layer["size"], float(layer["yaw"]), str(layer["tex"]), layer["rect"], Color.BLACK, 0.0, float(layer.get("scale", 1.0)))
@@ -519,75 +518,75 @@ func _add_patchwork_storefront_layers(root: Node3D) -> void:
 
 func _add_sidewalk_prop_clusters(root: Node3D) -> void:
 	var props := [
-		{"name": "CootersBlueBarrel", "pos": Vector3(9.82, 0.82, -12.8), "size": Vector2(0.72, 1.18), "yaw": -90.0, "rect": Rect2(16, 460, 105, 225)},
-		{"name": "CootersYellowBarrel", "pos": Vector3(9.82, 0.82, -8.4), "size": Vector2(0.72, 1.18), "yaw": -90.0, "rect": Rect2(125, 595, 105, 225)},
-		{"name": "CootersCratePile", "pos": Vector3(9.78, 0.62, -6.8), "size": Vector2(1.15, 0.72), "yaw": -90.0, "rect": Rect2(374, 870, 142, 100)},
-		{"name": "MarketWaterTank", "pos": Vector3(9.78, 1.0, 6.4), "size": Vector2(1.18, 1.55), "yaw": -90.0, "rect": Rect2(390, 490, 170, 210)},
-		{"name": "MarketGreenTank", "pos": Vector3(9.78, 1.0, 10.7), "size": Vector2(1.18, 1.55), "yaw": -90.0, "rect": Rect2(580, 490, 170, 210)},
-		{"name": "MarketChairTeal", "pos": Vector3(9.76, 0.72, 12.2), "size": Vector2(0.62, 1.05), "yaw": -90.0, "rect": Rect2(1040, 760, 70, 172)},
-		{"name": "MarketChairPink", "pos": Vector3(9.76, 0.72, 15.0), "size": Vector2(0.62, 1.05), "yaw": -90.0, "rect": Rect2(1192, 760, 70, 172)},
-		{"name": "PipeChapelRationCrate", "pos": Vector3(-9.78, 0.62, 10.4), "size": Vector2(1.12, 0.72), "yaw": 90.0, "rect": Rect2(520, 870, 145, 100)},
-		{"name": "PipeChapelBlackCase", "pos": Vector3(-9.78, 0.62, 13.8), "size": Vector2(1.18, 0.72), "yaw": 90.0, "rect": Rect2(672, 870, 180, 100)},
-		{"name": "AlleyCrateBlue", "pos": Vector3(-9.82, 0.65, -18.3), "size": Vector2(0.9, 0.8), "yaw": 90.0, "rect": Rect2(15, 770, 115, 120)},
-		{"name": "AlleyCrateGreen", "pos": Vector3(-9.82, 0.65, -11.8), "size": Vector2(0.9, 0.8), "yaw": 90.0, "rect": Rect2(250, 770, 115, 120)},
-		{"name": "StreetGaugePanel", "pos": Vector3(10.04, 1.2, 2.2), "size": Vector2(0.82, 1.1), "yaw": -90.0, "rect": Rect2(1060, 510, 178, 190)},
-		{"name": "ServiceFanPanel", "pos": Vector3(-10.04, 1.25, 4.8), "size": Vector2(0.86, 1.0), "yaw": 90.0, "rect": Rect2(1005, 1085, 120, 145)},
+		{"name": "CootersBlueBarrel", "pos": Vector3(9.82, 0.82, -12.8), "size": Vector2(0.72, 1.18), "yaw": -90.0, "rect": Rect2(16, 420, 105, 175), "scale": 1.0},
+		{"name": "CootersYellowBarrel", "pos": Vector3(9.82, 0.82, -8.4), "size": Vector2(0.72, 1.18), "yaw": -90.0, "rect": Rect2(125, 602, 105, 175), "scale": 1.0},
+		{"name": "CootersCratePile", "pos": Vector3(9.78, 0.62, -6.8), "size": Vector2(1.15, 0.72), "yaw": -90.0, "rect": Rect2(377, 853, 152, 100), "scale": 1.0},
+		{"name": "MarketWaterTank", "pos": Vector3(9.78, 1.0, 6.4), "size": Vector2(1.18, 1.55), "yaw": -90.0, "rect": Rect2(390, 492, 170, 210), "scale": 1.0},
+		{"name": "MarketGreenTank", "pos": Vector3(9.78, 1.0, 10.7), "size": Vector2(1.18, 1.55), "yaw": -90.0, "rect": Rect2(571, 471, 170, 216), "scale": 1.01},
+		{"name": "MarketChairTeal", "pos": Vector3(9.76, 0.72, 12.2), "size": Vector2(0.62, 1.05), "yaw": -90.0, "rect": Rect2(1002, 760, 90, 172), "scale": 1.0},
+		{"name": "MarketChairPink", "pos": Vector3(9.76, 0.72, 15.0), "size": Vector2(0.62, 1.05), "yaw": -90.0, "rect": Rect2(1166, 760, 100, 172), "scale": 1.0},
+		{"name": "PipeChapelRationCrate", "pos": Vector3(-9.78, 0.62, 10.4), "size": Vector2(1.12, 0.72), "yaw": 90.0, "rect": Rect2(529, 850, 140, 100), "scale": 1.0},
+		{"name": "PipeChapelBlackCase", "pos": Vector3(-9.78, 0.62, 13.8), "size": Vector2(1.18, 0.72), "yaw": 90.0, "rect": Rect2(672, 855, 143, 100), "scale": 1.0},
+		{"name": "AlleyCrateBlue", "pos": Vector3(-9.82, 0.65, -18.3), "size": Vector2(0.9, 0.8), "yaw": 90.0, "rect": Rect2(12, 778, 115, 120), "scale": 1.0},
+		{"name": "AlleyCrateGreen", "pos": Vector3(-9.82, 0.65, -11.8), "size": Vector2(0.9, 0.8), "yaw": 90.0, "rect": Rect2(228, 795, 131, 149), "scale": 1.0},
+		{"name": "StreetGaugePanel", "pos": Vector3(10.04, 1.2, 2.2), "size": Vector2(0.82, 1.1), "yaw": -90.0, "rect": Rect2(1088, 500, 165, 249), "scale": 1.0},
+		{"name": "ServiceFanPanel", "pos": Vector3(-10.04, 1.25, 4.8), "size": Vector2(0.86, 1.0), "yaw": 90.0, "rect": Rect2(1035, 955, 200, 275), "scale": 1.0},
 	]
 	for prop in props:
-		_add_atlas_panel(root, str(prop["name"]), prop["pos"], prop["size"], float(prop["yaw"]), TEX_PROPS, prop["rect"])
+		_add_atlas_panel(root, str(prop["name"]), prop["pos"], prop["size"], float(prop["yaw"]), TEX_PROPS, prop["rect"], Color.BLACK, 0.0, float(prop.get("scale", 1.0)))
 
 
 func _add_market_habitation_layers(root: Node3D) -> void:
 	var panels := [
-		{"name": "MarketBlueCurtain", "pos": Vector3(9.9, 1.55, 5.2), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(460, 735, 175, 105)},
-		{"name": "MarketStripedCurtain", "pos": Vector3(9.9, 1.55, 7.2), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(650, 735, 175, 105)},
-		{"name": "MarketHazardCurtain", "pos": Vector3(9.9, 1.55, 11.7), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(835, 735, 180, 105)},
-		{"name": "WestSleepingTarpBlue", "pos": Vector3(-9.9, 1.42, 2.4), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(18, 900, 144, 95)},
-		{"name": "WestSleepingTarpBrown", "pos": Vector3(-9.9, 1.42, 5.8), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(168, 900, 144, 95)},
-		{"name": "WestSleepingTarpGreen", "pos": Vector3(-9.9, 1.42, 9.2), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(318, 900, 144, 95)},
-		{"name": "EastPatchPlateBlue", "pos": Vector3(10.18, 1.48, -1.8), "size": Vector2(1.35, 1.35), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(18, 560, 165, 180)},
-		{"name": "EastPatchPlatePink", "pos": Vector3(10.18, 1.48, 13.8), "size": Vector2(1.35, 1.35), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(198, 560, 165, 180)},
-		{"name": "WestPatchPlateGray", "pos": Vector3(-10.18, 1.48, -18.0), "size": Vector2(1.35, 1.35), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(385, 560, 165, 180)},
-		{"name": "WestPatchPlateGreen", "pos": Vector3(-10.18, 1.48, 18.0), "size": Vector2(1.35, 1.35), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(760, 560, 165, 180)},
+		{"name": "MarketBlueCurtain", "pos": Vector3(9.9, 1.55, 5.2), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(380, 715, 195, 135), "scale": 1.0},
+		{"name": "MarketStripedCurtain", "pos": Vector3(9.9, 1.55, 7.2), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(570, 715, 255, 145), "scale": 1.0},
+		{"name": "MarketHazardCurtain", "pos": Vector3(9.9, 1.55, 11.7), "size": Vector2(1.85, 0.9), "yaw": -90.0, "tex": TEX_PROPS, "rect": Rect2(812, 714, 191, 145), "scale": 1.0},
+		{"name": "WestSleepingTarpBlue", "pos": Vector3(-9.9, 1.42, 2.4), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(0, 916, 104, 105), "scale": 1.0},
+		{"name": "WestSleepingTarpBrown", "pos": Vector3(-9.9, 1.42, 5.8), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(183, 913, 91, 105), "scale": 1.0},
+		{"name": "WestSleepingTarpGreen", "pos": Vector3(-9.9, 1.42, 9.2), "size": Vector2(1.55, 0.78), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(358, 922, 84, 105), "scale": 1.0},
+		{"name": "EastPatchPlateBlue", "pos": Vector3(10.18, 1.48, -1.8), "size": Vector2(1.35, 1.35), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(18, 560, 165, 180), "scale": 1.0},
+		{"name": "EastPatchPlatePink", "pos": Vector3(10.18, 1.48, 13.8), "size": Vector2(1.35, 1.35), "yaw": -90.0, "tex": TEX_PATCHWORK, "rect": Rect2(203, 560, 184, 180), "scale": 1.0},
+		{"name": "WestPatchPlateGray", "pos": Vector3(-10.18, 1.48, -18.0), "size": Vector2(1.35, 1.35), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(375, 560, 165, 180), "scale": 1.0},
+		{"name": "WestPatchPlateGreen", "pos": Vector3(-10.18, 1.48, 18.0), "size": Vector2(1.35, 1.35), "yaw": 90.0, "tex": TEX_PATCHWORK, "rect": Rect2(760, 560, 165, 180), "scale": 1.0},
 	]
 	for panel in panels:
-		_add_atlas_panel(root, str(panel["name"]), panel["pos"], panel["size"], float(panel["yaw"]), str(panel["tex"]), panel["rect"])
+		_add_atlas_panel(root, str(panel["name"]), panel["pos"], panel["size"], float(panel["yaw"]), str(panel["tex"]), panel["rect"], Color.BLACK, 0.0, float(panel.get("scale", 1.0)))
 
 
 func _add_lan_and_service_clutter(root: Node3D) -> void:
 	var panels := [
-		{"name": "LanServerRackB", "pos": Vector3(-9.82, 1.58, -15.0), "size": Vector2(0.85, 1.95), "yaw": 90.0, "rect": Rect2(620, 18, 150, 420)},
-		{"name": "LanServerRackC", "pos": Vector3(-9.82, 1.58, -12.5), "size": Vector2(0.85, 1.95), "yaw": 90.0, "rect": Rect2(780, 18, 145, 420)},
-		{"name": "LanMonitorBankA", "pos": Vector3(-9.78, 1.45, -18.5), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(16, 16, 135, 135)},
-		{"name": "LanMonitorBankB", "pos": Vector3(-9.78, 1.45, -10.2), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(160, 160, 135, 135)},
-		{"name": "LanMonitorBankC", "pos": Vector3(-9.78, 1.45, -7.8), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(305, 16, 135, 135)},
-		{"name": "CootersVendingMachine", "pos": Vector3(9.82, 1.65, -15.4), "size": Vector2(1.05, 2.05), "yaw": -90.0, "rect": Rect2(960, 20, 260, 430)},
-		{"name": "ToraiPaymentBox", "pos": Vector3(9.82, 1.35, 9.8), "size": Vector2(0.72, 1.25), "yaw": -90.0, "rect": Rect2(1150, 1040, 90, 205)},
-		{"name": "PipeControlBoxA", "pos": Vector3(-9.82, 1.35, 15.2), "size": Vector2(0.72, 1.25), "yaw": 90.0, "rect": Rect2(1045, 1040, 90, 205)},
+		{"name": "LanServerRackB", "pos": Vector3(-9.82, 1.58, -15.0), "size": Vector2(0.85, 1.95), "yaw": 90.0, "rect": Rect2(610, 10, 150, 420), "scale": 1.0},
+		{"name": "LanServerRackC", "pos": Vector3(-9.82, 1.58, -12.5), "size": Vector2(0.85, 1.95), "yaw": 90.0, "rect": Rect2(767, 17, 152, 448), "scale": 1.0},
+		{"name": "LanMonitorBankA", "pos": Vector3(-9.78, 1.45, -18.5), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(16, 16, 135, 135), "scale": 1.0},
+		{"name": "LanMonitorBankB", "pos": Vector3(-9.78, 1.45, -10.2), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(160, 152, 143, 135), "scale": 1.0},
+		{"name": "LanMonitorBankC", "pos": Vector3(-9.78, 1.45, -7.8), "size": Vector2(1.35, 1.35), "yaw": 90.0, "rect": Rect2(302, 16, 151, 135), "scale": 1.0},
+		{"name": "CootersVendingMachine", "pos": Vector3(9.82, 1.65, -15.4), "size": Vector2(1.05, 2.05), "yaw": -90.0, "rect": Rect2(940, 0, 310, 470), "scale": 1.0},
+		{"name": "ToraiPaymentBox", "pos": Vector3(9.82, 1.35, 9.8), "size": Vector2(0.72, 1.25), "yaw": -90.0, "rect": Rect2(1130, 1120, 90, 205), "scale": 1.0},
+		{"name": "PipeControlBoxA", "pos": Vector3(-9.82, 1.35, 15.2), "size": Vector2(0.72, 1.25), "yaw": 90.0, "rect": Rect2(1015, 953, 111, 286), "scale": 1.0},
 	]
 	for panel in panels:
-		_add_atlas_panel(root, str(panel["name"]), panel["pos"], panel["size"], float(panel["yaw"]), TEX_PROPS, panel["rect"])
+		_add_atlas_panel(root, str(panel["name"]), panel["pos"], panel["size"], float(panel["yaw"]), TEX_PROPS, panel["rect"], Color.BLACK, 0.0, float(panel.get("scale", 1.0)))
 
 
 func _add_overhead_tarp_and_neon_layers(root: Node3D) -> void:
 	var awnings := [
-		{"name": "CootersPatchAwning", "pos": Vector3(9.88, 2.38, -8.5), "size": Vector2(1.95, 0.72), "yaw": -90.0, "rect": Rect2(392, 294, 185, 86)},
-		{"name": "ToraiRustAwning", "pos": Vector3(9.88, 2.38, 5.2), "size": Vector2(1.95, 0.72), "yaw": -90.0, "rect": Rect2(206, 294, 175, 80)},
-		{"name": "LanBlueAwning", "pos": Vector3(-9.88, 2.38, -15.8), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(18, 294, 178, 86)},
-		{"name": "SuitorsPinkAwning", "pos": Vector3(-9.88, 2.38, -1.8), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(210, 294, 175, 80)},
-		{"name": "PipeChapelGreenAwning", "pos": Vector3(-9.88, 2.38, 12.4), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(1085, 294, 175, 86)},
+		{"name": "CootersPatchAwning", "pos": Vector3(9.88, 2.38, -8.5), "size": Vector2(1.95, 0.72), "yaw": -90.0, "rect": Rect2(452, 294, 135, 86), "scale": 1.0},
+		{"name": "ToraiRustAwning", "pos": Vector3(9.88, 2.38, 5.2), "size": Vector2(1.95, 0.72), "yaw": -90.0, "rect": Rect2(192, 294, 145, 80), "scale": 1.0},
+		{"name": "LanBlueAwning", "pos": Vector3(-9.88, 2.38, -15.8), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(0, 294, 198, 96), "scale": 1.0},
+		{"name": "SuitorsPinkAwning", "pos": Vector3(-9.88, 2.38, -1.8), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(200, 294, 155, 90), "scale": 1.0},
+		{"name": "PipeChapelGreenAwning", "pos": Vector3(-9.88, 2.38, 12.4), "size": Vector2(1.95, 0.72), "yaw": 90.0, "rect": Rect2(1115, 294, 145, 86), "scale": 1.0},
 	]
 	for awning in awnings:
-		_add_atlas_panel(root, str(awning["name"]), awning["pos"], awning["size"], float(awning["yaw"]), TEX_PATCHWORK, awning["rect"])
+		_add_atlas_panel(root, str(awning["name"]), awning["pos"], awning["size"], float(awning["yaw"]), TEX_PATCHWORK, awning["rect"], Color.BLACK, 0.0, float(awning.get("scale", 1.0)))
 
 	var neon := [
-		{"name": "LowerCyanTubeEast", "pos": Vector3(9.95, 2.78, -2.8), "size": Vector2(1.5, 0.18), "yaw": -90.0, "rect": Rect2(18, 1138, 245, 38)},
-		{"name": "LowerPinkTubeEast", "pos": Vector3(9.95, 2.78, 12.0), "size": Vector2(1.5, 0.18), "yaw": -90.0, "rect": Rect2(268, 1138, 245, 38)},
-		{"name": "LowerGreenTubeWest", "pos": Vector3(-9.95, 2.78, -8.2), "size": Vector2(1.5, 0.18), "yaw": 90.0, "rect": Rect2(518, 1138, 245, 38)},
-		{"name": "LowerAmberTubeWest", "pos": Vector3(-9.95, 2.78, 16.8), "size": Vector2(1.5, 0.18), "yaw": 90.0, "rect": Rect2(518, 1185, 245, 38)},
+		{"name": "LowerCyanTubeEast", "pos": Vector3(9.95, 2.78, -2.8), "size": Vector2(1.5, 0.18), "yaw": -90.0, "rect": Rect2(0, 1138, 205, 38), "scale": 1.0},
+		{"name": "LowerPinkTubeEast", "pos": Vector3(9.95, 2.78, 12.0), "size": Vector2(1.5, 0.18), "yaw": -90.0, "rect": Rect2(208, 1138, 197, 38), "scale": 1.0},
+		{"name": "LowerGreenTubeWest", "pos": Vector3(-9.95, 2.78, -8.2), "size": Vector2(1.5, 0.18), "yaw": 90.0, "rect": Rect2(406, 1138, 175, 38), "scale": 1.0},
+		{"name": "LowerAmberTubeWest", "pos": Vector3(-9.95, 2.78, 16.8), "size": Vector2(1.5, 0.18), "yaw": 90.0, "rect": Rect2(397, 1185, 185, 38), "scale": 1.0},
 	]
 	for tube in neon:
-		_add_atlas_panel(root, str(tube["name"]), tube["pos"], tube["size"], float(tube["yaw"]), TEX_PATCHWORK, tube["rect"])
+		_add_atlas_panel(root, str(tube["name"]), tube["pos"], tube["size"], float(tube["yaw"]), TEX_PATCHWORK, tube["rect"], Color.BLACK, 0.0, float(tube.get("scale", 1.0)))
 
 
 func _add_arcade_depth_silhouettes(root: Node3D) -> void:

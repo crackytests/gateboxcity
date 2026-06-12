@@ -486,7 +486,7 @@ mesh = SubResource("TerminalMesh")
 surface_material_override/0 = SubResource("NeonGreen")
 
 [node name="FadedAtriumGate" type="Area3D" parent="." groups=["mission_exit"]]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8.8, 1.35, 14.0)
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.0, 1.35, 17.1)
 script = ExtResource("4")
 prompt_text = "Press E: return to Faded Atrium"
 target_scene = "res://scenes/levels/MallHub.tscn"
@@ -495,11 +495,12 @@ target_scene = "res://scenes/levels/MallHub.tscn"
 shape = SubResource("GateShape")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FadedAtriumGate"]
+visible = false
 mesh = SubResource("GateMesh")
 surface_material_override/0 = SubResource("NeonGreen")
 
 [node name="LeakStreetTravelGate" type="Area3D" parent="." groups=["district_interactable"]]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -8.8, 1.35, 16.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.35, -17.1)
 script = ExtResource("5")
 interactable_id = "town_exit_gate"
 prompt_text = "Press E: choose route"
@@ -509,6 +510,7 @@ display_name = "Leak Street Travel Gate"
 shape = SubResource("GateShape")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LeakStreetTravelGate"]
+visible = false
 mesh = SubResource("GateMesh")
 surface_material_override/0 = SubResource("NeonCyan")
 
