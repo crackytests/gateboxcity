@@ -44,6 +44,7 @@ func contain() -> void:
 		return
 
 	contained = true
+	GameState.record_kill(species_id)   # containment logs it to the compendium
 	is_pacified = true
 	move_speed = 0.0
 	velocity = Vector3.ZERO

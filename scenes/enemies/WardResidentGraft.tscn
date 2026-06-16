@@ -29,6 +29,7 @@ size = Vector3(0.26, 0.64, 0.3)
 
 [node name="WardResidentGraft" type="CharacterBody3D"]
 script = ExtResource("1")
+species_id = "ward_graft"
 move_speed = 1.3
 ranged_range = 9.0
 ranged_damage = 6.0

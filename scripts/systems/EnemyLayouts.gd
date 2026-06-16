@@ -23,18 +23,18 @@ var SCENES: Dictionary = {
 var TEMPLATES: Dictionary = {
 	# Big Gates corporate muscle — the heavy that replaces the Overseer's role in a garrison.
 	"foundation_enforcer": {"scene": "goon", "faction": "Big Gates", "name": "Foundation Enforcer",
-		"loot": "big_gates", "hp_mult": 1.4, "damage_mult": 1.2},
+		"loot": "big_gates", "species_id": "foundation_enforcer", "hp_mult": 1.4, "damage_mult": 1.2},
 	# A soul-tech turret variant — replaces Bone Dividend's heavy presence.
 	"soul_drone": {"scene": "security_node", "faction": "Big Gates", "name": "Soul Harvester Drone",
-		"loot": "big_gates", "hp_mult": 1.25},
+		"loot": "big_gates", "species_id": "soul_drone", "hp_mult": 1.25},
 	# A grafted laborer — cheap Big Gates fodder.
 	"tithe_servitor": {"scene": "goon", "faction": "Big Gates", "name": "Tithe Servitor",
-		"loot": "big_gates", "hp_mult": 0.85, "damage_mult": 0.9},
+		"loot": "big_gates", "species_id": "tithe_servitor", "hp_mult": 0.85, "damage_mult": 0.9},
 	# Gatebox Sentinel — a fast, fragile corporate android (a cousin of the shell Spooky woke up
 	# in). Closes distance quickly and strikes fast; folds under sustained fire. Speed is its whole
 	# identity. Drops Gatebox cyberware.
 	"gatebox_android": {"scene": "goon", "faction": "Gatebox", "name": "Gatebox Sentinel",
-		"loot": "gatebox", "hp_mult": 0.6, "damage_mult": 0.9,
+		"loot": "gatebox", "species_id": "gatebox_android", "hp_mult": 0.6, "damage_mult": 0.9,
 		"speed_mult": 2.3, "attack_cooldown_mult": 0.7},
 }
 
@@ -229,6 +229,8 @@ func _spawn_one(host: Node, spec: Dictionary, pos: Vector3) -> void:
 		enemy.set("faction", str(tmpl["faction"]))
 	if tmpl.has("loot"):
 		enemy.set("loot_id", str(tmpl["loot"]))
+	if tmpl.has("species_id"):
+		enemy.set("species_id", str(tmpl["species_id"]))   # compendium logs the variant, not the base
 	if tmpl.has("name"):
 		enemy.name = str(tmpl["name"])
 	if base_key == "splice":

@@ -11,6 +11,7 @@ signal item_dropped(item_name: String)
 
 @export var drop_item: String = ""
 @export var loot_id: String = ""   # overrides the faction-derived loot table key; "" = derive from faction
+@export var species_id: String = ""  # GhostTerm compendium key; recorded on death. "" = not logged
 @export var move_speed := 2.0
 @export var attack_range := 2.2
 @export var ranged_range := 8.0
@@ -646,6 +647,7 @@ func _defeat() -> void:
 
 	is_defeated = true
 	GameState.mark_enemy_defeated(_persistence_key())
+	GameState.record_kill(species_id)   # logs the kill to the compendium (no-op if species_id unset)
 	collision_layer = 0
 	collision_mask = 0
 	for child in parts_root.get_children():

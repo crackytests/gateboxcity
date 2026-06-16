@@ -70,6 +70,7 @@ size = Vector3(0.32, 1.05, 0.32)
 
 [node name="RainMutant" type="CharacterBody3D" groups=["rain_mutant"]]
 script = ExtResource("1")
+species_id = "rain_mutant"
 move_speed = 1.15
 attack_range = 2.0
 ranged_range = 0.0

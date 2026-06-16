@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://suitors_interior"]
+[gd_scene load_steps=35 format=3 uid="uid://suitors_interior"]
 
 [ext_resource type="Script" path="res://scripts/systems/SuitorsInterior.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
@@ -7,6 +7,14 @@
 [ext_resource type="Script" path="res://scripts/systems/MissionExit.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/systems/HackTerminal.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/enemies/DirectionalBillboard.gd" id="7"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_back.png" id="8"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_back_left.png" id="9"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_left.png" id="10"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_front_left.png" id="11"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_front.png" id="12"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_front_right.png" id="13"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_right.png" id="14"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sunday/sunday_back_right.png" id="15"]
 
 [sub_resource type="Environment" id="Environment_1"]
 background_mode = 1
@@ -195,8 +203,8 @@ pixel_size = 0.00305
 shaded = false
 double_sided = true
 script = ExtResource("7")
-frame_paths = PackedStringArray("res://assets/sprites/sunday/sunday_back.png", "res://assets/sprites/sunday/sunday_back_left.png", "res://assets/sprites/sunday/sunday_left.png", "res://assets/sprites/sunday/sunday_front_left.png", "res://assets/sprites/sunday/sunday_front.png", "res://assets/sprites/sunday/sunday_front_right.png", "res://assets/sprites/sunday/sunday_right.png", "res://assets/sprites/sunday/sunday_back_right.png")
 idle_bob_height = 0.012
+frames = Array[Texture2D]([ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11"), ExtResource("12"), ExtResource("13"), ExtResource("14"), ExtResource("15")])
 
 [node name="SurveillanceChoir" type="Area3D" parent="." groups=["hack_terminal"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7, 0.95, -2.8)

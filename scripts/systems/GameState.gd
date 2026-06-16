@@ -35,6 +35,7 @@ var world_flags: Dictionary = {}
 var quest_states: Dictionary = {}
 var cybernetics: Dictionary = {}
 var defeated_enemies: Dictionary = {}  # persistence_key -> true
+var bestiary_kills: Dictionary = {}    # species_id -> int (drives the GhostTerm compendium reveal)
 
 # ── Dialogue system (Daggerfall-style topics) ───────────────────────
 var known_topics: Dictionary = {}      # topic_id -> true (the keyword codex)
@@ -1271,6 +1272,173 @@ func is_scrap_item(item_name: String) -> bool:
 	return SCRAP_VALUES.has(item_name)
 
 
+# ── Enemy compendium / bestiary (refactor: GhostTerm CODEX tab) ──────
+# Progressive reveal: killing a species more times unlocks more of its entry.
+const BESTIARY_TIER_NAMED := 1      # name + sprite
+const BESTIARY_TIER_WEAKPOINTS := 3 # weak-point list + break effects
+const BESTIARY_TIER_DROPS := 6      # which items it can drop
+const BESTIARY_TIER_PERCENTS := 10  # exact drop chances
+
+# Rank-and-file roster. Drops/percentages are read live from ENEMY_LOOT[loot_id] (one source of
+# truth); loot_id "" means the unit yields no salvage. sprite "" falls back to a placeholder panel.
+var BESTIARY: Dictionary = {
+	"splice": {
+		"name": "Splice", "faction": "Splice", "loot_id": "splice",
+		"sprite": "res://assets/sprites/splice/splice_front.png",
+		"weak_points": [
+			{"part": "Wire Skull", "effect": "Staggers the Splice when cracked."},
+			{"part": "Graft Shell", "effect": "Core plating — destroying it puts the Splice down."},
+			{"part": "Splice Arm", "effect": "Breaking it sends the Splice into a brief berserk."},
+			{"part": "Drag Frame", "effect": "Wrecking the legs slows it to a crawl."},
+		],
+	},
+	"goon": {
+		"name": "Gatebox Goon", "faction": "Gatebox", "loot_id": "gatebox",
+		"sprite": "res://assets/sprites/goon_material/goon_material_front.png",
+		"weak_points": [
+			{"part": "Head", "effect": "Heavy hits here stagger it."},
+			{"part": "Right Arm", "effect": "Disables its trash-cannon ranged fire."},
+			{"part": "Torso", "effect": "Core mass — destroying it drops the goon."},
+			{"part": "Left Arm / Legs", "effect": "Reduces its melee and mobility."},
+		],
+	},
+	"gatebox_android": {
+		"name": "Gatebox Sentinel", "faction": "Gatebox", "loot_id": "gatebox",
+		"sprite": "res://assets/sprites/goon_material/goon_material_front.png",
+		"weak_points": [
+			{"part": "Torso", "effect": "Fast but fragile — core hits put it down quickly."},
+			{"part": "Legs", "effect": "Kills its closing speed, its main threat."},
+		],
+	},
+	"foundation_enforcer": {
+		"name": "Foundation Enforcer", "faction": "Big Gates", "loot_id": "big_gates",
+		"sprite": "res://assets/sprites/goon_material/goon_material_front.png",
+		"weak_points": [
+			{"part": "Head", "effect": "Staggers the heavy."},
+			{"part": "Torso", "effect": "Reinforced — destroying it ends the fight."},
+			{"part": "Arms / Legs", "effect": "Cuts its heavy melee and advance."},
+		],
+	},
+	"tithe_servitor": {
+		"name": "Tithe Servitor", "faction": "Big Gates", "loot_id": "big_gates",
+		"sprite": "res://assets/sprites/goon_material/goon_material_front.png",
+		"weak_points": [
+			{"part": "Torso", "effect": "Lightly built fodder — folds fast."},
+			{"part": "Head", "effect": "Staggers it."},
+		],
+	},
+	"security_node": {
+		"name": "Security Node", "faction": "Gatebox", "loot_id": "",
+		"sprite": "",
+		"weak_points": [
+			{"part": "Lens", "effect": "Blinds it — drops its accuracy."},
+			{"part": "Antenna", "effect": "Severs its alarm/coordination."},
+			{"part": "Core", "effect": "Destroys the turret outright."},
+		],
+	},
+	"soul_drone": {
+		"name": "Soul Harvester Drone", "faction": "Big Gates", "loot_id": "",
+		"sprite": "",
+		"weak_points": [
+			{"part": "Lens", "effect": "Cripples its targeting."},
+			{"part": "Core", "effect": "Destroys the drone."},
+		],
+	},
+	"ward_graft": {
+		"name": "Ward Resident Graft", "faction": "Big Gates", "loot_id": "",
+		"sprite": "",
+		"weak_points": [
+			{"part": "Graft — Right Arm", "effect": "The weapon graft — breaking it disarms the assault."},
+			{"part": "Conversion Rig — Torso", "effect": "The bolted-on rig; destroying it ends the wretch."},
+			{"part": "Head", "effect": "What's left of the person — staggers it."},
+		],
+	},
+	"rain_mutant": {
+		"name": "Rain Mutant", "faction": "", "loot_id": "",
+		"sprite": "res://assets/sprites/rain_mutant/rain_mutant_front.png",
+		"weak_points": [
+			{"part": "Rain Sac", "effect": "Rupture it to stop the mutant drinking the toxic rain."},
+			{"part": "Mobility Frame", "effect": "Break it so the thing can't crawl off the pad."},
+		],
+	},
+}
+
+
+func record_kill(species_id: String) -> void:
+	if species_id.is_empty():
+		return
+	bestiary_kills[species_id] = int(bestiary_kills.get(species_id, 0)) + 1
+
+
+func get_kills(species_id: String) -> int:
+	return int(bestiary_kills.get(species_id, 0))
+
+
+# 0 = unseen, then named / weak-points / drops / percentages as kills accrue.
+func bestiary_tier(species_id: String) -> int:
+	var k := get_kills(species_id)
+	if k <= 0:
+		return 0
+	if k >= BESTIARY_TIER_PERCENTS:
+		return 4
+	if k >= BESTIARY_TIER_DROPS:
+		return 3
+	if k >= BESTIARY_TIER_WEAKPOINTS:
+		return 2
+	return 1
+
+
+# Kills still needed before the next reveal tier (0 if fully unlocked).
+func bestiary_kills_to_next(species_id: String) -> int:
+	var k := get_kills(species_id)
+	for threshold in [BESTIARY_TIER_NAMED, BESTIARY_TIER_WEAKPOINTS, BESTIARY_TIER_DROPS, BESTIARY_TIER_PERCENTS]:
+		if k < threshold:
+			return threshold - k
+	return 0
+
+
+# Display lines for an enemy's drops. with_percents adds the exact chances (top reveal tier).
+func bestiary_drop_lines(species_id: String, with_percents: bool) -> Array:
+	var lines: Array = []
+	var entry: Dictionary = BESTIARY.get(species_id, {})
+	var loot_id := str(entry.get("loot_id", ""))
+	var prof: Dictionary = ENEMY_LOOT.get(loot_id, {})
+	if loot_id.is_empty() or prof.is_empty():
+		lines.append("No salvage — this unit leaves nothing recoverable.")
+		return lines
+	# Implants (only from body parts you leave INTACT).
+	var part_map: Dictionary = prof.get("parts", {})
+	if not part_map.is_empty():
+		if with_percents:
+			lines.append("Cyberware drop: %d%% (from a part you leave intact)" % roundi(float(prof.get("drop_chance", 0.0)) * 100.0))
+		else:
+			lines.append("Cyberware drop (leave the part intact):")
+		for part_name in part_map.keys():
+			lines.append("   • %s → %s" % [str(part_name), _item_display_name(str(part_map[part_name]))])
+	# Scrap.
+	var scrap: Array = prof.get("scrap", [])
+	if not scrap.is_empty():
+		var scrap_names: Array = []
+		for s in scrap:
+			scrap_names.append(str(s))
+		if with_percents:
+			lines.append("Ruined parts: %d%% — %s" % [roundi(float(prof.get("scrap_chance", 0.0)) * 100.0), ", ".join(scrap_names)])
+		else:
+			lines.append("Ruined parts: %s" % ", ".join(scrap_names))
+	# Specials (e.g. neural_splice).
+	for sp in prof.get("special", []):
+		if typeof(sp) != TYPE_DICTIONARY:
+			continue
+		var item := str((sp as Dictionary).get("item", ""))
+		if item.is_empty():
+			continue
+		if with_percents:
+			lines.append("Special: %s — %d%%" % [_item_display_name(item), roundi(float((sp as Dictionary).get("chance", 0.0)) * 100.0)])
+		else:
+			lines.append("Special: %s" % _item_display_name(item))
+	return lines
+
+
 func learn_topic(topic_id: String) -> void:
 	if topic_id.is_empty():
 		return
@@ -1480,6 +1648,7 @@ func save_game(slot := SAVE_SLOT_MANUAL) -> bool:
 		"quest_states": quest_states,
 		"cybernetics": cybernetics,
 		"defeated_enemies": defeated_enemies,
+		"bestiary_kills": bestiary_kills,
 		"known_topics": known_topics,
 		"npc_disposition": npc_disposition,
 		"conversation_tone": conversation_tone,
@@ -1542,6 +1711,7 @@ func load_game(slot := SAVE_SLOT_MANUAL) -> bool:
 	_repair_loaded_save_inconsistencies()
 	cybernetics = parsed.get("cybernetics", {})
 	defeated_enemies = parsed.get("defeated_enemies", {})
+	bestiary_kills = parsed.get("bestiary_kills", {})
 	known_topics = parsed.get("known_topics", {})
 	npc_disposition = parsed.get("npc_disposition", {})
 	conversation_tone = str(parsed.get("conversation_tone", "normal"))

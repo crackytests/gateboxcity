@@ -55,6 +55,7 @@ size = Vector3(0.38, 0.72, 0.38)
 
 [node name="Splice" type="CharacterBody3D"]
 script = ExtResource("1")
+species_id = "splice"
 move_speed = 2.2
 melee_damage = 14.0
 attack_cooldown = 1.8

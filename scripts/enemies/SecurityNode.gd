@@ -10,6 +10,7 @@ signal defeated
 @export var attack_cooldown := 1.25
 @export var player_path: NodePath
 @export var persistence_id := ""
+@export var species_id := ""   # GhostTerm compendium key; recorded on death. "" = not logged
 
 @onready var parts_root: Node3D = %BodyParts
 @onready var visual_root: Node3D = $Visuals
@@ -127,6 +128,7 @@ func _defeat() -> void:
 
 	is_defeated = true
 	GameState.mark_enemy_defeated(_persistence_key())
+	GameState.record_kill(species_id)   # compendium log (no-op if unset)
 	for child in parts_root.get_children():
 		var part := child as BodyPart
 		if part != null:

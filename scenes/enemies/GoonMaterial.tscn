@@ -131,6 +131,7 @@ radius = 1.35
 script = ExtResource("1")
 move_speed = 1.4
 faction = "Gatebox"
+species_id = "goon"
 ranged_range = 22.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

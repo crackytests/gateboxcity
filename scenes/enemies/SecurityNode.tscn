@@ -46,6 +46,7 @@ height = 1.2
 
 [node name="SecurityNode" type="Node3D" groups=["security_node"]]
 script = ExtResource("1")
+species_id = "security_node"
 
 [node name="Visuals" type="Node3D" parent="."]
 

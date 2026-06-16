@@ -235,11 +235,9 @@ func _stream_for(id: String, source: Dictionary) -> AudioStream:
 	var path := AUDIO_DIR + str(source[id])
 	if _cache.has(path):
 		return _cache[path] as AudioStream
-	var stream: AudioStream
-	if path.get_extension().to_lower() == "ogg":
+	var stream := ResourceLoader.load(path) as AudioStream
+	if stream == null and path.get_extension().to_lower() == "ogg":
 		stream = AudioStreamOggVorbis.load_from_file(path)
-	else:
-		stream = ResourceLoader.load(path) as AudioStream
 	if stream == null:
 		push_warning("Audio missing: " + path)
 		return null

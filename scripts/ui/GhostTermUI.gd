@@ -16,6 +16,7 @@ const TAB_DATA := 2
 const TAB_WORLD := 3
 const TAB_LOGS := 4
 const TAB_WARE := 5
+const TAB_CODEX := 6
 
 const TAB_NAMES := {
 	"stat": TAB_STAT,
@@ -24,6 +25,7 @@ const TAB_NAMES := {
 	"world": TAB_WORLD,
 	"logs": TAB_LOGS,
 	"ware": TAB_WARE,
+	"codex": TAB_CODEX,
 }
 
 # Phosphor palette
@@ -64,6 +66,12 @@ var _inv_detail: RichTextLabel
 var _inv_use_btn: Button
 var _inv_keys: Array = []
 
+# CODEX (enemy compendium) tab
+var _codex_list: ItemList
+var _codex_sprite: TextureRect
+var _codex_detail: RichTextLabel
+var _codex_species: Array = []   # ordered species_ids matching _codex_list rows
+
 # WARE tab
 var _ware_available: Array[Dictionary] = []
 var _ware_slots_rt: RichTextLabel
@@ -86,10 +94,12 @@ func _ready() -> void:
 
 
 func open(tab: String = "inv") -> void:
-	# Self-opened terminal: WARE tab is a viewer. Show what the player is carrying; no install.
+	# Self-opened terminal: cyberware is only handled at Velvet Coil's table, so the WARE tab is
+	# hidden here. The CODEX (enemy compendium) is always available.
 	_ware_install_mode = false
 	_ware_available = _owned_implants()
 	visible = true
+	_tabs.set_tab_hidden(TAB_WARE, true)
 	var idx: int = int(TAB_NAMES.get(tab, TAB_INV))
 	_tabs.current_tab = idx
 	refresh_all()
@@ -104,6 +114,7 @@ func open_ware(install_mode := true) -> void:
 	if not visible:
 		visible = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_tabs.set_tab_hidden(TAB_WARE, false)   # cybersurgery: the WARE tab is available here
 	refresh_all()
 	_set_tab(TAB_WARE)
 
@@ -153,6 +164,7 @@ func refresh_all() -> void:
 	_refresh_world()
 	_refresh_logs()
 	_refresh_ware()
+	_refresh_compendium()
 
 
 # ── Input ───────────────────────────────────────────────────────────
@@ -189,7 +201,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				_set_tab(TAB_LOGS)
 				get_viewport().set_input_as_handled()
 			KEY_6:
-				_set_tab(TAB_WARE)
+				if not _tabs.is_tab_hidden(TAB_WARE):
+					_set_tab(TAB_WARE)
+					get_viewport().set_input_as_handled()
+			KEY_7:
+				_set_tab(TAB_CODEX)
 				get_viewport().set_input_as_handled()
 			KEY_Q:
 				_cycle_tab(-1)
@@ -233,6 +249,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			if _ware_install_btn != null and not _ware_install_btn.disabled:
 				_on_ware_install_pressed()
 			get_viewport().set_input_as_handled()
+	# Compendium list navigation
+	if _tabs.current_tab == TAB_CODEX:
+		if event.is_action_pressed("ui_down"):
+			_move_codex_selection(1)
+			get_viewport().set_input_as_handled()
+		elif event.is_action_pressed("ui_up"):
+			_move_codex_selection(-1)
+			get_viewport().set_input_as_handled()
 
 
 func _set_tab(idx: int) -> void:
@@ -241,7 +265,13 @@ func _set_tab(idx: int) -> void:
 
 
 func _cycle_tab(dir: int) -> void:
-	_set_tab(wrapi(_tabs.current_tab + dir, 0, _tabs.get_tab_count()))
+	var n := _tabs.get_tab_count()
+	var i := _tabs.current_tab
+	for _step in n:
+		i = wrapi(i + dir, 0, n)
+		if not _tabs.is_tab_hidden(i):
+			break
+	_set_tab(i)
 
 
 func _on_tab_changed(idx: int) -> void:
@@ -252,6 +282,7 @@ func _on_tab_changed(idx: int) -> void:
 		TAB_WORLD: _refresh_world()
 		TAB_LOGS: _refresh_logs()
 		TAB_WARE: _refresh_ware()
+		TAB_CODEX: _refresh_compendium()
 
 
 # ── Tab content: STAT ───────────────────────────────────────────────
@@ -768,9 +799,10 @@ func _build_ui() -> void:
 	_build_world_tab()
 	_build_logs_tab()
 	_build_ware_tab()
+	_build_compendium_tab()
 
 	var hint := Label.new()
-	hint.text = "TAB / ESC close      1-6 jump      Q / E cycle tabs      ↑↓ navigate      ENTER use / abandon / install"
+	hint.text = "TAB / ESC close      1-7 jump      Q / E cycle tabs      ↑↓ navigate      ENTER use / abandon / install"
 	hint.add_theme_color_override("font_color", Color(0.45, 0.55, 0.48))
 	hint.add_theme_font_size_override("font_size", 13)
 	vbox.add_child(hint)
@@ -1156,3 +1188,128 @@ func _ware_req_reason(db: Dictionary) -> String:
 		if sr_val > sr_max:
 			return "soul reads too corrupted (soul-rot %d, max %d)" % [sr_val, sr_max]
 	return ""
+
+
+# ── Tab content: CODEX (enemy compendium) ───────────────────────────
+
+func _build_compendium_tab() -> void:
+	var root := HBoxContainer.new()
+	root.name = "CODEX"
+	root.add_theme_constant_override("separation", 14)
+	_tabs.add_child(root)
+
+	_codex_list = ItemList.new()
+	_codex_list.custom_minimum_size = Vector2(260, 0)
+	_codex_list.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_codex_list.add_theme_color_override("font_color", COL_HEADER)
+	_codex_list.add_theme_color_override("font_selected_color", COL_PRIMARY)
+	_codex_list.add_theme_font_size_override("font_size", 14)
+	_codex_list.item_selected.connect(_on_codex_item_selected)
+	root.add_child(_codex_list)
+
+	var right := VBoxContainer.new()
+	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	right.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	right.add_theme_constant_override("separation", 8)
+	root.add_child(right)
+
+	_codex_sprite = TextureRect.new()
+	_codex_sprite.custom_minimum_size = Vector2(0, 200)
+	_codex_sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_codex_sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_codex_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	right.add_child(_codex_sprite)
+
+	_codex_detail = _make_scroll_rt()
+	right.add_child(_codex_detail)
+
+
+func _refresh_compendium() -> void:
+	if _codex_list == null:
+		return
+	var prev := -1
+	var sel := _codex_list.get_selected_items()
+	if not sel.is_empty():
+		prev = sel[0]
+	_codex_list.clear()
+	_codex_species = GameState.BESTIARY.keys()
+	for sid in _codex_species:
+		var entry: Dictionary = GameState.BESTIARY[sid]
+		if GameState.bestiary_tier(str(sid)) <= 0:
+			_codex_list.add_item("???   UNIDENTIFIED")
+			_codex_list.set_item_custom_fg_color(_codex_list.item_count - 1, COL_DIM)
+		else:
+			_codex_list.add_item("%s   (%d)" % [str(entry.get("name", sid)), GameState.get_kills(str(sid))])
+	if _codex_list.item_count > 0:
+		var idx := clampi(prev if prev >= 0 else 0, 0, _codex_list.item_count - 1)
+		_codex_list.select(idx)
+		_show_codex_detail(idx)
+
+
+func _on_codex_item_selected(index: int) -> void:
+	_show_codex_detail(index)
+
+
+func _move_codex_selection(delta: int) -> void:
+	if _codex_list == null or _codex_list.item_count == 0:
+		return
+	var sel := _codex_list.get_selected_items()
+	var cur := sel[0] if not sel.is_empty() else -1
+	var next := clampi(cur + delta, 0, _codex_list.item_count - 1)
+	_codex_list.select(next)
+	_show_codex_detail(next)
+
+
+func _show_codex_detail(index: int) -> void:
+	if _codex_detail == null or index < 0 or index >= _codex_species.size():
+		return
+	var sid := str(_codex_species[index])
+	var entry: Dictionary = GameState.BESTIARY.get(sid, {})
+	var tier := GameState.bestiary_tier(sid)
+
+	# Front sprite revealed from the first kill (tier 1).
+	_codex_sprite.texture = null
+	if tier >= 1:
+		var sprite_path := str(entry.get("sprite", ""))
+		if not sprite_path.is_empty() and ResourceLoader.exists(sprite_path):
+			_codex_sprite.texture = load(sprite_path)
+
+	var lines: Array[String] = []
+	if tier <= 0:
+		lines.append("[color=#ff5fc8][b]??? — UNIDENTIFIED[/b][/color]")
+		lines.append("")
+		lines.append("No combat data logged. Defeat this unit to begin a dossier.")
+		_codex_detail.text = "\n".join(lines)
+		return
+
+	lines.append("[color=#33ff88][b]%s[/b][/color]" % str(entry.get("name", sid)))
+	var fac := str(entry.get("faction", ""))
+	if not fac.is_empty():
+		lines.append("[color=#8fbf9f]Faction: %s[/color]" % fac)
+	lines.append("[color=#8fbf9f]Kills logged: %d[/color]" % GameState.get_kills(sid))
+	var to_next := GameState.bestiary_kills_to_next(sid)
+	if to_next > 0:
+		lines.append("[color=#ffb84d]Kills to next reveal: %d[/color]" % to_next)
+	lines.append("")
+
+	# Weak points (tier 2+).
+	if tier >= 2:
+		lines.append("[color=#65d6ff][b]WEAK POINTS[/b][/color]")
+		for wp in entry.get("weak_points", []):
+			lines.append("  [b]%s[/b] — %s" % [str(wp.get("part", "")), str(wp.get("effect", ""))])
+		lines.append("")
+	else:
+		lines.append("[color=#5f8f6f]Weak points: locked — log more kills to map them.[/color]")
+		lines.append("")
+
+	# Salvage (tier 3 = item names, tier 4 = exact percentages).
+	if tier >= 3:
+		lines.append("[color=#65d6ff][b]SALVAGE[/b][/color]")
+		for dl in GameState.bestiary_drop_lines(sid, tier >= 4):
+			lines.append("  " + str(dl))
+		if tier < 4:
+			lines.append("[color=#5f8f6f]  (exact drop rates still locked)[/color]")
+	else:
+		lines.append("[color=#5f8f6f]Salvage data: locked.[/color]")
+
+	_codex_detail.text = "\n".join(lines)
