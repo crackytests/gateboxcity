@@ -230,8 +230,8 @@ surface_material_override/0 = SubResource("ExitMat")
 [node name="ReturnGate" type="Area3D" parent="." groups=["mission_exit"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 13.5)
 script = ExtResource("4")
-target_scene = "res://scenes/levels/MallHub.tscn"
-prompt_text = "Press E: leave the Comfort Annexe"
+target_scene = "res://scenes/levels/GantryTier.tscn"
+prompt_text = "Press E: leave for the Gantry Tier"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ReturnGate"]
 shape = SubResource("InteractShape")

@@ -236,6 +236,7 @@ func _add_arcade_catwalk(root: Node3D) -> void:
 	_add_catwalk_crossings(catwalk)
 	_add_catwalk_collision_deck(catwalk)
 	_add_catwalk_access(catwalk)
+	_add_catwalk_cover(catwalk)
 	_add_catwalk_lights(catwalk)
 
 
@@ -359,7 +360,7 @@ func _add_catwalk_cover(group: Node3D) -> void:
 		{"x": 0.0, "z": -12.0, "w": 8.4, "d": 2.4},
 		{"x": 0.0, "z": -2.0, "w": 8.4, "d": 2.4},
 		{"x": 0.0, "z": 8.0, "w": 8.4, "d": 2.4},
-		{"x": 0.0, "z": 16.0, "w": 8.4, "d": 2.4},
+		{"x": 0.0, "z": 16.0, "w": 8.4, "d": 2.4, "skip": true},
 		{"x": -6.5, "z": 12.0, "w": 4.0, "d": 3.6},
 		{"x": 0.0, "z": 2.5, "w": 4.8, "d": 4.2},
 		{"x": 6.5, "z": 8.5, "w": 4.0, "d": 4.2},
@@ -367,6 +368,8 @@ func _add_catwalk_cover(group: Node3D) -> void:
 		{"x": 3.8, "z": 19.3, "w": 1.8, "d": 4.5},
 	]
 	for i in range(covers.size()):
+		if bool(covers[i].get("skip", false)):
+			continue
 		var cx: float = float(covers[i]["x"])
 		var cz: float = float(covers[i]["z"])
 		var cw: float = float(covers[i]["w"])

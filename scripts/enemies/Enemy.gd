@@ -8,6 +8,7 @@ signal body_part_destroyed(part_name: String)
 signal attacked_player(message: String)
 signal defeated
 signal item_dropped(item_name: String)
+signal damaged(amount: float, remaining_hp: float)   # fired whenever any body part takes a hit
 
 @export var drop_item: String = ""
 @export var loot_id: String = ""   # overrides the faction-derived loot table key; "" = derive from faction
@@ -60,6 +61,7 @@ var attack_flash_timer := 0.0
 var right_arm_destroyed := false
 var is_defeated := false
 var is_pacified := false
+var patrol_neutral := false   # walks patrol_points but won't auto-aggro (still fights back if hit)
 var _broken_parts: Dictionary = {}   # display_name -> true, for loot (forfeit broken parts)
 
 var ai_state := AIState.PATROL
@@ -175,19 +177,22 @@ func _physics_process(delta: float) -> void:
 
 
 func _process_patrol(delta: float) -> void:
-	if _has_line_of_sight():
-		# Drift mis-ID: corporate units hesitate to flag a heavily-modded target
-		# as hostile, while drift-hostile factions lock on faster.
-		var stealth := 1.0
-		if player.has_method("get_stealth_mult"):
-			stealth = player.get_stealth_mult()
-		_detection += delta * _detection_rate() * stealth
-		if _detection >= 1.0:
-			ai_state = AIState.COMBAT
-			_on_aggro()
-		return
-	else:
-		_detection = maxf(_detection - delta * 0.5, 0.0)
+	# Neutral patrollers (e.g. a standing-down faction patrol) walk their beat and never lock on by
+	# sight. They still turn hostile if attacked — that path runs through _on_part_damaged, not here.
+	if not patrol_neutral:
+		if _has_line_of_sight():
+			# Drift mis-ID: corporate units hesitate to flag a heavily-modded target
+			# as hostile, while drift-hostile factions lock on faster.
+			var stealth := 1.0
+			if player.has_method("get_stealth_mult"):
+				stealth = player.get_stealth_mult()
+			_detection += delta * _detection_rate() * stealth
+			if _detection >= 1.0:
+				ai_state = AIState.COMBAT
+				_on_aggro()
+			return
+		else:
+			_detection = maxf(_detection - delta * 0.5, 0.0)
 
 	if _patrol_dwell_timer > 0.0:
 		_patrol_dwell_timer -= delta
@@ -427,6 +432,9 @@ func _clear_dash_attack() -> void:
 
 
 func _on_part_damaged(part: BodyPart, _amount: float, remaining_hp: float) -> void:
+	# Broadcast the hit so observers (e.g. a neutral patrol deciding whether to break a truce) can
+	# react. Purely informational — it does not change this enemy's own behaviour.
+	damaged.emit(_amount, remaining_hp)
 	# Getting hit makes an unaware enemy hostile immediately — no line-of-sight needed — and
 	# wakes nearby allies through the normal aggro propagation.
 	if ai_state != AIState.COMBAT and not is_defeated:

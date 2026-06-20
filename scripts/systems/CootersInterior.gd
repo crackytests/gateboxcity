@@ -35,7 +35,8 @@ func _ready() -> void:
 		if not hud.dialogue_ui.closed.is_connected(_on_cooters_dialogue_closed):
 			hud.dialogue_ui.closed.connect(_on_cooters_dialogue_closed)
 
-	# Entering Cooters reshuffles the job board (later: refresh on a day tick instead).
+	# The job board now refreshes once per day (Spooky rests on the cot in the Faded Atrium).
+	# This call only builds it the first time / for a new day; same-day re-entry keeps the board.
 	GameState.build_job_board()
 
 	_refresh_hud()
@@ -126,7 +127,7 @@ func _on_cooters_dialogue_closed() -> void:
 func _on_job_board_accepted(job_id: String) -> void:
 	if GameState.accept_job(job_id):
 		var job := GameState.get_job_data(job_id)
-		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Use the Leak Street gate, then come back when the job stops moving or starts making eye contact." % str(job.get("title", job_id)))
+		hud.show_dialogue("Marbles", "Posted and witnessed: %s. Leak Street gate gets you there; ask me what you're actually doing if the board got too cute about it." % str(job.get("title", job_id)))
 		hud.push_log("cooters job accepted: %s" % str(job.get("title", job_id)).to_lower())
 	else:
 		hud.show_dialogue("Marbles", "One job at a time. Cooters is a bar, not a personality disorder with neon.")

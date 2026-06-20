@@ -30,6 +30,7 @@ const ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 var focused_interactable: WardInteractable
 var focused_exit: MissionExit
 var _security_node: Node3D
+var _escortee: Escortee
 var _in_sludge: bool = false
 var _mat_floor: StandardMaterial3D
 var _mat_wall: StandardMaterial3D
@@ -54,6 +55,7 @@ func _ready() -> void:
 	hud.show_dialogue("Collapsed Service Atrium", "Travel event: %s. The old banners are still up. They say nothing useful about what the floor became." % last_event)
 	hud.present_event.call_deferred("travel", true)
 	hud.push_log("collapsed service atrium reached")
+	_spawn_escort_if_needed()
 	EventDeckSystem.add_card("splice_atrium_return")
 
 
@@ -213,6 +215,29 @@ func _handle_job_node(interactable: WardInteractable) -> void:
 	GameState.last_mission_result = "Completed objective: %s" % str(active_job.get("title", job_id))
 	hud.show_dialogue(interactable.display_name, "%s captured. The relay was still broadcasting the old welcome message. It sounded like it meant it." % item_name)
 	hud.push_log("cooters job objective complete")
+	_refresh_hud()
+
+
+func _spawn_escort_if_needed() -> void:
+	_escortee = Escortee.spawn_for_active_job(self, player, hud, "collapsed_service_atrium", Vector3(-2.0, 1.0, -15.5))
+	if _escortee != null:
+		_escortee.reached_safety.connect(_on_escort_reached)
+		_escortee.died.connect(_on_escort_down)
+
+
+func _on_escort_reached() -> void:
+	var jid := GameState.active_job_id
+	if jid.is_empty():
+		return
+	GameState.mark_job_objective_done(jid)
+	GameState.last_mission_result = "Escort delivered: %s" % str(GameState.get_active_job_data().get("title", jid))
+	hud.show_dialogue("Escort", "The asset reaches the entrance and sags against the wall. \"We made it. Get me to Marbles before I start thinking about it.\"")
+	hud.push_log("escort delivered — return to Cooters for payout")
+	_refresh_hud()
+
+
+func _on_escort_down() -> void:
+	hud.show_dialogue("Escort", "The asset stops moving. The run's blown — head out and come back to try the escort again.")
 	_refresh_hud()
 
 

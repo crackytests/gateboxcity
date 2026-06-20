@@ -59,6 +59,16 @@ size = Vector3(1.35, 0.12, 1.35)
 albedo_color = Color(0.62, 0.6, 0.58, 1)
 roughness = 0.95
 
+[sub_resource type="BoxMesh" id="CotMesh"]
+size = Vector3(2.0, 0.34, 0.92)
+
+[sub_resource type="StandardMaterial3D" id="CotMat"]
+albedo_color = Color(0.16, 0.18, 0.2, 1)
+roughness = 0.92
+emission_enabled = true
+emission = Color(0.1, 0.7, 0.85, 1)
+emission_energy_multiplier = 0.18
+
 [node name="MallHub" type="Node3D"]
 script = ExtResource("1")
 
@@ -79,6 +89,21 @@ surface_material_override/0 = SubResource("BinMat")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.18, 20.0)
 mesh = SubResource("SheetMesh")
 surface_material_override/0 = SubResource("SheetMat")
+
+[node name="RestCot" type="Area3D" parent="." groups=["npc"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9, 0.2, 20.2)
+script = ExtResource("4")
+npc_id = "rest_cot"
+npc_name = "Rest Cot"
+dialogue_text = "A salvaged cot wedged into the wake nook. Lying back here lets a day turn over."
+prompt_text = "Press E: rest until the next day"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RestCot"]
+shape = SubResource("InteractShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RestCot"]
+mesh = SubResource("CotMesh")
+surface_material_override/0 = SubResource("CotMat")
 
 [node name="Geometry" type="Node3D" parent="."]
 

@@ -9,8 +9,10 @@ const WATER_CISTERN_SCENE := "res://scenes/levels/WaterReclamationCistern.tscn"
 const COLLAPSED_ATRIUM_SCENE := "res://scenes/levels/CollapsedServiceAtrium.tscn"
 const FADED_ATRIUM_SCENE := "res://scenes/levels/MallHub.tscn"
 const ROCKER_FELLAR_KEEP_SCENE := "res://scenes/levels/RockerFellarKeep.tscn"
+const GANTRY_TIER_SCENE := "res://scenes/levels/GantryTier.tscn"
 const DEBUG_ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 const COOTERS_DOOR_SPAWN := Vector3(7.0, 1.05, -10.5)
+const GANTRY_DOOR_SPAWN := Vector3(0.0, 1.05, -14.2)
 
 # Gatebox standing needed before the Comfort Annexe (Ward 7) reads you as a Comfort Citizen.
 const COMFORT_ANNEXE_REP_GATE := 2
@@ -132,6 +134,10 @@ func _apply_pending_spawn_hint() -> void:
 		"cooters_door":
 			player.global_position = COOTERS_DOOR_SPAWN
 			player.rotation.y = PI * 0.5
+			player.velocity = Vector3.ZERO
+		"gantry_door":
+			player.global_position = GANTRY_DOOR_SPAWN
+			player.rotation.y = PI    # face the travel gate / deeper street
 			player.velocity = Vector3.ZERO
 
 
@@ -1194,17 +1200,16 @@ func _get_travel_routes() -> Array:
 	# The Faded Atrium is now a direct street gate, not part of the route picker.
 	# (Wake-Up Call moved out of the travel gate — it's now a dream reached through the
 	# DreamGate door in the Faded Atrium hub. See MallHub._apply_gate_visibility.)
-	# Comfort Annexe (Ward 7) — a Gatebox Pacification Ward. Reaching it takes Gatebox clearance:
-	# you have to have played their game (complied at checkpoints, paid their levies) enough that
-	# their door reads you as a Comfort Citizen rather than an intruder.
-	var gatebox_rep := int(GameState.reputation.get("Gatebox Corporation", 0))
+	# The Gantry Tier is now the connective transit hub: it physically holds the Comfort Annexe
+	# portal (rep-gated at its in-zone door) and the Rocker Fellar Keep service lift (quest-gated
+	# there too), so those no longer appear as direct routes from Leak Street.
 	routes.append({
-		"id": "comfort_annexe",
-		"title": "Comfort Annexe (Ward 7)",
-		"description": "A Gatebox Pacification Ward up the line. People in the Basement say something wrong-shaped came out of it, wearing pod-issue clothing.",
-		"target_scene": "res://scenes/levels/ComfortAnnexe_Reception.tscn",
-		"locked": gatebox_rep < COMFORT_ANNEXE_REP_GATE,
-		"locked_reason": "Gatebox clearance required. Play their game — comply at their checkpoints, pay their levies — until the ward reads you as a Comfort Citizen.",
+		"id": "gantry_tier",
+		"title": "The Gantry Tier",
+		"description": "A derelict transit interchange under the false sky — neutral ground between the districts. The Comfort Annexe portal and the deep service lift to Rocker Fellar Keep both open off it.",
+		"target_scene": GANTRY_TIER_SCENE,
+		"locked": false,
+		"locked_reason": "",
 	})
 	# Bone Dividend Vault — Big Gates soul-accounting vault; appears once the
 	# informant marks it (after you take the lead with the Ward 7 evidence).
@@ -1216,18 +1221,6 @@ func _get_travel_routes() -> Array:
 			"target_scene": "res://scenes/levels/BoneDividendVault.tscn",
 			"locked": false,
 			"locked_reason": "",
-		})
-	# Rocker Fellar Keep — deep service lift, quest-gated
-	var rocker_quest_active: bool = GameState.get_world_flag("quest_rocker_fellar_active", false)
-	var rocker_defeated: bool = GameState.get_world_flag("rocker_fellar_defeated", false)
-	if rocker_quest_active or rocker_defeated:
-		routes.append({
-			"id": "rocker_fellar_keep",
-			"title": "Rocker Fellar Keep",
-			"description": "A Big Gates Foundation concert fortress deep below even Leak Street. Soul-harvesting venue, death-metal cathedral, and one very theatrical general.",
-			"target_scene": ROCKER_FELLAR_KEEP_SCENE,
-			"locked": not rocker_quest_active,
-			"locked_reason": "Accept the Rocker Fellar quest from System X or Kiki Baja before descending.",
 		})
 	return routes
 
@@ -1263,6 +1256,8 @@ func _on_travel_route_selected(route_id: String) -> void:
 	GameState.last_mission_result = "Travel to %s: %s" % [route_title, card_title]
 	hud.push_log("travel event: %s" % card_title.to_lower())
 	GameState.set_world_flag("visited_" + route_id, true)
+	if route_id == "gantry_tier":
+		GameState.set_world_flag("_gantry_spawn_hint", "from_leak_street")
 	GameState.autosave()
 	get_tree().change_scene_to_file(str(selected.get("target_scene", "")))
 

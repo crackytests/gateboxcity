@@ -71,7 +71,7 @@ var TOPICS: Dictionary = {
 	"bone_dividend_lead": {"category": "work", "label": "the Bone Dividend lead"},
 	"quest_rocker_fellar": {"category": "work", "label": "Rocker Fellar Keep", "question": "Are we ready for Rocker Fellar?"},
 	# Cooters job board (Marbles).
-	"current_mission": {"category": "work", "label": "current mission", "question": "What is my current mission?"},
+	"current_mission": {"category": "work", "label": "the job I took", "question": "What am I actually doing?"},
 	"collect_pay": {"category": "work", "label": "collecting your pay"},
 	"cooters": {"category": "location", "label": "Cooters"},
 	"the_rain_mutant": {"category": "thing", "label": "the contained rain mutant"},
@@ -873,7 +873,7 @@ var NPC_PROFILES: Dictionary = {
 			},
 			"collect_pay": {
 				"category": "work",
-				"text": "Paid and witnessed. Don't spend it all on liquids with opinions — unless they're funny opinions.",
+				"text": "There it is. I can smell successful bad decisions from behind the bar. Pay's counted; if the coins twitch, smack the cup.",
 				"requires_job_ready": true,
 				"effects": [{"type": "complete_job"}],
 			},
@@ -1224,32 +1224,78 @@ func _active_job_brief(tier: String) -> String:
 	var faction := str(job.get("faction", ""))
 	var rival := str(job.get("rival_faction", ""))
 	var reward := str(job.get("reward_text", "bar credit"))
-	var objective := GameState.get_active_job_objective_text()
-	if objective.is_empty():
-		objective = str(job.get("objective", "Finish the job and come back upright."))
-	var threat := ""
-	if not rival.is_empty():
-		threat = " Contested by %s, so expect the usual hospitality problem." % rival
 	var source := giver
 	if not faction.is_empty() and faction != giver:
 		source = "%s, through %s" % [giver, faction]
+	var route_hint := _marbles_route_hint(str(job.get("destination_id", "")), destination)
+	var job_hint := _marbles_job_hint(job)
+	var threat_hint := _marbles_threat_hint(rival)
 
 	if GameState.is_job_objective_done(GameState.active_job_id):
 		match tier:
 			"warm":
-				return "Current mission: %s. You did it. Bring that result back to me and I will make the register behave. Payout is %s." % [title, reward]
+				return "%s is already limping behind you like a solved problem. Bring it to the bar and I will make the register cough up %s. And yes, that is me being proud. Briefly." % [title, reward]
 			"cold":
-				return "%s is done. Collect your pay before the board gets bored: %s." % [title, reward]
+				return "%s is done. Hand over the proof, take %s, and do not make me chase a receipt across my own floor." % [title, reward]
 			_:
-				return "Current mission: %s. Objective complete. Come collect: %s." % [title, reward]
+				return "You got what the job wanted. Bring %s back to me before the dead floors decide it belongs to them. Payout is %s." % [title, reward]
 
 	match tier:
 		"warm":
-			return "Current mission: %s. Came from %s. Destination is %s. %s%s Payout says %s if you come back with the important bits still attached." % [title, source, destination, objective, threat, reward]
+			return "%s came through %s, which means it is either important or embarrassing. %s %s %s Come back with the proof and enough of yourself to spend %s." % [title, source, route_hint, job_hint, threat_hint, reward]
 		"cold":
-			return "%s. Go to %s. %s%s Pays %s. Try not to make me update the board twice." % [title, destination, objective, threat, reward]
+			return "%s. %s %s %s Pays %s. Try not to make me write your name on the bad wall." % [title, route_hint, job_hint, threat_hint, reward]
 		_:
-			return "Current mission: %s. Source: %s. Destination: %s. %s%s Reward: %s." % [title, source, destination, objective, threat, reward]
+			return "%s, from %s. %s %s %s Bring proof back here and the board pays %s." % [title, source, route_hint, job_hint, threat_hint, reward]
+
+
+func _marbles_job_hint(job: Dictionary) -> String:
+	var objective_type := str(job.get("objective_type", "find"))
+	var destination := str(job.get("destination", "the dead floors"))
+	match objective_type:
+		"find":
+			var item := str(job.get("objective_item", "the marked thing"))
+			return "You're looking for %s; the right piece is usually the one humming, leaking, or pretending it was always part of the room." % item
+		"kill_loot":
+			var loot := str(job.get("target_loot_label", job.get("target_loot", "the salvage")))
+			return "This one's not a polite pickup. Take %s off whoever is guarding %s, preferably after they stop arguing with bullets." % [loot, destination]
+		"deliver":
+			var parcel := str(job.get("deliver_item", "the parcel"))
+			return "Keep %s on you until you find the drop point. Do not set it down somewhere dramatic; these floors adopt unattended objects." % parcel
+		"escort":
+			var escort := str(job.get("escort_label", "the stranded asset"))
+			return "Find %s and walk them back to the entrance. If they panic, let them; panic still has feet." % escort
+	return str(job.get("objective", "Do the job, then come back upright."))
+
+
+func _marbles_route_hint(destination_id: String, destination: String) -> String:
+	match destination_id:
+		"pipe_utility_tunnels":
+			return "Take the Leak Street gate to the Pipe Utility Tunnels; follow the wet metal and check side bends before the pipes start making church noises."
+		"dead_food_court_bloom":
+			return "Take the Leak Street gate to the Dead Food Court Bloom; menu boards lie, plants grab ankles, and the useful stuff hides near old service counters."
+		"water_reclamation_cistern":
+			return "Take the Leak Street gate to the Water Reclamation Cistern; stay above the worst water when you can and search around the pump guts."
+		"collapsed_service_atrium":
+			return "Take the Leak Street gate to the Collapsed Service Atrium; look for relay junk and service decks where the mall forgot which way was up."
+	if destination.is_empty():
+		return "Use the Leak Street gate and keep your eyes lower than the false sky."
+	return "Use the Leak Street gate, pick %s, and trust the signs only until they start sounding confident." % destination
+
+
+func _marbles_threat_hint(rival: String) -> String:
+	match rival:
+		"Splice":
+			return "If the Splice show up, break the parts that make them fast before you debate the rest of the anatomy."
+		"Gatebox", "Gatebox Corporation":
+			return "If Gatebox is there, use walls like they owe you money; their cannons hate corners and their arms hate being shot off."
+		"Big Gates", "Big Gates Foundation":
+			return "If Big Gates sent talent, do not stand in a straight line and do not let the music tell you where to die."
+		"Wan Moa Torai":
+			return "If Torai contests it, read every demand like a knife with punctuation and keep one eye on the exit."
+	if rival.is_empty():
+		return "If something new starts breathing nearby, assume it signed the guest book in blood."
+	return "%s has fingerprints on this. That means company, and company means cover first, curiosity second." % rival
 
 
 # Apply a tone choice; returns the new disposition. Tone is also remembered globally.

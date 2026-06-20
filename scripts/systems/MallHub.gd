@@ -252,6 +252,9 @@ func _handle_interact() -> void:
 			"Bar Door":
 				_handle_bar_door()
 				return
+			"Rest Cot":
+				_rest()
+				return
 		hud.show_dialogue("System X", _get_system_x_line())
 		hud.push_log("System X signal refreshed")
 		return
@@ -359,6 +362,19 @@ func _get_rocker_fellar_line() -> String:
 		hud.push_log("Quest accepted: Rocker Fellar Keep")
 		hud.set_objective(_get_hub_objective())
 	return "Big Gates Foundation general spotted in the deep Sub-Sub-Basement. Rocker Fellar — death-metal cyborg, soul harvester, concert fortress. His bass frequency is cracking the pipes three levels up. Go down there and unplug him."
+
+
+# Bed down in the wake nook: a day turns over, Spooky's borrowed chassis knits back to full, and
+# Cooters posts a fresh job board. The android doesn't sleep so much as power-cycle.
+func _rest() -> void:
+	var new_day := GameState.advance_day()   # also rerolls the Cooters job board
+	if player_health != null:
+		player_health.heal(player_health.max_hp)
+		hud.set_player_health(player_health.current_hp, player_health.max_hp)
+	AudioDirector.play_sfx("system_x_terminal_on", -6.0)
+	hud.push_log("rested — day %d, chassis repaired, new work posted" % new_day)
+	hud.open_statement("REST",
+		"You lie back on the cot and let the chassis idle down. The nook goes quiet; somewhere a fan spins down and the dark resets itself. When the optics come back up it is a new day — Day %d. The damage has knitted out, and Marbles has fresh work chalked on the Cooters board." % new_day)
 
 
 # First contact with the dead terminal: Face's failsafe recognises Spooky's soul-signature and

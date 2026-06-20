@@ -18,6 +18,7 @@ const ATLAS_BLACK_ALPHA_CUTOFF := 0.03
 var focused_interactable: WardInteractable
 var focused_exit: MissionExit
 var _security_node: Node3D
+var _escortee: Escortee
 var _in_flood := false
 var _flood_active := true
 var _flood_visual: MeshInstance3D
@@ -42,6 +43,7 @@ func _ready() -> void:
 	hud.show_dialogue("Leak Street Gate", "Travel event: %s. The tunnel locks click behind you like the building just accepted a dare." % last_event)
 	hud.present_event.call_deferred("travel", true)   # interactive travel events (e.g. an ambush chain)
 	hud.push_log("pipe utility tunnels reached")
+	_spawn_escort_if_needed()
 	EventDeckSystem.add_card("splice_pipes_return")
 
 
@@ -207,6 +209,29 @@ func _handle_job_node(interactable: WardInteractable) -> void:
 	GameState.last_mission_result = "Completed objective: %s" % str(active_job.get("title", job_id))
 	hud.show_dialogue(interactable.display_name, "%s secured. Marbles will pretend this was a normal errand, because denial is cheaper than signage." % item_name)
 	hud.push_log("cooters job objective complete")
+	_refresh_hud()
+
+
+func _spawn_escort_if_needed() -> void:
+	_escortee = Escortee.spawn_for_active_job(self, player, hud, "pipe_utility_tunnels", Vector3(0.5, 1.0, -22))
+	if _escortee != null:
+		_escortee.reached_safety.connect(_on_escort_reached)
+		_escortee.died.connect(_on_escort_down)
+
+
+func _on_escort_reached() -> void:
+	var jid := GameState.active_job_id
+	if jid.is_empty():
+		return
+	GameState.mark_job_objective_done(jid)
+	GameState.last_mission_result = "Escort delivered: %s" % str(GameState.get_active_job_data().get("title", jid))
+	hud.show_dialogue("Escort", "The asset reaches the entrance and sags against the wall. \"We made it. Get me to Marbles before I start thinking about it.\"")
+	hud.push_log("escort delivered — return to Cooters for payout")
+	_refresh_hud()
+
+
+func _on_escort_down() -> void:
+	hud.show_dialogue("Escort", "The asset stops moving. The run's blown — head out and come back to try the escort again.")
 	_refresh_hud()
 
 

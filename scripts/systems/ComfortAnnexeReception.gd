@@ -79,6 +79,9 @@ func _handle_interact() -> void:
 		var scene: String = str(focused_exit.target_scene)
 		if scene.is_empty():
 			scene = "res://scenes/levels/MallHub.tscn"
+		# Leaving the Annexe now drops back into the Gantry Tier at the Annexe portal.
+		if scene == "res://scenes/levels/GantryTier.tscn":
+			GameState.set_world_flag("_gantry_spawn_hint", "from_annexe")
 		GameState.save_game()
 		get_tree().change_scene_to_file(scene)
 

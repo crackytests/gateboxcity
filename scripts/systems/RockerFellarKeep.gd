@@ -20,6 +20,7 @@ extends Node3D
 #   Route 3 — Tower + Overpass: tower loot → overpass catwalks → elevated attack
 
 const MALLHUB_SCENE := "res://scenes/levels/MallHub.tscn"
+const GANTRY_TIER_SCENE := "res://scenes/levels/GantryTier.tscn"
 const SECURITY_NODE_SCENE := preload("res://scenes/enemies/SecurityNode.tscn")
 const GOON_SCENE := preload("res://scenes/enemies/GoonMaterial.tscn")
 const BOSS_SCENE := preload("res://scenes/enemies/RockerFellar.tscn")
@@ -215,6 +216,8 @@ func _handle_interact() -> void:
 		_dispatch_interactable(focused_interactable)
 		return
 	if focused_exit != null:
+		if str(focused_exit.target_scene) == GANTRY_TIER_SCENE:
+			GameState.set_world_flag("_gantry_spawn_hint", "from_keep")
 		get_tree().change_scene_to_file(focused_exit.target_scene)
 
 
@@ -929,7 +932,7 @@ func _build_geometry() -> void:
 		_add_box("BowlRubble", Vector3(2.5, 1.2, 2.0), Vector3(rd[0], 0.6, rd[1]), _mat_rubble)
 	for cover: Array in [[-6, -31], [6, -31], [-6, -39], [6, -39]]:
 		_add_box("SonicCoverBlock", Vector3(3.2, 2.2, 1.0), Vector3(cover[0], 1.1, cover[1]), _mat_rubble)
-	_add_exit("ExtractionLift", "Press E: extraction lift — return to Faded Atrium", MALLHUB_SCENE, Vector3(0, 1.0, -48.1), Color(0.1, 0.8, 0.3))
+	_add_exit("ExtractionLift", "Press E: extraction lift — return to the Gantry Tier", GANTRY_TIER_SCENE, Vector3(0, 1.0, -48.1), Color(0.1, 0.8, 0.3))
 
 	# --- Zone 6: Soul Battery Vault (below undercity, y -2..0) ---
 	_add_box("VaultFloor", Vector3(12, 0.5, 6), Vector3(0, -2.25, -51), _mat_concrete)

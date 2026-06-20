@@ -518,8 +518,8 @@ var NAMED_CARDS: Dictionary = {
 			{"label": "Stand and fight", "check": {"attribute": "STR", "difficulty": 9, "tag": "force"},
 				"success": {"text": "You put one down and the other reconsiders the late-fee policy.",
 					"effects": [{"type": "add_rep", "faction": "Wan Moa Torai", "amount": -1}]},
-				"failure": {"text": "You swing first and miss the read. Now it is a fight on their terms.",
-					"effects": [{"type": "damage", "amount": 6.0}, {"type": "spawn_enemies", "enemies": ["goon", "goon"]}]}},
+				"failure": {"text": "You swing first and miss the read. Now it is a fight on their terms — and the debt just hired muscle.",
+					"effects": [{"type": "damage", "amount": 6.0}, {"type": "spawn_enemies", "enemies": ["goon", "goon"]}, {"type": "add_card", "card_id": "torai_enforcer_squad"}]}},
 		],
 		"expires_after": 1, "tags": ["torai_thread"],
 	},
@@ -569,12 +569,12 @@ var NAMED_CARDS: Dictionary = {
 			{"label": "Break through", "check": {"attribute": "STR", "difficulty": 10, "tag": "force"},
 				"success": {"text": "You go through them like a bad policy. They will remember the rudeness.",
 					"effects": [{"type": "add_rep", "faction": "Gatebox Corporation", "amount": -1}]},
-				"failure": {"text": "Hard hands, as promised — and they call the rest of the detail in.",
-					"effects": [{"type": "damage", "amount": 6.0}, {"type": "spawn_enemies", "enemies": ["security_node", "goon"]}]}},
+				"failure": {"text": "Hard hands, as promised — and they call the rest of the detail in. Your file climbs a desk it shouldn't.",
+					"effects": [{"type": "damage", "amount": 6.0}, {"type": "spawn_enemies", "enemies": ["security_node", "goon"]}, {"type": "add_card", "card_id": "gatebox_audit_followup"}]}},
 			{"label": "Slip away", "check": {"attribute": "AGL", "difficulty": 9, "tag": "flee"},
 				"success": {"text": "You leave them apologizing to an empty corridor.", "effects": []},
 				"failure": {"text": "They catch a sleeve, then an arm, and the soft voices stop being soft.",
-					"effects": [{"type": "damage", "amount": 4.0}, {"type": "spawn_enemies", "enemies": ["security_node", "goon"]}]}},
+					"effects": [{"type": "damage", "amount": 4.0}, {"type": "spawn_enemies", "enemies": ["security_node", "goon"]}, {"type": "add_card", "card_id": "gatebox_audit_followup"}]}},
 		],
 		"expires_after": 1, "tags": ["gatebox_thread"],
 	},
@@ -600,7 +600,10 @@ var NAMED_CARDS: Dictionary = {
 		"body": "Modified things uncoil from the pipework ahead, drawn to the hum of your hardware. \"Splice,\" System X murmurs in your ear. \"They like what you're made of.\"",
 		"choices": [
 			{"label": "Fight through", "check": {"attribute": "STR", "difficulty": 9, "tag": "force"},
-				"success": {"text": "You leave them twitching in the condensation.", "effects": []},
+				"crit": {"text": "You crack one open clean and tear a black-market armature loose before the rest scatter. System X notes a buyer for the cortex chip still ticking in the wreck.",
+					"effects": [{"type": "add_item", "item": "black_market_armature", "count": 1}, {"type": "add_item", "item": "Fried Cortex Chip", "count": 1}, {"type": "add_card", "card_id": "splice_salvage_bounty"}]},
+				"success": {"text": "You leave them twitching in the condensation and pocket a cortex chip still half-alive in the mess.",
+					"effects": [{"type": "add_item", "item": "Fried Cortex Chip", "count": 1}, {"type": "add_card", "card_id": "splice_salvage_bounty"}]},
 				"failure": {"text": "They get a graft into you before you shake loose — and the rest come for the hardware.",
 					"effects": [{"type": "damage", "amount": 5.0}, {"type": "spawn_enemies", "enemies": ["splice", "splice"]}]}},
 			{"label": "Outrun them", "check": {"attribute": "AGL", "difficulty": 9, "tag": "flee"},
@@ -643,6 +646,8 @@ var NAMED_CARDS: Dictionary = {
 					"effects": [{"type": "wan_notes", "amount": 8}]},
 				"failure": {"text": "The offer gets under your skin and stays there, humming.",
 					"effects": [{"type": "add_drift", "amount": 5}]}},
+			{"label": "Take a Foundation contract", "text": "You let them put you on the manifest. Coordinates arrive before you've finished regretting it.",
+				"effects": [{"type": "add_card", "card_id": "biggates_collection_run"}]},
 			{"label": "Send them away", "text": "They leave a card. They always leave a card.", "effects": []},
 		],
 		"expires_after": 1, "tags": ["biggates_thread"],
@@ -672,6 +677,125 @@ var NAMED_CARDS: Dictionary = {
 				"effects": [{"type": "wan_notes", "amount": 6}]},
 		],
 		"expires_after": 1, "tags": [],
+	},
+
+	# ── B4: deeper faction branches ─────────────────────────────────────
+	# Seeded by splice_ambush "Fight through" success — System X offers to fence the tissue you tore
+	# loose, but only pays if you're actually carrying salvage. Two-way: haggle high or insult them.
+	"splice_salvage_bounty": {
+		"id": "splice_salvage_bounty", "contexts": ["hub_return"], "weight": 5,
+		"faction": "System X", "conditions": {"has_item": "Fried Cortex Chip"},
+		"title": "A Buyer for the Wet Parts", "speaker": "System X",
+		"body": "\"That Splice you cracked left tissue on you,\" System X says. \"There's a cortex chip in your kit reading half-alive. I know someone who pays for half-alive. Hand it over and I'll route you the cut.\"",
+		"choices": [
+			{"label": "Sell the chip (Fried Cortex Chip → Wan)",
+				"text": "You pass the twitching chip into the dark. Notes come back warm, like the buyer was holding them ready.",
+				"effects": [{"type": "remove_item", "item": "Fried Cortex Chip", "count": 1}, {"type": "wan_notes", "amount": 12}, {"type": "add_rep", "faction": "System X", "amount": 1}]},
+			{"label": "Haggle for the buyer's real price", "check": {"attribute": "INT", "difficulty": 9, "tag": "analyze"},
+				"success": {"text": "You name what it's actually worth on the grey market. The buyer folds. System X is quietly delighted.",
+					"effects": [{"type": "remove_item", "item": "Fried Cortex Chip", "count": 1}, {"type": "wan_notes", "amount": 20}, {"type": "add_rep", "faction": "System X", "amount": 1}]},
+				"failure": {"text": "You overplay it. The buyer ghosts the channel and System X eats the embarrassment.",
+					"effects": [{"type": "remove_item", "item": "Fried Cortex Chip", "count": 1}, {"type": "wan_notes", "amount": 6}, {"type": "add_rep", "faction": "System X", "amount": -1}]}},
+			{"label": "Keep it — you have plans", "text": "You close your kit. System X sighs static. \"Hoarder. Fine. Ladderboy can probably build something out of it.\"", "effects": []},
+		],
+		"expires_after": 1, "tags": ["splice_thread", "systemx_thread"],
+	},
+	# Seeded by Gatebox checkpoint/enforcer failures — your file climbs the chain. Comply to launder
+	# your record (Wan + drift), or resist for standing with everyone Gatebox hates.
+	"gatebox_audit_followup": {
+		"id": "gatebox_audit_followup", "contexts": ["hub_return"], "weight": 5,
+		"faction": "Gatebox Corporation", "conditions": {},
+		"title": "Your File Has Notes", "speaker": "Gatebox Corporation",
+		"body": "A compliance liaison is waiting at the atrium, tablet glowing. \"Citizen, your independence index is trending poorly. We can resolve this quietly — a small optimization fee, and the flags clear. Or we can do it the loud way.\"",
+		"choices": [
+			{"label": "Pay the optimization fee (12 Wan Notes)",
+				"text": "The flags clear with a chime. Something in your chest files itself a little neater than you'd like.",
+				"effects": [{"type": "wan_notes", "amount": -12}, {"type": "add_rep", "faction": "Gatebox Corporation", "amount": 1}, {"type": "add_drift", "amount": 2}]},
+			{"label": "Tell them where to file it", "check": {"attribute": "WIL", "difficulty": 9, "tag": "resist"},
+				"success": {"text": "You decline with a clarity that unsettles them. Word reaches the people Gatebox audits, and they warm to you.",
+					"effects": [{"type": "add_rep", "faction": "Gatebox Corporation", "amount": -1}, {"type": "add_rep", "faction": "System X", "amount": 1}]},
+				"failure": {"text": "Your refusal lands wrong and the liaison escalates on the spot.",
+					"effects": [{"type": "add_rep", "faction": "Gatebox Corporation", "amount": -1}, {"type": "add_card", "card_id": "gatebox_enforcers"}]}},
+		],
+		"expires_after": 1, "tags": ["gatebox_thread"],
+	},
+	# Surfaces only once you're deep in Gatebox's bad books — a fixer offers the implant that blinds
+	# Preservation scans. The same hardware the Coil only installs for people Gatebox gave up on.
+	"gatebox_blackmarket_blocker": {
+		"id": "gatebox_blackmarket_blocker", "contexts": ["hub_return"], "weight": 4,
+		"faction": "System X", "conditions": {"rep_lte": ["Gatebox Corporation", -3]},
+		"title": "Falls Off a Truck", "speaker": "System X",
+		"body": "A fixer leans out of a maintenance hatch. \"Heard Gatebox stopped pretending you're salvageable. Good. Means you qualify.\" She turns a jammer over in her hands. \"Preservation Blocker. Blinds their scans. Thirty notes and it's yours — they only let these slip to the already-written-off.\"",
+		"choices": [
+			{"label": "Buy the blocker (30 Wan Notes)",
+				"text": "The notes vanish; the jammer's in your kit before you've finished deciding. Carry it to the Coil to seat it.",
+				"effects": [{"type": "wan_notes", "amount": -30}, {"type": "add_item", "item": "preservation_blocker", "count": 1}]},
+			{"label": "Pass — too hot to carry", "text": "She shrugs and folds back into the dark. \"Offer stands. Gatebox isn't going to start liking you.\"", "effects": []},
+		],
+		"expires_after": 1, "tags": ["gatebox_thread", "systemx_thread"],
+	},
+	# Seeded by biggates_recruiter "take a contract" — a paid harvest run that's a fight either way.
+	# Doing their work pays in coin and a brace, but the Foundation gets its hooks a little deeper.
+	"biggates_collection_run": {
+		"id": "biggates_collection_run", "contexts": ["travel"], "weight": 6,
+		"faction": "Big Gates", "conditions": {},
+		"title": "A Foundation Contract", "speaker": "Big Gates Foundation",
+		"body": "The recruiter's coordinates lead you to a collection in progress. \"Help us inventory this floor and the Foundation remembers it. Walk away and it remembers that too.\"",
+		"choices": [
+			{"label": "Work the contract", "check": {"attribute": "STR", "difficulty": 10, "tag": "force"},
+				"success": {"text": "You clear the floor their way. The pay is real and so is the brace they leave on your kit. So is the weight of it.",
+					"effects": [{"type": "wan_notes", "amount": 16}, {"type": "add_item", "item": "endoskeletal_brace", "count": 1}, {"type": "add_rep", "faction": "Big Gates", "amount": 1}, {"type": "add_drift", "amount": 3}]},
+				"failure": {"text": "You botch the harvest and the rigs decide you're inventory too.",
+					"effects": [{"type": "damage", "amount": 6.0}, {"type": "spawn_enemies", "enemies": ["foundation_enforcer", "tithe_servitor"]}]}},
+			{"label": "Wreck the collection instead", "check": {"attribute": "WIL", "difficulty": 10, "tag": "resist"},
+				"success": {"text": "You smash the soul-battery rigs and walk the captured out. The Foundation files a grudge; System X files a thank-you.",
+					"effects": [{"type": "add_rep", "faction": "Big Gates", "amount": -2}, {"type": "add_rep", "faction": "System X", "amount": 2}]},
+				"failure": {"text": "You try to play hero and get caught between two rigs for it.",
+					"effects": [{"type": "damage", "amount": 8.0}, {"type": "spawn_enemies", "enemies": ["foundation_enforcer", "tithe_servitor"]}]}},
+		],
+		"expires_after": 1, "tags": ["biggates_thread"],
+	},
+	# Seeded by torai_ambush failures — the debt graduates from collectors to enforcers. Settle it in
+	# Wan, talk them into a salvage gig (a graft as down-payment), or make it a brawl.
+	"torai_enforcer_squad": {
+		"id": "torai_enforcer_squad", "contexts": ["travel"], "weight": 7,
+		"faction": "Wan Moa Torai", "conditions": {},
+		"title": "The Late Fee Has a Crew", "speaker": "Wan Moa Torai",
+		"body": "The corridor fills with Torai muscle, and the one in front is holding a ledger like a weapon. \"You stopped paying. We stopped asking. Settle the account or become it.\"",
+		"choices": [
+			{"label": "Settle in full (18 Wan Notes)",
+				"text": "You clear the debt. The ledger snaps shut. \"See? Civilised.\"",
+				"effects": [{"type": "wan_notes", "amount": -18}]},
+			{"label": "Talk them into a salvage contract", "check": {"attribute": "EMP", "difficulty": 10, "tag": "persuade"},
+				"success": {"text": "You turn the debt into work — you'll run salvage for them. They hand you a graft as a down-payment and call it goodwill.",
+					"effects": [{"type": "add_item", "item": "left_arm_graft", "count": 1}, {"type": "add_rep", "faction": "Wan Moa Torai", "amount": 1}]},
+				"failure": {"text": "They don't want a partner; they want a payment. The pitch dies and the crew steps in.",
+					"effects": [{"type": "damage", "amount": 6.0}, {"type": "spawn_enemies", "enemies": ["goon", "goon"]}]}},
+			{"label": "Settle it the loud way", "check": {"attribute": "STR", "difficulty": 11, "tag": "force"},
+				"success": {"text": "You put the ledger-keeper through a railing. The debt is, functionally, forgiven.",
+					"effects": [{"type": "add_rep", "faction": "Wan Moa Torai", "amount": -2}]},
+				"failure": {"text": "You swing first and the whole crew answers at once.",
+					"effects": [{"type": "damage", "amount": 9.0}, {"type": "spawn_enemies", "enemies": ["goon", "goon", "goon"]}]}},
+		],
+		"expires_after": 1, "tags": ["torai_thread"],
+	},
+	# The payoff for static_listen_post's "safehouse intel" unlock — only appears once that flag is set.
+	# System X walks you to a stash they'd never share with someone they hadn't vetted.
+	"systemx_safehouse_cache": {
+		"id": "systemx_safehouse_cache", "contexts": ["hub_return"], "weight": 7,
+		"faction": "System X", "conditions": {"flag_true": "systemx_safehouse_known"},
+		"title": "The Stash You Earned", "speaker": "System X",
+		"body": "\"You found the safehouse and didn't sell it,\" System X says, almost surprised. \"That buys you the inside of it. There's a cache behind the false panel — notes, and a whisper rig we don't hand to strangers. It's yours.\"",
+		"choices": [
+			{"label": "Take the cache", "text": "Behind the panel: a roll of Wan Notes and a whisper filter, still warm from someone else's skull. You pocket both and don't ask.",
+				"effects": [{"type": "wan_notes", "amount": 14}, {"type": "add_item", "item": "whisper_filter", "count": 1}, {"type": "set_flag", "flag": "systemx_safehouse_known", "value": false}]},
+			{"label": "Leave the rig, take the notes", "check": {"attribute": "WIL", "difficulty": 8, "tag": "resist"},
+				"success": {"text": "You take only the notes and leave the whisper rig for whoever needs it more. System X logs that, somewhere it keeps the things that matter.",
+					"effects": [{"type": "wan_notes", "amount": 14}, {"type": "add_rep", "faction": "System X", "amount": 2}, {"type": "set_flag", "flag": "systemx_safehouse_known", "value": false}]},
+				"failure": {"text": "You mean to leave the rig. Your hand disagrees. You take it anyway and feel odd about it.",
+					"effects": [{"type": "wan_notes", "amount": 14}, {"type": "add_item", "item": "whisper_filter", "count": 1}, {"type": "set_flag", "flag": "systemx_safehouse_known", "value": false}]}},
+		],
+		"expires_after": 1, "tags": ["systemx_thread"],
 	},
 }
 

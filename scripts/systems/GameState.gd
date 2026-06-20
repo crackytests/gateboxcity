@@ -20,6 +20,8 @@ var reputation: Dictionary = {
 var completed_quests: Dictionary = {}
 var active_job_id := ""
 var active_job_run_id := 0
+var day := 1                # advances when Spooky rests; drives the daily job-board refresh
+var _jobs_built_day := 0    # the day the current board was rolled (so re-entering Cooters keeps it)
 var available_jobs: Array = [
 	"pipe_blood_sample",
 	"ratchet_saint",
@@ -378,6 +380,7 @@ var COOTERS_JOB_TEMPLATES: Dictionary = {
 		"short_desc": "Recover a pipe-cult relic before Torai invoices the miracle.",
 		"threat_band": 2, "rival_faction": "Splice", "reward_wan_notes": [14, 20],
 		"reward_item_chance": 0.3, "reward_item_pool": ["Chemical Neutralizer"],
+		"reward_cyberware_pool": ["soul_baffle", "trauma_dampener"],
 		"faction_rep": {"System X": 1},
 		"event_cards_on_accept": ["ratchet_saint_exit", "ratchet_saint_travel"],
 		"event_cards_on_complete": ["ratchet_saint_return"],
@@ -454,6 +457,113 @@ var COOTERS_JOB_TEMPLATES: Dictionary = {
 		"deliver_item": "Blessed Ratchet Relic",
 		"locations": [
 			{"id": "pipe_utility_tunnels", "node": "saint_ratchet_node", "title": "Relic Delivery"},
+		],
+	},
+	"static_listen_post": {
+		"giver": "Mister Static", "faction": "System X", "objective_type": "find",
+		"short_desc": "Static wants a clean recording from the pipe choir before the Splice retune it into something worse.",
+		"threat_band": 1, "rival_faction": "Splice", "reward_wan_notes": [12, 18],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Cooters Rumor Token", "Cooters Bar Credit"],
+		"reward_unlock": "systemx_safehouse_known", "reward_unlock_label": "System X safehouse intel",
+		"faction_rep": {"System X": 1},
+		"event_cards_on_complete": ["systemx_safehouse_cache"],
+		"locations": [
+			{"id": "pipe_utility_tunnels", "node": "pipe_listening_node", "item": "Pipe Choir Recording", "title": "Listening Post"},
+		],
+	},
+	"static_cortex_pull": {
+		"giver": "Mister Static", "faction": "System X", "objective_type": "kill_loot",
+		"short_desc": "Static needs intact cortex chips for a patch he keeps calling 'maintenance.' Strip them off whatever bites back.",
+		"threat_band": 2, "rival_faction": "Splice", "reward_wan_notes": [18, 26],
+		"reward_item_chance": 0.25, "reward_item_pool": ["Glass"],
+		"reward_cyberware_pool": ["neural_jack", "targeting_coprocessor"],
+		"faction_rep": {"System X": 1},
+		"target_loot": "Fried Cortex Chip", "target_loot_label": "a fried cortex chip",
+		"locations": [
+			{"id": "pipe_utility_tunnels", "title": "Cortex Pull"},
+			{"id": "collapsed_service_atrium", "title": "Cortex Pull"},
+		],
+	},
+	"torai_cell_collection": {
+		"giver": "Kiki Baja", "faction": "Wan Moa Torai", "objective_type": "kill_loot",
+		"short_desc": "Torai is short on reactor cells and long on enemies who carry them. Math, basically.",
+		"threat_band": 3, "rival_faction": "Big Gates", "reward_wan_notes": [22, 30],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Patch", "Chemical Neutralizer"],
+		"reward_cyberware": "bioreactor_mesh",
+		"faction_rep": {"Wan Moa Torai": 1},
+		"target_loot": "Leaking Cell", "target_loot_label": "a leaking reactor cell",
+		"locations": [
+			{"id": "collapsed_service_atrium", "title": "Cell Collection"},
+		],
+	},
+	"ronnie_blackmarket_pull": {
+		"giver": "Brickmouth Ronnie", "faction": "System X", "objective_type": "kill_loot",
+		"short_desc": "Ronnie wants salvaged actuators for an armature he is definitely not building in a bathroom.",
+		"threat_band": 2, "rival_faction": "Splice", "reward_wan_notes": [16, 24],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Jolt", "Redline"],
+		"reward_cyberware": "black_market_armature",
+		"faction_rep": {},
+		"target_loot": "Bent Actuator", "target_loot_label": "a salvaged actuator",
+		"locations": [
+			{"id": "pipe_utility_tunnels", "title": "Black-Market Pull"},
+			{"id": "water_reclamation_cistern", "title": "Black-Market Pull"},
+		],
+	},
+	"gideon_mercy_drop": {
+		"giver": "Pipe Father Gideon", "faction": "System X", "objective_type": "deliver",
+		"short_desc": "Carry a flask of soul coolant down to the drowned pump and bless the machine before it boils a saint.",
+		"threat_band": 2, "rival_faction": "Splice", "reward_wan_notes": [14, 20],
+		"reward_item_chance": 0.25, "reward_item_pool": ["Chemical Neutralizer"],
+		"faction_rep": {"System X": 1},
+		"deliver_item": "Soul Coolant Flask",
+		"locations": [
+			{"id": "water_reclamation_cistern", "node": "cistern_filter_core_node", "title": "Mercy Drop"},
+		],
+	},
+	"vera_relay_cache": {
+		"giver": "Vera", "faction": "System X", "objective_type": "deliver",
+		"short_desc": "Run a sealed System X cache up to the atrium relay so Yoko and the Pee Kid can hear past the corporate wall.",
+		"threat_band": 2, "rival_faction": "Gatebox", "reward_wan_notes": [16, 22],
+		"reward_item_chance": 0.2, "reward_item_pool": ["Cooters Rumor Token"],
+		"faction_rep": {"System X": 1},
+		"deliver_item": "System X Relay Cache",
+		"locations": [
+			{"id": "collapsed_service_atrium", "node": "atrium_relay_node", "title": "Relay Cache"},
+		],
+	},
+	"gideon_escort_pilgrim": {
+		"giver": "Pipe Father Gideon", "faction": "System X", "objective_type": "escort",
+		"short_desc": "A pipe-cult pilgrim wandered too deep and won't move for anyone but a stranger. Walk them out alive.",
+		"threat_band": 1, "rival_faction": "Splice", "reward_wan_notes": [16, 22],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Cooters Bar Credit", "Chemical Neutralizer"],
+		"faction_rep": {"System X": 1},
+		"escort_label": "a stranded pilgrim",
+		"locations": [
+			{"id": "pipe_utility_tunnels", "title": "Pilgrim's Way Out"},
+		],
+	},
+	"vera_escort_resident": {
+		"giver": "Vera", "faction": "System X", "objective_type": "escort",
+		"short_desc": "A resident is pinned in the bloom and the spores are arguing with their lungs. Get them to the door.",
+		"threat_band": 2, "rival_faction": "Splice", "reward_wan_notes": [20, 28],
+		"reward_item_chance": 0.3, "reward_item_pool": ["Patch", "Chemical Neutralizer"],
+		"reward_cyberware_pool": ["soul_baffle"],
+		"faction_rep": {"System X": 1},
+		"escort_label": "a trapped resident",
+		"locations": [
+			{"id": "dead_food_court_bloom", "title": "Bloom Extraction"},
+		],
+	},
+	"torai_escort_debtor": {
+		"giver": "Kiki Baja", "faction": "Wan Moa Torai", "objective_type": "escort",
+		"short_desc": "Torai wants a debtor back in one piece — they're worth more talking than inventoried. Big Gates disagrees.",
+		"threat_band": 2, "rival_faction": "Gatebox", "reward_wan_notes": [22, 30],
+		"reward_item_chance": 0.25, "reward_item_pool": ["Cooters Rumor Token"],
+		"faction_rep": {"Wan Moa Torai": 1},
+		"escort_label": "a Torai debtor",
+		"locations": [
+			{"id": "collapsed_service_atrium", "title": "Debtor Recovery"},
+			{"id": "water_reclamation_cistern", "title": "Debtor Recovery"},
 		],
 	},
 }
@@ -902,9 +1012,13 @@ func is_quest_completed(quest_id: String) -> bool:
 
 const JOB_BOARD_SIZE := 4
 
-# Reshuffle the Cooters board (called on entering Cooters). The active job stays off the board.
+# Roll the Cooters board. Jobs refresh once per day (via resting on the cot), so re-entering
+# Cooters on the same day keeps the same board. The active job stays off the board.
 func build_job_board() -> Array:
+	if not board_instances.is_empty() and day == _jobs_built_day:
+		return board_instances
 	board_instances = []
+	_jobs_built_day = day
 	var keys: Array = COOTERS_JOB_TEMPLATES.keys()
 	keys.shuffle()
 	for tid in keys:
@@ -916,6 +1030,13 @@ func build_job_board() -> Array:
 		if not inst.is_empty():
 			board_instances.append(inst)
 	return board_instances
+
+
+# Spooky beds down: a day turns over, which rolls a fresh job board. Returns the new day number.
+func advance_day() -> int:
+	day += 1
+	build_job_board()   # day != _jobs_built_day now, so this rerolls
+	return day
 
 
 # Roll a concrete job from a template: pick a location, threat band, contesting faction, and a
@@ -935,6 +1056,14 @@ func instance_job(template_id: String) -> Dictionary:
 	var pool: Array = t.get("reward_item_pool", [])
 	if randf() < float(t.get("reward_item_chance", 0.0)) and not pool.is_empty():
 		item = str(pool[randi() % pool.size()])
+	# Bonus payout shapes (B2): a guaranteed implant the Coil can install, and/or a world-flag
+	# unlock (a discount, a route, a shop opening). Single value or rolled from a *_pool array.
+	var cyber := str(t.get("reward_cyberware", ""))
+	var cyber_pool: Array = t.get("reward_cyberware_pool", [])
+	if cyber.is_empty() and not cyber_pool.is_empty():
+		cyber = str(cyber_pool[randi() % cyber_pool.size()])
+	var unlock := str(t.get("reward_unlock", ""))
+	var unlock_label := str(t.get("reward_unlock_label", ""))
 	var otype := str(t.get("objective_type", "find"))
 	var dest_id := str(loc.get("id", ""))
 	var inst := {
@@ -950,6 +1079,9 @@ func instance_job(template_id: String) -> Dictionary:
 		"rival_faction": str(t.get("rival_faction", "")),
 		"reward_wan_notes": wan,
 		"reward_item": item,
+		"reward_cyberware": cyber,
+		"reward_unlock": unlock,
+		"reward_unlock_label": unlock_label,
 		"faction_rep": t.get("faction_rep", {}),
 		"event_cards_on_accept": t.get("event_cards_on_accept", []),
 		"event_cards_on_complete": t.get("event_cards_on_complete", []),
@@ -967,7 +1099,17 @@ func instance_job(template_id: String) -> Dictionary:
 			inst["deliver_item"] = str(t.get("deliver_item", ""))
 			inst["objective_item"] = str(t.get("deliver_item", ""))   # drop-off node message
 			inst["objective"] = "Carry %s to the drop-off in %s." % [inst["deliver_item"], inst["destination"]]
-	inst["reward_text"] = "%d Wan Notes%s" % [wan, ("  +  " + item) if not item.is_empty() else ""]
+		"escort":
+			inst["escort_label"] = str(t.get("escort_label", "the asset"))
+			inst["objective"] = "Find %s stranded deep in %s and walk it back to the entrance alive." % [inst["escort_label"], inst["destination"]]
+	var bonus := ""
+	if not item.is_empty():
+		bonus += "  +  " + _item_display_name(item)
+	if not cyber.is_empty():
+		bonus += "  +  " + _item_display_name(cyber) + " (implant)"
+	if not unlock.is_empty():
+		bonus += "  +  " + (unlock_label if not unlock_label.is_empty() else "unlock")
+	inst["reward_text"] = "%d Wan Notes%s" % [wan, bonus]
 	return inst
 
 
@@ -1157,6 +1299,13 @@ func complete_active_job() -> Dictionary:
 	var item := str(inst.get("reward_item", ""))
 	if not item.is_empty():
 		add_item(item)
+	# Bonus rewards (B2): a carried implant (installable at the Coil) and/or a world-flag unlock.
+	var cyber := str(inst.get("reward_cyberware", ""))
+	if not cyber.is_empty() and is_implant_item(cyber):
+		add_item(cyber)
+	var unlock := str(inst.get("reward_unlock", ""))
+	if not unlock.is_empty():
+		set_world_flag(unlock, true)
 	var rep: Dictionary = inst.get("faction_rep", {})
 	for fac in rep.keys():
 		add_reputation(str(fac), int(rep[fac]))
@@ -1637,6 +1786,7 @@ func save_game(slot := SAVE_SLOT_MANUAL) -> bool:
 		"wan_notes": wan_notes,
 		"reputation": reputation,
 		"completed_quests": completed_quests,
+		"day": day,
 		"active_job_id": active_job_id,
 		"active_job_run_id": active_job_run_id,
 		"active_job_instance": active_job_instance,
@@ -1696,10 +1846,12 @@ func load_game(slot := SAVE_SLOT_MANUAL) -> bool:
 	reputation = parsed.get("reputation", reputation)
 	_migrate_reputation_keys()
 	completed_quests = parsed.get("completed_quests", {})
+	day = int(parsed.get("day", 1))
 	active_job_id = str(parsed.get("active_job_id", ""))
 	active_job_run_id = int(parsed.get("active_job_run_id", 0))
 	active_job_instance = parsed.get("active_job_instance", {})
 	board_instances = parsed.get("board_instances", [])
+	_jobs_built_day = day   # keep the restored board for the current day (no reshuffle on load)
 	available_jobs = parsed.get("available_jobs", COOTERS_JOBS.keys())
 	for job_id in COOTERS_JOBS.keys():
 		if not available_jobs.has(job_id):
@@ -1809,6 +1961,8 @@ func _reset_runtime_state() -> void:
 		"Linda": 0,
 	}
 	completed_quests = {}
+	day = 1
+	_jobs_built_day = 0
 	active_job_id = ""
 	active_job_run_id = 0
 	active_job_instance = {}
